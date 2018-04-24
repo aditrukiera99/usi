@@ -1,0 +1,91 @@
+@charset "utf-8";
+.scroll-xy {
+    overflow: auto;
+    width:100%;
+    max-height: 400px;
+    min-height: 300px;
+}
+.scroll-x {
+    overflow-x: auto;
+    width: 100%;
+}
+.scroll-y {
+    overflow-y: auto;
+    height:430px;
+}
+.scroll_popup-y {
+    overflow-y: auto;
+    height:400px;
+}
+/*LOADING*/
+#popup_load {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #fff;
+    z-index: 9999;
+    opacity:0.8;
+    filter:alpha(opacity=80); /* For IE8 and earlier */
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.window_load {
+    width:60%;
+    height:auto;
+    border-radius: 10px;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20%;
+    margin-left: 20%;
+}
+
+#loading_tabel {
+   /* top:70%;
+    left:44%;*/
+    position:absolute;
+    text-align: center;
+    display: none;
+    width: 96%;
+}
+
+#popup_hapus {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+    font-family: Arial;
+}
+.window_hapus {
+    width:40%;
+    height:auto;
+    position: relative;
+    padding: 10px;
+    margin: 4% auto;
+}
+
+/*SATUAN*/
+#popup_ubah {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+    font-family: Arial;
+}
+.window_ubah {
+    width:40%;
+    height:auto;
+    position: relative;
+    padding: 10px;
+    margin: 4% auto;
+}
