@@ -509,7 +509,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 			</div>
 		</div>
 	</div>
-	<div class="leftbar leftbar-close clearfix" style="margin-top: 50px; position:fixed; background:#00c0ef;">
+	<div class="leftbar leftbar-close clearfix" style="margin-top: 50px; position:fixed; background:#203956;">
 		<div class="admin-info clearfix">
 			<div class="admin-thumb">
         <?PHP if($user->FOTO == "" || $user->FOTO== null){ ?>
@@ -518,7 +518,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
         <img src="<?=$base_url2;?>files/foto/<?=$user->FOTO;?>" style="padding-bottom: 5px;" />
         <?PHP } ?>
 			</div>
-			<div class="admin-meta">
+			<div class="admin-meta" style="color: white;">
 				<ul>
           <li class="admin-username"> <?=$user->NAMA;?> </li>
           <?PHP if($user->LEVEL == 'ADMIN'){ ?>
@@ -529,16 +529,16 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
           <li>
             <?PHP if($user->LEVEL == 'ADMIN'){ ?>
-            <a href="<?=base_url();?>pengaturan_akun_c"> Edit Profil </a>
+            <a href="<?=base_url();?>pengaturan_akun_c" style="color: white;"> Edit Profil </a>
             <?PHP } else { ?>
-            <a href="<?=base_url();?>pengaturan_akun_c"> Edit Profil </a>
+            <a href="<?=base_url();?>pengaturan_akun_c" style="color: white;"> Edit Profil </a>
             <?PHP } ?>
-            <a href="<?=base_url();?>beranda_c/sign_out"><i class="icon-lock"></i> Logout</a>
+            <a href="<?=base_url();?>beranda_c/sign_out" style="color: white;"><i class="icon-lock" style="color: white;"></i> Logout</a>
           </li>
 				</ul>
 			</div>
 		</div>
-		<div class="left-nav clearfix" style="background:#00c0ef;">
+		<div class="left-nav clearfix" style="background:#203956;">
 			<div class="left-primary-nav">
 				<ul id="myTab">
 					<li <?PHP if($master == ""){ echo "class='active'"; } ?> ><a href="#main" onclick="window.location='<?=base_url();?>beranda_c';"  class="icon-desktop" title="Dashboard"></a></li>					
@@ -578,9 +578,9 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 			<div class="responsive-leftbar">
 				<i class="icon-list"></i>
 			</div>
-			<div class="left-secondary-nav tab-content" style="background: #00c0ef;">
+			<div class="left-secondary-nav tab-content" style="background: #203956;">
 	        <div class="tab-pane <?PHP if($master == ""){ echo "active"; } ?>" id="main">
-		          <h4 class="side-head">Dashboard</h4>
+		          <h4 class="side-head" style="color: white;">Dashboard</h4>
 		          <ul class="metro-sidenav clearfix">
                   <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Penjualan', $user->LEVEL)){ ?>
                   <li><a class="green" href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-random"></i><span> Penjualan </span></a></li>
