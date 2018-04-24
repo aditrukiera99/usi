@@ -44,7 +44,7 @@ $active_record = TRUE;
 $db['default']['hostname'] = '118.98.64.43';
 $db['default']['username'] = 'fauzan';
 $db['default']['password'] = 'kalenderhokben';
-$db['default']['database'] = 'usi';
+$db['default']['database'] = 'usi'; 
 
 // $db['default']['hostname'] = 'localhost';
 // $db['default']['username'] = 'root';
