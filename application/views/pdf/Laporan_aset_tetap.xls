@@ -1,0 +1,2973 @@
+
+<style>
+.gridth {
+    background: #1793d1;
+    vertical-align: middle;
+    color : #FFF;
+    text-align: center;
+    height: 30px;
+    font-size: 15px;
+}
+.gridtd {
+    vertical-align: middle;
+    font-size: 17px;
+    height: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.grid {
+    border-collapse: collapse;
+}
+
+table th {
+  border: 1px solid black;
+}
+
+.grid td{
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.kolom_header{
+    height: 40px;
+    background: #388ed1;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 17px;
+}
+
+</style>
+
+
+<table cellspacing="0" align="left"> 
+    <tr align="center">
+        <td align="left" colspan="7">
+            <h5>
+                PD CITRA MANDIRI JAWA TENGAH <br>
+                UNIT APOTEK MARGAHUSADA SURAKARTA    
+            </h5>
+        </td>
+    </tr>
+</table>
+
+
+<table align="center">
+    <tr>
+        <td align="center" colspan="7">
+            <h4>
+                DAFTAR AKTIVA TETAP BERUJUD DAN AKUMULASI PENYUSUTAN <br>
+                BULAN JANUARI 2018   
+            </h4>
+        </td>
+    </tr>
+</table>
+
+<table align="center" class="grid">
+    <tr>
+        <th style='vertical-align: middle; text-align:center; width:5%;' class='kolom_header'> NO </th>
+        <th style='vertical-align: middle; text-align:center; width:5%;' class='kolom_header'> </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> NAMA AKTIVA </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> TAHUN PEROLEHAN </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> HARGA PEROLEHAN </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> TARIF PENYUSUTAN </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> AKUMULASI PENYUSUTAN S/D TAHUN 2017 </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> PENYUSUTAN S/D Januari 2018 </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> AKUMULASI PENYUSUTAN S/D Januari 2018 </th>
+        <th style='vertical-align: middle; text-align:center; width:9%;' class='kolom_header'> NILAI BUKU AKHIR S/D Januari 2018  </th>
+    </tr>
+    
+                <tr>
+            <td align="center"><b>A</b></td>
+            <td align="center"></td>
+            <td><b>TANAH</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Tanah Pabrik</td>
+                <td  style="text-align: center;">2018</td>
+                <td  style="text-align: right;">250,000.00</td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;">250,000.00</td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Tanah Bangunan & Pekarangan</td>
+                <td  style="text-align: center;">2018</td>
+                <td  style="text-align: right;">100,000.00</td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;">100,000.00</td>
+            </tr>
+            
+        
+        <tr>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td style="text-align: center;"><b>JUMLAH A</b></td>
+            <td  style="text-align: center;"></td>
+            <td  style="text-align: right;"><b>350,000.00</b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b>350,000.00</b></td>
+        </tr>
+
+                <tr>
+            <td align="center"><b>B</b></td>
+            <td align="center"></td>
+            <td><b>GEDUNG DAN PABRIK</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Rumah Dinas Manager</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Rumah Dinas Kasi</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Pos Jaga</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>Sertifikat</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Koreksi Harga Perolehan Tahun 2015</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Bangunan garasi kend/bengkel</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Garasi sepeda motor</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Bangunan gedung pabrik instl B</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Bak es B1</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>Bak es kapasitor 30 Ton</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Tanki Air Pengisian Kaleng Es</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Tanki Air Pengisian Kaleng Es</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Bak Tandon Air</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">14</td>
+                <td>Bak Tandon Air 1</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">15</td>
+                <td>Bak Tandon Air 11</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">16</td>
+                <td>bak tandon air</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">17</td>
+                <td>Kamar Dingin</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">18</td>
+                <td>Sumur Bata</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">19</td>
+                <td>Sumur Bata</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">20</td>
+                <td>bak air kelling tower b1+b2</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">21</td>
+                <td>Perbaikan tembok garasi Truck</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+            
+        
+        <tr>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td style="text-align: center;"><b>JUMLAH B</b></td>
+            <td  style="text-align: center;"></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+        </tr>
+
+                <tr>
+            <td align="center"><b>C</b></td>
+            <td align="center"></td>
+            <td><b>MESIN DAN INSTALASI</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Almari</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Pemadam Api</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Papan Tulis</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>UU Keselamatan Kerja</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Rak alat-alat kunci</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Tabung + isi 12Kg</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Jam Dinding</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Papan tulis formika</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Kompressor NH3 Mycom N4 B</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>Kompressor Mycom N8 B</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Blower b1</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Elektro Motor Yaskawa</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Elektro Panel Kontrol</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">14</td>
+                <td>Evaporator Verdamper B</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">15</td>
+                <td>Gabitan Es Kaleng b1</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">16</td>
+                <td>Meja Kayu</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">17</td>
+                <td>Kursi Roda</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">18</td>
+                <td>Kursi Plastik</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">19</td>
+                <td>Rotari Blower bag es B</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">20</td>
+                <td>Switch Box Panel</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">21</td>
+                <td>Panel penghubung PLN</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">22</td>
+                <td>Tutup Bag es B</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">23</td>
+                <td>Kaleng es bag B1</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">24</td>
+                <td>Kaleng es B2</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">25</td>
+                <td>Pompa Air ebara</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">26</td>
+                <td>Pompa Air Shihi</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">27</td>
+                <td>Accumulator</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">28</td>
+                <td>Kipas Air Garam</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">29</td>
+                <td>Sumur boor</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">30</td>
+                <td>Sumur boor</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">31</td>
+                <td>Grenda listrik</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">32</td>
+                <td>Dongkrak</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">33</td>
+                <td>Blender Las</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">34</td>
+                <td>Gunting Seng</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">35</td>
+                <td>Water Pass</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">36</td>
+                <td>Palu</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">37</td>
+                <td>Meja Besi</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">38</td>
+                <td>SHEEMED</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">39</td>
+                <td>Kunci Sok</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">40</td>
+                <td>Las Listrik</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">41</td>
+                <td>Tang Vipet</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">42</td>
+                <td>Tang</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">43</td>
+                <td>Tracker</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">44</td>
+                <td>Condessor</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">45</td>
+                <td>Receiver</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">46</td>
+                <td>Evaponator</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">47</td>
+                <td>Asitator</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">48</td>
+                <td>Blower</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">49</td>
+                <td>Gapitan kaleng es b2</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">50</td>
+                <td>Coking Tandon LiangChi LBE</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">51</td>
+                <td>Pompa air pendingin cond b2</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">52</td>
+                <td>Pompa Air</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">53</td>
+                <td>Pompa Air pengisian fiking tank</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">54</td>
+                <td>Panel Kontraktor penggerak motor</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">55</td>
+                <td>Listirk dan Kontrol</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">56</td>
+                <td>Werpak</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">57</td>
+                <td>Mesin potong rumput</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">58</td>
+                <td>Travo sentra PLN</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">59</td>
+                <td>Derek bak BI</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">60</td>
+                <td>Pompa Multipu</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">61</td>
+                <td>Mesih Gerenda</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">62</td>
+                <td>Kaleng es kotak baru</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">63</td>
+                <td>Dispenser Aqua</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">64</td>
+                <td>Meja Galon</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">65</td>
+                <td>Kaleng es kotak baru</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">66</td>
+                <td>Kaleng es gepeng baru</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">67</td>
+                <td>Coolong tower / Liangchi</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">68</td>
+                <td>100 Kaleng es gepeng</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">69</td>
+                <td>100 unit kaleng es kotak</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+            
+        
+        <tr>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td style="text-align: center;"><b>JUMLAH C</b></td>
+            <td  style="text-align: center;"></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+        </tr>
+
+                <tr>
+            <td align="center"><b>D</b></td>
+            <td align="center"></td>
+            <td><b>INVENTARIS</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+                <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td align="center"><b>1</b></td>
+            <td><b>Rumah Dinas Manager</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Wastafel</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Lemari Pakaian</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Meja Makan + 4 Kursi</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>Kulkas Sharp</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Tempat tidur / Spring bed</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Kasur Busa</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Kursi Tamu Zice</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Kursi Tamu</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Bipet</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>AC Split</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Almari Jati/Kaca</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Spring Bed Hijau</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Bed Busa Putih</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                    <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td align="center"><b>2</b></td>
+            <td><b>Rumah Dinas Kasi Opnal & Pemasaran</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Spring Bed</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Almari Jati</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Televisi</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>AC Split</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Lemari Pakaian / Kaca</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                    <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td align="center"><b>3</b></td>
+            <td><b>Rumah Dinas Kasi Adm & Keuangan</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Spring Bed</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Almari Jati</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Televisi</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>AC Split</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                    <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td align="center"><b>4</b></td>
+            <td><b>Ruang Manager</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Brankas Uang</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Jam Dinding</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Kursi Tamu + Meja</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>Meja Tulis</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Kursi Putar</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Kursi Lipat</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Kipas Angin Baling-Baling</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Kipas Angin</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Kipas Angin</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>Kaca Cermin</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Rak Plastik</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Fakcimile</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Papan Tulis formika</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">14</td>
+                <td>Korden</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">15</td>
+                <td>Wastafel</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">16</td>
+                <td>Gambar Bhinneka Tunggal Ika</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">17</td>
+                <td>Gambar Presiden dan Wakil Presiden</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">18</td>
+                <td>Meja komputer</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">19</td>
+                <td>AC Split</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">20</td>
+                <td>Televisi</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">21</td>
+                <td>Piagam Penghargaan</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">22</td>
+                <td>Papan Tulis formika</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                    <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td align="center"><b>5</b></td>
+            <td><b>Ruang Administrasi</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Mesin Tik</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Calculator</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Jam Tembok Korpri</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>Rak Arsip</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Almari Buku</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Meja Tulis</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Kursi Tangan</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Kursi lipat Hitose</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Kursi Putar</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>Meja Kayu</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Kursi Bundar</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Kursi Kayu</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Rak Plastik</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">14</td>
+                <td>Kipas Angin Baling-Baling</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">15</td>
+                <td>Rak Buku</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">16</td>
+                <td>Kursi Roda</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">17</td>
+                <td>Buku Petunjuk Teknis Pelaksanaan</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">18</td>
+                <td>Sensus Barang Daerah</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">19</td>
+                <td>Sertifikat Jamsostek</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">20</td>
+                <td>Kursi Plastik</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">21</td>
+                <td>Monitor komputer Nico</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">22</td>
+                <td>CPU computer LG</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">23</td>
+                <td>Printer HP D2566</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">24</td>
+                <td>Printer Canon IP 1880</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">25</td>
+                <td>Tape/Radio</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">26</td>
+                <td>Brankas Uang</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                    <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td align="center"><b>6</b></td>
+            <td><b>Ruang Gudang</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">&nbsp;</td>
+            <td align="center"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Peti uang</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Papan tulis formika</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Meja</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>Kipas Angin</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Jam dinding</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Calculator</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Pesawat Telpon</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Meja Kayu</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Lemari</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>Kursi Plastik</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Meja Komputer</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Kursi Tangan</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Kursi Kayu</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">14</td>
+                <td>CPU</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">15</td>
+                <td>Almari Bifet</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">16</td>
+                <td>Komputer</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">17</td>
+                <td>Monitor komputer samsung</td>
+
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+            </tr>
+            
+        
+        <tr>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td style="text-align: center;"><b>JUMLAH D</b></td>
+            <td  style="text-align: center;"></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+        </tr>
+
+                <tr>
+            <td align="center"><b>E</b></td>
+            <td align="center"></td>
+            <td><b>KENDARAAN</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        
+                    <tr>
+                <td align="right"></td>
+                <td align="center">1</td>
+                <td>Truk box colt diesel R1425PB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">2</td>
+                <td>Truk box colt diesel R1588PB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">3</td>
+                <td>Truk box colt diesel R1317PB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">4</td>
+                <td>Truk box colt diesel R1518PB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">5</td>
+                <td>Truk Box AD9546AA</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">6</td>
+                <td>Truk Box AD9545AA</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">7</td>
+                <td>Truk Box Daihatsu R1632LB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">8</td>
+                <td>Truk Bak Izusu R1570RB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">9</td>
+                <td>Truk box colt diesel H1587TH</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">10</td>
+                <td>Sepeda Motor R 4604 TK</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">11</td>
+                <td>Sepeda Motor R 2016 PB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">12</td>
+                <td>Sepeda Motor R5982RT/Tosa</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">13</td>
+                <td>Truk R1498JB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">14</td>
+                <td>Truk R1544JB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">15</td>
+                <td>Suzuki APV</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">16</td>
+                <td>Perbaikan Casis, Kabin, Box, AD 9546 AA</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">17</td>
+                <td>Perbaikan Box R 1498 JB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">18</td>
+                <td>Perbaikan Kabin R 1425 PB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">19</td>
+                <td>Perbaikan Chasis R 1498 JB</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">20</td>
+                <td>Perbaikan Chasis R 1386 TK</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">21</td>
+                <td>Sepeda motor roda dua R 6343 VN</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+                        <tr>
+                <td align="right"></td>
+                <td align="center">22</td>
+                <td>Sepeda motor roda tiga (Tossa)</td>
+                <td  style="text-align: center;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+                <td  style="text-align: right;"></td>
+            </tr>
+            
+        
+        <tr>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td style="text-align: center;"><b>JUMLAH E</b></td>
+            <td  style="text-align: center;"></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+        </tr>
+
+                <tr>
+            <td align="right"></td>
+            <td align="center"></td>
+            <td style="text-align: center;"><b>JUMLAH SELURUH AKTIVA</b></td>
+            <td  style="text-align: center;"></td>
+            <td  style="text-align: right;"><b>350,000.00</b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b></b></td>
+            <td  style="text-align: right;"><b>350,000.00</b></td>
+        </tr>
+</table>
+
+
+
+
+
+
+
