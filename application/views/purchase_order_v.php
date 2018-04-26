@@ -57,12 +57,12 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-random"></i> Order Pembelian </h3>
+			<h3 class="page-header"> <i class="icon-random"></i> Purchase Order </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Pembelian</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Order Pembelian </li>
+			<li><a href="#">Purchase</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Purchase Order </li>
 		</ul>
 	</div>
 </div>

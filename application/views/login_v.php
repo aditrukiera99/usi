@@ -66,7 +66,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     </head>
     <body>
         <div id="bg">
-          <img src="http://nusakini.com/upload/image/media/JKoLZX0Ady_1488104601.jpg" alt="">
+          <img src="<?=$base_url2;?>/assets/begron foto.png" alt="" style="width: 100%;height: 100%;">
         </div>
         <!-- Top content -->
         <div class="top-content">
