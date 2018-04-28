@@ -659,6 +659,23 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             </li>
             <?PHP } ?>
 
+            
+
+             <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i> Penjualan <b class="icon-angle-down"></b></a>
+            <div class="dropdown-menu">
+              <ul>
+                 <!-- <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li> -->
+                 <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Sales Order </a></li>
+                 <li><a href="<?=base_url();?>delivery_order_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
+                 <li><a href="<?=base_url();?>surat_jalan_c"><i class="icon-caret-right "></i> Surat Jalan </a></li>
+                 <li><a href="<?=base_url();?>invoice_c"><i class="icon-caret-right "></i> Invoice </a></li>
+                 <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li>
+              </ul>
+            </div>
+            </li>
+            <?PHP } ?>
+
             <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i>Pembelian<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
@@ -666,21 +683,6 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <!-- <li><a href="<?=base_url();?>penawaran_barang_beli_c"><i class="icon-caret-right "></i> Penawaran Barang </a></li> -->
                   <li><a href="<?=base_url();?>purchase_order_c"><i class="icon-caret-right "></i> Pembelian </a></li>
                   <li><a href="<?=base_url();?>delivery_order_beli_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
-              </ul>
-            </div>
-            </li>
-            <?PHP } ?>
-
-             <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
-            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i> Penjualan <b class="icon-angle-down"></b></a>
-            <div class="dropdown-menu">
-              <ul>
-                 <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li>
-                 <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Penjualan </a></li>
-                 <li><a href="<?=base_url();?>delivery_order_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
-                 <li><a href="<?=base_url();?>surat_jalan_c"><i class="icon-caret-right "></i> Surat Jalan </a></li>
-                 <li><a href="<?=base_url();?>invoice_c"><i class="icon-caret-right "></i> Invoice </a></li>
-                 <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li>
               </ul>
             </div>
             </li>

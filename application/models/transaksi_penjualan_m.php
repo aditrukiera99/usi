@@ -209,6 +209,14 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_no_trx_pembelian($id_klien){
+        $sql = "
+        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Pembelian'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function save_next_nomor($id_klien, $tipe, $no_trx){
         $sql_del = "
         DELETE FROM ak_nomor WHERE TIPE = '$tipe' AND ID_KLIEN = $id_klien

@@ -218,6 +218,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$get_pel_sup = $this->model->get_pel_sup($id_klien);
 		$get_pajak = $this->model->get_pajak($id_klien);
 		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		$no_pem= $this->model->get_no_trx_pembelian($id_klien);
 		$get_broker = $this->model->get_broker();
 		$dt_supplier = $this->model->get_supplier();
 
@@ -235,6 +236,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'get_pel_sup' => $get_pel_sup, 
 			'get_pajak' => $get_pajak, 
 			'no_trx' => $no_trx, 
+			'no_pem' => $no_pem, 
 			'get_broker' => $get_broker, 
 			'post_url' => 'transaksi_penjualan_c', 
 		);
