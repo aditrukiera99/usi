@@ -387,7 +387,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i> Penjualan <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
-                 <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li>
+                <!--  <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li> -->
                  <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Penjualan </a></li>
                  <li><a href="<?=base_url();?>delivery_order_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
                  <li><a href="<?=base_url();?>surat_jalan_c"><i class="icon-caret-right "></i> Surat Jalan </a></li>
@@ -733,11 +733,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
   					<h4 class="side-head">Pembelian / Penerimaan</h4>
   					<ul id="nav" class="accordion-nav">
                 
-                <li <?PHP if($view == "penawaran_barang_beli"){ echo "class='active'"; } ?>>
+                <!-- <li <?PHP if($view == "penawaran_barang_beli"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>penawaran_barang_beli_c">
                     <i class="icon-caret-right"></i> Penawaran Barang <span> Membuat daftar penawaran barang</span>
                   </a>
-                </li>
+                </li> -->
 
                 <li <?PHP if($view == "purchase_order"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>purchase_order_c">
@@ -756,11 +756,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
           <div class="tab-pane <?PHP if($master == "penjualan"){ echo "active"; } ?>" id="forms_penerimaan_jual">
             <h4 class="side-head">Penjualan</h4>
             <ul id="nav" class="accordion-nav">
-                <li <?PHP if($view == "penawaran_barang_v"){ echo "class='active'"; } ?>>
+                <!-- <li <?PHP if($view == "penawaran_barang_v"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>penawaran_barang_c">
                     <i class="icon-caret-right"></i> Penawaran Barang <span> Membuat daftar penawaran barang </span>
                   </a>
-                </li>
+                </li> -->
 
                 <li <?PHP if($view == "transaksi_penjualan"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>transaksi_penjualan_c">

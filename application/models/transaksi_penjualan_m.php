@@ -369,7 +369,8 @@ class Transaksi_penjualan_m extends CI_Model
             PPH,
             PBBKB,
             OAT,
-            PPN_OAT
+            PPN_OAT,
+            STATUS_LPB
 
         )
         VALUES 
@@ -387,7 +388,8 @@ class Transaksi_penjualan_m extends CI_Model
            '$nilai_pph', 
            '$nilai_pbbkb', 
            '$nilai_qty_total', 
-           '$ppn_oat'
+           '$ppn_oat',
+           '0'
         )
         ";
 

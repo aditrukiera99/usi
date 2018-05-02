@@ -88,6 +88,10 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			$id_pembelian = $this->db->insert_id();
 
+			$this->model->simpan_penerimaan_barang($no_po, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx);
+
+			$id_pembelian = $this->db->insert_id();
+
 			
 
 			$this->model->save_next_nomor($id_klien, 'Penjualan', $no_trx2);
