@@ -36,22 +36,53 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 
 </style>
 
-<table style="width: 100%">
-	<tr>
-		<td><img style="width: 100%;height: 100px;" src="<?=$base_url2;?>assets/img/header.png"></td>
-	</tr>
-	
-</table>
+<?php 
+$bulan_kas = date("m",strtotime($dt->TGL_TRX));
 
+		if($bulan_kas == "01"){
+	    $var = "I";
+	   } else if($bulan_kas == "02"){
+	    $var = "II";
+	   } else if($bulan_kas == "03"){
+	    $var = "III";
+	   } else if($bulan_kas == "04"){
+	    $var = "IV";
+	   } else if($bulan_kas == "05"){
+	    $var = "V";
+	   } else if($bulan_kas == "06"){
+	    $var = "VI";
+	   } else if($bulan_kas == "07"){
+	    $var = "VII";
+	   } else if($bulan_kas == "08"){
+	    $var = "VIII";
+	   } else if($bulan_kas == "09"){
+	    $var = "IX";
+	   } else if($bulan_kas == "10"){
+	    $var = "X";
+	   } else if($bulan_kas == "11"){
+	    $var = "XI";
+	   } else if($bulan_kas == "12"){
+	    $var = "XII";
+	   }
+
+$tahun_kas = date("Y",strtotime($dt->TGL_TRX));
+?>
 
 <br>
 <table align="center">
     <tr>
         <td align="center">
-            <h4 style="text-decoration: underline;">
-                SAELS ORDER (SO)
-            </h4>
-            <label>NO : 001/SO/MCN/II/2018</label>
+            <h3 style="font-weight: bold;">
+                SALES ORDER (SO)
+            </h3>
+        </td>
+        
+    </tr>
+    <tr>
+    	<td align="left">
+        	<h3 style="font-weight: bold;">
+                PT. UNITED SHIPPING INDONESIA
+            </h3>
         </td>
     </tr>
 </table>
@@ -60,29 +91,19 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 <div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
 	<table style="width: 100%;">
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Kepada</td>
-			<td style="width: 80%;text-align:left;font-size: 15px;">: <b>PT. ELNUSA PETROFIN</b></td>
+			<td style="width: 20%;text-align:left;font-size: 15px;">Tanggal</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <b><?=$dt->TGL_TRX;?></b></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"><b>Customer</b></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;"></td>
-			<td style="width: 80%;text-align:left;font-size: 15px;">  &nbsp; Up. Bp. Dewi Amiarti</td>
+			<td style="width: 20%;text-align:left;font-size: 15px;">Nomor SO</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NO_BUKTI;?>/BRU/<?php echo $var; ?>/<?php echo $tahun_kas; ?></td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;"></td>
-			<td style="width: 80%;text-align:left;font-size: 15px;"> &nbsp; Di</td>
-		</tr>
-		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;"></td>
-			<td style="width: 80%;text-align:left;font-size: 15px;"> &nbsp; Jakarta Selatan</td>
-		</tr>
-		<tr>
-			<td colspan="2">&nbsp;</td>
-		</tr>
-		<tr>
-			<td colspan="2">Dengan Hormat,</td>
-		</tr>
-		<tr>
-			<td colspan="2">Dengan ini kami PT. MITRA CENTRAL NIAGA dengan <b>Nomor NPWP : 72.413.138.8-624.000</b> mengajukan permohonan pembelian barang (Solar Industri/HSD) kepada PT.Elnusa Petrofin dengan rincian sebagai berikut :</td>
+			<td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> </td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 	</table>
 </div>
@@ -91,104 +112,62 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 <table style="border-collapse: collapse;border:1px solid black;">
 	
 		<tr>
-			<th style="width: 5%;padding: 5px 5px 5px 5px; ">NO</th>
-			<th style="width: 20%;padding: 5px 5px 5px 5px; ">NAMA</th>
-			<th style="width: 30%;padding: 5px 5px 5px 5px; ">KUANTITAS (LITER)</th>
-			<th style="width: 20%;padding: 5px 5px 5px 5px; ">HARGA SATUAN</th>
-			<th style="width: 20%;padding: 5px 5px 5px 5px; ">JUMLAH</th>
+			<th style="width: 40%;padding: 5px 5px 5px 5px;text-align: center; ">KETERANGAN</th>
+			<th style="width: 15%;padding: 5px 5px 5px 5px;text-align: center; ">QTY</th>
+			<th style="width: 20%;padding: 5px 5px 5px 5px;text-align: center; ">HARGA (Rp.)</th>
+			<th style="width: 25%;padding: 5px 5px 5px 5px;text-align: center; ">JUMLAH</th>
 			
 		</tr>
 	
 		<tr>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">1</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">SIE_GUDANG/00178/2018</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">30</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">Kg</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">0</td>
+			<?php 
+				if($dt->PBBKB == '0'){
+
+				}else{
+					?>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">10%</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Rp.<?=number_format($dt->PBBKB, 2);?><</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Rp.<?=number_format($dt->PBBKB, 2);?></td>
+					<?php 
+				}
+				?>
+			</tr>
 			
-		</tr>
+				<?php
+			foreach ($dt_deti as $key => $va) {
+				?>
+				<tr>
+					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
+					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->QTY;?> Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->HARGA_SATUAN, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->TOTAL, 2);?></td>
+				</tr>
+				<?php
+			}
+			?>
+
 		<tr>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">1</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">SIE_GUDANG/00178/2018</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">30</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">Kg</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">0</td>
-			
+			<td></td>
+			<td style="border-right: 1px solid black;"></td>
+			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPNM<br>Total</td>
+			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($dt->SUB_TOTAL, 2);?><br>Rp.<?=number_format($dt->PPN, 2);?><br><?php $totali = 0; $totali =$dt->SUB_TOTAL - $dt->PPN; echo 'Rp.'.number_format($totali, 2); ?></td>
 		</tr>
 </table>
-</div>
-<br>
-<table>
+<table style="width: 55%;">
 	<tr>
-		<td colspan="2">Keterangan</td>
+		<td style="width: 35%;text-align: center;height: 50px;">Sales Officer</td>
+		<td style="width: 35%;text-align: center;">Purchase</td>
+		<td style="width: 35%;text-align: center;">Manager</td>
 	</tr>
 	<tr>
-		<td colspan="2">- Harga Loco Kilang dan Include PPN,PPh dan PBBKB</td>
-	</tr>
-	<tr>
-		<td>- Tujuan</td>
-		<td>: PT Mitra Central Niaga</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>: JL. Komodor Yos Sudarso, Pasuruan</td>
-	</tr>
-	<tr>
-		<td>- Transportir yang dipakai</td>
-		<td>: PT Mitra Central Niaga</td>
-	</tr>
-	<tr>
-		<td>- Nopol</td>
-		<td>: N 8114 UW</td>
-	</tr>
-
-	<tr>
-		<td>- Data Customer</td>
-		<td>: 1. PT. Hutama Karya, Grati</td>
-	</tr>
-
-	<tr>
-		<td></td>
-		<td>: 2. PT. Waskita Beton Precast, Gresik</td>
-	</tr>
-
-</table>
-<br>
-<div style="height: 200px;">
-<table style="width: 100%;border-collapse: collapse;">
-	<tr>
-		<td style="width: 60%;">&nbsp;</td>
-		<td style="width: 40%">
-			<table>
-			<tr>
-				<td>Pasuruan, 06 Februari 2018</td>
-			</tr>
-			<tr>
-				<td>Hormat Kami</td>
-			</tr>
-			<tr>
-				<td>PT. MITRA CENTRAL NIAGA</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>ABD.WACHID</td>
-			</tr>
-		</table>
-		</td>
+		<td style="width: 35%;text-align: center;">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
+		<td style="width: 35%;text-align: center;">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
+		<td style="width: 35%;text-align: center;">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
 	</tr>
 </table>
 </div>
+
 
 
 

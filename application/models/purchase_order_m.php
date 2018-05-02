@@ -26,7 +26,7 @@ class Purchase_order_m extends CI_Model
         // }
 
         $sql = "
-        SELECT * FROM ak_pembelian_new 
+        SELECT * FROM ak_pembelian 
         ORDER BY ID DESC
         ";
 
@@ -35,7 +35,7 @@ class Purchase_order_m extends CI_Model
 
     function get_data_trx($id){
         $sql = "
-        SELECT * FROM ak_pembelian_new
+        SELECT * FROM ak_pembelian
         WHERE ID = '$id'
         ";
 
@@ -44,11 +44,11 @@ class Purchase_order_m extends CI_Model
 
     function get_data_trx_detail($id){
         $sql = "
-        SELECT * FROM ak_pembelian_new_detail 
+        SELECT * FROM ak_pembelian_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
 
-        return $this->db->query($sql)->row();
+        return $this->db->query($sql)->result();
     }
 
     function get_data_trxx_detail($id){

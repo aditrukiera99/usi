@@ -31,7 +31,7 @@ class Transaksi_penjualan_m extends CI_Model
         // }
 
         $sql = "
-        SELECT * FROM ak_penjualan_new 
+        SELECT * FROM ak_penjualan
         ORDER BY ID DESC
         ";
 
@@ -40,7 +40,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_data_trx($id){
         $sql = "
-        SELECT * FROM ak_penjualan_new a
+        SELECT * FROM ak_penjualan
         WHERE ID = '$id'
         ";
 
@@ -49,11 +49,11 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_data_trx_detail($id){
         $sql = "
-        SELECT * FROM ak_penjualan_new_detail 
+        SELECT * FROM ak_penjualan_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
 
-        return $this->db->query($sql)->row();
+        return $this->db->query($sql)->result();
     }
 
     function get_data_trx_detail_a($id){
@@ -310,6 +310,14 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_supplier_detail($id_pel){
+        $sql = "
+        SELECT * FROM ak_supplier WHERE ID = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_all_produk($id_klien){
         $sql = "
         SELECT * FROM ak_produk WHERE ID_KLIEN = $id_klien
@@ -342,37 +350,27 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_penjualan($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator)
+    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat)
     {
 
         $sql = "
-        INSERT INTO ak_penjualan_new
+        INSERT INTO ak_penjualan
         (
             NO_BUKTI,
             ID_PELANGGAN,
             PELANGGAN,
-            ALAMAT_TUJUAN,
-            KOTA,
-            NO_PO,
-            NO_DO,
+            ALAMAT,
             TGL_TRX,
-            KETERANGAN,
-            JATUH_TEMPO,
-            NO_POL,
-            SOPIR,
-            ALAT_ANGKUT,
-            SEGEL_ATAS,
-            SEGEL_BAWAH,
-            BROKER,
-            TEMPERATUR,
-            DENSITY,
-            FLASH_POINT,
-            WATER_CONTENT,
-            TGL_DO,
-            TGL_SJ,
-            TGL_INV,
-            TGL_KWI,
-            OPERATOR
+            SUB_TOTAL,
+            TOTAL,
+            MEMO,
+            UNIT,
+            PPN,
+            PPH,
+            PBBKB,
+            OAT,
+            PPN_OAT
+
         )
         VALUES 
         (
@@ -380,27 +378,56 @@ class Transaksi_penjualan_m extends CI_Model
            '$id_pelanggan', 
            '$pelanggan', 
            '$alamat_tagih', 
-           '$kota_tujuan', 
-           '$no_po', 
-           '$no_do', 
            '$tgl_trx', 
+           '$sub_total', 
+           '0', 
            '$keterangan', 
-           '$jatuh_tempo', 
-           '$no_pol', 
-           '$sopir', 
-           '$alat_angkut', 
-           '$segel_atas', 
-           '$segel_bawah', 
-           '$broker', 
-           '$temperatur', 
-           '$density', 
-           '$flash_point', 
-           '$water_content', 
-           '$tgl_do', 
-           '$tgl_sj', 
-           '$tgl_inv', 
-           '$tgl_kwi', 
-           '$operator' 
+           '13', 
+           '$ppn', 
+           '$nilai_pph', 
+           '$nilai_pbbkb', 
+           '$nilai_qty_total', 
+           '$ppn_oat'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function simpan_pembelian_po($no_po, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_so)
+    {
+
+        $sql = "
+        INSERT INTO ak_pembelian
+        (
+            ID_KLIEN,
+            NO_PO,
+            ID_PELANGGAN,
+            PELANGGAN,
+            TGL_TRX,
+            SUB_TOTAL,
+            MEMO,
+            UNIT,
+            PPN,
+            PPH,
+            PBBKB,
+            NO_SO
+
+        )
+        VALUES 
+        (
+           '13', 
+           '$no_po', 
+           '$id_supplier', 
+           '$supplier', 
+           '$tgl_trx', 
+           '$sub_total', 
+           '$keterangan',
+           '13',
+           '$ppn', 
+           '$nilai_pph', 
+           '$nilai_pbbkb', 
+           '$no_so'
         )
         ";
 
@@ -464,43 +491,66 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_detail_penjualan($id_penjualan, $id_produk, $kode_akun, $nama_produk, $qty, $harga_modal, $harga_jual, $harga_invoice, $tax, $cashback, $profit, $supplier){
+    function simpan_detail_penjualan($id_penjualan, $val, $kode_akun, $nama_produk, $qty, $harga_modal, $total_id){
         
         $qty            = str_replace(',', '', $qty);
         $harga_modal    = str_replace(',', '', $harga_modal);
-        $harga_jual     = str_replace(',', '', $harga_jual);
-        $harga_invoice  = str_replace(',', '', $harga_invoice);
 
         $sql = "
-        INSERT INTO ak_penjualan_new_detail 
+        INSERT INTO ak_penjualan_detail 
         (
+            ID_KLIEN,
             ID_PENJUALAN,
-            KODE_AKUN,
-            ID_PRODUK,
             NAMA_PRODUK,
             QTY,
-            MODAL,
-            HARGA_JUAL,
-            HARGA_INVOICE,
-            PAJAK,
-            CASHBACK,
-            PROFIT,
-            ID_SUPPLIER
+            SATUAN,
+            HARGA_SATUAN,
+            TOTAL,
+            ID_PRODUK
         )
         VALUES 
         (
+        '13',
         '$id_penjualan',
-        '$kode_akun', 
-        '$id_produk', 
         '$nama_produk', 
         '$qty', 
+        'LITER', 
         '$harga_modal', 
-        '$harga_jual', 
-        '$harga_invoice', 
-        '$tax', 
-        '$cashback', 
-        '$profit',
-        '$supplier'
+        '$total_id', 
+        '$val'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function simpan_detail_pembelian($id_penjualan, $val, $kode_akun, $nama_produk, $qty, $harga_modal, $total_id){
+        
+        $qty            = str_replace(',', '', $qty);
+        $harga_modal    = str_replace(',', '', $harga_modal);
+
+        $sql = "
+        INSERT INTO ak_pembelian_detail 
+        (
+            ID_KLIEN,
+            ID_PENJUALAN,
+            NAMA_PRODUK,
+            QTY,
+            SATUAN,
+            HARGA_SATUAN,
+            TOTAL,
+            ID_PRODUK
+        )
+        VALUES 
+        (
+        '13',
+        '$id_penjualan',
+        '$nama_produk', 
+        '$qty', 
+        'LITER', 
+        '$harga_modal', 
+        '$total_id', 
+        '$val'
         )
         ";
 

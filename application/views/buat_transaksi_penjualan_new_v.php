@@ -106,7 +106,7 @@ input[type=checkbox]
 					<div class="input-append">
 						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
-						<input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;">
+						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 					</div>
 				</div>
@@ -119,6 +119,19 @@ input[type=checkbox]
 					<div class="input-append">
 						<input type="text" id="unit_txt" name="unit_txt" readonly style="background:#FFF; width: 90%" value="<?=$user->NAMA_UNIT;?>">
 						<input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="span3">
+			<div class="control-group">
+				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
+				<div class="controls">
+					<div class="input-append">
+						<input type="text" id="supplier" name="supplier" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="supplier_sel" name="supplier_sel" readonly style="background:#FFF;">
+						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
+						<button onclick="show_pop_supplier();" type="button" class="btn">Cari</button>
 					</div>
 				</div>
 			</div>
@@ -140,14 +153,10 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
 					<!-- <textarea rows="4" id="alamat_tagih" name="alamat_tagih" style="resize:none; height: 87px; width: 90%;"></textarea> -->
-					<textarea name="alamat_tagih" id="alamat_tagih"></textarea>
+					<textarea name="alamat_tagih" class="span12" rows="5" id="alamat_tagih"></textarea>
 				</div>
 	
-				<script>
-					CKEDITOR.replace( 'alamat_tagih', {
-				        height: 100
-				    });
-				</script>
+			
 
 		</div>
 	</div>
@@ -275,7 +284,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Nama Kapal </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="sopir" id="sopir" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="nama_kapal" id="sopir" style="font-size: 15px;">
 			</div>
 		</div>
 	</div>
@@ -309,10 +318,9 @@ input[type=checkbox]
 				<h3> </h3>
 			</div>
 			<div class="widget-container">
-				<button data-toggle="modal" data-target="#modal_spek" type="button" class="btn btn-warning"> 
+				<!-- <button data-toggle="modal" data-target="#modal_spek" type="button" class="btn btn-warning"> 
 					<i class="icon-plus"></i> Spesifikasi 
-				</button>
-				<br><br>
+				</button> -->
 				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
@@ -363,13 +371,14 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(1); samakan_1(this.value);samakan_5();" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
+									<input type="hidden" name="total_id[]" id="total_id_1">
 								</div>
 							</td>
 
@@ -395,20 +404,44 @@ input[type=checkbox]
 			</div>
 			<div class="widget-container">
 
-				<div class="row-fluid" style="margin-top: 10px; display: none;">
-					<div style="margin-bottom: 15px;" class="span3">
-						<h3> Total :</h3> 
-					</div>
-
-					<div style="margin-bottom: 15px;" class="span4">
-						<h3 id="total_txt" style="color:green;"> Rp. 0.00 </h3> 
-					</div>
-				</div>
+				
 
 				
 
 				<div class="form-actions">
 					<center>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Sub Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="sub_total"></h3>
+							<input type="hidden" name="sub_total" id="inp_sub_total">
+							<input type="text" name="qty_total" id="inp_qty_total">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PBBKB :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="pbbkb" value="ada">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> OAT :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="oat" value="ada">
+						</div>
+					</div>
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
@@ -488,15 +521,6 @@ input[type=checkbox]
 				</select>
 			</div>
 		</div>
-		<div class="controls">
-				<select  required data-placeholder="Pilih ..." class="cek_select2" tabindex="2"  name="supplier[]">
-					<option value="">Pilih Supplier</option>
-					<?PHP foreach ($dt_supplier as $key => $sup) { ?>
-
-					<option   value="<?=$sup->ID;?>">  <?=$sup->NAMA_SUPPLIER;?></option>
-					<?PHP } ?>				
-				</select>
-			</div>
 		</div>
 	</td>
 </div>
@@ -565,6 +589,11 @@ function show_pop_produk(no){
 function show_pop_pelanggan(id){
     get_popup_pelanggan();
     ajax_pelanggan();
+}
+
+function show_pop_supplier(id){
+    get_popup_supplier();
+    ajax_supplier();
 }
 
 function get_popup_produk(){
@@ -686,6 +715,42 @@ function get_popup_pelanggan(){
     $('#popup_koang').show();
 }
 
+function get_popup_supplier(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang" id="search_koang" class="form-control" value="" placeholder="Cari Pelanggan...">'+
+                '    <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO</th>'+
+                '                        <th style="white-space:nowrap;"> NAMA SUPPLIER / PERUSAHAAN </th>'+
+                '                        <th> ALAMAT </th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+        $('#popup_koang').remove();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
+
 function ajax_pelanggan(){
     var keyword = $('#search_koang').val();
     $.ajax({
@@ -725,6 +790,45 @@ function ajax_pelanggan(){
     });
 }
 
+function ajax_supplier(){
+    var keyword = $('#search_koang').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_supplier_popup',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+                nama_pel = res.NAMA_SUPPLIER;
+                if(res.TIPE == "Perusahaan"){
+                	nama_pel = res.NAMA_SUPPLIER+" <b> ("+res.NAMA_USAHA+")</b>";
+                }
+
+                isine += '<tr onclick="get_supplier_det('+res.ID+');" style="cursor:pointer;">'+
+                            '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+nama_pel+'</td>'+
+                            '<td align="center">'+res.ALAMAT_TAGIH+'</td>'+
+                        '</tr>';
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+            $('#search_koang').off('keyup').keyup(function(){
+                ajax_pelanggan();
+            });
+        }
+    });
+}
+
 
 function cek_islunas(){
 	if($("#is_lunas").is(':checked')){
@@ -739,32 +843,21 @@ function cek_islunas(){
 function hitung_total(id){
 
 
-	var tax           = $('#tax_'+id).val();
 	var qty           = $('#qty_'+id).val();
 	var harga_modal   = $('#harga_modal_'+id).val();
-	var harga_jual    = $('#harga_jual_'+id).val();
-	var harga_invoice = $('#harga_invoice_'+id).val();
 
 	qty           = qty.split(',').join('');
 	harga_modal   = harga_modal.split(',').join('');
-	harga_jual    = harga_jual.split(',').join('');
-	harga_invoice = harga_invoice.split(',').join('');
 
 	if(qty           == "" || qty 	        == null){ qty           = 0; }
 	if(harga_modal   == "" || harga_modal   == null){ harga_modal   = 0; }
-	if(harga_jual    == "" || harga_jual    == null){ harga_jual    = 0; }
-	if(harga_invoice == "" || harga_invoice == null){ harga_invoice = 0; }
 
-	if(tax == ""){
-		var cashback = (parseFloat(harga_invoice) - parseFloat(harga_jual)) * parseFloat(qty) ;
-		$('#cashback_'+id).val(cashback);
-	} else {
-		var cashback = (parseFloat(harga_invoice) - parseFloat(harga_jual)) * 0.9 * parseFloat(qty) ;
-		$('#cashback_'+id).val(cashback);
-	}
 
-	var profit = (parseFloat(harga_jual) - parseFloat(harga_modal)) * parseFloat(qty) ;
-	$('#profit_'+id).val(profit);
+	var profit = parseFloat(harga_modal) * parseFloat(qty) ;
+	$('#total_id_'+id).val(profit);
+	$('#inp_sub_total').val(profit);
+	$('#inp_qty_total').val(qty);
+	$('#sub_total').html('Rp. '+acc_format(profit, "").split('.00').join('') );
 }
 
 function get_produk_detail(id, no_form){
@@ -778,6 +871,7 @@ function get_produk_detail(id, no_form){
 			$('#qty_'+no_form).focus();
 			$('#id_produk_'+no_form).val(id_produk);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
+			$('#harga_modal_'+no_form).val(result.HARGA);
 
 
 			$('#search_koang_pro').val("");
@@ -804,10 +898,7 @@ function tambah_data() {
 
 	var coa = $('#copy_ag').html();
 
-	var modal_lol   = $('#harga_modal_1').val();
-	var jual_lol    = $('#harga_jual_1').val();
-	var invoice_lol = $('#harga_invoice_1').val();
-	var tax_lol = $('#tax_1').val();
+
 
 	$isi_1 = 
 	'<tr id="tr_'+i+'" class="tr_utama">'+
@@ -828,45 +919,20 @@ function tambah_data() {
 
 		'<td align="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); always_one('+i+'); hitung_total('+i+');" onchange="" id="qty_'+i+'" style="font-size: 18px; text-align:center; width: 80%;" type="text"  +value="" name="qty[]">'+
+				'<input onkeyup="FormatCurrency(this); always_one('+i+'); hitung_total('+i+');hitung_total_semua();" onchange="" id="qty_'+i+'" style="font-size: 18px; text-align:center; width: 80%;" type="text"  +value="" name="qty[]">'+
 			'</div>'+
 		'</td>'+
 
-		'<td align="center" style="vertical-align:middle;"> '+
-			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); hitung_total('+i+');" readonly style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="'+modal_lol+'" name="harga_modal[]" id="harga_modal_'+i+'">'+
-			'</div>'+
-		'</td>'+
 
 		'<td align="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
-				'<input required onkeyup="FormatCurrency(this); hitung_total('+i+');" readonly style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="'+jual_lol+'" name="harga_jual[]" id="harga_jual_'+i+'">'+
-			'</div>'+
-		'</td>'+
-
-		'<td align="center" style="vertical-align:middle;"> '+
-			'<div class="controls">'+
-				'<input required onkeyup="FormatCurrency(this); hitung_total('+i+');" readonly style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="'+invoice_lol+'" name="harga_invoice[]" id="harga_invoice_'+i+'">'+
-			'</div>'+
-		'</td>'+
-
-		'<td align="center" style="vertical-align:middle;"> '+
-			'<div class="span12">'+
-			'<div class="controls">'+
-				'<select data-placeholder="Tax..." class="" tabindex="2" name="tax[]" id="tax_'+i+'" style="width:100px;" onchange="hitung_total('+i+');">'+
-					'<option value="">Tidak</option>'+
-					'<option value="PPN">PPN</option>'+
-				'</select>'+
-
-				'<input readonly onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%; background:#FFF;" type="hidden"  value="" name="cashback[]" id="cashback_'+i+'">'+
-
-				'<input readonly onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%; background:#FFF;" type="hidden"  value="" name="profit[]" id="profit_'+i+'">'+
-			'</div>'+
-			'</div>'+
+				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_'+i+'">'+
+				'<input type="hidden" id="total_id_'+i+'" name="total_id[]">'+
+		'	</div>'+
 		'</td>'+
 
 		'<td class="center" style="background:#FFF; text-align:center;">'+
-			'<button style="width: 100%;" onclick="hapus_row('+i+');" type="button" class="btn btn-danger"> Hapus </button>'+
+			'<button style="width: 100%;" onclick="hapus_row('+i+');" type="btn-defaulton" class="btn btn-danger"> Hapus </button>'+
 		'</td>'+
 	'</tr>';
 
@@ -904,31 +970,40 @@ function get_pelanggan_det(id_pel){
 	});
 }
 
+function get_supplier_det(id_pel){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_supplier_detail',
+		data : {id_pel:id_pel},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+
+			$('#search_koang').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+		    $('#popup_koang').remove();
+
+			$('#supplier').val(result.NAMA_SUPPLIER);
+			$('#supplier_sel').val(id_pel);
+		}
+	});
+}
+
 function hitung_total_semua(){
 	var sum = 0;
-	var pajak_prosen = $('#pajak_prosen').val();
+	
 	console.log(pajak_prosen);
-	$("input[name='jumlah[]']").each(function(idx, elm) {
+	$("input[name='total_id[]']").each(function(idx, elm) {
 		var tot = elm.value.split(',').join('');
 		if(tot > 0){
     		sum += parseFloat(tot);
 		}
     });
 
-	var pajak = $('#pajak_all').val().split(',').join('');
-	if(pajak == ""){
-		pajak = 0;
-	}
-	
-	var total_all = parseFloat(sum) + parseFloat(pajak) ;
-
     $('#sub_total').val(sum);
-    //$('#pajak_all').val(pajak);
-    $('#total_all').val(total_all);
 
-    $('#pajak_txt').html('Rp. '+NumberToMoney(pajak));
-    $('#subtotal_txt').html('Rp. '+acc_format(sum, ""));
-    $('#total_txt').html('Rp. '+acc_format(total_all, ""));
 }
 
 function hitung_pajak(id_pajak){

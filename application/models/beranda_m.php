@@ -12,7 +12,7 @@ class Beranda_m extends CI_Model
         $thn   = date('Y');
 
         $sql = "
-        SELECT SUM(TOTAL) AS TOTAL FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND TGL_TRX LIKE '%-$bulan-$thn%' AND NO_TRX_AKUN IS NOT NULL
+        SELECT SUM(TOTAL) AS TOTAL FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND TGL_TRX LIKE '%-$bulan-$thn%'
         ";
 
         return $this->db->query($sql)->row();
@@ -24,7 +24,7 @@ class Beranda_m extends CI_Model
 
         $sql = "
         SELECT '$newDate' AS TGL, IFNULL(a.TOTAL, 0) AS TOTAL FROM (
-            SELECT SUM(TOTAL) AS TOTAL FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND TGL_TRX = '$tgl_1' AND NO_TRX_AKUN IS NOT NULL
+            SELECT SUM(TOTAL) AS TOTAL FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND TGL_TRX = '$tgl_1'
         )a
         ";
 
@@ -36,7 +36,7 @@ class Beranda_m extends CI_Model
         $thn   = date('Y');
 
         $sql = "
-        SELECT SUM(TOTAL) AS TOTAL FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND TGL_TRX LIKE '%-$bulan-$thn%' AND NO_TRX_AKUN IS NOT NULL
+        SELECT SUM(TOTAL) AS TOTAL FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND TGL_TRX LIKE '%-$bulan-$thn%'
         ";
 
         return $this->db->query($sql)->row();
@@ -47,7 +47,7 @@ class Beranda_m extends CI_Model
 
         $sql = "
         SELECT '$newDate' AS TGL, IFNULL(a.TOTAL, 0) AS TOTAL FROM (
-            SELECT SUM(TOTAL) AS TOTAL FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND TGL_TRX = '$tgl_1' AND NO_TRX_AKUN IS NOT NULL
+            SELECT SUM(TOTAL) AS TOTAL FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND TGL_TRX = '$tgl_1'
         )a
         ";
 
