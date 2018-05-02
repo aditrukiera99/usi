@@ -75,7 +75,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1 style="color: blue; font-weight: bold">PT MITRA CENTRAL NIAGA</h1>
+                            <h1 style="color: blue; font-weight: bold; color: #FFF; background: #003666;">UNITED SHIPPING INDONESIA</h1>
                         </div>
                     </div>
                     <div class="row">
