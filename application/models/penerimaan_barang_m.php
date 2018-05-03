@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Purchase_order_m extends CI_Model
+class Penerimaan_barang_m extends CI_Model
 {
     function __construct() {
           parent::__construct();
@@ -35,7 +35,7 @@ class Purchase_order_m extends CI_Model
 
     function get_data_trx($id){
         $sql = "
-        SELECT * FROM ak_pembelian
+        SELECT * FROM ak_penerimaan_barang
         WHERE ID = '$id'
         ";
 
@@ -44,7 +44,7 @@ class Purchase_order_m extends CI_Model
 
     function get_data_trx_detail($id){
         $sql = "
-        SELECT * FROM ak_pembelian_detail 
+        SELECT * FROM ak_penerimaan_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
 
@@ -549,6 +549,18 @@ class Purchase_order_m extends CI_Model
         $sql = "
         UPDATE ak_produk SET STOK = STOK - $qty
         WHERE ID = $id_produk
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_tanggal_penerimaan($id){
+
+        $tgj = date('d-m-Y'); 
+       
+        $sql = "
+        UPDATE ak_penerimaan_barang SET TGL_TRX = '$tgj' , STATUS = '1'
+        WHERE ID = '$id'
         ";
 
         $this->db->query($sql);

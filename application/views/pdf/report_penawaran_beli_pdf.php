@@ -155,115 +155,103 @@ function tgl_to_bulan($var){
 
 <br>
 
-<div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
-	<table style="width: 100%; font-size: 13px;">
-		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Nomor</td>
-			<td style="width: 80%;text-align:left;font-size: 15px;">: <?=$dt->NO_BUKTI;?></td>
-		</tr>
-		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Perihal</td>
-			<td style="width: 80%;text-align:left;font-size: 15px;">: <b><?=$dt->MEMO;?></b></td>
-		</tr>
-		
-	</table>
-</div>
+<h1 align="center"><u>SALES CONFIRMATION ORDER</u></h1>
 
-<div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
-	<table style="width: 90%;     font-size: 13px;">
+<div style="width: 50%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;float: right;">
+	<table style="width: 100%; font-size: 13px;float: right;border:1px solid black;border-collapse: collapse;">
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Kepada Yth</td>
-			<td style="width: 80%;text-align:left;font-size: 15px;"></td>
-		</tr>
-		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;" colspan="2"><?=$dt->PELANGGAN;?> <br> Up. <?=$dt->UP;?></td>
-		</tr>
-		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;" colspan="2"></td>
-		</tr>
-		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;" colspan="2"></td>
-		</tr>
-		<tr>
-			<td colspan="2">Dengan Hormat,</td>
-		</tr>
-		<tr>
-			<td colspan="2">Bersama Ini Kami PT.MITRA CENTRAL NIAGA mengajukan penawaran BBM Solar Industri / HSD, perusahaan yang <br> bapak/ibu pimpin, Barang yang ditawarkan sebagai berikut</td>
+			<td style="width: 60%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">Tanggal Pemesanan</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">: <?=$dt->TGL_TRX;?></td>
 		</tr>
 	</table>
+  <table style="width: 100%; font-size: 13px;float: right;border:1px solid black;border-collapse: collapse;margin-top: 10px;">
+    <tr>
+      <td style="width: 60%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">Nomor Pemesanan</td>
+      <td style="width: 40%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">: <?=$dt->NO_BUKTI;?>/JKT/VII/17</td>
+    </tr>
+  </table>
+</div>
+<div style="float: left;padding-top: 40px;padding-left: 5px;width: 100%;">
+  <table style="width: 100%">
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">SUPPLIER</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; PT.PERTAMINA (PERSERO)</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Nama Perusahaan</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; PT. UNITED SHIPPING INDONESIA</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Ship To</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 898122</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Sold To</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 769-634</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">NPWP</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 02.622.627-4.611.000</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Alamat</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; JL. GONDOSULI NO.8 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SURABAYA</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">No. Telp/Fax</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 031-5471841</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Jenis BBM</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; HSD</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Depot Pengambilan</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; TJ.PRIOK, JAKARTA</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Tujuan Pengiriman</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$dt->PELANGGAN;?><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$dt->ALAMAT;?></td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Jumlah Volume</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$dt_detil->QTY;?> Liter</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Harga Satuan (Rp/Ltr)</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($dt_detil->HARGA_SATUAN,2);?></td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Harga Total</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($dt_detil->TOTAL,2);?></td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Jumlah Total</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; Rp. <?php echo number_format($dt_detil->TOTAL,2);?></td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Nama Transportir</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; PT. PERTAMINA</td>
+    </tr>
+    <tr style="padding-top: 5px;">
+      <td style="width: 30%;">Nama Kapal</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; MT.HARIANI 99</td>
+    </tr>
+    
+  </table>
 </div>
 <br>
-<div>
-<table style="border-collapse: collapse;border:1px solid black; width: 94%; margin-left:8px;     font-size: 13px;">
-	
-		<tr>
-			<th style="border: 1px solid; width: 5%;padding: 5px 5px 5px 5px; " align="center">NO</th>
-			<th style="border: 1px solid; width: 30%;padding: 5px 5px 5px 5px; " align="center">URAIAN</th>
-			<th style="border: 1px solid; width: 30%;padding: 5px 5px 5px 5px; " align="center">MINIMAL ORDER</th>
-			<th style="border: 1px solid; width: 30%;padding: 5px 5px 5px 5px; " align="center">HARGA SATUAN(Rp)/Liter</th>
-			
-		</tr>
-
-		<tr>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px;">1</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px; text-align: center;">SOLAR HSD <br> (HIGH SPEED DIESEL)</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px; text-align: center;"><?=$dt_det->QTY;?> Liter</td>
-			<td style="border:1px solid black;padding: 5px 5px 5px 5px; text-align: center;">Rp. <?=number_format($dt_det->HARGA_SATUAN);?></td>		
-		</tr>
-
-</table>
+<div style="float: right;width: 30%;">
+    <table style="width: 100%;">
+      <tr>
+        <td style="height: 150px;">Pemesanan</td>
+      </tr>
+      <tr>
+        <td>(Herman Kwandy)</td>
+      </tr>
+    </table>
 </div>
-<br>
-<table style="margin-left: 5px;     font-size: 13px;">
-	<tr>
-		<td>Keterangan</td>
-	</tr>
 
-	<tr>
-		<td style="font-size: 13px;"><?=$dt->KETERANGAN_PENAWARAN;?></td>
-	</tr>
-
-	<tr>
-		<td>Demikian surat penawaran ini kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih</td>
-	</tr>
-	
-
-</table>
-<br>
-<div style="height: 200px;">
-<table style="width: 100%;border-collapse: collapse;     font-size: 13px;">
-	<tr>
-		<td style="width: 50%;">&nbsp;</td>
-		<td style="width: 50%">
-			<table>
-			<tr>
-				<td>Pasuruan, 
-                    <?php
-                            $tanggal_a = date("d");
-                            $tanggal_b = date("m");
-                            $tanggal_ba = tgl_to_bulan($tanggal_b);
-                            $tanggal_c = date("Y");
-
-                     echo $tanggal_a.' '.$tanggal_ba.' '.$tanggal_c; ?>
-                </td>
-			</tr>
-			<tr>
-				<td>Hormat Kami</td>
-			</tr>
-			<tr>
-				<td>PT. MITRA CENTRAL NIAGA</td>
-			</tr>
-			<tr>
-				<td><img src="<?=$base_url2;?>assets/stempel.jpg" style="width: 80%;"></td>
-			</tr>
-			<tr>
-				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABD.WACHID</td>
-			</tr>
-		</table>
-		</td>
-	</tr>
-</table>
-</div>
 
 
 </div>

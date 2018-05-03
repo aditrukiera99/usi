@@ -57,19 +57,19 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-random"></i> Order Penjualan </h3>
+			<h3 class="page-header"> <i class="icon-random"></i> Delivery Order </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Penjualan</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Order Penjualan </li>
+			<li><a href="#">Delivery Order</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Laporan Delivery Order </li>
 		</ul>
 	</div>
 </div>
 
 <div class="row-fluid ">
 	<div class="span6">
-		<form method="post" action="<?=base_url();?>transaksi_penjualan_c">
+		<form method="post" action="<?=base_url();?>purchase_order_c">
 		<div class="control-group">
 			<label class="control-label" style="font-weight: bold; font-size: 13px;">Tampilkan berdasarkan tanggal :</label>
 			<div class="controls">
@@ -83,9 +83,9 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 		</form>
 	</div>
 
-	<div class="span6">
-		<button onclick="window.location='<?=base_url();?>transaksi_penjualan_c/new_invoice';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Penjualan Baru </button>
-	</div>
+	<!-- <div class="span6">
+		<button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pembelian Baru </button>
+	</div> -->
 </div>
 
 
@@ -98,42 +98,29 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 					<thead>
 						<tr>
 							<th align="center"> Aksi </th>
-							<th align="center"> Confirmation </th>
 							<th align="center"> No. Transaksi </th>
 							<th align="center"> Tanggal </th>
-							<th align="center"> Customer </th>
+							<th align="center"> Pelanggan </th>
 							<th align="center"> Volume </th>
-							<!-- <th align="center"> Harga </th> -->
 						</tr>						
 					</thead>
 					<tbody id="tes">
 						<?PHP  foreach ($dt as $key => $row) { ?>
-							<?PHP $dt_detail = $this->model->get_data_trx_detail($row->ID); ?>
-
-							<?PHP 
-							$sql = "SELECT SUM(QTY) AS QTY FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$row->ID' ";
-							$dt_sql = $this->db->query($sql)->row();
-
-							?>
-
-
-							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_TRX_AKUN;?>" />
+							
+							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_PO;?>" />
 							<tr>
 								<td align="center">
+									<a target="blank" href="<?=base_url();?>delivery_order_new_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
-									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
-									<button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button>
-									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak/<?=$row->ID;?>" class="btn btn-success" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
+									<!-- <button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button> -->
 								</td>
-								<td align="center">
-									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
-								</td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NO_BUKTI;?>/DO</td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
 
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_sql->QTY);?> L </td>
-								<!-- <td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detail->HARGA_JUAL);?> </td> -->
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($row->QTY);?> LITER</td>
 								<!-- <td style="font-size:14px; text-align:center; vertical-align:middle;">
 									<?PHP if($row->NO_TRX_AKUN == "" || $row->NO_TRX_AKUN == null ){ 
 										echo "<b style='color:red;'> Belum Dibukukan </b>"; 
@@ -197,7 +184,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 				</address>
 
 				<address style="margin-top: 18px;">
-					<strong> Alamat Tujuan </strong><br>
+					<strong> Alamat </strong><br>
 					<font id="det_alamat_tujuan"> Dr. Aristo Jason </font> 
 				</address>
 
@@ -214,16 +201,6 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 				<address style="margin-top: 18px;">
 					<strong> Sopir </strong><br>
 					<font id="det_sopir"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> No. PO </strong><br>
-					<font id="det_po"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> NO. DO </strong><br>
-					<font id="det_do"> Dr. Aristo Jason </font> 
 				</address>
 			</div>
 			<div class="span6" style="font-size: 15px;">
@@ -243,22 +220,17 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 				</address>
 
 				<address style="margin-top: 18px;">
-					<strong> Volume </strong><br>
+					<strong> Kuantitas </strong><br>
 					<font id="det_qty"> Dr. Aristo Jason </font> 
 				</address>
 
 				<address style="margin-top: 18px;">
-					<strong> Modal </strong><br>
+					<strong> Harga Satuan </strong><br>
 					<font id="det_modal"> Dr. Aristo Jason </font> 
 				</address>
 
 				<address style="margin-top: 18px;">
-					<strong> Harga Jual </strong><br>
-					<font id="det_hjual"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Harga Invoice </strong><br>
+					<strong> Jumlah </strong><br>
 					<font id="det_hinv"> Dr. Aristo Jason </font> 
 				</address>
 			</div>
@@ -355,7 +327,7 @@ function ubah_data_produk(id){
 function detail_transaksi(id){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>transaksi_penjualan_c/detail_transaksi',
+		url : '<?php echo base_url(); ?>purchase_order_c/detail_transaksi',
 		data : {id:id},
 		type : "POST",
 		dataType : "json",

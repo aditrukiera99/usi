@@ -91,41 +91,34 @@ function tgl_to_romawi($var){
 					<thead>
 						<tr>
 							<th align="center"> Aksi </th>
+							<th align="center"> Confirmation </th>
 							<th align="center"> No. Transaksi </th>
-							<th align="center"> No. Invoice </th>
 							<th align="center"> Tanggal </th>
 							<th align="center"> Customer </th>
-							<th align="center"> Tujuan </th>
-							<th align="center"> Alat Angkut </th>
-							<th align="center"> No. Pol </th>
-							<th align="center"> Sopir </th>
+							<th align="center"> Volume </th>
 						</tr>						
 					</thead>
 					<tbody id="tes">
-						<?PHP  foreach ($dt as $key => $row) { ?>
+						<?PHP  
+						$lup = $this->db->query("SELECT * FROM ak_penjualan")->result();
+
+						foreach ($lup as $key => $row) { ?>
+						<?PHP 
+							$sql = "SELECT SUM(QTY) AS QTY FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$row->ID' ";
+							$dt_sql = $this->db->query($sql)->row();
+
+							?>
 							<tr>
 								<td align="center">
 									<a target="blank" href="<?=base_url();?>invoice_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>						
 									<!-- <button class="btn btn-warning" onclick="$('#tgl').val('<?=$row->TGL_INV;?>'); $('#id_lapor').val(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_edit" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></button> -->
 									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
 								</td>
-								<td style="font-size:14px; text-align:center; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
-								<td style="font-size:14px; text-align:center; vertical-align:middle;"> 
-									<?PHP  
-									$bulan_kas = date("m",strtotime($row->TGL_TRX));
-									$bulan_kas = tgl_to_romawi($bulan_kas);
-									$tahun_kas = date("Y",strtotime($row->TGL_TRX));
-
-									$no_bukti_real = $row->NO_BUKTI."/INV/MCN.PAS/".$bulan_kas."/".$tahun_kas;
-									echo $no_bukti_real;
-									?>
-								 </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->TGL_INV;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
+								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->ALAMAT_TUJUAN;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->ALAT_ANGKUT;?> </td>								
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_POL;?> </td>								
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->SOPIR;?> </td>								
+
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_sql->QTY);?> L </td>							
 							</tr>
 						<?PHP }	?>
 					</tbody>

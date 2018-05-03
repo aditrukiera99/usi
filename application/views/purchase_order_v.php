@@ -83,9 +83,9 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 		</form>
 	</div>
 
-	<div class="span6">
+	<!-- <div class="span6">
 		<button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pembelian Baru </button>
-	</div>
+	</div> -->
 </div>
 
 
@@ -107,8 +107,8 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 					</thead>
 					<tbody id="tes">
 						<?PHP  foreach ($dt as $key => $row) { ?>
-							<?PHP $dt_detail = $this->model->get_data_trx_detail($row->ID); ?>
-							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_TRX_AKUN;?>" />
+							<?PHP $dt_detaili = $this->model->get_data_trxx_detail($row->ID); ?>
+							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_PO;?>" />
 							<tr>
 								<td align="center">
 									<a target="blank" href="<?=base_url();?>purchase_order_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
@@ -117,12 +117,12 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
 									<button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button>
 								</td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_PO;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
 
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detail->QTY);?> LITER</td>
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detail->HARGA_SATUAN);?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN);?> </td>
 								<!-- <td style="font-size:14px; text-align:center; vertical-align:middle;">
 									<?PHP if($row->NO_TRX_AKUN == "" || $row->NO_TRX_AKUN == null ){ 
 										echo "<b style='color:red;'> Belum Dibukukan </b>"; 
