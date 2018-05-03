@@ -10,7 +10,6 @@ class Grup_kode_akun_m extends CI_Model
     function get_data_grup($keyword, $unit){
         $sql = "
         SELECT * FROM ak_grup_kode_akun
-        WHERE UNIT = '$unit'
         ORDER BY ID DESC
         ";
 

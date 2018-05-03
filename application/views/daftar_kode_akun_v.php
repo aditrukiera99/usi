@@ -75,7 +75,7 @@
 								<b> <?=$row->KODE_AKUN;?> </b> 
 							</td>
 							<td <?PHP if($nomor_akun == $row->KODE_AKUN){ echo "style='background: #CDE69C;'"; } ?> > <b> <?=$row->NAMA_AKUN;?> </b> </td>
-							<td <?PHP if($nomor_akun == $row->KODE_AKUN){ echo "style='background: #CDE69C;'"; } ?> >  <b> <?=$row->KATEGORI;?> </b> </td>
+							<td <?PHP if($nomor_akun == $row->KODE_AKUN){ echo "style='background: #CDE69C;'"; } ?> >  <b> <?=$row->NAMA_GRUP;?> </b> </td>
 							<td <?PHP if($nomor_akun == $row->KODE_AKUN){ echo "style='background: #CDE69C;'"; } ?>>
 								<?PHP if($row->APPROVE == 0){
 									echo "<font style='color:#e88a05; font-weight:bold;'>Menunggu Persetujuan</font>";

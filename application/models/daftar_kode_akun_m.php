@@ -10,7 +10,6 @@ class Daftar_kode_akun_m extends CI_Model
     function get_data_grup($keyword, $unit){
         $sql = "
         SELECT * FROM ak_grup_kode_akun
-        WHERE UNIT = '$unit'
         ORDER BY ID DESC
         ";
 
@@ -20,7 +19,7 @@ class Daftar_kode_akun_m extends CI_Model
     function cari_sub_by_id($kode_grup, $unit){
         $sql = "
         SELECT * FROM ak_sub_grup_kode_akun
-        WHERE UNIT = '$unit' AND KODE_GRUP = '$kode_grup'
+        WHERE KODE_GRUP = '$kode_grup'
         ORDER BY ID DESC
         ";
 
@@ -30,12 +29,13 @@ class Daftar_kode_akun_m extends CI_Model
     function get_no_akun($keyword, $id_klien, $unit){
         $where = "1=1";
         if($keyword != "" || $keyword != null){
-            $where = $where." AND ( (KODE_AKUN LIKE '%$keyword%') OR (NAMA_AKUN LIKE '%$keyword%') OR (KATEGORI LIKE '%$keyword%')) ";
+            $where = $where." AND ( (a.KODE_AKUN LIKE '%$keyword%') OR (a.NAMA_AKUN LIKE '%$keyword%') OR (a.KATEGORI LIKE '%$keyword%')) ";
         }
 
         $sql = "
-        SELECT * FROM ak_kode_akuntansi
-        WHERE $where AND ID_KLIEN = $id_klien AND UNIT = '$unit'
+        SELECT a.*, b.NAMA_GRUP FROM ak_kode_akuntansi a 
+        LEFT JOIN ak_grup_kode_akun b ON a.KODE_GRUP = b.KODE_GRUP
+        WHERE $where 
         ORDER BY APPROVE ASC, ID DESC
         ";
 

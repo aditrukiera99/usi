@@ -18,6 +18,17 @@ class Master_model_m extends CI_Model
 		return $this->db->query($sql)->row();
 	}
 
+    function get_list_akun_bank(){
+        $sql = "
+        SELECT a.* FROM ak_kode_akuntansi a 
+        LEFT JOIN ak_grup_kode_akun b ON a.KODE_GRUP = b.KODE_GRUP
+        WHERE b.ID = 1
+        ORDER BY a.ID
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
 
 	function data_usaha($id_klien){
 		$sql = "
