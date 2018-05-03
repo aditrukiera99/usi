@@ -135,7 +135,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
 					<!-- <textarea rows="4" id="alamat_tagih" name="alamat_tagih" style="resize:none; height: 87px; width: 90%;"></textarea> -->
-					<textarea name="alamat_tagih" id="alamat_tagih"><?=$dt->ALAMAT_TUJUAN;?></textarea>
+					<textarea name="alamat_tagih" id="alamat_tagih"><?=$dt->ALAMAT;?></textarea>
 				</div>
 	
 				<script>
@@ -149,9 +149,9 @@ input[type=checkbox]
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. Invoice </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->NO_PO;?>" name="no_po" id="no_po" style="font-size: 15px;">
+				<input type="text" class="span12" value="<?=$dt->NO_INV;?>" name="no_po" id="no_po" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -187,87 +187,16 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?=$dt->KETERANGAN;?></textarea>
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?=$dt->MEMO;?></textarea>
 				</div>
 		</div> 
 	</div>
 
 </div>
 
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
-	<div class="span2">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. Pol </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->NO_POL;?>" name="no_pol" id="no_pol" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
 
 
-	<div class="span2">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Sopir </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->SOPIR;?>" name="sopir" id="sopir" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
 
-	<div class="span2">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Alat Angkut </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->ALAT_ANGKUT;?>" name="alat_angkut" id="alat_angkut" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-
-	<div class="span2">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Segel </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->SEGEL_ATAS;?>" name="segel_atas" id="segel_atas" style="font-size: 15px;">
-				<input type="hidden" class="span12" value="<?=$dt->ID;?>" name="id_pp" id="segel_atas" style="font-size: 15px;">
-				<input type="hidden" id="id_produk_1"  value="<?=$dt->ID;?>" name="id_pnj" style="background:#FFF;">
-			</div>
-		</div>
-	</div>
-
-	<!-- <div class="span2">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Segel Bawah </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->SEGEL_BAWAH;?>" name="segel_bawah" id="segel_bawah" style="font-size: 15px;">
-				
-			</div>
-		</div>
-	</div> -->
-</div>
-
-<div class="row-fluid" style="background: #F5EADA;">
-	<div class="span3" style="margin-left: 10px;">
-		<div class="control-group">
-		    <label class="control-label"> <b style="font-size: 14px;"> Marketing </b> </label>
-			<div class="controls">
-				<select  data-placeholder="Pilih ..." class="chzn-select" tabindex="2" id="broker" name="broker" style="width: 100%;">
-						<option value=""> Tanpa Broker </option>
-						<?PHP foreach ($get_broker as $key => $row) { ?>
-						<?PHP 
-						$sel = "";
-						if($det->BROKER == $akun_all->row) { 
-							$sel = "selected";
-						} else {
-							$sel = "";
-						}
-						?>
-						<option value="<?=$row->NAMA;?>"> <?=$row->NAMA;?></option>
-						<?PHP } ?>				
-				</select>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 <div class="row-fluid" id="view_data">
@@ -287,10 +216,7 @@ input[type=checkbox]
 							<th align="center" style="width: 25%;"> Kode Akun & Supplier </th>
 							<th align="center" style="width: 20%;"> Produk / Item </th>
 							<th align="center"> Volume </th>
-							<th align="center"> Modal </th>
-							<th align="center"> Harga Jual </th>
-							<th align="center"> Harga Invoice </th>
-							<th align="center"> Pajak  </th>
+							<th align="center"> Harga Satuan </th>
 							<th align="center"> # </th>
 						</tr>
 					</thead>
@@ -358,36 +284,11 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->MODAL;?>" name="harga_modal[]" id="harga_modal_<?=$key+1;?>">
+									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->HARGA_SATUAN;?>" name="harga_modal[]" id="harga_modal_<?=$key+1;?>">
 								</div>
 							</td>
 
-							<td align="center" style="vertical-align:middle;"> 
-								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->HARGA_JUAL;?>" name="harga_jual[]" id="harga_jual_<?=$key+1;?>">
-								</div>
-							</td>
-
-							<td align="center" style="vertical-align:middle;"> 
-								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->HARGA_INVOICE;?>" name="harga_invoice[]" id="harga_invoice_<?=$key+1;?>">
-								</div>
-							</td>
-
-							<td align="center" style="vertical-align:middle;"> 
-								<div class="span12">
-								<div class="controls">
-									<select data-placeholder="Tax..." class="" tabindex="2" name="tax[]" id="tax_<?=$key+1;?>" style="width:100px;" onchange="hitung_total(<?=$key+1;?>);">
-										<option <?PHP if($row->PAJAK == "") { echo "selected";}?> value="">Tidak</option>
-										<option <?PHP if($row->PAJAK == "PPN") { echo "selected";}?> value="PPN">PPN</option>
-									</select>
-
-									<input readonly onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%; background:#FFF;" type="hidden"  value="<?=$row->CASHBACK;?>" name="cashback[]" id="cashback_<?=$key+1;?>">
-
-									<input readonly onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%; background:#FFF;" type="hidden"  value="<?=$row->PROFIT;?>" name="profit[]" id="profit_<?=$key+1;?>">
-								</div>
-								</div>
-							</td>
+							
 
 							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
 								<button  style="width: 100%;" onclick="hapus_row(<?=$key+1;?>);" type="button" class="btn btn-danger"> Hapus </button>

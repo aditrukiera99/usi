@@ -67,7 +67,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_data_trx_detail_a($id){
         $sql = "
-        SELECT * FROM ak_penjualan_new_detail 
+        SELECT * FROM ak_penjualan_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
        
