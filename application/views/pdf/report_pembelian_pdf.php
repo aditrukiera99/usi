@@ -1,162 +1,136 @@
-<?PHP  
-ob_start(); 
-$base_url2 =  ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?  "https" : "http");
-$base_url2 .=  "://".$_SERVER['HTTP_HOST'];
-$base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-?>
-
-<style>
-.gridth {
-    vertical-align: middle;
-    color : #FFF;
-    text-align: center;
-    height: 30px;
-    font-size: 15px;
-}
-.gridtd {
-    vertical-align: middle;
-    font-size: 14px;
-    height: 15px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-.grid {
-    border-collapse: collapse;
-}
-
-table th {
-  border: 1px solid black;
-}
-
-.grid td{
-  border-left: 1px solid black;
-  border-right: : 1px solid black;
-}
-
-.kolom_header{
-    height: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 14px;
-}
-
-</style>
-
 <?PHP 
-    $voc_now = "";
-    $old_voc = "";
+ob_start(); 
 ?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style type="text/css" media="print">
+    @page {
+        size: landscape;
+    }
+    .body {
+      margin:.5in 13.6pt 0in 13.6pt;
+      mso-header-margin:.5in;
+      mso-footer-margin:.5in;
+      mso-paper-source:4;
+    }
+    .one-third{
+      width: 28%;
+      float: left;
+      margin: 2% 0 3% 4%;
+      text-align: center;
+    }
+</style>
+  <body class="body">
 
-<table align="center">
-    <tr>
-        <td align="center">
-            <h4>
-                LAPORAN PEMBELIAN <br>
-                <?=strtoupper($judul);?>   
-            </h4>
-        </td>
-    </tr>
-</table>
+    <table align="left" style="margin-left: 15px;">
+        <tr>
+            <td align="left" style="line-height: 7px;">
+                <h3 style="font-weight: bold;">
+                    PT. UNITED SHIPPING INDONESIA
+                </h3>
+                <font style="font-size: 9px;">GONDOSULI NO. 08 RT 005 RW 006, KETABANG, GENTENG, SURABAYA</font>
+            </td>
+        </tr>
+    </table>
 
+    <table align="center" style="width:100%;">
+        <tr>
+            <td align="center" style="line-height: 7px;">
+                <h3>
+                    Laporan Pembelian Produk  <br>                
+                </h3>
+                <b>TANGGAL : <?=$judul;?></b>
+            </td>
+        </tr>
+    </table>
 
-<table align="center" class="grid">
-    <tr>
-        <th style='text-align:center; width:10%;' class='kolom_header'> TANGGAL </th>
-        <th style='text-align:center; width:10%;' class='kolom_header'> NO BUKTI </th>
-        <th style='text-align:center; width:20%;' class='kolom_header'> SUPPLIER / TOKO </th>
-        <th style='text-align:center; width:10%;' class='kolom_header'> ITEM </th>
-        <th style='text-align:center; width:10%;' class='kolom_header'> HARGA </th>
-        <th style='text-align:center; width:10%;' class='kolom_header'> VOLUME </th>
-        <th style='text-align:center; width:10%;' class='kolom_header'> TOTAL </th>
-    </tr>
-    <?PHP 
-    $no = 0;
-    echo "<tr>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-    echo "</tr>" ;
+    
 
-    echo "<tr>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='text-align:center;'></td>" ;
-    echo "</tr>" ;
+  <br>
+  <table style="border: 1px solid black; border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;" align="center">
+      <tbody>
+        <tr style="font-weight: bold;">
+          <td rowspan="2" style="width: 5%; border: 1px solid black;">No</td>
+          <td rowspan="2" style="width: 15%; border: 1px solid black;">Nama Item <br> Nama Supplier</td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Kode Item <br> Kode Supplier </td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Tanggal</td>
+          <td rowspan="2" style="width: 10%; border: 1px solid black;">No Faktur</td>
+          <td rowspan="2" style="width: 10%; border: 1px solid black;">No Reff</td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Jml</td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Sat</td>
+          <td style="border: 1px solid black;">Jml x Harga</td>
+          <td style="border: 1px solid black;">Jml x Diskon</td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Total</td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Kurs</td>
+          <td rowspan="2" style="width: 7%; border: 1px solid black;">Total IDR</td>
+        </tr>
+        <tr style="font-weight: bold;">
+          <td style="border: 1px solid black;">Harga @</td>
+          <td style="border: 1px solid black;">Diskon @</td>
+        </tr>
+        <?PHP 
+        $no = 0;
+        $tot_harga = 0;
+        $subtotal = 0;
+        foreach ($data as $key => $row) { 
+            $no++;
+        ?>
+        <tr style="color: blue;">
+          <td style="border: 1px solid black;"><?=$no;?></td>
+          <td style="border: 1px solid black; text-align: left;"><?=$row->NAMA_PRODUK;?></td>
+          <td style="border: 1px solid black;"><?=$row->KODE_PRODUK;?></td>
+          <td style="border: 1px solid black;" colspan="10"></td>
+        </tr>
 
-    $subtotal = 0;
-    $subvolume = 0;
+        <?PHP 
+        $dt_detail = $this->db->query(
+            "SELECT a.*, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_pembelian a
+             LEFT JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN 
+             WHERE b.ID_PRODUK = '".$row->ID."'
+        ")->result();
 
-    foreach ($data as $key => $row) {
-        $subtotal += $row->TOTAL;
-        $subvolume += $row->QTY;
-        $no++;   
+        foreach ($dt_detail as $key2 => $row_det) {
+
+            $tot_harga += $row_det->HARGA_SATUAN;
+            $subtotal += $row_det->TOTAL;
 
             echo "<tr>" ;
-                echo "<td class='gridtd' style='text-align:center;'>".$row->TGL_TRX."</td>" ;
-                echo "<td class='gridtd' style='text-align:center;'>".$row->NO_BUKTI."</td>" ;
-                echo "<td class='gridtd'>".$row->PELANGGAN."</td>" ;
-                echo "<td class='gridtd' style='text-align:left;'>".$row->NAMA_PRODUK."</td>" ; 
-                echo "<td class='gridtd' style='text-align:right;'>".format_akuntansi($row->HARGA_SATUAN)."</td>" ; 
-                echo "<td class='gridtd' style='text-align:center;'>".$row->QTY." ".$row->SATUAN."</td>" ; 
-                echo "<td class='gridtd' style='text-align:right;'>".format_akuntansi($row->TOTAL)."</td>" ; 
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'></td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->PELANGGAN."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'></td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->TGL_TRX."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->NO_PO."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->NO_SO."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".$row_det->QTY."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".$row_det->SATUAN."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".number_format($row_det->HARGA_SATUAN)."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>0.00</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".number_format($row_det->TOTAL)."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>1.00</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".number_format($row_det->TOTAL)."</td>" ;
             echo "</tr>" ; 
-
-        
-
-    }
-    ?>
-
-    <?PHP 
-    echo "<tr>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-        echo "<td class='gridtd' style='border: 1px solid #000 !important; text-align:center;'></td>" ;
-    echo "</tr>" ;
-    ?>
-
-    <tr>
-        <th style='text-align:center;' class='kolom_header' colspan="5">TOTAL PEMBELIAN </th>
-        <th style='text-align:right;' class='kolom_header'><b><?=format_akuntansi($subvolume);?></b></th>
-        <th style='text-align:right;' class='kolom_header'><b><?=format_akuntansi($subtotal);?></b></th>
-    </tr>
-</table>
-
-<?PHP if(count($data) == 0){ ?>
-
-<table align="center" class="grid" style="width:100%;">
-    <tr>
-        <td class='gridtd' align="center"> <b> Tidak ada data yang dapat ditampilkan </b> </td>
-    </tr>
-</table>
-
-<?PHP } ?>
-
-<?PHP 
-    function format_akuntansi($value)
-    {
-        if($value > 0){
-            $value = number_format($value, 2);
-        } else if($value == 0){
-            $value = 0;
-        } else {
-            $value = number_format(abs($value), 2);
         }
 
-        return $value;
-    }
-?>
+        ?>
+        <?PHP } ?>
+        <tr>
+          <td colspan="6" style="font-weight: bold; border: 1px solid black;">TOTAL</td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;"></td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;"></td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;"><?=number_format($tot_harga);?></td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;">0.00</td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;"><?=number_format($subtotal);?></td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;"></td>
+          <td style="text-align: right; font-weight: bold; border: 1px solid black;"><?=number_format($subtotal);?></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
 
 <?PHP
     $width_custom = 14;
@@ -165,10 +139,10 @@ table th {
     $content = ob_get_clean();
     $width_in_inches = $width_custom;
     $height_in_inches = $height_custom;
-    $width_in_mm = $width_in_inches * 17.4;
-    $height_in_mm = $height_in_inches * 22.4;
+    $width_in_mm = $width_in_inches * 26.4;
+    $height_in_mm = $height_in_inches * 26.4;
     $html2pdf = new HTML2PDF('L','A4','en');
-    $html2pdf->pdf->SetTitle('Laporan Pembelian');
+    $html2pdf->pdf->SetTitle('Laporan');
     $html2pdf->WriteHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output('Laporan_pembelian.pdf');
+    $html2pdf->Output('Laporan_pembelian_produk.pdf');
 ?>

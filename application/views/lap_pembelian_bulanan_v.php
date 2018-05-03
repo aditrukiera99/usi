@@ -1,14 +1,14 @@
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-book"></i> Laporan Pembelian</h3>
+			<h3 class="page-header"> <i class="icon-book"></i> Laporan Pembelian Bulanan</h3>
 
 
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#"> Laporan </a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Laporan Pembelian</li>
+			<li class="active"> Laporan Pembelian Bulanan</li>
 		</ul>
 	</div>
 </div>
@@ -41,7 +41,7 @@
 						</div>
 					</div> -->
 
-					<div class="control-group harian">
+					<!-- <div class="control-group harian">
 						<label class="control-label"> <b style="font-size: 14px;"> Tanggal </b> </label>
 						<div class="controls">
 							<div class="input-prepend">
@@ -49,7 +49,7 @@
 								<input type="text" name="tgl" id="reservation" value=""/>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- <div class="control-group bulanan" style="display:none;">
 						<label class="control-label"> <b style="font-size: 14px;"> Bulan </b> </label>
@@ -72,7 +72,7 @@
 						</div>
 					</div> -->
 
-					<!-- <div class="control-group bulanan" style="display:none;">
+					<div class="control-group bulanan">
 						<label class="control-label"> <b style="font-size: 14px;"> Tahun </b> </label>
 						<div class="controls">
 							<select class="span4" name="tahun">
@@ -84,7 +84,7 @@
 							</select>
 						</div>
 
-					</div> -->
+					</div>
 
 					<div class="form-actions">
 						<input type="submit" value="Cetak PDF" name="pdf" class="btn btn-danger">

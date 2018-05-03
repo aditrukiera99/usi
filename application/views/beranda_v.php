@@ -441,11 +441,23 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i>Laporan Pembelian</a>
                   <div class="dropdown-menu">
                     <ul>
-                      <li><a href="page-403.html"><i class=" icon-file-alt"></i> 403 Error Page</a></li>
-                      <li><a href="page-404.html"><i class=" icon-file-alt"></i> 404 Error Page</a></li>
-                      <li><a href="page-405.html"><i class=" icon-file-alt"></i> 405 Error Page</a></li>
-                      <li><a href="page-500.html"><i class=" icon-file-alt"></i> 500 Error Page</a></li>
-                      <li><a href="page-503.html"><i class=" icon-file-alt"></i> 503 Error Page</a></li>
+                      <li><a href="<?=base_url();?>lap_pembelian_c"><i class=" icon-file-alt"></i> Laporan Pembelian</a></li>
+                      <li><a href="<?=base_url();?>lap_pembelian_bulanan_c"><i class=" icon-file-alt"></i> Laporan Pembelian Bulanan</a></li>
+                      <li><a href="<?=base_url();?>lap_summary_pembelian_c"><i class=" icon-file-alt"></i> Laporan Summary Pembelian</a></li>
+                      <li><a href="<?=base_url();?>lap_detail_pembelian"><i class=" icon-file-alt"></i> Laporan Detail Pembelian</a></li>
+                      <li><a href="<?=base_url();?>lap_pembelian_produk_supp_c"><i class=" icon-file-alt"></i> Laporan Pembelian Produk Supplier</a></li>
+                      <li><a href="<?=base_url();?>lap_pembelian_produk_supp_bulanan_c"><i class=" icon-file-alt"></i> Laporan Pembelian Produk Supplier Bulanan</a></li>
+                      <li><a href="<?=base_url();?>lap_history_harga_c"><i class=" icon-file-alt"></i> History Harga Pembelian</a></li>
+                      <li><a href="<?=base_url();?>lap_sum_um_beli_c"><i class=" icon-file-alt"></i> Summary Uang Muka Pembelian</a></li>
+                      <li><a href="<?=base_url();?>lap_sum_po_c"><i class=" icon-file-alt"></i> Summary Order Pembelian (PO)</a></li>
+                      <li><a href="<?=base_url();?>lap_detail_po_c"><i class=" icon-file-alt"></i> Laporan Detail Order Pembelian (PO)</a></li>
+                      <li><a href="<?=base_url();?>lap_po_outstanding_c"><i class=" icon-file-alt"></i> PO Outstanding</a></li>
+                      <li><a href="<?=base_url();?>lap_hutang_jatuh_tempo_c"><i class=" icon-file-alt"></i> Hutang Jatuh Tempo</a></li>
+                      <li><a href="<?=base_url();?>lap_sum_hutang_dagang_c"><i class=" icon-file-alt"></i> Summary Hutang Dagang</a></li>
+                      <li><a href="<?=base_url();?>lap_kartu_hutang_c"><i class=" icon-file-alt"></i> Kartu Hutang</a></li>
+                      <li><a href="<?=base_url();?>lap_sisa_hutang_dagang_c"><i class=" icon-file-alt"></i> Sisa Hutang Dagang</a></li>
+                      <li><a href="<?=base_url();?>lap_umur_hutang_c"><i class=" icon-file-alt"></i> Laporan Umur hutang</a></li>
+                      <li><a href="<?=base_url();?>lap_daftar_supplier_c"><i class=" icon-file-alt"></i> Daftar Supplier</a></li>
                     </ul>
                   </div>
                   </li>
