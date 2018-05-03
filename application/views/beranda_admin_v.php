@@ -667,7 +667,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               <ul>
                  <!-- <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li> -->
                  <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Sales Order </a></li>
-                 <li><a href="<?=base_url();?>delivery_order_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
+                 <li><a href="<?=base_url();?>delivery_order_new_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
                  <li><a href="<?=base_url();?>surat_jalan_c"><i class="icon-caret-right "></i> Surat Jalan </a></li>
                  <li><a href="<?=base_url();?>invoice_c"><i class="icon-caret-right "></i> Invoice </a></li>
                  <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li>
@@ -1058,7 +1058,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     </li>
 
                     <li <?PHP if($view == "delivery_order"){ echo "class='active'"; } ?>>
-                      <a href="<?=base_url();?>delivery_order_c">
+                      <a href="<?=base_url();?>delivery_order_new_c">
                         <i class="icon-caret-right"></i> Delivery Order <span> Mencetak delivery order </span>
                       </a>
                     </li>
@@ -1368,6 +1368,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                 </form>
             </div>
         </div>
+
+
 
         <!-- PENGAJUAN -->
         <!--  
