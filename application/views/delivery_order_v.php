@@ -74,7 +74,7 @@
 							<tr>
 								<td align="center">
 									<a target="blank" href="<?=base_url();?>delivery_order_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
-									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
+									<!-- <a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>	 -->					
 									<!-- <button class="btn btn-warning" onclick="$('#tgl').val('<?=$row->TGL_DO;?>'); $('#id_lapor').val(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_edit" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></button>						 -->
 								</td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
