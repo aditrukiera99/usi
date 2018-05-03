@@ -159,27 +159,22 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$operator      = $user->NAMA;
 			
 
-			$this->model->ubah_penjualan_detail($id,$no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator);
+			// $this->model->ubah_penjualan_detail($id,$no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator);
 
-			$id_penjualan  = $this->input->post('id_pnj');
+			$id_penjualan   = $this->input->post('id_pnj');
 			$id_produk 	    = $this->input->post('produk');
 			$kode_akun 	 	= $this->input->post('kode_akun');
 			$nama_produk 	= $this->input->post('nama_produk');
 			$qty 	        = $this->input->post('qty');
 
 			$harga_modal    = $this->input->post('harga_modal');
-			$harga_jual     = $this->input->post('harga_jual');
-			$harga_invoice  = $this->input->post('harga_invoice');
-			$tax 	        = $this->input->post('tax');
-			$cashback 	    = $this->input->post('cashback');
-			$profit 	    = $this->input->post('profit');
 			$supplier 	    = $this->input->post('supplier');
 			
 
-			$this->model->hapus_detail_trx($id);
+			
 
 			foreach ($id_produk as $key => $val) {
-				$this->model->ubah_detail_penjualan($id_penjualan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $harga_jual[$key], $harga_invoice[$key], $tax[$key], $cashback[$key], $profit[$key], $supplier[$key]);
+				$this->model->ubah_detail_penjualan($no_trx, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key]);
 			}
 
 			$this->master_model_m->simpan_log($id_user, "Mengubah transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");

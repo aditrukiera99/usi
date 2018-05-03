@@ -714,43 +714,14 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function ubah_detail_penjualan($id_penjualan, $id_produk, $kode_akun, $nama_produk, $qty, $harga_modal, $harga_jual, $harga_invoice, $tax, $cashback, $profit, $supplier){
-        $qty            = str_replace(',', '', $qty);
+    function ubah_detail_penjualan($id_penjualan, $id_produk, $kode_akun, $nama_produk, $qty, $harga_modal){
+       
         $harga_modal    = str_replace(',', '', $harga_modal);
-        $harga_jual     = str_replace(',', '', $harga_jual);
-        $harga_invoice  = str_replace(',', '', $harga_invoice);
+       
 
         $sql = "
-        INSERT INTO ak_penjualan_new_detail 
-        (
-            ID_PENJUALAN,
-            KODE_AKUN,
-            ID_PRODUK,
-            NAMA_PRODUK,
-            QTY,
-            MODAL,
-            HARGA_JUAL,
-            HARGA_INVOICE,
-            PAJAK,
-            CASHBACK,
-            PROFIT,
-            ID_SUPPLIER
-        )
-        VALUES 
-        (
-        '$id_penjualan',
-        '$kode_akun', 
-        '$id_produk', 
-        '$nama_produk', 
-        '$qty', 
-        '$harga_modal', 
-        '$harga_jual', 
-        '$harga_invoice', 
-        '$tax', 
-        '$cashback', 
-        '$profit',
-        '$supplier'
-        )
+        UPDATE ak_penjualan_detail SET HARGA_SATUAN = $harga_modal 
+        WHERE ID_PENJUALAN = $id_penjualan
         ";
 
          $this->db->query($sql);
@@ -783,7 +754,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function hapus_detail_trx($id){
         $sql = "
-        DELETE FROM ak_penjualan_new_detail WHERE ID_PENJUALAN = '$id'
+        DELETE FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$id'
         ";
 
         $this->db->query($sql);

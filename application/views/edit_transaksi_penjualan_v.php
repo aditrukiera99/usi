@@ -127,7 +127,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
-				<input type="text" class="span6" value="<?=$dt->NO_BUKTI;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="text" class="span6" value="<?=$dt->ID;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
 			</div>
 		</div>
 
