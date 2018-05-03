@@ -366,7 +366,7 @@ class Delivery_order_new_c extends CI_Controller {
 			$this->model->update_tanggal_penerimaan($id);
 		}
 
-		$dt = $this->model->get_data_trx($id);
+		$dt = $this->model->get_data_do($id);
 		$dt_det = $this->model->get_data_trx_detail($id);
 		$dt_det_cust = $this->model->get_data_cust_detail($id);
 

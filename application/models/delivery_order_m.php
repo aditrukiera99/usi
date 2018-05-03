@@ -26,6 +26,15 @@ class Delivery_order_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_data_do($id){
+        $sql = "
+        SELECT * FROM ak_penjualan_new a
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_data_trx_detail($id){
         $sql = "
         SELECT * FROM ak_penjualan_new_detail 
