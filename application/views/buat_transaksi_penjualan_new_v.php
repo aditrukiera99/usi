@@ -15,6 +15,26 @@ if($no_pem->NEXT != "" || $no_pem->NEXT != null ){
 	$no_pembeli = $no_pem->NEXT+1;
 }
 
+$no_lpbe = 1;
+if($no_lpb->NEXT != "" || $no_lpb->NEXT != null ){
+	$no_lpbe = $no_lpb->NEXT+1;
+}
+
+$no_deo = 1;
+if($no_do->NEXT != "" || $no_do->NEXT != null ){
+	$no_deo = $no_do->NEXT+1;
+}
+
+$no_inv = 1;
+if($inv->NEXT != "" || $inv->NEXT != null ){
+	$no_inv = $inv->NEXT+1;
+}
+
+$no_surat_jalan = 1;
+if($sj->NEXT != "" || $sj->NEXT != null ){
+	$no_surat_jalan = $sj->NEXT+1;
+}
+
 $base_url2 =  ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?  "https" : "http");
 $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
 $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
@@ -167,6 +187,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="<?=$no_pembeli;?>" name="no_po" id="no_po" style="font-size: 15px;">
+				<input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -196,7 +217,9 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$no_bukti_real;?>" name="no_do" id="no_do" style="font-size: 15px;">
+				<input type="text" class="span10" value="<?=$no_deo;?>" name="no_do" id="no_do" style="font-size: 15px;">
+				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_inv" id="no_do" style="font-size: 15px;">
+				<input type="hidden" class="span10" value="<?=$no_surat_jalan;?>" name="no_sj" id="no_do" style="font-size: 15px;">
 			</div>
 		</div>
 
