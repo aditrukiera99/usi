@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Lap_pelunasan_kas_bank_c extends CI_Controller {
+class Lap_pembayaran_ke_supplier_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -35,16 +35,16 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 		//$dt = $this->model->get_no_akun($keyword, $id_klien);
 
 		$data =  array(
-			'page' => "lap_pelunasan_kas_bank_v", 
-			'title' => "Laporan Kas/Bank Rinci", 
+			'page' => "lap_pembayaran_ke_supplier_v", 
+			'title' => "Laporan Pembayaran Ke Supplier", 
 			'msg' => "", 
 			'master' => "laporan", 
-			'view' => "lap_pelunasan_kas_bank_v", 
+			'view' => "lap_pembayaran_ke_supplier_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
 			'get_list_akun_bank' => $get_list_akun_bank, 
-			'post_url' => 'lap_pelunasan_kas_bank_c', 
+			'post_url' => 'lap_pembayaran_ke_supplier_c', 
 		);
 		
 		$this->load->view('beranda_v', $data);
@@ -58,7 +58,7 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit   = $this->input->post('unit');
-		$view = "pdf/report_pelunasan_kas_bank_pdf";
+		$view = "pdf/report_pembayaran_ke_supplier_pdf";
 		$dt = "";
 		$judul = "";
 
@@ -79,7 +79,7 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 			$sql = "
 					SELECT a.TGL, a.NO_VOUCHER, a.URAIAN, a.KODE_AKUN, a.KONTAK, c.NAMA_AKUN, (a.DEBET + a.KREDIT) AS TOTAL FROM ak_input_voucher a 
 					JOIN ak_kode_akuntansi c ON a.KODE_AKUN = c.KODE_AKUN
-					WHERE a.TIPE = 'BKM'
+					WHERE a.TIPE = 'BKK' AND a.ID_KONTAK > 0
 					AND STR_TO_DATE(a.TGL, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
 			      ";
 			$dt = $this->db->query($sql)->result();
@@ -94,7 +94,7 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 			$sql = "
 					SELECT a.TGL, a.NO_VOUCHER, a.URAIAN, a.KODE_AKUN, a.KONTAK, c.NAMA_AKUN, (a.DEBET + a.KREDIT) AS TOTAL FROM ak_input_voucher a 
 					JOIN ak_kode_akuntansi c ON a.KODE_AKUN = c.KODE_AKUN
-					WHERE a.TIPE = 'BKM'
+					WHERE a.TIPE = 'BKK' AND a.ID_KONTAK > 0
 					AND a.TGL LIKE '%-$bulan-$tahun%'
 			      ";
 			$dt = $this->db->query($sql)->result();
@@ -123,7 +123,7 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit   = $this->input->post('unit');
-		$view = "xls/report_pelunasan_kas_bank_xls";
+		$view = "xls/report_pembayaran_ke_supplier_xls";
 		$dt = "";
 		$judul = "";
 
@@ -144,7 +144,7 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 			$sql = "
 					SELECT a.TGL, a.NO_VOUCHER, a.URAIAN, a.KODE_AKUN, a.KONTAK, c.NAMA_AKUN, (a.DEBET + a.KREDIT) AS TOTAL FROM ak_input_voucher a 
 					JOIN ak_kode_akuntansi c ON a.KODE_AKUN = c.KODE_AKUN
-					WHERE a.TIPE = 'BKM'
+					WHERE a.TIPE = 'BKK' AND a.ID_KONTAK > 0
 					AND STR_TO_DATE(a.TGL, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
 			      ";
 			$dt = $this->db->query($sql)->result();
@@ -159,7 +159,7 @@ class Lap_pelunasan_kas_bank_c extends CI_Controller {
 			$sql = "
 					SELECT a.TGL, a.NO_VOUCHER, a.URAIAN, a.KODE_AKUN, a.KONTAK, c.NAMA_AKUN, (a.DEBET + a.KREDIT) AS TOTAL FROM ak_input_voucher a 
 					JOIN ak_kode_akuntansi c ON a.KODE_AKUN = c.KODE_AKUN
-					WHERE a.TIPE = 'BKM'
+					WHERE a.TIPE = 'BKK' AND a.ID_KONTAK > 0
 					AND a.TGL LIKE '%-$bulan-$tahun%'
 			      ";
 			$dt = $this->db->query($sql)->result();

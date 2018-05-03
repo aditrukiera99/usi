@@ -5,6 +5,12 @@ $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
 $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 ?>
 
+<?PHP 
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Content-Type: application/vnd.ms-excel");
+header("Content-Disposition: attachment; filename=Laporan_pembayaran_ke_supplier.xls");
+?>
+
 <style>
 .gridth {
     vertical-align: middle;
@@ -49,7 +55,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     <tr>
         <td align="center" style="line-height: 7px;">
             <h3>
-                Laporan Pelunasan Kas / Bank  <br>                
+                Laporan Pembayaran Ke Supplier  <br>                
             </h3>
             <?=$judul;?>
         </td>
@@ -65,7 +71,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     <tr>
         <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> TANGGAL </th>
         <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> NO VOUCHER </th>
-        <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> CUSTOMER  </th>
+        <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> SUPPLIER  </th>
         <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> KAS/BANK  </th>
         <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> KETERANGAN  </th>
         <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> TOTAL  </th>
@@ -120,16 +126,5 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 ?>
 
 <?PHP
-    $width_custom = 14;
-    $height_custom = 8.50;
-    
-    $content = ob_get_clean();
-    $width_in_inches = $width_custom;
-    $height_in_inches = $height_custom;
-    $width_in_mm = $width_in_inches * 26.4;
-    $height_in_mm = $height_in_inches * 26.4;
-    $html2pdf = new HTML2PDF('L','A4','en');
-    $html2pdf->pdf->SetTitle('Laporan Kas Bank Rinci');
-    $html2pdf->WriteHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output('Laporan_kas_bank_rinci.pdf');
+    exit();
 ?>
