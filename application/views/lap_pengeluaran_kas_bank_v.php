@@ -1,7 +1,7 @@
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-book"></i> Laporan Penerimaan Kas/Bank </h3>
+			<h3 class="page-header"> <i class="icon-book"></i> Laporan Pengeluaran Kas/Bank </h3>
 
 
 		</div>
@@ -9,7 +9,7 @@
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#"> Laporan </a><span class="divider"><i class="icon-angle-right"></i></span></li>
 			<li><a href="#"> Laporan Keuangan </a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Laporan Penerimaan Kas/Bank </li>
+			<li class="active"> Laporan Pengeluaran Kas/Bank </li>
 		</ul>
 	</div>
 </div>

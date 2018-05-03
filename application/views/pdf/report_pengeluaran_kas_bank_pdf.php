@@ -49,7 +49,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     <tr>
         <td align="center" style="line-height: 7px;">
             <h3>
-                Laporan Penerimaan Kas / Bank  <br>                
+                Laporan Pengeluaran Kas / Bank  <br>                
             </h3>
             <?=$judul;?>
         </td>
@@ -90,14 +90,14 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
         if($jns_laporan == "rinci"){
         $dt_detail = $this->db->query(" SELECT a.*, b.NAMA_AKUN FROM ak_input_voucher_detail a 
                                         LEFT JOIN ak_kode_akuntansi b ON a.KODE_AKUN = b.KODE_AKUN
-                                        WHERE a.NO_VOUCHER_DETAIL = '".$row->NO_VOUCHER."' AND KREDIT > 0
+                                        WHERE a.NO_VOUCHER_DETAIL = '".$row->NO_VOUCHER."' AND DEBET > 0
                                     ")->result();
         foreach ($dt_detail as $key_2 => $row_det) {
         echo "<tr>" ;
             echo "<td class='gridtd' style='font-size:10px; text-align:left;'>".$row_det->NAMA_AKUN."</td>" ;
             echo "<td class='gridtd' style='font-size:10px; text-align:left;'>".$row_det->KODE_AKUN."</td>" ;
             echo "<td class='gridtd' style='font-size:10px; text-align:left;' colspan='2'>".$row_det->KET."</td>" ;
-            echo "<td class='gridtd' style='font-size:10px; text-align:right;'>".format_akuntansi($row_det->KREDIT)."</td>" ;
+            echo "<td class='gridtd' style='font-size:10px; text-align:right;'>".format_akuntansi($row_det->DEBET)."</td>" ;
         echo "</tr>" ; 
         }
         }
@@ -138,7 +138,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     $width_in_mm = $width_in_inches * 26.4;
     $height_in_mm = $height_in_inches * 26.4;
     $html2pdf = new HTML2PDF('L','A4','en');
-    $html2pdf->pdf->SetTitle('Laporan Penerimaan Kas/Bank');
+    $html2pdf->pdf->SetTitle('Laporan Pengeluaran Kas/Bank');
     $html2pdf->WriteHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output('Laporan_penerimaan_kas_bank.pdf');
+    $html2pdf->Output('Laporan_pengeluaran_kas_bank.pdf');
 ?>
