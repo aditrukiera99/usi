@@ -49,7 +49,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     <tr>
         <td align="center" style="line-height: 7px;">
             <h3>
-                Laporan Pelunasan Kas / Bank  <br>                
+                Laporan Penerimaan Kas / Bank  <br>                
             </h3>
             <?=$judul;?>
         </td>
@@ -63,18 +63,14 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
         <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' colspan="7">  </th>
     </tr>
     <tr>
-        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> TANGGAL </th>
-        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> NO VOUCHER </th>
-        <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> CUSTOMER  </th>
-        <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> KAS/BANK  </th>
-        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> KETERANGAN  </th>
-        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> TOTAL  </th>
-        <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header' colspan="2"> BG/CHEQUE  </th>
-        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header' rowspan="2"> STATUS  </th>
-    </tr>
-    <tr>
-        <th style='vertical-align: middle; text-align:center;' class='kolom_header'> NO </th>
-        <th style='vertical-align: middle; text-align:center;' class='kolom_header'> TGL. JTEMPO </th>
+        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header'> TANGGAL </th>
+        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header'> NO TRANSAKSI </th>
+        <th style='width: 20%;vertical-align: middle; text-align:center;' class='kolom_header'> KAS/BANK  </th>
+        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header'> KETERANGAN  </th>
+        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header'> TOTAL  </th>
+        <th style='width: 15%;vertical-align: middle; text-align:center;' class='kolom_header'> NO CHEQUE  </th>
+        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header'> JATUH TEMPO  </th>
+        <th style='width: 10%;vertical-align: middle; text-align:center;' class='kolom_header'> STATUS  </th>
     </tr>
     <?PHP 
 
@@ -83,7 +79,6 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
         echo "<tr>" ;
             echo "<td class='gridtd' style='text-align:right;'>".$row->TGL."</td>" ;
             echo "<td class='gridtd' style='text-align:left;'>".$row->NO_VOUCHER."</td>" ;
-            echo "<td class='gridtd' style='text-align:left;'>".$row->KONTAK."</td>" ;
             echo "<td class='gridtd' style='text-align:left;'>".$row->NAMA_AKUN."</td>" ;
             echo "<td class='gridtd' style='text-align:left;'></td>" ;
             echo "<td class='gridtd' style='text-align:right;'>".format_akuntansi($row->TOTAL)."</td>" ;

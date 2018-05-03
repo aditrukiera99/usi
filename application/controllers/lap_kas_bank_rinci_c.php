@@ -74,7 +74,7 @@ class Lap_kas_bank_rinci_c extends CI_Controller {
 			$tgl = explode(' sampai ', $tgl_full);
 			$tgl_awal = $tgl[0];
 			$tgl_akhir = $tgl[1];
-			$judul = "TANGGAL $tgl_awal s/d $tgl_akhir";
+			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 			$judul_2 = "HARIAN";
 
 			$sql_sa = "
@@ -192,7 +192,7 @@ class Lap_kas_bank_rinci_c extends CI_Controller {
 			$tgl = explode(' sampai ', $tgl_full);
 			$tgl_awal = $tgl[0];
 			$tgl_akhir = $tgl[1];
-			$judul = "TANGGAL $tgl_awal s/d $tgl_akhir";
+			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 			$judul_2 = "HARIAN";
 
 			$sql_sa = "
