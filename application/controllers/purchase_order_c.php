@@ -36,38 +36,34 @@ class Purchase_order_c extends CI_Controller {
 			$id_pelanggan  = $this->input->post('pelanggan_sel');
 			$pelanggan     = $this->input->post('pelanggan');
 			$alamat_tagih  = $this->input->post('alamat_tagih');
-			$kota_tujuan   = $this->input->post('kota_tujuan');
 			$no_po         = $this->input->post('no_po');
-			$no_do         = $this->input->post('no_do');
-			$tgl_trx 	   = $this->input->post('tgl_trx');
-			$keterangan    = $this->input->post('memo_lunas');
-			$jatuh_tempo   = $this->input->post('jatuh_tempo');
-			$no_pol        = $this->input->post('no_pol');
-			$sopir 		   = $this->input->post('sopir');
-			$alat_angkut   = $this->input->post('alat_angkut');
-			$segel_atas    = $this->input->post('segel_atas');
-			$segel_bawah   = $this->input->post('segel_bawah');
-			$broker        = $this->input->post('broker');
 
-			$atas_nama        = $this->input->post('atas_nama');
-			$transport        = $this->input->post('transport');
+			$tgl_trx 	    = $this->input->post('tgl_trx');
+			$keterangan     = $this->input->post('memo_lunas');
+			$sub_total      = $this->input->post('sub_total');
+			$pbbkb      	= $this->input->post('pbbkb');
+			$oat      		= $this->input->post('oat');
+			$qty_total      = $this->input->post('qty_total');
+			$ppn 			= 0.1 * $sub_total;
 
-			$temperatur    = $this->input->post('temperatur');
-			$density       = $this->input->post('density');
-			$flash_point   = $this->input->post('flash_point');
-			$water_content = $this->input->post('water_content');
+			$nilai_pbbkb = 0;
+			$nilai_qty_total = 0;
+			$ppn_oat = 0 ;
+			$nilai_pph = 0;
+			if ($pbbkb == 'ada') {
+			 	$nilai_pbbkb = 0.05 * $sub_total;
+			 	$nilai_pph = 0.003 * $sub_total;
+			 }
 
-			$tgl_ambil = $this->input->post('tgl_ambil');
-
-			$tgl_do        = $this->input->post('tgl_trx');
-			$tgl_sj        = $this->input->post('tgl_trx');
-			$tgl_inv       = $this->input->post('tgl_trx');
-			$tgl_kwi       = $this->input->post('tgl_trx');	
+			if ($oat == 'ada') {
+			 	$nilai_qty_total = 100 * $qty_total;
+			 	$ppn_oat = 0.1 * $nilai_qty_total;
+			} 
 			$operator      = $user->NAMA;
 
-			$this->model->simpan_penjualan($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator, $atas_nama, $transport, $tgl_ambil);
+			$this->model->simpan_pembelian_po($no_po, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx);
 
-			$id_penjualan = $this->db->insert_id(); 
+			$id_pembelian = $this->db->insert_id();
 
 			$this->model->save_next_nomor($id_klien, 'Pembelian', $no_trx2);
 
@@ -502,11 +498,11 @@ class Purchase_order_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (KODE_PRODUK LIKE '%$keyword%' OR NAMA_PRODUK LIKE '%$keyword%')";
+			$where = $where." AND (NO_BUKTI LIKE '%$keyword%' OR CUSTOMER LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_produk WHERE ID_KLIEN = $id_klien AND $where AND $where_unit AND APPROVE = 3
+		SELECT * FROM ak_penjualan WHERE $where AND STATUS_PO = '0'
 		LIMIT 10
 		";
 

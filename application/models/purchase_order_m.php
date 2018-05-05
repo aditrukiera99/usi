@@ -318,7 +318,7 @@ class Purchase_order_m extends CI_Model
 
     function get_produk_detail($id_produk){
         $sql = "
-        SELECT * FROM ak_produk WHERE ID = $id_produk
+        SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = $id_produk
         ";
 
         return $this->db->query($sql)->row();

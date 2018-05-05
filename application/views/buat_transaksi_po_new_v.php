@@ -108,16 +108,7 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
-		<div class="span3">
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> UP </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input type="text" id="atas_nama" name="atas_nama" style="background:#FFF; width: 90%" value="">>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		<div class="span3">
 			<div class="control-group">
 				<label class="control-label"> <b style="font-size: 14px;"> Divisi </b> </label>
@@ -137,7 +128,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
-				<input type="text" class="span8" value="<?=$no_bukti_real;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="text" class="span8" value="<?=$no_transaksi;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span8" value="<?=$no_transaksi;?>" name="no_trx2" id="no_trx2">
 				<input type="hidden" class="span8" value="<?=$no_bukti_real2;?>" name="no_do" id="no_trx2">
 			</div>
@@ -169,85 +160,7 @@ input[type=checkbox]
 				</div>
 		</div> 
 
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Pengambilan </b> </label>
-				<div class="controls">
-					<div id="datetimepicker2" class="input-append date ">
-						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_ambil" data-format="dd-MM-yyyy" type="text">
-						<span class="add-on ">
-							<i class="icon-calendar"></i>
-						</span>
-					</div>
-				</div>
-		</div>
 	</div>
-
-
-	<div class="span6">
-
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Transportir yang dipakai </b> </label>
-			<div class="controls">
-				<input type="text" class="span8" value="" name="transport" id="transport" style="font-size: 15px;">
-			</div>
-		</div>
-
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. Pol </b> </label>
-			<div class="controls">
-				<input type="text" class="span8" value="" name="no_pol" id="no_pol" style="font-size: 15px;">
-			</div>
-		</div>
-
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Sopir </b> </label>
-			<div class="controls">
-				<input type="text" class="span8" value="" name="sopir" id="sopir" style="font-size: 15px;">
-			</div>
-		</div>
-
-		<div class="control-group" style="margin-left: 10px; >
-			<label class="control-label"> <b style="font-size: 14px;"> Alat Angkut </b> </label>
-			<div class="controls">
-				<input type="text" class="span8" value="" name="alat_angkut" id="alat_angkut" style="font-size: 15px;">
-			</div>
-		</div>
-
-		<!-- <div class="control-group" style="margin-left: 10px; ">
-			<label class="control-label"> <b style="font-size: 14px;"> Segel Atas </b> </label>
-			<div class="controls">
-				<input type="text" class="span8" value="" name="segel_atas" id="segel_atas" style="font-size: 15px;">
-			</div>
-		</div> -->
-
-		<div class="control-group" style="margin-left: 10px; ">
-			<label class="control-label"> <b style="font-size: 14px;"> Segel</b> </label>
-			<div class="controls">
-				<input type="text" class="span8" value="" name="segel_bawah" id="segel_bawah" style="font-size: 15px;">
-			</div>
-		</div>
-
-		<table class="stat-table table table-hover" style="width: 90%;">
-			<thead>
-				<tr>
-					<th align="center" style="width: 5%;"> No </th>
-					<th align="center" style="width: 70%;"> Nama Customer </th>
-					<th align="center" style="width: 20%;"> # </th>
-				</tr>
-			</thead>
-			<tbody id="data_cust">
-				
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="3"><button style="margin-bottom: 15px;" onclick="tambah_data2();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button></td>
-				</tr>
-			</tfoot>
-		</table>
-
-
-	</div>
-
 
 </div>
 
@@ -283,9 +196,10 @@ input[type=checkbox]
 				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
-							<th align="center" style="width: 25%;"> Kode Akun </th>
-							<th align="center" style="width: 20%;"> Produk / Item </th>
-							<th align="center"> Volume </th>
+							
+							<th align="center" style="width: 20%;"> Nomor SO </th>
+							<th align="center"> Produk / Item </th>
+							<th align="center"> Qty </th>
 							<th align="center"> Harga Satuan </th>
 							<th align="center"> Jumlah </th>
 							<th align="center"> # </th>
@@ -293,25 +207,17 @@ input[type=checkbox]
 					</thead>
 					<tbody id="tes">
 						<tr id="tr_1" class="tr_utama">
-							<td align="left" style="vertical-align:middle;"> 
-								<div class="control-group">
-										<div class="controls">
-											<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun[]">
-												<option value="">Pilih ...</option>
-												<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
-												<?PHP 
-												$sel = "";
-												if('501.02.01' == $akun_all->KODE_AKUN) { 
-													$sel = "selected";
-												} else {
-													$sel = "";
-												}
-												?>
+							
 
-												<option <?=$sel;?> value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
-												<?PHP } ?>				
-											</select>
+							<td style="vertical-align:middle;"> 
+
+								<div class="control-group">
+									<div class="controls">
+										<div class="input-append">
+											<input type="text" id="nomor_so_1" name="nomor_so[]" readonly style="background:#FFF; width: 60%;">
+											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
+									</div>
 								</div>
 							</td>
 
@@ -320,10 +226,10 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 60%;">
+											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 80%;">
 											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
-											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
+											
 										</div>
 									</div>
 								</div>
@@ -344,7 +250,7 @@ input[type=checkbox]
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
 									<input required onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_invoice2[]" id="harga_invoice_1">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="hidden"  value="" name="harga_invoice[]" id="harga_invoice2_1">
+									
 								</div>
 							</td>
 
@@ -385,6 +291,38 @@ input[type=checkbox]
 
 				<div class="form-actions">
 					<center>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Sub Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="sub_total"></h3>
+							<input type="hidden" name="sub_total" id="inp_sub_total">
+							<input type="hidden" name="qty_total" id="inp_qty_total">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PBBKB :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="pbbkb" value="ada">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> OAT :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="oat" value="ada">
+						</div>
+					</div>
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
 					<input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success">
@@ -397,74 +335,11 @@ input[type=checkbox]
 </div>
 
 <!-- Modal Detail -->
-<div class="modal fade" id="modal_spek" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Spesifikasi</h4>
-      </div>
-      <div class="modal-body">
-        
-
-		<div class="row-fluid">
-			<div class="span12" style="font-size: 15px;">
-				<address>
-					<strong> Temperatur </strong><br>
-					<input class="span12" type="text" name="temperatur" value="">
-				</address>
-
-				<address>
-					<strong> Density </strong><br>
-					<input class="span12" type="text" name="density" value="">
-				</address>
-
-				<address>
-					<strong> Flash Point </strong><br>
-					<input class="span12" type="text" name="flash_point" value="">
-				</address>
-
-				<address>
-					<strong> Water Content </strong><br>
-					<input class="span12" type="text" name="water_content" value="">
-				</address>
-			</div>
-		</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 </form>
 
-<!-- COPY ELEMENT -->
-<div style="display:none;" id="copy_ag">
-	<td align="center" style="vertical-align:middle;"> 
-		<div class="control-group">
-			<div class="controls">
-				<select  required data-placeholder="Pilih ..." class="cek_select" tabindex="2"  name="kode_akun[]" style="width: 100%;">
-					<option value="">Pilih ...</option>
-					<?PHP foreach ($get_list_akun_all as $key => $akun_all) { 
-					$sel = "";
-					if('501.02.01' == $akun_all->KODE_AKUN) { 
-						$sel = "selected";
-					} else {
-						$sel = "";
-					}
-					?>
-					<option <?=$sel;?> value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
-					<?PHP } ?>				
-				</select>
-			</div>
-		</div>
-	</td>
-</div>
-<!-- END COPY ELEMENT -->
+
 
 
 <script type="text/javascript">
@@ -539,9 +414,9 @@ function get_popup_produk(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
-                '                        <th> KODE PRODUK </th>'+
-                '                        <th style="white-space:nowrap;"> NAMA PRODUK </th>'+
-                '                        <th> HARGA </th>'+
+                '                        <th> NO SO </th>'+
+                '                        <th style="white-space:nowrap;"> Tanggal Transaksi </th>'+
+                '                        <th> CUSTOMER </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -567,7 +442,7 @@ function get_popup_produk(){
 function ajax_produk(id_form){
     var keyword = $('#search_koang_pro').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_popup',
+        url : '<?php echo base_url(); ?>purchase_order_c/get_produk_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -586,11 +461,11 @@ function ajax_produk(id_form){
 
 
 
-                isine += '<tr onclick="get_produk_detail(\'' +res.ID+ '\',\'' +id_form+ '\');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_produk_detail(\'' +res.ID+ '\',\'' +id_form+ '\',\'' +res.NO_BUKTI+ '\');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
-                            '<td align="center">'+res.KODE_PRODUK+'</td>'+
-                            '<td align="left">'+res.NAMA_PRODUK+'</td>'+
-                             '<td align="center">Rp '+NumberToMoney(res.HARGA).split('.00').join('')+'</td>'+
+                            '<td align="center">'+res.NO_BUKTI+'</td>'+
+                            '<td align="left">'+res.TGL_TRX+'</td>'+
+                             '<td align="center">'+res.PELANGGAN+'</td>'+
                         '</tr>';
             });
 
@@ -737,15 +612,18 @@ function hitung_total(id){
 	$('#harga_invoice2_'+id).val(profit);
 }
 
-function get_produk_detail(id, no_form){
+function get_produk_detail(id, no_form,nomor_so){
     var id_produk = id;
     $.ajax({
-		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_detail',
+		url : '<?php echo base_url(); ?>purchase_order_c/get_produk_detail',
 		data : {id_produk:id_produk},
 		type : "GET",
 		dataType : "json",
 		success : function(result){
-			$('#qty_'+no_form).focus();
+			$('#qty_'+no_form).val(result.QTY);
+			$('#harga_modal_'+no_form).val(result.HARGA_SATUAN);
+			$('#nomor_so_'+no_form).val(nomor_so);
+			$('#harga_invoice_'+no_form).val(result.TOTAL);
 			$('#id_produk_'+no_form).val(id_produk);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
 
@@ -776,15 +654,25 @@ function tambah_data() {
 
 	$isi_1 = 
 	'<tr id="tr_'+i+'" class="tr_utama">'+
-		'<td>'+coa+'</td>'+
 		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
 			'<div class="control-group">'+
 				'<div class="controls">'+
 					'<div class="input-append">'+
-						'<input type="text" id="nama_produk_'+i+'" name="nama_produk[]" readonly style="background:#FFF; width: 60%">'+
+						'<input type="text" id="nomor_so_'+i+'" name="nomor_so[]" readonly style="background:#FFF; width: 60%">'+
 						'<input type="hidden" id="id_produk_'+i+'" name="produk[]" readonly style="background:#FFF;">'+
 						'<input type="hidden" id="jenis_produk_'+i+'" name="jenis_produk[]" readonly style="background:#FFF;" value="">'+
 						'<button style="width: 30%" onclick="show_pop_produk('+i+');" type="button" class="btn">Cari</button>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
+		'</td>'+
+		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
+			'<div class="control-group">'+
+				'<div class="controls">'+
+					'<div class="input-append">'+
+						'<input type="text" id="nama_produk_'+i+'" name="nama_produk[]" readonly style="background:#FFF; width: 80%">'+
+						'<input type="hidden" id="id_produk_'+i+'" name="produk[]" readonly style="background:#FFF;">'+
+						'<input type="hidden" id="jenis_produk_'+i+'" name="jenis_produk[]" readonly style="background:#FFF;" value="">'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
