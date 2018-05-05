@@ -439,15 +439,15 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 						<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-file-alt"></i> Laporan <b class="icon-angle-down"></b></a>
 						<div class="dropdown-menu">
 							<ul>
-                  <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i>Laporan Pembelian</a>
+                  <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i> Laporan Pembelian</a>
                   <div class="dropdown-menu">
                     <ul>
                       <li><a href="<?=base_url();?>lap_pembelian_c"><i class=" icon-file-alt"></i> Laporan Pembelian</a></li>
                       <li><a href="<?=base_url();?>lap_pembelian_bulanan_c"><i class=" icon-file-alt"></i> Laporan Pembelian Bulanan</a></li>
                       <li><a href="<?=base_url();?>lap_summary_pembelian_c"><i class=" icon-file-alt"></i> Laporan Summary Pembelian</a></li>
-                      <li><a href="<?=base_url();?>lap_detail_pembelian"><i class=" icon-file-alt"></i> Laporan Detail Pembelian</a></li>
-                      <li><a href="<?=base_url();?>lap_pembelian_produk_supp_c"><i class=" icon-file-alt"></i> Laporan Pembelian Produk Supplier</a></li>
-                      <li><a href="<?=base_url();?>lap_pembelian_produk_supp_bulanan_c"><i class=" icon-file-alt"></i> Laporan Pembelian Produk Supplier Bulanan</a></li>
+                      <li><a href="<?=base_url();?>lap_detail_pembelian_c"><i class=" icon-file-alt"></i> Laporan Detail Pembelian</a></li>
+                      <li><a href="<?=base_url();?>lap_pembelian_produk_supp_c"><i class=" icon-file-alt"></i> Laporan Pembelian Produk Detail Supplier</a></li>
+                      <li><a href="<?=base_url();?>lap_pembelian_supp_produk_c"><i class=" icon-file-alt"></i> Laporan Pembelian Supplier Detail Produk</a></li>
                       <li><a href="<?=base_url();?>lap_history_harga_c"><i class=" icon-file-alt"></i> History Harga Pembelian</a></li>
                       <li><a href="<?=base_url();?>lap_sum_um_beli_c"><i class=" icon-file-alt"></i> Summary Uang Muka Pembelian</a></li>
                       <li><a href="<?=base_url();?>lap_sum_po_c"><i class=" icon-file-alt"></i> Summary Order Pembelian (PO)</a></li>
@@ -466,11 +466,30 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i> Laporan Penjualan</a>
                   <div class="dropdown-menu">
                     <ul>
-                      <li><a href="page-403.html"><i class=" icon-file-alt"></i> 403 Error Page</a></li>
-                      <li><a href="page-404.html"><i class=" icon-file-alt"></i> 404 Error Page</a></li>
-                      <li><a href="page-405.html"><i class=" icon-file-alt"></i> 405 Error Page</a></li>
-                      <li><a href="page-500.html"><i class=" icon-file-alt"></i> 500 Error Page</a></li>
-                      <li><a href="page-503.html"><i class=" icon-file-alt"></i> 503 Error Page</a></li>
+                      <li><a href="<?=base_url();?>lap_penjualan_produk_detail_cust_c"><i class=" icon-file-alt"></i> Laporan Penjualan Produk Detail Customer</a></li>
+                      <!-- <li><a href="<?=base_url();?>lap_nota_penjualan_c"><i class=" icon-file-alt"></i> Laporan Nota Penjualan</a></li> -->
+                      <li><a href="<?=base_url();?>lap_summary_penjualan_c"><i class=" icon-file-alt"></i> Laporan Summary Penjualan</a></li>
+                      <li><a href="<?=base_url();?>lap_detail_penjualan_c"><i class=" icon-file-alt"></i> Laporan Detail Penjualan</a></li>
+                      <!-- <li><a href="<?=base_url();?>lap_detail_order_penjualan_c"><i class=" icon-file-alt"></i> Laporan Detail Order Penjualan</a></li> -->
+                      <!-- <li><a href="<?=base_url();?>lap_surat_jalan_c"><i class=" icon-file-alt"></i> Laporan Surat Jalan</a></li> -->
+                      <!-- <li><a href="<?=base_url();?>lap_nilai_surat_jalan_c"><i class=" icon-file-alt"></i> Laporan Nilai Surat Jalan</a></li> -->
+                      <li><a href="<?=base_url();?>lap_penjualan_produk_cust_c"><i class=" icon-file-alt"></i> Laporan Penjualan Produk Per Customer</a></li>
+                      <li><a href="<?=base_url();?>lap_penjualan_cust_produk_c"><i class=" icon-file-alt"></i> Laporan Penjualan Customer Per Produk</a></li>
+                      <li><a href="<?=base_url();?>lap_det_order_penjualan_c"><i class=" icon-file-alt"></i> Laporan Detail Order Penjualan</a></li>
+                      <li><a href="<?=base_url();?>lap_sum_order_penjualan_c"><i class=" icon-file-alt"></i> Laporan Summary Order Penjualan</a></li>
+                      <li><a href="<?=base_url();?>lap_realisasi_order_penjualan_c"><i class=" icon-file-alt"></i> Laporan Realisasi Order Penjualan</a></li>
+                      <li><a href="<?=base_url();?>lap_so_outstanding_c"><i class=" icon-file-alt"></i> SO Outstanding</a></li>
+                      <li><a href="<?=base_url();?>lap_rincian_pelunasan_per_nota_c"><i class=" icon-file-alt"></i> Rincian Pelunasan Tiap Nota</a></li>
+                      <!-- <li><a href="<?=base_url();?>lap_perbandingan_so_outstanding_dan_stok_c"><i class=" icon-file-alt"></i> Perbandingan SO Outstanding dan Stok</a></li> -->
+                      <li><a href="<?=base_url();?>lap_piutang_jatuh_tempo_c"><i class=" icon-file-alt"></i> Laporan Piutang Jatuh Tempo</a></li>
+                      <li><a href="<?=base_url();?>lap_summary_piutang_cust_c"><i class=" icon-file-alt"></i> Summary Piutang Customer</a></li>
+                      <li><a href="<?=base_url();?>lap_summary_piutang_dagang_c"><i class=" icon-file-alt"></i> Summary Piutang Dagang</a></li>
+                      <li><a href="<?=base_url();?>lap_kartu_piutang_c"><i class=" icon-file-alt"></i> Kartu Piutang</a></li>
+                      <li><a href="<?=base_url();?>lap_sisa_piutang_dagang_c"><i class=" icon-file-alt"></i> Laporan Sisa Piutang Dagang </a></li>
+                      <li><a href="<?=base_url();?>lap_umur_piutang_c"><i class=" icon-file-alt"></i> Laporan Umur Piutang </a></li>
+                      <!-- <li><a href="<?=base_url();?>lap_umur_piutang_per_faktur_c"><i class=" icon-file-alt"></i> Laporan Umur Piutang per Faktur </a></li> -->
+                      <!-- <li><a href="<?=base_url();?>lap_umur_piutang_per_customer_c"><i class=" icon-file-alt"></i> Laporan Umur Piutang per Customer </a></li> -->
+                      <li><a href="<?=base_url();?>lap_daftar_customer_c"><i class=" icon-file-alt"></i> Daftar Customer</a></li>
                     </ul>
                   </div>
                   </li>

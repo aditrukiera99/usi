@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Lap_pembelian_bulanan_c extends CI_Controller {
+class Lap_summary_pembelian_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -30,15 +30,15 @@ class Lap_pembelian_bulanan_c extends CI_Controller {
 		//$dt = $this->model->get_no_akun($keyword, $id_klien);
 
 		$data =  array(
-			'page' => "lap_pembelian_bulanan_v", 
-			'title' => "Laporan Pembelian Bulanan", 
+			'page' => "lap_summary_pembelian_v", 
+			'title' => "Laporan Summary Bulanan", 
 			'msg' => "", 
 			'master' => "laporan", 
-			'view' => "lap_pembelian_bulanan_v", 
+			'view' => "lap_summary_pembelian_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
-			'post_url' => 'lap_pembelian_bulanan_c/cetak_laporan', 
+			'post_url' => 'lap_summary_pembelian_c/cetak_laporan', 
 		);
 		
 		$this->load->view('beranda_v', $data);
@@ -60,7 +60,7 @@ class Lap_pembelian_bulanan_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
-		$view = "pdf/report_pembelian_bulanan_pdf";
+		$view = "pdf/report_summary_pembelian_pdf";
 		$dt = "";
 		$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 

@@ -75,7 +75,7 @@ class Input_jurnal_bayar_kas_c extends CI_Controller {
 		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
 
 		$get_no_trx_akun = $this->model->get_no_trx_akun($id_klien);
-
+		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
 		$data =  array(
 			'page' => "input_jurnal_bayar_kas_v", 
 			'title' => "Pelunasan Hutang",  
@@ -84,6 +84,7 @@ class Input_jurnal_bayar_kas_c extends CI_Controller {
 			'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
+			'no_trx' => $no_trx, 
 			'get_list_akun_all' => $get_list_akun_all, 
 			'get_no_trx_akun' => $get_no_trx_akun, 
 			'post_url' => 'input_jurnal_bayar_kas_c', 
@@ -111,24 +112,7 @@ class Input_jurnal_bayar_kas_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT a.NO_VOUCHER, a.NO_BUKTI, a.KONTAK, a.URAIAN FROM ak_input_voucher a 
-		LEFT JOIN (
-			SELECT a.NO_VOUCHER_DETAIL, a.KODE_AKUN, ((a.KREDIT + a.DEBET) - IFNULL(aa.DEBET,0) ) AS JML, a.ID_KLIEN, KODE.KATEGORI FROM ak_input_voucher_detail a 
-			LEFT JOIN (
-				SELECT aaa.NO_VOUCHER, aaa.ID_KLIEN, aaa.KODE_AKUN, IFNULL(aaa.DEBET, 0) AS DEBET FROM (
-					SELECT NO_VOUCHER, ID_KLIEN, KODE_AKUN, SUM(DEBET) AS DEBET 
-					FROM ak_jurnal_kas_bank
-					WHERE ID_KLIEN = $id_klien
-					GROUP BY NO_VOUCHER, ID_KLIEN, KODE_AKUN
-				) aaa
-			) aa ON a.NO_VOUCHER_DETAIL = aa.NO_VOUCHER AND a.ID_KLIEN = aa.ID_KLIEN AND a.KODE_AKUN = aa.KODE_AKUN
-			LEFT JOIN ak_kode_akuntansi KODE ON a.KODE_AKUN = KODE.KODE_AKUN
-		) b ON a.NO_VOUCHER = b.NO_VOUCHER_DETAIL
-		WHERE  (b.KODE_AKUN LIKE '%200%' OR b.KODE_AKUN LIKE '%240%' OR b.KODE_AKUN LIKE '%260%')
-			  AND b.JML > 0
-			  AND $where
-			  AND $where_unit
-		GROUP BY a.NO_VOUCHER, a.NO_BUKTI, a.KONTAK, a.URAIAN
+		SELECT * FROM ak_input_voucher WHERE DEBET = 0 AND IS_LUNAS = 0
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -142,7 +126,7 @@ class Input_jurnal_bayar_kas_c extends CI_Controller {
 		$id_klien = $sess_user['id_klien'];
 
 		$sql = "
-		SELECT * FROM ak_input_voucher WHERE ID_KLIEN = $id_klien AND NO_VOUCHER = '$no_voucher'
+		SELECT * FROM ak_input_voucher WHERE NO_VOUCHER = '$no_voucher'
 		";
 
 		$dt = $this->db->query($sql)->row();
@@ -150,14 +134,12 @@ class Input_jurnal_bayar_kas_c extends CI_Controller {
 	}
 
 	function get_transaksi_detail(){
-		$no_bukti   = $this->input->post('no_bukti');
+		$no_voucher   = $this->input->post('no_voucher');
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_klien = $sess_user['id_klien'];
 
 		$sql = "
-		SELECT b.* FROM ak_pembelian a
-		JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN
-		WHERE a.NO_BUKTI = '$no_bukti' AND a.ID_KLIEN = $id_klien
+		SELECT * FROM ak_input_voucher_detail WHERE NO_VOUCHER_DETAIL = '$no_voucher' AND DEBET > 0
 		";
 
 		$dt = $this->db->query($sql)->result();
