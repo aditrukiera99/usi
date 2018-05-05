@@ -1,42 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Delivery_order_new_m extends CI_Model
+class Delivery_order_m extends CI_Model
 {
-    function __construct() {
-          parent::__construct();
-          $this->load->database();
-    }
+	function __construct() {
+		  parent::__construct();
+		  $this->load->database();
+	}
 
-    function get_penjualan($keyword, $id_klien){
-
-        $sess_user = $this->session->userdata('masuk_akuntansi');
-        $id_user = $sess_user['id'];
-        $user = $this->master_model_m->get_user_info($id_user);
-        $where_unit = "1=1";
-        if($user->LEVEL == "ADMIN"){
-            $where_unit = "1=1";
-        } else {
-            $where_unit = "UNIT = ".$user->UNIT;
-        }
-
-
-        $where = "1=1";
-        // if($keyword != "" || $keyword != null){
-        //     $where = $where." AND (a.KODE_AKUN LIKE '%$keyword%' OR a.NAMA_AKUN LIKE '%$keyword%' ) ";
-        // }
+    function get_penjualan_all(){
 
         $sql = "
-        SELECT * FROM ak_delivery_order 
+        SELECT * FROM ak_penjualan_new 
         ORDER BY ID DESC
         ";
 
         return $this->db->query($sql)->result();
     }
 
-
     function get_data_trx($id){
         $sql = "
-        SELECT * FROM ak_penerimaan_barang
+        SELECT * FROM ak_penjualan_new a
         WHERE ID = '$id'
         ";
 
@@ -45,7 +28,7 @@ class Delivery_order_new_m extends CI_Model
 
     function get_data_do($id){
         $sql = "
-        SELECT * FROM ak_delivery_order
+        SELECT * FROM ak_penjualan_new a
         WHERE ID = '$id'
         ";
 
@@ -54,32 +37,12 @@ class Delivery_order_new_m extends CI_Model
 
     function get_data_trx_detail($id){
         $sql = "
-        SELECT * FROM ak_penerimaan_detail 
-        WHERE ID_PENJUALAN = '$id'
-        ";
-
-        return $this->db->query($sql)->result();
-    }
-
-    function get_data_trxx_detail($id){
-        $sql = "
-        SELECT * FROM ak_pembelian_detail 
+        SELECT * FROM ak_penjualan_new_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
 
         return $this->db->query($sql)->row();
     }
-
-    function get_data_cust_detail($id){
-        $sql = "
-        SELECT * FROM ak_pembelian_customer 
-        WHERE ID_PEMBELIAN = '$id'
-        ";
-
-        return $this->db->query($sql)->result();
-    }
-
-
 
     function hapus_voucher($id_klien, $no_voc){
         $sql_1 = "
@@ -103,13 +66,13 @@ class Delivery_order_new_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_pembelian_new WHERE ID = $id_hapus
+        DELETE FROM ak_penjualan_new WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);
     }
 
-    function get_penjualan_filter($keyword, $id_klien, $tgl_awal, $tgl_akhir){
+    function get_penjualan_filter($id_klien, $tgl_awal, $tgl_akhir){
 
 
         $where = "1 = 1";
@@ -219,7 +182,7 @@ class Delivery_order_new_m extends CI_Model
 
     function get_no_trx_penjualan($id_klien){
         $sql = "
-        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Pembelian'
+        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Penjualan'
         ";
 
         return $this->db->query($sql)->row();
@@ -236,7 +199,7 @@ class Delivery_order_new_m extends CI_Model
         INSERT INTO ak_nomor 
         (ID_KLIEN, TIPE, NEXT)
         VALUES 
-        ($id_klien, '$tipe', '$no_trx')
+        ($id_klien, '$tipe', $no_trx)
         ";
 
         $this->db->query($sql);
@@ -310,33 +273,9 @@ class Delivery_order_new_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function get_no_trx_do($id_klien){
-        $sql = "
-        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Delivery_order'
-        ";
-
-        return $this->db->query($sql)->row();
-    }
-
     function get_pelanggan_detail($id_pel){
         $sql = "
         SELECT * FROM ak_pelanggan WHERE ID = $id_pel
-        ";
-
-        return $this->db->query($sql)->row();
-    }
-
-    function get_so_detail($id_pel){
-        $sql = "
-        SELECT * FROM ak_penjualan WHERE ID = $id_pel
-        ";
-
-        return $this->db->query($sql)->row();
-    }
-
-    function get_sales_detail($id_pel){
-        $sql = "
-        SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -374,57 +313,81 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl)
+    function simpan_penjualan($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator)
     {
 
         $sql = "
-        INSERT INTO ak_delivery_order
+        INSERT INTO ak_penjualan_new
         (
             NO_BUKTI,
             ID_PELANGGAN,
             PELANGGAN,
-            PRODUK,
-            QTY,
-            SEGEL_ATAS,
-            METER_AWAL,
-            NO_KENDARAAN,
-            SEGEL_BAWAH,
-            METER_AKHIR,
-            NAMA_KAPAL,
-            TEMPERATUR,
-            SG_METER,
+            ALAMAT_TUJUAN,
+            KOTA,
+            NO_PO,
+            NO_DO,
+            TGL_TRX,
             KETERANGAN,
-            NO_SO,
-            STATUS,
-            TGL_TRX
-
-
+            JATUH_TEMPO,
+            NO_POL,
+            SOPIR,
+            ALAT_ANGKUT,
+            SEGEL_ATAS,
+            SEGEL_BAWAH,
+            BROKER,
+            TEMPERATUR,
+            DENSITY,
+            FLASH_POINT,
+            WATER_CONTENT,
+            TGL_DO,
+            TGL_SJ,
+            TGL_INV,
+            TGL_KWI,
+            OPERATOR
         )
         VALUES 
         (
-           '$no_deo',
+           '$no_trx', 
            '$id_pelanggan', 
            '$pelanggan', 
-           '$nama_produk',
-           '$qty',
-           '$segel_atas', 
-           '$meter_atas', 
-           '$no_pol', 
-           '$segel_bawah', 
-           '$meter_bawah', 
-           '$nama_kapal', 
-           '$temperatur', 
-           '$sg_meter', 
+           '$alamat_tagih', 
+           '$kota_tujuan', 
+           '$no_po', 
+           '$no_do', 
+           '$tgl_trx', 
            '$keterangan', 
-           '$no_trx', 
-           '0',
-           '$tgl'
+           '$jatuh_tempo', 
+           '$no_pol', 
+           '$sopir', 
+           '$alat_angkut', 
+           '$segel_atas', 
+           '$segel_bawah', 
+           '$broker', 
+           '$temperatur', 
+           '$density', 
+           '$flash_point', 
+           '$water_content', 
+           '$tgl_do', 
+           '$tgl_sj', 
+           '$tgl_inv', 
+           '$tgl_kwi', 
+           '$operator' 
         )
         ";
 
         $this->db->query($sql);
     }
 
+    function ubah_penjualan($id, $no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $tgl_jatuh_tempo, $id_pajak, $sub_total, $pajak_total, $total_all, $sts_lunas, $memo_lunas, $akun_piutang, $kode_akun_pajak){
+         $sql = "
+            UPDATE ak_penjualan SET ID_PELANGGAN = $id_pelanggan, PELANGGAN = '$pelanggan', ALAMAT = '$alamat_tagih', TGL_TRX = '$tgl_trx', ID_PAJAK = $id_pajak, SUB_TOTAL = $sub_total, NILAI_PAJAK = $pajak_total,
+            TOTAL = $total_all, LUNAS = $sts_lunas, MEMO = '$memo_lunas', KODE_AKUN_PIUTANG = '$akun_piutang', KODE_AKUN_PAJAK = '$kode_akun_pajak'    
+            WHERE ID = $id
+
+        ";
+
+        $this->db->query($sql);
+    }
 
     function get_id_penjualan($id_klien, $no_trx){
         $sql = "
@@ -435,6 +398,46 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function simpan_detail_penjualan($id_penjualan, $id_produk, $kode_akun, $nama_produk, $qty, $harga_modal, $harga_jual, $harga_invoice, $tax, $cashback, $profit){
+        
+        $qty            = str_replace(',', '', $qty);
+        $harga_modal    = str_replace(',', '', $harga_modal);
+        $harga_jual     = str_replace(',', '', $harga_jual);
+        $harga_invoice  = str_replace(',', '', $harga_invoice);
+
+        $sql = "
+        INSERT INTO ak_penjualan_new_detail 
+        (
+            ID_PENJUALAN,
+            KODE_AKUN,
+            ID_PRODUK,
+            NAMA_PRODUK,
+            QTY,
+            MODAL,
+            HARGA_JUAL,
+            HARGA_INVOICE,
+            PAJAK,
+            CASHBACK,
+            PROFIT
+        )
+        VALUES 
+        (
+        '$id_penjualan',
+        '$id_produk', 
+        '$kode_akun', 
+        '$nama_produk', 
+        '$qty', 
+        '$harga_modal', 
+        '$harga_jual', 
+        '$harga_invoice', 
+        '$tax', 
+        '$cashback', 
+        '$profit'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
 
     function simpan_piutang($id_klien, $no_trx, $tgl_trx, $total_all, $tipe){
 
@@ -463,15 +466,7 @@ class Delivery_order_new_m extends CI_Model
 
     function hapus_detail_trx($id){
         $sql = "
-        DELETE FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id'
-        ";
-
-        $this->db->query($sql);
-    }
-
-    function hapus_detail_cust($id){
-        $sql = "
-        DELETE FROM ak_pembelian_customer WHERE ID_PEMBELIAN = '$id'
+        DELETE FROM ak_penjualan_new_detail WHERE ID_PENJUALAN = $id
         ";
 
         $this->db->query($sql);
@@ -482,28 +477,6 @@ class Delivery_order_new_m extends CI_Model
         $sql = "
         UPDATE ak_produk SET STOK = STOK - $qty
         WHERE ID = $id_produk
-        ";
-
-        $this->db->query($sql);
-    }
-
-    function update_status_so($id_klien){
-        
-        $sql = "
-        UPDATE ak_penjualan SET STATUS_DO = '1'
-        WHERE NO_BUKTI = '$id_klien'
-        ";
-
-        $this->db->query($sql);
-    }
-
-    function update_tanggal_penerimaan($id){
-
-        $tgj = date('d-m-Y'); 
-       
-        $sql = "
-        UPDATE ak_penerimaan_barang SET TGL_TRX = '$tgj' , STATUS = '1'
-        WHERE ID = '$id'
         ";
 
         $this->db->query($sql);

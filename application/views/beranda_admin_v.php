@@ -631,7 +631,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <li><a href="<?=base_url();?>supplier_c"><i class="icon-caret-right "></i> Supplier </a></li>
                     <?PHP } ?>
 
-                    <li><a href="<?=base_url();?>broker_c"> <i class="icon-caret-right "></i> Marketing</a></li>
+                   <!--  <li><a href="<?=base_url();?>broker_c"> <i class="icon-caret-right "></i> Marketing</a></li> -->
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Produk', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>produk_c"><i class="icon-caret-right "></i> Produk </a></li>
@@ -640,8 +640,9 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <!-- <li><a href="<?=base_url();?>harga_c"><i class="icon-money"></i> Master Harga </a></li> -->
                     <!-- <li><a href="<?=base_url();?>minimal_order_c"><i class="icon-caret-right "></i> Master Minimal Order </a></li> -->
 
-                    <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li>
-                    <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li> -->
+                    <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li> -->
+                    <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li>
+                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Gudang </a></li>
                 </ul>
             </div>
             </li>
@@ -668,9 +669,9 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                  <!-- <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li> -->
                  <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Sales Order </a></li>
                  <li><a href="<?=base_url();?>delivery_order_new_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
-                 <li><a href="<?=base_url();?>surat_jalan_c"><i class="icon-caret-right "></i> Surat Jalan </a></li>
+                 <!-- <li><a href="<?=base_url();?>surat_jalan_c"><i class="icon-caret-right "></i> Surat Jalan </a></li> -->
                  <li><a href="<?=base_url();?>invoice_c"><i class="icon-caret-right "></i> Invoice </a></li>
-                 <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li>
+                 <!-- <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li> -->
               </ul>
             </div>
             </li>
@@ -984,13 +985,19 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                       <a href="<?=base_url();?>kategori_produk_c"><i class="icon-tags"></i> Master Kategori Produk 
                         <span> Data kategori produk</span> 
                       </a>
-                  </li>
+                  </li> -->
 
                   <li <?PHP if($view == "kendaraan"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right"></i> Master Kendaraan
                         <span> Data kendaraan</span> 
                       </a>
-                  </li> -->
+                  </li>
+
+                  <li <?PHP if($view == "gudang"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>gudang_c"><i class="icon-caret-right"></i> Gudang
+                        <span> Data gudang</span> 
+                      </a>
+                  </li>
               </ul>
           </div>
 
@@ -1063,11 +1070,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                       </a>
                     </li>
 
-                    <li <?PHP if($view == "surat_jalan"){ echo "class='active'"; } ?>>
+                    <!-- <li <?PHP if($view == "surat_jalan"){ echo "class='active'"; } ?>>
                       <a href="<?=base_url();?>surat_jalan_c">
                         <i class="icon-caret-right"></i> Surat Jalan <span> Mencetak surat jalan</span>
                       </a>
-                    </li>
+                    </li> -->
 
                     <li <?PHP if($view == "invoice"){ echo "class='active'"; } ?>>
                       <a href="<?=base_url();?>invoice_c">
@@ -1075,11 +1082,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                       </a>
                     </li>
 
-                    <li <?PHP if($view == "kwitansi"){ echo "class='active'"; } ?>>
+                    <!-- <li <?PHP if($view == "kwitansi"){ echo "class='active'"; } ?>>
                       <a href="<?=base_url();?>kwitansi_c">
                         <i class="icon-caret-right"></i> Kwitansi <span> Mencetak kwitansi </span>
                       </a>
-                    </li>
+                    </li> -->
                 </ul>
               </div>
 

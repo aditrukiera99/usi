@@ -33,7 +33,6 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
-
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_penerimaan_barang
@@ -236,7 +235,7 @@ class Delivery_order_new_m extends CI_Model
         INSERT INTO ak_nomor 
         (ID_KLIEN, TIPE, NEXT)
         VALUES 
-        ($id_klien, '$tipe', '$no_trx')
+        ($id_klien, '$tipe', $no_trx)
         ";
 
         $this->db->query($sql);
@@ -310,33 +309,9 @@ class Delivery_order_new_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function get_no_trx_do($id_klien){
-        $sql = "
-        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Delivery_order'
-        ";
-
-        return $this->db->query($sql)->row();
-    }
-
     function get_pelanggan_detail($id_pel){
         $sql = "
         SELECT * FROM ak_pelanggan WHERE ID = $id_pel
-        ";
-
-        return $this->db->query($sql)->row();
-    }
-
-    function get_so_detail($id_pel){
-        $sql = "
-        SELECT * FROM ak_penjualan WHERE ID = $id_pel
-        ";
-
-        return $this->db->query($sql)->row();
-    }
-
-    function get_sales_detail($id_pel){
-        $sql = "
-        SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -374,57 +349,127 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl)
+    function simpan_penjualan($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator,$atas_nama, $transport, $tgl_ambil)
     {
 
         $sql = "
-        INSERT INTO ak_delivery_order
+        INSERT INTO ak_pembelian_new
         (
             NO_BUKTI,
             ID_PELANGGAN,
             PELANGGAN,
-            PRODUK,
-            QTY,
-            SEGEL_ATAS,
-            METER_AWAL,
-            NO_KENDARAAN,
-            SEGEL_BAWAH,
-            METER_AKHIR,
-            NAMA_KAPAL,
-            TEMPERATUR,
-            SG_METER,
+            ALAMAT_TUJUAN,
+            KOTA,
+            NO_PO,
+            NO_DO,
+            TGL_TRX,
             KETERANGAN,
-            NO_SO,
-            STATUS,
-            TGL_TRX
-
-
+            JATUH_TEMPO,
+            NO_POL,
+            SOPIR,
+            ALAT_ANGKUT,
+            SEGEL_ATAS,
+            SEGEL_BAWAH,
+            BROKER,
+            TEMPERATUR,
+            DENSITY,
+            FLASH_POINT,
+            WATER_CONTENT,
+            TGL_DO,
+            TGL_SJ,
+            TGL_INV,
+            TGL_KWI,
+            OPERATOR,
+            ATAS_NAMA,
+            TRANSPORT,
+            TGL_PENGAMBILAN
         )
         VALUES 
         (
-           '$no_deo',
+           '$no_trx', 
            '$id_pelanggan', 
            '$pelanggan', 
-           '$nama_produk',
-           '$qty',
-           '$segel_atas', 
-           '$meter_atas', 
-           '$no_pol', 
-           '$segel_bawah', 
-           '$meter_bawah', 
-           '$nama_kapal', 
-           '$temperatur', 
-           '$sg_meter', 
+           '$alamat_tagih', 
+           '$kota_tujuan', 
+           '$no_po', 
+           '$no_do', 
+           '$tgl_trx', 
            '$keterangan', 
-           '$no_trx', 
-           '0',
-           '$tgl'
+           '$jatuh_tempo', 
+           '$no_pol', 
+           '$sopir', 
+           '$alat_angkut', 
+           '$segel_atas', 
+           '$segel_bawah', 
+           '$broker', 
+           '$temperatur', 
+           '$density', 
+           '$flash_point', 
+           '$water_content', 
+           '$tgl_do', 
+           '$tgl_sj', 
+           '$tgl_inv', 
+           '$tgl_kwi', 
+           '$operator',
+           '$atas_nama', 
+           '$transport',
+           '$tgl_ambil'
         )
         ";
 
         $this->db->query($sql);
     }
 
+    function ubah_penjualan($id, $no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $tgl_jatuh_tempo, $id_pajak, $sub_total, $pajak_total, $total_all, $sts_lunas, $memo_lunas, $akun_piutang, $kode_akun_pajak){
+         $sql = "
+            UPDATE ak_pembelian_new SET ID_PELANGGAN = $id_pelanggan, PELANGGAN = '$pelanggan', ALAMAT = '$alamat_tagih', TGL_TRX = '$tgl_trx', ID_PAJAK = $id_pajak, SUB_TOTAL = $sub_total, NILAI_PAJAK = $pajak_total,
+            TOTAL = $total_all, LUNAS = $sts_lunas, MEMO = '$memo_lunas', KODE_AKUN_PIUTANG = '$akun_piutang', KODE_AKUN_PAJAK = '$kode_akun_pajak'    
+            WHERE ID = $id
+
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function ubah_pembelian_new($id,$no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator,$atas_nama, $transport, $tgl_ambil){
+         $sql = "
+            UPDATE ak_pembelian_new SET 
+
+            NO_BUKTI = '$no_trx' ,
+            ID_PELANGGAN = '$id_pelanggan',
+            PELANGGAN = '$pelanggan',
+            ALAMAT_TUJUAN = '$alamat_tagih',
+            KOTA = '$kota_tujuan',
+            NO_PO = '$no_po',
+            NO_DO = '$no_do',
+            TGL_TRX = '$tgl_trx',
+            KETERANGAN = '$keterangan',
+            JATUH_TEMPO = '$jatuh_tempo',
+            NO_POL = '$no_pol',
+            SOPIR = '$sopir',
+            ALAT_ANGKUT = '$alat_angkut',
+            SEGEL_ATAS = '$segel_atas',
+            SEGEL_BAWAH = '$segel_bawah',
+            BROKER = '$broker',
+            TEMPERATUR = '$temperatur',
+            DENSITY = '$density',
+            FLASH_POINT = '$flash_point',
+            WATER_CONTENT = '$water_content',
+            TGL_DO = '$tgl_do',
+            TGL_SJ = '$tgl_sj',
+            TGL_INV = '$tgl_inv',
+            TGL_KWI = '$tgl_kwi',
+            OPERATOR = '$operator',
+            ATAS_NAMA = '$atas_nama',
+            TRANSPORT = '$transport',
+            TGL_PENGAMBILAN = '$tgl_ambil'
+             
+            WHERE ID = '$id'
+
+        ";
+
+        $this->db->query($sql);
+    }
 
     function get_id_penjualan($id_klien, $no_trx){
         $sql = "
@@ -435,6 +480,37 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function simpan_detail_penjualan($id_penjualan, $id_produk, $kode_akun, $nama_produk, $qty, $harga_modal, $harga_invoice){
+        
+        $qty            = str_replace(',', '', $qty);
+        $harga_modal    = str_replace(',', '', $harga_modal);
+        $harga_invoice  = str_replace(',', '', $harga_invoice);
+
+        $sql = "
+        INSERT INTO ak_pembelian_new_detail 
+        (
+            ID_PENJUALAN,
+            KODE_AKUN,
+            ID_PRODUK,
+            NAMA_PRODUK,
+            QTY,
+            MODAL,
+            HARGA_INVOICE
+        )
+        VALUES 
+        (
+        '$id_penjualan',
+        '$kode_akun', 
+        '$id_produk', 
+        '$nama_produk', 
+        '$qty', 
+        '$harga_modal',  
+        '$harga_invoice'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
 
     function simpan_piutang($id_klien, $no_trx, $tgl_trx, $total_all, $tipe){
 
@@ -482,16 +558,6 @@ class Delivery_order_new_m extends CI_Model
         $sql = "
         UPDATE ak_produk SET STOK = STOK - $qty
         WHERE ID = $id_produk
-        ";
-
-        $this->db->query($sql);
-    }
-
-    function update_status_so($id_klien){
-        
-        $sql = "
-        UPDATE ak_penjualan SET STATUS_DO = '1'
-        WHERE NO_BUKTI = '$id_klien'
         ";
 
         $this->db->query($sql);

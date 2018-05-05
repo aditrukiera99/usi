@@ -10,6 +10,30 @@ $no_transaksi = 1;
 if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
 	$no_transaksi = $no_trx->NEXT+1;
 }
+$no_pembeli = 1;
+if($no_pem->NEXT != "" || $no_pem->NEXT != null ){
+	$no_pembeli = $no_pem->NEXT+1;
+}
+
+$no_lpbe = 1;
+if($no_lpb->NEXT != "" || $no_lpb->NEXT != null ){
+	$no_lpbe = $no_lpb->NEXT+1;
+}
+
+$no_deo = 1;
+if($no_do->NEXT != "" || $no_do->NEXT != null ){
+	$no_deo = $no_do->NEXT+1;
+}
+
+$no_inv = 1;
+if($inv->NEXT != "" || $inv->NEXT != null ){
+	$no_inv = $inv->NEXT+1;
+}
+
+$no_surat_jalan = 1;
+if($sj->NEXT != "" || $sj->NEXT != null ){
+	$no_surat_jalan = $sj->NEXT+1;
+}
 
 $base_url2 =  ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?  "https" : "http");
 $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
@@ -61,10 +85,10 @@ $bukti_kas = 'BK/'.$bulan_kas.'/'.$tahun_kas;
 ?>
 
 <style type="text/css">
+
 #cke_1_top{
 	display: none;
 }
-
 input[type=checkbox]
 {
   /* Double-sized Checkboxes */
@@ -76,17 +100,17 @@ input[type=checkbox]
 }
 
 </style>
-<input id="tr_utama_count" value="<?=count($dt_detail);?>" type="hidden"/>
+<input id="tr_utama_count" value="1" type="hidden"/>
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-plus"></i>  Order Penjualan </h3>
+			<h3 class="page-header"> <i class="icon-plus"></i>  Buat Delivery Order </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Penjualan</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li> Order Penjualan <span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Buat Penjualan Baru </li>
+			<li><a href="#">Delivery Order</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li> Edit Delivery Order <span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Buat Delivery Order Baru </li>
 		</ul>
 	</div>
 </div>
@@ -97,12 +121,12 @@ input[type=checkbox]
 	<div class="row-fluid">
 		<div class="span5">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Pelanggan </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Sales Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;" value="<?=$dt->PELANGGAN;?>">
-						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;" value="<?=$dt->ID_PELANGGAN;?>">
-						<input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;" value="<?=$dt->KOTA;?>">
+						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
+						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 					</div>
 				</div>
@@ -119,39 +143,50 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
+		<!-- <div class="span3">
+			<div class="control-group">
+				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
+				<div class="controls">
+					<div class="input-append">
+						<input type="text" id="supplier" name="supplier" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="supplier_sel" name="supplier_sel" readonly style="background:#FFF;">
+						
+						<button onclick="show_pop_supplier();" type="button" class="btn">Cari</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
 	</div>
 </div>
 
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
 			<div class="controls">
-				<input type="text" class="span6" value="<?=$dt->ID;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 			</div>
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
-					<!-- <textarea rows="4" id="alamat_tagih" name="alamat_tagih" style="resize:none; height: 87px; width: 90%;"></textarea> -->
-					<textarea name="alamat_tagih" id="alamat_tagih"><?=$dt->ALAMAT;?></textarea>
+					
+					<textarea name="alamat_tagih" class="span12" rows="5" id="alamat_tagih"></textarea>
 				</div>
 	
-				<script>
-					CKEDITOR.replace( 'alamat_tagih', {
-				        height: 100
-				    });
-				</script>
+			
+
 		</div>
 	</div>
 
 
 	<div class="span4">
 		<!-- <div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. Invoice </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->NO_INV;?>" name="no_po" id="no_po" style="font-size: 15px;">
+				<input type="text" class="span12" value="<?=$no_pembeli;?>" name="no_po" id="no_po" style="font-size: 15px;">
+				<input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;">
 			</div>
 		</div> -->
 
@@ -159,7 +194,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input readonly style="width: 80%;" name="tgl_trx" data-format="dd-MM-yyyy" type="text" value="<?=$dt->TGL_TRX;?>">
+						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -167,35 +202,132 @@ input[type=checkbox]
 				</div>
 		</div>
 
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo (Hari)</b> </label>
+		<!-- <div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Depot Pengambilan</b> </label>
 			<div class="controls">
-				<input onkeyup="FormatCurrency(this);" type="text" class="span12" value="<?=$dt->JATUH_TEMPO;?>" name="jatuh_tempo" id="jatuh_tempo" style="font-size: 15px;">
+				<input onkeyup="FormatCurrency(this);" type="text" class="span12" value="" name="depot" id="jatuh_tempo" style="font-size: 15px;">
 			</div>
-		</div>
+		</div> -->
+
 	</div>
 
 
 	<div class="span4">
-		<!-- <div class="control-group" style="margin-left: 10px;">
+		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$dt->NO_DO;?>" name="no_do" id="no_do" style="font-size: 15px;">
+				<input type="text" class="span10" value="<?=$no_deo;?>" name="no_do" id="no_do" style="font-size: 15px;">
 			</div>
-		</div> -->
+		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?=$dt->MEMO;?></textarea>
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"></textarea>
 				</div>
 		</div> 
 	</div>
 
 </div>
 
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+	
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Dikirim Dengan </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="Truck / Kapal" name="dikirim" id="dikirim" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Segel Atas  </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="" name="segel_atas" id="segel_atas" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Meter Awal  </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="" name="meter_atas" id="meter_atas" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+
+	
+
+</div>
+
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+	
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> No Kendaraan </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="" name="no_pol" id="no_pol" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Segel Bawah </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="" name="segel_bawah" id="segel_bawah" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Meter Akhir </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="" name="meter_bawah" id="meter_bawah" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+	
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Nama Kapal </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="" name="nama_kapal" id="sopir" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+	
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Temperatur </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="" name="temperatur" id="dikirim" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
 
 
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> SG Meter </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="" name="sg_meter" id="dikirim" style="font-size: 15px;">
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
@@ -206,58 +338,39 @@ input[type=checkbox]
 				<h3> </h3>
 			</div>
 			<div class="widget-container">
-				<button data-toggle="modal" data-target="#modal_spek" type="button" class="btn btn-warning"> 
+				<!-- <button data-toggle="modal" data-target="#modal_spek" type="button" class="btn btn-warning"> 
 					<i class="icon-plus"></i> Spesifikasi 
-				</button>
-				<br><br>
+				</button> -->
 				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
-							<!-- <th align="center" style="width: 25%;"> Kode Akun & Supplier </th> -->
+							<!-- <th align="center" style="width: 25%;"> Kode Akun </th> -->
 							<th align="center" style="width: 20%;"> Produk / Item </th>
-							<th align="center"> Volume </th>
-							<th align="center"> Harga Satuan </th>
+							<th align="center"> Qty </th>
+							<th align="center"> Harga Jual </th>
 							<th align="center"> # </th>
 						</tr>
 					</thead>
 					<tbody id="tes">
-						<?PHP foreach ($dt_detail as $key => $row) { ?>
-						<tr id="tr_<?=$key+1;?>" class="tr_utama">
+						<tr id="tr_1" class="tr_utama">
 							<!-- <td align="left" style="vertical-align:middle;"> 
 								<div class="control-group">
 										<div class="controls">
-											<select data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun[]">
+											<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun[]" onchange="samakan_4(this.value);">
 												<option value="">Pilih ...</option>
 												<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
 												<?PHP 
 												$sel = "";
-												if($row->KODE_AKUN == $akun_all->KODE_AKUN) { 
+												if('401.01.01' == $akun_all->KODE_AKUN) { 
 													$sel = "selected";
 												} else {
 													$sel = "";
 												}
 												?>
-												<option <?=$sel;?> value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
+												<option <?=$sel;?>  value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
 												<?PHP } ?>				
 											</select>
-										</div>
-
-										<div class="controls">
-											<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="supplier[]">
-												<option value="">Pilih Supplier</option>
-												<?PHP foreach ($dt_supplier as $key => $sup) { ?>
-												<?PHP 
-												$sel = "";
-												if($row->ID_SUPPLIER == $sup->ID) { 
-													$sel = "selected";
-												} else {
-													$sel = "";
-												}
-												?>
-												<option <?=$sel;?>  value="<?=$sup->ID;?>">  <?=$sup->NAMA_SUPPLIER;?></option>
-												<?PHP } ?>				
-											</select>
-										</div>
+										</div>								
 								</div>
 							</td> -->
 
@@ -266,39 +379,37 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_<?=$key+1;?>" name="nama_produk[]" readonly style="background:#FFF; width: 60%;" value="<?=$row->NAMA_PRODUK;?>">
-											<input type="hidden" id="id_produk_<?=$key+1;?>" value="<?=$row->ID_PRODUK;?>"  name="produk[]" readonly style="background:#FFF;">
-											
-											<input type="hidden" id="jenis_produk_<?=$key+1;?>" name="jenis_produk[]" readonly style="background:#FFF;" value="">
-											<button style="width: 30%;" onclick="show_pop_produk(<?=$key+1;?>);" type="button" class="btn">Cari</button>
+											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 60%;" >
+											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
+											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
+											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
 									</div>
+									
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(<?=$key+1;?>); hitung_total(<?=$key+1;?>);" onchange="" id="qty_<?=$key+1;?>" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$row->QTY;?>" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->HARGA_SATUAN;?>" name="harga_modal[]" id="harga_modal_<?=$key+1;?>">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
+									<input type="hidden" name="total_id[]" id="total_id_1">
 								</div>
 							</td>
-
-							
 
 							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
-								<button  style="width: 100%;" onclick="hapus_row(<?=$key+1;?>);" type="button" class="btn btn-danger"> Hapus </button>
+								<!-- <button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button> -->
 							</td>
 						</tr>
-						<?PHP } ?>
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
+				<!-- <button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button> -->
 
 			</div>
 		</div>
@@ -313,25 +424,49 @@ input[type=checkbox]
 			</div>
 			<div class="widget-container">
 
-				<div class="row-fluid" style="margin-top: 10px; display: none;">
-					<div style="margin-bottom: 15px;" class="span3">
-						<h3> Total :</h3> 
-					</div>
-
-					<div style="margin-bottom: 15px;" class="span4">
-						<h3 id="total_txt" style="color:green;"> Rp. 0.00 </h3> 
-					</div>
-				</div>
+				
 
 				
 
 				<div class="form-actions">
 					<center>
 
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Sub Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="sub_total"></h3>
+							<input type="hidden" name="sub_total" id="inp_sub_total">
+							<input type="hidden" name="qty_total" id="inp_qty_total">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PBBKB :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="pbbkb" value="ada">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> OAT :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="oat" value="ada">
+						</div>
+					</div> -->
+
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penjualan" name="edit_cui" class="btn btn-success">
-					<button class="btn" onclick="window.history.back();" type="button"> Batal dan Kembali </button>
+					<input type="submit" value="Simpan Delivery Order" name="simpan" class="btn btn-success">
+					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
 			</div>
@@ -354,22 +489,22 @@ input[type=checkbox]
 			<div class="span12" style="font-size: 15px;">
 				<address>
 					<strong> Temperatur </strong><br>
-					<input class="span12" type="text" name="temperatur" value="<?=$dt->TEMPERATUR;?>">
+					<input class="span12" type="text" name="temperatur" value="">
 				</address>
 
 				<address>
 					<strong> Density </strong><br>
-					<input class="span12" type="text" name="density" value="<?=$dt->DENSITY;?>">
+					<input class="span12" type="text" name="density" value="">
 				</address>
 
 				<address>
 					<strong> Flash Point </strong><br>
-					<input class="span12" type="text" name="flash_point" value="<?=$dt->FLASH_POINT;?>">
+					<input class="span12" type="text" name="flash_point" value="">
 				</address>
 
 				<address>
 					<strong> Water Content </strong><br>
-					<input class="span12" type="text" name="water_content" value="<?=$dt->WATER_CONTENT;?>">
+					<input class="span12" type="text" name="water_content" value="">
 				</address>
 			</div>
 		</div>
@@ -390,16 +525,22 @@ input[type=checkbox]
 	<td align="center" style="vertical-align:middle;"> 
 		<div class="control-group">
 			<div class="controls">
-				<selectt data-placeholder="Pilih ..." class="cek_select" tabindex="2"  name="kode_akun[]" style="width: 100%;" >
+				<select  required data-placeholder="Pilih ..." class="cek_select" tabindex="2"  name="kode_akun[]" onchange="samakan_4(this.value);">
 					<option value="">Pilih ...</option>
 					<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
-					<?PHP if($akun_all->KODE_AKUN == "401.02.01"){
-						$cek = "selected";
-					}?>
-					<option value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
+					<?PHP 
+					$sel = "";
+					if('401.01.01' == $akun_all->KODE_AKUN) { 
+						$sel = "selected";
+					} else {
+						$sel = "";
+					}
+					?>
+					<option <?=$sel;?>  value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
 					<?PHP } ?>				
 				</select>
 			</div>
+		</div>
 		</div>
 	</td>
 </div>
@@ -416,7 +557,7 @@ function hapus_row_pertama(){
 	$('#harga_satuan_1').val('');
 	$('#jumlah_1').val('');
 
-	// hitung_total_semua();
+	hitung_total_semua();
 }
 
 function simpan_add_produk(){
@@ -468,6 +609,11 @@ function show_pop_produk(no){
 function show_pop_pelanggan(id){
     get_popup_pelanggan();
     ajax_pelanggan();
+}
+
+function show_pop_supplier(id){
+    get_popup_supplier();
+    ajax_supplier();
 }
 
 function get_popup_produk(){
@@ -535,6 +681,8 @@ function ajax_produk(id_form){
                             '<td align="left">'+res.NAMA_PRODUK+'</td>'+
                              '<td align="center">Rp '+NumberToMoney(res.HARGA).split('.00').join('')+'</td>'+
                         '</tr>';
+                        
+                $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
             });
 
             if(result.length == 0){
@@ -542,9 +690,11 @@ function ajax_produk(id_form){
             }
 
             $('#tes5 tbody').html(isine); 
+
             $('#search_koang_pro').off('keyup').keyup(function(){
                 ajax_produk(id_form);
             });
+
         }
     });
 }
@@ -561,7 +711,43 @@ function get_popup_pelanggan(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
-                '                        <th style="white-space:nowrap;"> NAMA PELANGGAN / PERUSAHAAN </th>'+
+                '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
+                '                        <th> NO SO </th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+        $('#popup_koang').remove();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
+
+function get_popup_supplier(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang" id="search_koang" class="form-control" value="" placeholder="Cari Pelanggan...">'+
+                '    <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO</th>'+
+                '                        <th style="white-space:nowrap;"> NAMA SUPPLIER / PERUSAHAAN </th>'+
                 '                        <th> ALAMAT </th>'+
                 '                    </tr>'+
                 '                </thead>'+
@@ -588,7 +774,7 @@ function get_popup_pelanggan(){
 function ajax_pelanggan(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_pelanggan_popup',
+        url : '<?php echo base_url(); ?>delivery_order_new_c/get_so_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -600,12 +786,48 @@ function ajax_pelanggan(){
             var tipe_data = "";
             $.each(result,function(i,res){
                 no++;
-                nama_pel = res.NAMA_PELANGGAN;
+                
+
+                isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
+                            '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.TGL_TRX+'</td>'+
+                            '<td align="center">'+res.NO_BUKTI+'</td>'+
+                        '</tr>';
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+            $('#search_koang').off('keyup').keyup(function(){
+                ajax_pelanggan();
+            });
+        }
+    });
+}
+
+function ajax_supplier(){
+    var keyword = $('#search_koang').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_supplier_popup',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+                nama_pel = res.NAMA_SUPPLIER;
                 if(res.TIPE == "Perusahaan"){
-                	nama_pel = res.NAMA_PELANGGAN+" <b> ("+res.NAMA_USAHA+")</b>";
+                	nama_pel = res.NAMA_SUPPLIER+" <b> ("+res.NAMA_USAHA+")</b>";
                 }
 
-                isine += '<tr onclick="get_pelanggan_det('+res.ID+');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_supplier_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+nama_pel+'</td>'+
                             '<td align="center">'+res.ALAMAT_TAGIH+'</td>'+
@@ -638,32 +860,21 @@ function cek_islunas(){
 function hitung_total(id){
 
 
-	var tax           = $('#tax_'+id).val();
 	var qty           = $('#qty_'+id).val();
 	var harga_modal   = $('#harga_modal_'+id).val();
-	var harga_jual    = $('#harga_jual_'+id).val();
-	var harga_invoice = $('#harga_invoice_'+id).val();
 
 	qty           = qty.split(',').join('');
 	harga_modal   = harga_modal.split(',').join('');
-	harga_jual    = harga_jual.split(',').join('');
-	harga_invoice = harga_invoice.split(',').join('');
 
 	if(qty           == "" || qty 	        == null){ qty           = 0; }
 	if(harga_modal   == "" || harga_modal   == null){ harga_modal   = 0; }
-	if(harga_jual    == "" || harga_jual    == null){ harga_jual    = 0; }
-	if(harga_invoice == "" || harga_invoice == null){ harga_invoice = 0; }
 
-	if(tax == ""){
-		var cashback = (parseFloat(harga_invoice) - parseFloat(harga_jual)) * parseFloat(qty) ;
-		$('#cashback_'+id).val(cashback);
-	} else {
-		var cashback = (parseFloat(harga_invoice) - parseFloat(harga_jual)) * 0.9 * parseFloat(qty) ;
-		$('#cashback_'+id).val(cashback);
-	}
 
-	var profit = (parseFloat(harga_jual) - parseFloat(harga_modal)) * parseFloat(qty) ;
-	$('#profit_'+id).val(profit);
+	var profit = parseFloat(harga_modal) * parseFloat(qty) ;
+	$('#total_id_'+id).val(profit);
+	$('#inp_sub_total').val(profit);
+	$('#inp_qty_total').val(qty);
+	$('#sub_total').html('Rp. '+acc_format(profit, "").split('.00').join('') );
 }
 
 function get_produk_detail(id, no_form){
@@ -677,6 +888,7 @@ function get_produk_detail(id, no_form){
 			$('#qty_'+no_form).focus();
 			$('#id_produk_'+no_form).val(id_produk);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
+			$('#harga_modal_'+no_form).val(result.HARGA);
 
 
 			$('#search_koang_pro').val("");
@@ -703,6 +915,8 @@ function tambah_data() {
 
 	var coa = $('#copy_ag').html();
 
+
+
 	$isi_1 = 
 	'<tr id="tr_'+i+'" class="tr_utama">'+
 		'<td>'+coa+'</td>'+
@@ -715,58 +929,37 @@ function tambah_data() {
 						'<input type="hidden" id="jenis_produk_'+i+'" name="jenis_produk[]" readonly style="background:#FFF;" value="">'+
 						'<button style="width: 30%" onclick="show_pop_produk('+i+');" type="button" class="btn">Cari</button>'+
 					'</div>'+
-				'</div>'+
-			'</div>'+
+				'</div>'+				
 		'</td>'+
+
+
 
 		'<td align="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  +value="" name="qty[]">'+
+				'<input onkeyup="FormatCurrency(this); always_one('+i+'); hitung_total('+i+');hitung_total_semua();" onchange="" id="qty_'+i+'" style="font-size: 18px; text-align:center; width: 80%;" type="text"  +value="" name="qty[]">'+
 			'</div>'+
 		'</td>'+
 
-		'<td align="center" style="vertical-align:middle;"> '+
-			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">'+
-			'</div>'+
-		'</td>'+
 
 		'<td align="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_jual[]" id="harga_jual_1">'+
-			'</div>'+
-		'</td>'+
-
-		'<td align="center" style="vertical-align:middle;"> '+
-			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_invoice[]" id="harga_invoice_1">'+
-			'</div>'+
-		'</td>'+
-
-		'<td align="center" style="vertical-align:middle;"> '+
-			'<div class="span12">'+
-			'<div class="controls">'+
-				'<select data-placeholder="Tax..." class="" tabindex="2" name="tax[]" id="tax_1" style="width:100px;" onchange="hitung_total(1);">'+
-					'<option value="">Tidak</option>'+
-					'<option value="PPN">PPN</option>'+
-				'</select>'+
-
-				'<input readonly onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%; background:#FFF;" type="hidden"  value="" name="cashback[]" id="cashback_1">'+
-
-				'<input readonly onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%; background:#FFF;" type="hidden"  value="" name="profit[]" id="profit_1">'+
-			'</div>'+
-			'</div>'+
+				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_'+i+'">'+
+				'<input type="hidden" id="total_id_'+i+'" name="total_id[]">'+
+		'	</div>'+
 		'</td>'+
 
 		'<td class="center" style="background:#FFF; text-align:center;">'+
-			'<button style="width: 100%;" onclick="hapus_row('+i+');" type="button" class="btn btn-danger"> Hapus </button>'+
+			'<button style="width: 100%;" onclick="hapus_row('+i+');" type="btn-defaulton" class="btn btn-danger"> Hapus </button>'+
 		'</td>'+
 	'</tr>';
 
 	$('#tes').append($isi_1);
+	$('#tax_'+i).val(tax_lol);
 	$('#tr_'+i).find('.cek_select').attr('class', 'cek_select_'+i);
+	$('#tr_'+i).find('.cek_select2').attr('class', 'cek_select2_'+i);
 	$('#tr_utama_count').val(i);
 	$(".cek_select_"+i).chosen();
+	$(".cek_select2_"+i).chosen();
 
 }
 
@@ -774,7 +967,7 @@ function tambah_data() {
 function get_pelanggan_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_pelanggan_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_so_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -786,39 +979,70 @@ function get_pelanggan_det(id_pel){
 		    $('#popup_koang').hide();
 		    $('#popup_koang').remove();
 
-			$('#alamat_tagih').val(result.ALAMAT_TAGIH);
-			$('#pelanggan').val(result.NAMA_PELANGGAN);
-			$('#kota_tujuan').val(result.ALAMAT_KIRIM);
+			$('#alamat_tagih').val(result.ALAMAT);
+			$('#pelanggan').val(result.PELANGGAN);
+			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(id_pel);
+		}
+	});
+}
+
+function get_sales_det(id_pel){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_sales_detail',
+		data : {id_pel:id_pel},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+
+			$('#search_koang').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+		    $('#popup_koang').remove();
+
+			$('#nama_produk_1').val(result.NAMA_PRODUK);
+			$('#qty_1').val(result.QTY);
+			$('#harga_modal_1').val(result.HARGA_SATUAN);
+		}
+	});
+}
+
+function get_supplier_det(id_pel){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_supplier_detail',
+		data : {id_pel:id_pel},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+
+			$('#search_koang').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+		    $('#popup_koang').remove();
+
+			$('#supplier').val(result.NAMA_SUPPLIER);
+			$('#supplier_sel').val(id_pel);
 		}
 	});
 }
 
 function hitung_total_semua(){
 	var sum = 0;
-	var pajak_prosen = $('#pajak_prosen').val();
+	
 	console.log(pajak_prosen);
-	$("input[name='jumlah[]']").each(function(idx, elm) {
+	$("input[name='total_id[]']").each(function(idx, elm) {
 		var tot = elm.value.split(',').join('');
 		if(tot > 0){
     		sum += parseFloat(tot);
 		}
     });
 
-	var pajak = $('#pajak_all').val().split(',').join('');
-	if(pajak == ""){
-		pajak = 0;
-	}
-	
-	var total_all = parseFloat(sum) + parseFloat(pajak) ;
-
     $('#sub_total').val(sum);
-    //$('#pajak_all').val(pajak);
-    $('#total_all').val(total_all);
 
-    $('#pajak_txt').html('Rp. '+NumberToMoney(pajak));
-    $('#subtotal_txt').html('Rp. '+acc_format(sum, ""));
-    $('#total_txt').html('Rp. '+acc_format(total_all, ""));
 }
 
 function hitung_pajak(id_pajak){
@@ -854,4 +1078,26 @@ function hapus_row (id) {
 function acc_format(n, currency) {
 	return currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 }
+
+function samakan_1(val) {
+	$('input[name="harga_modal[]"]').val(val);
+}
+
+function samakan_2(val){
+	$('input[name="harga_jual[]"]').val(val);
+}
+
+function samakan_3(val){
+	$('input[name="harga_invoice[]"]').val(val);
+}
+
+function samakan_4(val){
+	$('input[name="kode_akun[]"]').val(val);
+}
+
+function samakan_5(){
+	var vail = $('#nama_produk_1').val();
+	$('input[name="nama_produk[]"]').val(vail);
+}
+// modal jual Invoice
 </script>

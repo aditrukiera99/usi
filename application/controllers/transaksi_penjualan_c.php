@@ -36,15 +36,15 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$no_trx2       = $this->input->post('no_trx2');
 			$id_pelanggan  = $this->input->post('pelanggan_sel');
 			$pelanggan     = $this->input->post('pelanggan');
-			$id_supplier   = $this->input->post('supplier_sel');
-			$supplier      = $this->input->post('supplier');
+			// $id_supplier   = $this->input->post('supplier_sel');
+			// $supplier      = $this->input->post('supplier');
 			$alamat_tagih  = $this->input->post('alamat_tagih');
 			// $kota_tujuan   = $this->input->post('kota_tujuan');
-			$no_po          = $this->input->post('no_po');
-			$no_lpbe        = $this->input->post('no_lpbe');
-			$no_deo         = $this->input->post('no_do');
-			$no_inv         = $this->input->post('no_inv');
-			$no_sj          = $this->input->post('no_sj');
+			// $no_po          = $this->input->post('no_po');
+			// $no_lpbe        = $this->input->post('no_lpbe');
+			// $no_deo         = $this->input->post('no_do');
+			// $no_inv         = $this->input->post('no_inv');
+			// $no_sj          = $this->input->post('no_sj');
 			$tgl_trx 	    = $this->input->post('tgl_trx');
 			$keterangan     = $this->input->post('memo_lunas');
 			$sub_total      = $this->input->post('sub_total');
@@ -67,20 +67,20 @@ class Transaksi_penjualan_c extends CI_Controller {
 			 	$ppn_oat = 0.1 * $nilai_qty_total;
 			} 
 			
-			$dikirim        = $this->input->post('dikirim');
-			$segel_atas 	= $this->input->post('segel_atas');
-			$meter_atas   	= $this->input->post('meter_atas');
-			$no_pol    		= $this->input->post('no_pol');
-			$segel_bawah    = $this->input->post('segel_bawah');
-			$meter_bawah    = $this->input->post('meter_bawah');
-			$nama_kapal     = $this->input->post('nama_kapal');
-			$temperatur     = $this->input->post('temperatur');
-			$sg_meter   	= $this->input->post('sg_meter');
+			// $dikirim        = $this->input->post('dikirim');
+			// $segel_atas 	= $this->input->post('segel_atas');
+			// $meter_atas   	= $this->input->post('meter_atas');
+			// $no_pol    		= $this->input->post('no_pol');
+			// $segel_bawah    = $this->input->post('segel_bawah');
+			// $meter_bawah    = $this->input->post('meter_bawah');
+			// $nama_kapal     = $this->input->post('nama_kapal');
+			// $temperatur     = $this->input->post('temperatur');
+			// $sg_meter   	= $this->input->post('sg_meter');
 
-			$tgl_do        = $this->input->post('tgl_trx');
-			$tgl_sj        = $this->input->post('tgl_trx');
-			$tgl_inv       = $this->input->post('tgl_trx');
-			$tgl_kwi       = $this->input->post('tgl_trx');	
+			// $tgl_do        = $this->input->post('tgl_trx');
+			// $tgl_sj        = $this->input->post('tgl_trx');
+			// $tgl_inv       = $this->input->post('tgl_trx');
+			// $tgl_kwi       = $this->input->post('tgl_trx');	
 			$operator      = $user->NAMA;
 
 			$id_produk 	    = $this->input->post('produk');
@@ -90,36 +90,36 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$harga_modal 	= $this->input->post('harga_modal');
 			$total_id 		= $this->input->post('total_id');
 
-			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_inv);
+			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat);
 
 			$id_penjualan = $this->db->insert_id(); 
 
-			$this->model->simpan_pembelian_po($no_po, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx);
+			// $this->model->simpan_pembelian_po($no_po, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx);
 
-			$id_pembelian = $this->db->insert_id();
+			// $id_pembelian = $this->db->insert_id();
 
-			$this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po ,$nilai_pbbkb);
+			// $this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po ,$nilai_pbbkb);
 
-			$id_penerimaan = $this->db->insert_id();
+			// $id_penerimaan = $this->db->insert_id();
 
-			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx);
+			// $this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx);
 
-			$id_delivery = $this->db->insert_id();
+			// $id_delivery = $this->db->insert_id();
 
 			
 
 			$this->model->save_next_nomor($id_klien, 'Penjualan', $no_trx2);
-			$this->model->save_next_nomor($id_klien, 'Pembelian', $no_po);
-			$this->model->save_next_nomor($id_klien, 'Penerimaan_barang', $no_lpbe);
-			$this->model->save_next_nomor($id_klien, 'Delivery_order', $no_deo);
-			$this->model->save_next_nomor($id_klien, 'Invoice', $no_inv);
-			$this->model->save_next_nomor($id_klien, 'Surat_jalan', $no_sj);
+			// $this->model->save_next_nomor($id_klien, 'Pembelian', $no_po);
+			// $this->model->save_next_nomor($id_klien, 'Penerimaan_barang', $no_lpbe);
+			// $this->model->save_next_nomor($id_klien, 'Delivery_order', $no_deo);
+			// $this->model->save_next_nomor($id_klien, 'Invoice', $no_inv);
+			// $this->model->save_next_nomor($id_klien, 'Surat_jalan', $no_sj);
 
 
 			foreach ($id_produk as $key => $val) {
 				$this->model->simpan_detail_penjualan($id_penjualan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);	
-				$this->model->simpan_detail_pembelian($id_pembelian, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);
-				$this->model->simpan_detail_penerimaan($id_penerimaan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);	
+				// $this->model->simpan_detail_pembelian($id_pembelian, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);
+				// $this->model->simpan_detail_penerimaan($id_penerimaan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);	
 				// $this->model->update_stok($id_klien, $id_produk[$key], $qty[$key]);
 			}
 

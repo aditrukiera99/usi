@@ -143,19 +143,19 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
-		<div class="span3">
+		<!-- <div class="span3">
 			<div class="control-group">
 				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="supplier" name="supplier" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="supplier_sel" name="supplier_sel" readonly style="background:#FFF;">
-						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
+						
 						<button onclick="show_pop_supplier();" type="button" class="btn">Cari</button>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 
@@ -172,7 +172,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
-					<!-- <textarea rows="4" id="alamat_tagih" name="alamat_tagih" style="resize:none; height: 87px; width: 90%;"></textarea> -->
+					
 					<textarea name="alamat_tagih" class="span12" rows="5" id="alamat_tagih"></textarea>
 				</div>
 	
@@ -183,13 +183,13 @@ input[type=checkbox]
 
 
 	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
+		<!-- <div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="<?=$no_pembeli;?>" name="no_po" id="no_po" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;">
 			</div>
-		</div>
+		</div> -->
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
@@ -214,14 +214,14 @@ input[type=checkbox]
 
 
 	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
+		<!-- <div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
 			<div class="controls">
 				<input type="text" class="span10" value="<?=$no_deo;?>" name="no_do" id="no_do" style="font-size: 15px;">
 				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_inv" id="no_do" style="font-size: 15px;">
 				<input type="hidden" class="span10" value="<?=$no_surat_jalan;?>" name="no_sj" id="no_do" style="font-size: 15px;">
 			</div>
-		</div>
+		</div> -->
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
@@ -233,7 +233,7 @@ input[type=checkbox]
 
 </div>
 
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+<!-- <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
@@ -330,7 +330,7 @@ input[type=checkbox]
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 
@@ -347,7 +347,7 @@ input[type=checkbox]
 				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
-							<th align="center" style="width: 25%;"> Kode Akun </th>
+							<!-- <th align="center" style="width: 25%;"> Kode Akun </th> -->
 							<th align="center" style="width: 20%;"> Produk / Item </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Jual </th>
@@ -356,7 +356,7 @@ input[type=checkbox]
 					</thead>
 					<tbody id="tes">
 						<tr id="tr_1" class="tr_utama">
-							<td align="left" style="vertical-align:middle;"> 
+							<!-- <td align="left" style="vertical-align:middle;"> 
 								<div class="control-group">
 										<div class="controls">
 											<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun[]" onchange="samakan_4(this.value);">
@@ -375,7 +375,7 @@ input[type=checkbox]
 											</select>
 										</div>								
 								</div>
-							</td>
+							</td> -->
 
 							<td style="vertical-align:middle;"> 
 
@@ -442,7 +442,7 @@ input[type=checkbox]
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="sub_total"></h3>
 							<input type="hidden" name="sub_total" id="inp_sub_total">
-							<input type="text" name="qty_total" id="inp_qty_total">
+							<input type="hidden" name="qty_total" id="inp_qty_total">
 						</div>
 					</div>
 

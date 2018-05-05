@@ -31,66 +31,34 @@ class Delivery_order_new_c extends CI_Controller {
 
 			$msg = 1;
 
-			$no_trx 	   = $this->input->post('no_trx');
-			$no_trx2       = $this->input->post('no_trx2');
-			$id_pelanggan  = $this->input->post('pelanggan_sel');
-			$pelanggan     = $this->input->post('pelanggan');
-			$alamat_tagih  = $this->input->post('alamat_tagih');
-			$kota_tujuan   = $this->input->post('kota_tujuan');
-			$no_po         = $this->input->post('no_po');
-			$no_do         = $this->input->post('no_do');
-			$tgl_trx 	   = $this->input->post('tgl_trx');
-			$keterangan    = $this->input->post('memo_lunas');
-			$jatuh_tempo   = $this->input->post('jatuh_tempo');
-			$no_pol        = $this->input->post('no_pol');
-			$sopir 		   = $this->input->post('sopir');
-			$alat_angkut   = $this->input->post('alat_angkut');
-			$segel_atas    = $this->input->post('segel_atas');
-			$segel_bawah   = $this->input->post('segel_bawah');
-			$broker        = $this->input->post('broker');
+			$no_deo         = $this->input->post('no_do');
+			$no_trx 	    = $this->input->post('no_trx');
+			$id_pelanggan   = $this->input->post('pelanggan_sel');
+			$pelanggan      = $this->input->post('pelanggan');
+			$tgl_trx 	    = $this->input->post('tgl_trx');
+			$keterangan     = $this->input->post('memo_lunas');
+			$dikirim        = $this->input->post('dikirim');
+			$segel_atas 	= $this->input->post('segel_atas');
+			$meter_atas   	= $this->input->post('meter_atas');
+			$no_pol    		= $this->input->post('no_pol');
+			$segel_bawah    = $this->input->post('segel_bawah');
+			$meter_bawah    = $this->input->post('meter_bawah');
+			$nama_kapal     = $this->input->post('nama_kapal');
+			$temperatur     = $this->input->post('temperatur');
+			$sg_meter   	= $this->input->post('sg_meter');
+			$nama_produk 	= $this->input->post('nama_produk');
+			$qty 	        = $this->input->post('qty');
+			$operator       = $user->NAMA;
 
-			$atas_nama        = $this->input->post('atas_nama');
-			$transport        = $this->input->post('transport');
+			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx);
 
-			$temperatur    = $this->input->post('temperatur');
-			$density       = $this->input->post('density');
-			$flash_point   = $this->input->post('flash_point');
-			$water_content = $this->input->post('water_content');
-
-			$tgl_ambil = $this->input->post('tgl_ambil');
-
-			$tgl_do        = $this->input->post('tgl_trx');
-			$tgl_sj        = $this->input->post('tgl_trx');
-			$tgl_inv       = $this->input->post('tgl_trx');
-			$tgl_kwi       = $this->input->post('tgl_trx');	
-			$operator      = $user->NAMA;
-
-			$this->model->simpan_penjualan($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator, $atas_nama, $transport, $tgl_ambil);
+			$this->model->update_status_so($no_trx);
 
 			$id_penjualan = $this->db->insert_id(); 
 
-			$this->model->save_next_nomor($id_klien, 'Pembelian', $no_trx2);
+			$this->model->save_next_nomor($id_klien, 'Delivery_order', $no_deo);
 
-			$id_produk 	    = $this->input->post('produk');
-			$kode_akun 	 	= $this->input->post('kode_akun');
-			$nama_produk 	= $this->input->post('nama_produk');
-			$qty 	        = $this->input->post('qty');
-
-			$harga_modal    = $this->input->post('harga_modal');
-			$harga_invoice  = $this->input->post('harga_invoice');			
-
-			foreach ($id_produk as $key => $val) {
-				$this->model->simpan_detail_penjualan($id_penjualan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $harga_invoice[$key]);	
-				$this->model->update_stok($id_klien, $id_produk[$key], $qty[$key]);
-			}
-
-			$data_cust = $this->input->post('data_cust');
-			foreach ($data_cust as $key => $val) {
-				$this->db->query("INSERT INTO ak_pembelian_customer (ID_PEMBELIAN, NAMA_CUSTOMER) VALUES ('$id_penjualan', '$val') ");
-			}
-
-			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
-
+			
 		}
 
 		if($this->input->post('simpan_ciu')){
@@ -206,7 +174,7 @@ class Delivery_order_new_c extends CI_Controller {
 		}
 	}
 
-	function new_invoice(){
+	function new_delivery_order(){
 		$keyword = "";
 		$msg = "";
 		$kode_produk = "";
@@ -218,26 +186,52 @@ class Delivery_order_new_c extends CI_Controller {
 		
 
 		$list_akun = $this->model->get_list_akun($id_klien);
-		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
 		$get_all_produk    = $this->model->get_all_produk($id_klien);
 		$get_pel_sup = $this->model->get_pel_sup($id_klien);
-		$get_pajak = $this->model->get_pajak($id_klien);
 		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
-		$get_broker = $this->model->get_broker();
+		$no_do = $this->model->get_no_trx_do($id_klien);
 
 		$data =  array(
-			'page' => "buat_transaksi_po_new_v", 
-			'title' => "Buat Penjualan Baru", 
+			'page' => "buat_delivery_order_new_v", 
+			'title' => "Buat Delivery Order Baru", 
 			'msg' => "", 
 			'master' => "pembelian", 
 			'view' => "purchase_order", 
 			'msg' => $msg, 
 			'no_trx' => $no_trx, 
-			'get_broker' => $get_broker, 
-			'post_url' => 'penerimaan_barang_c', 
+			'no_do' => $no_do, 
+			'post_url' => 'delivery_order_new_c', 
 		);
 		
 		$this->load->view('beranda_v', $data);
+	}
+
+	function get_so_popup(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$where = "1=1";
+
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$keyword = $this->input->post('keyword');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND STATUS_DO = '0' AND $where  
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
 	}
 
 	function ubah_data($id=""){
@@ -283,6 +277,20 @@ class Delivery_order_new_c extends CI_Controller {
 		);
 		
 		$this->load->view('beranda_v', $data);
+	}
+
+	function get_so_detail(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_so_detail($id_pel);
+
+		echo json_encode($dt);
+	}
+
+	function get_sales_detail(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_sales_detail($id_pel);
+
+		echo json_encode($dt);
 	}
 
 	function detail($id=""){
