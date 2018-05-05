@@ -14,8 +14,10 @@ class Input_jurnal_bayar_kas_m extends CI_Model
         $user     = $this->master_model_m->get_user_info($id_user);
         
         $sql = "
-        SELECT * FROM ak_kode_akuntansi WHERE UNIT = '$user->UNIT'
-        ORDER BY KODE_AKUN
+        SELECT a.* FROM ak_kode_akuntansi a 
+        JOIN ak_grup_kode_akun b ON a.KODE_GRUP = b.KODE_GRUP
+        WHERE b.ID = 1
+        ORDER BY a.KODE_AKUN
         ";
 
         return $this->db->query($sql)->result();
@@ -28,6 +30,14 @@ class Input_jurnal_bayar_kas_m extends CI_Model
 
         $sql = "
         SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'TRANSAKSI_AKUN' AND BULAN = $bln AND TAHUN = $thn
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_no_trx_penjualan($id_klien){
+        $sql = "
+        SELECT * FROM ak_nomor WHERE TIPE = 'HUTANG'
         ";
 
         return $this->db->query($sql)->row();

@@ -13,7 +13,7 @@ class Input_jurnal_umum_m extends CI_Model
         $user     = $this->master_model_m->get_user_info($id_user);
 
         $sql = "
-        SELECT * FROM ak_kode_akuntansi WHERE  UNIT = '$user->UNIT'
+        SELECT * FROM ak_kode_akuntansi
         ORDER BY KODE_AKUN
         ";
 

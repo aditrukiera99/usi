@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Lap_pembelian_bulanan_c extends CI_Controller {
+class Lap_detail_po_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -30,15 +30,15 @@ class Lap_pembelian_bulanan_c extends CI_Controller {
 		//$dt = $this->model->get_no_akun($keyword, $id_klien);
 
 		$data =  array(
-			'page' => "lap_pembelian_bulanan_v", 
-			'title' => "Laporan Pembelian Bulanan", 
+			'page' => "lap_detail_po_v", 
+			'title' => "Laporan Detail Order Pembelia", 
 			'msg' => "", 
 			'master' => "laporan", 
-			'view' => "lap_pembelian_bulanan_v", 
+			'view' => "lap_detail_po_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
-			'post_url' => 'lap_pembelian_bulanan_c/cetak_laporan', 
+			'post_url' => 'lap_detail_po_c/cetak_laporan', 
 		);
 		
 		$this->load->view('beranda_v', $data);
@@ -60,21 +60,42 @@ class Lap_pembelian_bulanan_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
-		$view = "pdf/report_pembelian_bulanan_pdf";
-		$dt = "";
-		$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-		$tgl_full = $this->input->post('tgl');
-		if($tgl_full == ""){
-			$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
+		if($filter == "Harian"){
+			$view = "pdf/report_detail_po_pdf";
+			$dt = "";
+			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
+
+			$tgl_full = $this->input->post('tgl');
+			if($tgl_full == ""){
+				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
+			}
+			
+			$tgl = explode(' sampai ', $tgl_full);
+			$tgl_awal = $tgl[0];
+			$tgl_akhir = $tgl[1];
+			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
+
+			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+		} else {
+			$view = "pdf/report_detail_po_pdf";
+			$dt = "";
+			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
+
+			$tgl_full = $this->input->post('tgl');
+			if($tgl_full == ""){
+				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
+			}
+			
+			$tgl = explode(' sampai ', $tgl_full);
+			$tgl_awal = $tgl[0];
+			$tgl_akhir = $tgl[1];
+			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
+
+			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
 		}
-		
-		$tgl = explode(' sampai ', $tgl_full);
-		$tgl_awal = $tgl[0];
-		$tgl_akhir = $tgl[1];
-		$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-		$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+		
 
 
 		$data = array(

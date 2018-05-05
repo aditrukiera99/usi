@@ -21,7 +21,7 @@
       text-align: center;
     }
 </style>
-  <body class="body">
+  <body class="body" onload="window.print()">
     <div style="float:left;">
       <span style="font-size: 120%;"><strong>PT. UNITED SHIPPING INDONESIA</strong></span><br>
       <span style="font-size: 70%;">GONDOSULI No. 08 RT 005 RW 006, KETABANG, GENTENG SURABAYA</span><br>
@@ -30,7 +30,7 @@
     <div style="clear: both;"></div>
     <center>
     <div>
-      <span><strong>LAPORAN PEMBELIAN</strong></span><br>
+      <span><b style="font-size:22px;">LAPORAN PEMBELIAN</b></span><br>
       <span style="font-size: 80%;"><strong>TAHUN 2018</span>
     </div>
   </center>
