@@ -132,6 +132,7 @@ class Bukti_kas_keluar_c extends CI_Controller {
 
 		$list_akun = $this->model->get_list_akun($id_klien);
 		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
+		$get_list_akun_bank = $this->master_model_m->get_list_akun_bank();
 		$get_all_produk    = $this->model->get_all_produk($id_klien);
 		$get_pel_sup = $this->model->get_pel_sup($id_klien);
 		$get_pajak = $this->model->get_pajak($id_klien);
@@ -147,6 +148,7 @@ class Bukti_kas_keluar_c extends CI_Controller {
 			'msg' => $msg, 
 			'list_akun' => $list_akun, 
 			'get_list_akun_all' => $get_list_akun_all, 
+			'get_list_akun_bank' => $get_list_akun_bank, 
 			'get_all_produk' => $get_all_produk, 
 			'get_pel_sup' => $get_pel_sup, 
 			'get_pajak' => $get_pajak, 

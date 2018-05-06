@@ -31,18 +31,17 @@ class Daftar_kode_akun_c extends CI_Controller {
 			}
 
 			$kode_grup   = $this->input->post('kode_grup');
-			$kode_sub   = $this->input->post('kode_sub');
+			$kode_sub   = 0;
 			$no_akun   = $this->input->post('no_akun');
-			$tipe   = $this->input->post('tipe');
-
+			$tipe   = "";
 			$nama_akun  = addslashes($this->input->post('nama_akun'));
 			$nomor_akun   = $kode_grup.".".$kode_sub.".".$no_akun;
 
-			$id_akun = $this->model->simpan_akun($id_klien, $nama_akun, $nomor_akun, $kode_grup, $kode_sub, $tipe);
+			$id_akun = $this->model->simpan_akun($id_klien, $nama_akun, $no_akun, $kode_grup, $kode_sub, $tipe);
 
-			$deskripsi_persetujuan = "Penambahan Kode Akun : <br> <b>Nama Akun : ".$nama_akun."</b> <br> <b> Nomor Akun : ".$nomor_akun."</b>";
+			$deskripsi_persetujuan = "Penambahan Kode Akun : <br> <b>Nama Akun : ".$nama_akun."</b> <br> <b> Nomor Akun : ".$no_akun."</b>";
 			$this->master_model_m->simpan_persetujuan('kode_akun', $id_akun, 'ADD', $id_user, $deskripsi_persetujuan);
-			$this->master_model_m->simpan_log($id_user, "Menambah Kode akun <b>".$nomor_akun."</b>");
+			$this->master_model_m->simpan_log($id_user, "Menambah Kode akun <b>".$no_akun."</b>");
 
 		} else if($this->input->post('id_hapus')){
 			if($user->LEVEL == "USER"){
@@ -72,7 +71,7 @@ class Daftar_kode_akun_c extends CI_Controller {
 			$id_akun_ed    = $this->input->post('id_akun_ed');
 			$nomor_akun_ed = addslashes($this->input->post('nomor_akun_ed'));
 			$deskripsi_ed  = addslashes($this->input->post('deskripsi_ed'));
-			$tipe_ed       = addslashes($this->input->post('tipe_ed'));
+			$tipe_ed       = "";
 
 			$nomor_akun = addslashes($this->input->post('nomor_akun_ed'));
 
