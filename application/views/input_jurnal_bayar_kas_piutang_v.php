@@ -18,6 +18,13 @@ input[type=checkbox]
 
 </style>
 
+<?PHP 
+$no_transaksi = 1;
+if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
+    $no_transaksi = $no_trx->NEXT+1;
+}
+?>
+
 <form class="" method="post" action="<?=base_url().$post_url;?>" onsubmit = "return cek_simpan();";>
 
 
@@ -26,23 +33,23 @@ input[type=checkbox]
 <input type="hidden" name="kode_akun_pajak" id="kode_akun_pajak" value="">
 
 <div class="row-fluid ">
-	<div class="span12">
-		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-plus-sign"></i> Pelunasan Piutang </h3>
-		</div>
+    <div class="span12">
+        <div class="primary-head">
+            <h3 class="page-header"> <i class="icon-plus-sign"></i> Pelunasan Piutang </h3>
+        </div>
 
-		<ul class="breadcrumb">
-			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Input Akuntansi</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Pelunasan Piutang </li>
-		</ul>
-	</div>
+        <ul class="breadcrumb">
+            <li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Input Akuntansi</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active"> Pelunasan Piutang </li>
+        </ul>
+    </div>
 </div>
 
 <div class="row-fluid form-horizontal" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
-	<div>
-		<div class="span6">
-            <div class="control-group">
+    <div>
+        <div class="span6">
+            <div class="control-group" style="display: none;">
                 <label class="control-label"> <b style="font-size: 14px;"> Unit </b> </label>
                 <div class="controls">
                     <div class="input-append">
@@ -51,136 +58,71 @@ input[type=checkbox]
                     </div>
                 </div>
             </div>
-            
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> No. Bukti Kas </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input type="text" id="no_trx_akun" name="no_trx_akun" readonly style="background:#FFF;">
-						<button onclick="show_pop_no_bukti();" type="button" class="btn">Cari</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Tanggal Cek </b> </label>
-					<div class="controls">
-						<div id="datetimepicker1" class="input-append date ">
-							<input style="background:#FFF;" value="<?=date('d-m-Y');?>" readonly name="tgl_cek" id="tgl_cek" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text"><span class="add-on "><i id="add_on_pick" data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-						</div>
-					</div>
-			</div>
-			
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Uraian </b> </label>
-					<div class="controls">
-						<textarea readonly rows="4" id="uraian" name="uraian" style="resize:none; height: 87px; width: 300px; background:#FFF;"></textarea>
-					</div>
-			</div> 	
-
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Atas Nama </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input style="background:#FFF;" type="text" id="atas_nama" name="atas_nama" value="" readonly>
-					</div>
-				</div>
-			</div>
-
 
             <div class="control-group">
-                <label class="control-label"> <b style="font-size: 14px;"> Pembayaran Untuk </b> </label>
-                <div class="controls">
-                    <select class="span12" name="pembayaran_untuk" id="pembayaran_untuk" required>
-                        <option value=""> - Pilih Salah Satu - </option>
-                        <option value="piutang_usaha"> Piutang Usaha </option>
-                        <option value="piutang_lainnya"> Piutang Lainnya </option>
-                    </select>
-                </div>
-            </div>
-                    
-		</div>
-
-		<div class="span6">
-
-            <div class="control-group">
-                <label class="control-label"> <b style="font-size: 14px;"> No Cek / Giro </b> </label>
+                <label class="control-label"> <b style="font-size: 14px;"> No. Piutang </b> </label>
                 <div class="controls">
                     <div class="input-append">
-                        <input style="background:#FFF;" type="text" required id="no_giro" name="no_giro" value="">
+                        <input style="width: 90%;" type="text" id="no_hutang" name="no_hutang" value="PIU<?=$no_transaksi;?>" readonly>
+                        <input style="width: 90%;" type="hidden" id="no_hutang2" name="no_hutang2" value="<?=$no_transaksi;?>" readonly>
                     </div>
                 </div>
             </div>
             
+            <div class="control-group">
+                <label class="control-label"> <b style="font-size: 14px;"> No. Bukti Kas </b> </label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input type="text" id="no_bukti" name="no_bukti" readonly style="background:#FFF;">
+                        <button onclick="show_pop_no_bukti();" type="button" class="btn">Cari</button>
+                    </div>
+                </div>
+            </div>
 
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Tanggal </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input style="background:#FFF;" type="text" id="tgl" name="tgl" value="" readonly>
-					</div>
-				</div>
-			</div>
-			
+            <div class="control-group">
+                <label class="control-label"> <b style="font-size: 14px;"> Tanggal Cek </b> </label>
+                    <div class="controls">
+                        <div id="datetimepicker1" class="input-append date ">
+                            <input style="background:#FFF;" value="<?=date('d-m-Y');?>" readonly name="tgl_cek" id="tgl_cek" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text"><span class="add-on "><i id="add_on_pick" data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+                        </div>
+                    </div>
+            </div>  
 
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Piutang Usaha </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input style="background:#FFF;" type="text" id="piutang_usaha" name="piutang_usaha" value="" readonly>
-					</div>
-				</div>
-			</div>
-
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Piutang Lainnya </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input style="background:#FFF;" type="text" id="piutang_lain" name="piutang_lain" value="" readonly>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
+            <div class="control-group">
+                <label class="control-label"> <b style="font-size: 14px;"> Atas Nama </b> </label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input style="background:#FFF;" type="hidden" id="id_atas_nama" name="id_atas_nama" value="" readonly>
+                        <input style="background:#FFF;" type="text" id="atas_nama" name="atas_nama" value="" readonly>
+                    </div>
+                </div>
+            </div>
+                    
+        </div>
+        
+        <div class="span6">
+            <div class="control-group" style="margin-left: 10px;">
+                <label class="control-label"> <b style="font-size: 14px;"> Uraian </b> </label>
+                <div class="controls">
+                    <textarea rows="4" id="uraian" name="uraian" required="" style="resize:none; height: 87px; width: 80%;"></textarea>
+                </div>
+            </div> 
+        </div>
+    </div>
 </div>
 
 <div style="margin-bottom: 15px; display: none;" class="span4">
-	<div class="controls">
-		<label class="checkbox" style="font-size: 16px;">
-		<input type="checkbox" checked name="is_showed" id="is_showed" value="" onclick="show_detail();">
-		Tampilkan Detail </label>
-	</div>
+    <div class="controls">
+        <label class="checkbox" style="font-size: 16px;">
+        <input type="checkbox" checked name="is_showed" id="is_showed" value="" onclick="show_detail();">
+        Tampilkan Detail </label>
+    </div>
 </div>
-
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px; display: none;">
-	<div class="span12" id="detail_view">
-		<div class="widget-head orange">
-			<h3> Detail Transaksi </h3>
-		</div>
-		<table class="stat-table table table-hover">
-			<thead>
-				<tr>
-					<th align="center"> No </th>
-					<th align="center"> Produk / Barang</th>
-					<th align="center"> Kuantitas </th>
-					<th align="center"> Satuan </th>
-					<th align="center"> Harga Satuan (Rp) </th>
-					<th align="center"> Jumlah (Rp) </th>
-				</tr>						
-			</thead>
-			<tbody id="tes" style="font-size: 13px;">
-				<tr> <td colspan="6" align="center"> <b> Silahkan pilih Nomor Bukti terlebih dahulu untuk melihat detail transaksi </b> </td> </tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
 
 <div class="row-fluid" style="background: #F5EADA;">
     <div class="span3" style="margin-left: 20px;">
         <div class="control-group">
-                <label class="control-label"> <b style="font-size: 14px;"> Kode Akun </b> </label>
+                <label class="control-label"> <b style="font-size: 14px;"> Kas / Bank </b> </label>
                 <div class="controls">
                     <select  data-placeholder="Pilih ..." class="chzn-select" tabindex="2" style="width:400px;" id="kode_akun_add" name="kode_akun_add">
                         <?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
@@ -196,15 +138,15 @@ input[type=checkbox]
             <label class="control-label"> <b style="font-size: 14px;"> Nominal </b> </label>
             <div class="controls">
                 <div class="input-append">
-                    <input style="width: 100%;" onkeyup="FormatCurrency(this);" type="text" id="kredit_add" name="kredit_add" value="">
+                    <input style="width: 100%;" onkeyup="FormatCurrency(this);" type="text" id="nominal" name="nominal" value="">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="span2"  style="margin-top: 20px;">
+    <!-- <div class="span2"  style="margin-top: 20px;">
         <button style="width: 100%;" onclick="add_row();" class="btn btn-info" type="button"> <i class="icon-plus"></i> Tambah </button>
-    </div>
+    </div> -->
 </div>
 
 
@@ -212,27 +154,26 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
     <div class="span12">
         <div class="widget-head blue">
-            <h3> Input Transaksi </h3>
+            <h3> Data Transaksi </h3>
         </div>
 
         <table class="stat-table table table-hover">
             <thead>
                 <tr>
-                    <th align="center"> Kode Akun </th>
-                    <th align="center"> Nama Akun </th>
-                    <th align="center"> Nominal (Rp) </th>
-                    <th align="center"> Aksi </th>
+                    <th align="center"> No </th>
+                    <th align="center"> Keterangan </th>
+                    <th align="center"> Nilai </th>
                 </tr>                       
             </thead>
-            <tbody id="tes_row" style="font-size: 13px;">
-                <tr> <td colspan="6" align="center"> <b> </b> </td> </tr>
+            <tbody id="tes" style="font-size: 13px;">
+                <tr> <td colspan="3" align="center"> <b> </b> </td> </tr>
             </tbody>
 
             <tfoot>
                 <tr>
-                    <td style="background:#F1F1F1;" colspan="2" align="center"> <b> TOTAL </b> </td>
-                    <td style="background:#F1F1F1;" align="right"> <b style="font-size: 13px;" id="tot_kredit_txt"> 0 </b> </td>
+                    <td style="background:#F1F1F1;" align="center"> <b> TOTAL </b> </td>
                     <td style="background:#F1F1F1;" align="right">  </td>
+                    <td style="background:#F1F1F1;" align="right"> <b style="font-size: 13px;" id="tot_kredit_txt"> 0 </b> </td>
                 </tr>
             </tfoot>
         </table>
@@ -249,8 +190,8 @@ input[type=checkbox]
                 <div class="form-actions">
                     <center>
                     <input type="hidden" name="total_all" id="total_all" value="" />
-                    <input type="submit" value="Simpan Transaksi" name="simpan" class="btn btn-success">
                     <button class="btn" onclick="window.location='<?=base_url();?>input_jurnal_bayar_kas_c' " type="button"> Batal dan Kembali </button>
+                    <input type="submit" value="Simpan Transaksi" name="simpan" class="btn btn-success">
                     </center>
                 </div>
             </div>
@@ -279,7 +220,7 @@ function get_popup_no_bukti(){
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;">NO BUKTI KAS</th>'+
                 '                        <th>ATAS NAMA</th>'+
-                '                        <th>URAIAN</th>'+
+                '                        <th>NILAI</th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -304,7 +245,7 @@ function get_popup_no_bukti(){
 function ajax_no_bukti(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>input_jurnal_bayar_kas_piutang_c/get_no_bukti',
+        url : '<?php echo base_url(); ?>input_jurnal_bayar_kas_c/get_no_bukti',
         type : "POST",
         dataType : "json",
         data : {
@@ -317,11 +258,11 @@ function ajax_no_bukti(){
             $.each(result,function(i,res){
                 no++;
 
-                isine += '<tr onclick="get_transaksi(\'' +res.NO_VOUCHER+ '\',\'' +res.NO_BUKTI+ '\');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_transaksi(\'' +res.NO_VOUCHER+ '\', \'' +res.NO_BUKTI+ '\');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.NO_VOUCHER+'</td>'+
                             '<td align="center">'+res.KONTAK+'</td>'+
-                            '<td align="center">'+res.URAIAN+'</td>'+
+                            '<td align="center">'+res.KREDIT+'</td>'+
                         '</tr>';
             });
 
@@ -339,9 +280,9 @@ function ajax_no_bukti(){
 
 function get_transaksi(no_voucher , no_bukti){
 
-	$('#tes_row').html('');
+    $('#tes_row').html('');
     $('#tot_kredit_txt').html(0);
-	$.ajax({
+    $.ajax({
         url : '<?php echo base_url(); ?>input_jurnal_bayar_kas_c/get_transaksi',
         type : "POST",
         dataType : "json",
@@ -350,18 +291,21 @@ function get_transaksi(no_voucher , no_bukti){
             no_voucher : no_voucher,
         },
         success : function(res){
-            $('#no_trx_akun').val(no_voucher);
+            $('#no_bukti').val(no_voucher);
             $('#uraian').val(res.URAIAN);
+            $('#id_atas_nama').val(res.ID_KONTAK);
             $('#atas_nama').val(res.KONTAK);
+            $('#nominal').val(NumberToMoney(res.KREDIT).split('.00').join(''));
+            $('#tot_kredit_txt').html(NumberToMoney(res.KREDIT));
             $('#tgl').val(res.TGL);
 
-            get_hitungan_hutang(no_voucher);
+            // get_hitungan_hutang(no_voucher);
 
-        	$('#search_koang').val("");
-		    $('#popup_koang').css('display','none');
-		    $('#popup_koang').hide();
+            $('#search_koang').val("");
+            $('#popup_koang').css('display','none');
+            $('#popup_koang').hide();
 
-		    get_transaksi_detail(no_bukti);
+            get_transaksi_detail(no_voucher);
 
         }
     });
@@ -369,47 +313,13 @@ function get_transaksi(no_voucher , no_bukti){
 
 }
 
-function get_hitungan_hutang(no_voucher) {
+function get_transaksi_detail(no_voucher){
     $.ajax({
-        url : '<?php echo base_url(); ?>input_jurnal_bayar_kas_c/get_hitungan_hutang',
-        type : "POST",
-        dataType : "json",
-        data : {
-            no_voucher : no_voucher
-        },
-        success : function(result){
-            var piutang_usaha = 0;
-            var piutang_lain  = 0;
-            var pajak  = 0;
-
-             $('#piutang_usaha').val(0);
-             $('#piutang_lain').val(0);
-
-            $.each(result,function(i,res){
-
-                var KODE = res.KODE_AKUN;
-
-                if(KODE.match(/110.*/)) {
-                    $('#piutang_usaha').val(NumberToMoney(parseFloat(res.KREDIT - res.SISA_HUTANG_USAHA)).split('.00').join(''));  
-                    $('#kode_akun_hutang').val(res.KODE_AKUN);                  
-                    $('#pembayaran_untuk').val('piutang_usaha');                  
-                } else if(KODE.match(/112.*/)) {
-                    $('#piutang_lain').val(NumberToMoney(parseFloat(res.KREDIT - res.SISA_HUTANG_LAIN)).split('.00').join('')); 
-                    $('#kode_akun_hutang').val(res.KODE_AKUN);  
-                    $('#pembayaran_untuk').val('piutang_lainnya');     
-                }
-            });
-        }
-    });
-}
-
-function get_transaksi_detail(no_bukti){
-	$.ajax({
         url : '<?php echo base_url(); ?>input_jurnal_bayar_kas_c/get_transaksi_detail',
         type : "POST",
         dataType : "json",
         data : {
-            no_bukti : no_bukti
+            no_voucher : no_voucher
         },
         success : function(result){
             var isine = '';
@@ -418,11 +328,8 @@ function get_transaksi_detail(no_bukti){
                 no++;
                 isine += '<tr>'+
                             '<td style="text-align:center;">'+no+'</td>'+
-                            '<td style="text-align:left;">'+res.NAMA_PRODUK+'</td>'+
-                            '<td style="text-align:center;">'+res.QTY+'</td>'+
-                            '<td style="text-align:center;">'+res.SATUAN+'</td>'+
-                            '<td style="text-align:right;">'+NumberToMoney(res.HARGA_SATUAN).split('.00').join('')+'</td>'+
-                            '<td style="text-align:right;">'+NumberToMoney(parseFloat(res.HARGA_SATUAN) * parseFloat(res.QTY)).split('.00').join('')+'</td>'+
+                            '<td style="text-align:left;">'+res.KET+'</td>'+
+                            '<td style="text-align:right;">'+NumberToMoney(res.DEBET).split('.00').join('')+'</td>'+
                         '</tr>';
             });
             $('#tes').html(isine); 
@@ -431,11 +338,11 @@ function get_transaksi_detail(no_bukti){
 }
 
 function show_detail(){
-	if($("#is_showed").is(':checked')){
-	    $('#detail_view').show(); 
-	} else {
-	    $('#detail_view').hide(); 
-	}
+    if($("#is_showed").is(':checked')){
+        $('#detail_view').show(); 
+    } else {
+        $('#detail_view').hide(); 
+    }
 }
 
 function add_row(){
@@ -502,9 +409,9 @@ function hitung_total_row(){
 
 function cek_simpan () {
 
-    $nilai_hutang_usaha = parseFloat($('#piutang_usaha').val().split(',').join(''));
-    $nilai_hutang_lain  = parseFloat($('#piutang_lain').val().split(',').join(''));
-
+    $nilai_hutang_usaha = parseFloat($('#hutang_usaha').val().split(',').join(''));
+    $nilai_hutang_lain  = parseFloat($('#hutang_lain').val().split(',').join(''));
+    $nilai_pajak        = parseFloat($('#nilai_pajak').val().split(',').join(''));
     $bayar_untuk        = $('#pembayaran_untuk').val();
     $total_nilai        = parseFloat($('#total_kredit_all').val());
 
@@ -514,9 +421,9 @@ function cek_simpan () {
         alert('Mohon isikan nominal pembayaran terlebih dahulu');
         $kon = false;
     } else {
-        if($bayar_untuk == 'piutang_usaha'){
+        if($bayar_untuk == 'hutang_usaha'){
             if($nilai_hutang_usaha == 0){
-                alert('Piutang Usaha 0, tidak perlu untuk melakukan pembayaran untuk ini.');
+                alert('Hutang Usaha 0, tidak perlu untuk melakukan pembayaran untuk ini.');
                 $kon = false;
             } else {
                 if($nilai_hutang_usaha < $total_nilai){
@@ -527,9 +434,9 @@ function cek_simpan () {
                 }
             }
 
-        } else if($bayar_untuk == 'piutang_lainnya'){
+        } else if($bayar_untuk == 'hutang_lainnya'){
             if($nilai_hutang_lain == 0){
-                alert('Piutang Lainnya 0, tidak perlu untuk melakukan pembayaran untuk ini.');
+                alert('Hutang Lainnya 0, tidak perlu untuk melakukan pembayaran untuk ini.');
                 $kon = false;
             } else {
                 if($nilai_hutang_lain < $total_nilai){
@@ -539,7 +446,19 @@ function cek_simpan () {
                     $kon = true;
                 }
             }
-        } 
+        } else if($bayar_untuk == 'pajak'){
+            if($nilai_pajak == 0){
+                alert('Pajak 0, tidak perlu untuk melakukan pembayaran untuk ini.');
+                $kon = false;
+            } else {
+                if($nilai_pajak < $total_nilai){
+                    alert('Nominal pembayaran tidak boleh lebih besar daripada nilai pajak');
+                    $kon = false;
+                } else {
+                    $kon = true;
+                }
+            }
+        }
     }
 
     return $kon;

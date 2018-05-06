@@ -120,7 +120,7 @@ input[type=checkbox]
 			<div class="controls">
 				<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun_kasbank">
 					<option value="">Pilih ...</option>
-					<?PHP foreach ($get_list_akun_all as $key => $akun_kasbank) { ?>
+					<?PHP foreach ($get_list_akun_bank as $key => $akun_kasbank) { ?>
 					<option value="<?=$akun_kasbank->KODE_AKUN;?>">  <?=$akun_kasbank->NAMA_AKUN;?></option>
 					<?PHP } ?>				
 				</select>

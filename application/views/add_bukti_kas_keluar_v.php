@@ -118,15 +118,15 @@ input[type=checkbox]
 		</div> 
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Bank </b> </label>
-			<div class="controls">
-				<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun_kasbank">
-					<option value="">Pilih ...</option>
-					<?PHP foreach ($get_list_akun_all as $key => $akun_kasbank) { ?>
-					<option value="<?=$akun_kasbank->KODE_AKUN;?>">  <?=$akun_kasbank->NAMA_AKUN;?></option>
-					<?PHP } ?>				
-				</select>
-			</div>
+		<label class="control-label"> <b style="font-size: 14px;"> Bank </b> </label>
+		<div class="controls">
+			<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun_kasbank">
+				<option value="">Pilih ...</option>
+				<?PHP foreach ($get_list_akun_bank as $key => $akun_kasbank) { ?>
+				<option value="<?=$akun_kasbank->KODE_AKUN;?>">  <?=$akun_kasbank->NAMA_AKUN;?></option>
+				<?PHP } ?>				
+			</select>
+		</div>
 	</div>
 	</div>
 </div>

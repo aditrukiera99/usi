@@ -2,20 +2,22 @@
 
 class Input_jurnal_bayar_kas_piutang_m extends CI_Model
 {
-	function __construct() {
-		  parent::__construct();
-		  $this->load->database();
-	}
+    function __construct() {
+          parent::__construct();
+          $this->load->database();
+    }
 
-	function get_list_akun_all($id_klien){
+    function get_list_akun_all($id_klien){
 
         $sess_user = $this->session->userdata('masuk_akuntansi');
         $id_user  = $sess_user['id'];
         $user     = $this->master_model_m->get_user_info($id_user);
         
         $sql = "
-        SELECT * FROM ak_kode_akuntansi WHERE UNIT = '$user->UNIT'
-        ORDER BY KODE_AKUN
+        SELECT a.* FROM ak_kode_akuntansi a 
+        JOIN ak_grup_kode_akun b ON a.KODE_GRUP = b.KODE_GRUP
+        WHERE b.ID = 1
+        ORDER BY a.KODE_AKUN
         ";
 
         return $this->db->query($sql)->result();
@@ -31,6 +33,36 @@ class Input_jurnal_bayar_kas_piutang_m extends CI_Model
         ";
 
         return $this->db->query($sql)->row();
+    }
+
+    function get_no_trx_penjualan($id_klien){
+        $sql = "
+        SELECT * FROM ak_nomor WHERE TIPE = 'HUTANG'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function simpan_pelunasan_hutang($no_hutang, $no_bukti, $tgl_cek, $id_atas_nama, $atas_nama, $kode_akun_add, $nominal){
+        $sql = "
+        INSERT INTO ak_pelunasan_hutang 
+            (NO_HUTANG, NO_BUKTI, KODE_AKUN, NILAI, TGL, ID_ATAS_NAMA, ATAS_NAMA)
+        VALUES 
+            ('$no_hutang', '$no_bukti', '$kode_akun_add', '$nominal', '$tgl_cek', '$id_atas_nama', '$atas_nama')
+        ";
+
+         $this->db->query($sql);
+    }
+
+    function update_no_bukti($no_bukti, $no_hutang){
+        $sql = "
+        UPDATE ak_input_voucher SET 
+            NO_HUTANG = '$no_hutang',
+            IS_LUNAS = 1
+        WHERE NO_VOUCHER = '$no_bukti'
+        ";
+
+         $this->db->query($sql);
     }
 
     function simpan_trx_akuntansi($id_klien, $no_trx_akun, $no_bukti, $total_debet_all, $total_kredit_all, $tgl_trx, $tipe, $kontak, $uraian){
@@ -147,7 +179,7 @@ class Input_jurnal_bayar_kas_piutang_m extends CI_Model
         INSERT INTO ak_jurnal_kas_bank
         (ID_KLIEN, NO_VOUCHER, CEK_GIRO, KODE_AKUN, TGL_CEK, DEBET, KREDIT, URAIAN, KONTAK, SISA_HUTANG, UNIT, TIPE)
         VALUES 
-        ($id_klien, '$no_trx_akun', '$no_giro', '$kode_akun', '$tgl_cek', $debet, $kredit, '$uraian', '$atas_nama', $sisa_hutang, '$unit' , 'PIUTANG')
+        ($id_klien, '$no_trx_akun', '$no_giro', '$kode_akun', '$tgl_cek', $debet, $kredit, '$uraian', '$atas_nama', $sisa_hutang, '$unit' , 'HUTANG')
         ";
 
         $this->db->query($sql);

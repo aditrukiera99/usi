@@ -143,20 +143,20 @@
 							</div>
 					</div>
 
-					<div class="control-group">
+					<!-- <div class="control-group">
 						<label class="control-label"> Kode Sub </label>
 							<div class="controls">
 								<select onchange="$('#kode_sub_inp').val(this.value);" required data-placeholder="Pilih sub grup..." tabindex="2" style="width:300px;" name="kode_sub" id="kode_sub">
 									<option value=""></option>
 								</select>
 							</div>
-					</div>
+					</div> -->
 
 					<div class="control-group">
 						<label class="control-label"> Nomor Akun </label>
 						<div class="controls">
-							<input readonly type="text" style="background: #FFF;" class="span1" value="" name="kode_grup_inp" id="kode_grup_inp">
-							<input readonly type="text" style="background: #FFF;" class="span1" value="" name="kode_sub_inp" id="kode_sub_inp">
+							<!-- <input readonly type="text" style="background: #FFF;" class="span1" value="" name="kode_grup_inp" id="kode_grup_inp">
+							<input readonly type="text" style="background: #FFF;" class="span1" value="" name="kode_sub_inp" id="kode_sub_inp"> -->
 							<input required type="text"  class="span2" value="" name="no_akun" id="no_akun">
 						</div>
 					</div>
@@ -168,7 +168,7 @@
 						</div>
 					</div>
 
-					<div class="control-group">
+					<!-- <div class="control-group">
 						<label class="control-label"> Tipe Akun </label>
 							<div class="controls">
 								<select required data-placeholder="Pilih tipe..." class="chzn-select" tabindex="2" name="tipe">
@@ -180,7 +180,7 @@
 									<option value="Lainnya">Lainnya</option>
 								</select>
 							</div>
-					</div>
+					</div> -->
 
 					<div class="form-actions">
                         <?PHP if($user->LEVEL == "USER"){ ?>
@@ -220,7 +220,7 @@
 						</div>
 					</div>
 
-					<div class="control-group">
+					<!-- <div class="control-group">
 						<label class="control-label"> Tipe Akun </label>
 						<div class="controls">
 							<select required data-placeholder="Pilih tipe..." class="chzn-select" tabindex="2" name="tipe_ed" id="tipe_ed">
@@ -232,7 +232,7 @@
 								<option value="Lainnya">Lainnya</option>
 							</select>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="control-group" style="display: none;">
 						<label class="control-label">Deskripsi</label>

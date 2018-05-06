@@ -29,46 +29,26 @@ class Input_jurnal_bayar_kas_c extends CI_Controller {
 		if($this->input->post('simpan')){
 			$msg = 1;
 
-			$kode_akun_hutang  = $this->input->post('kode_akun_hutang');
-			$kode_akun_pajak   = $this->input->post('kode_akun_pajak');
-			$no_trx_akun  	   = $this->input->post('no_trx_akun');
-			$tgl_cek      	   = $this->input->post('tgl_cek');
-			$uraian       	   = $this->input->post('uraian');
-			$atas_nama    	   = $this->input->post('atas_nama');
-			$pembayaran_untuk  = $this->input->post('pembayaran_untuk');
-			$no_giro           = $this->input->post('no_giro');
-			$total_kredit_all  = $this->input->post('total_kredit_all');
-			$unit  			   = $this->input->post('unit');
+			$no_hutang    = addslashes($this->input->post('no_hutang'));
+			$no_hutang2   = addslashes($this->input->post('no_hutang2'));
+			$no_bukti     = addslashes($this->input->post('no_bukti'));
+			$tgl_cek      = addslashes($this->input->post('tgl_cek'));
+			$atas_nama    = addslashes($this->input->post('atas_nama'));
+			$id_atas_nama = addslashes($this->input->post('id_atas_nama'));
+			$uraian       = addslashes($this->input->post('uraian'));
 
-			$hutang_usaha = str_replace(',', '', $this->input->post('hutang_usaha'));
-			$hutang_lain  = str_replace(',', '', $this->input->post('hutang_lain'));
-			$nilai_pajak  = str_replace(',', '', $this->input->post('nilai_pajak'));
+			$kode_akun_add = $this->input->post('kode_akun_add');
+			$nominal       = $this->input->post('nominal');
+			$nominal       = str_replace(',', '', $nominal);
 
-			$sisa_hutang = $nilai_pajak;
+			$this->model->simpan_pelunasan_hutang($no_hutang, $no_bukti, $tgl_cek, $id_atas_nama, $atas_nama, $kode_akun_add, $nominal);
+			$this->model->update_no_bukti($no_bukti, $no_hutang);
 
-			if($pembayaran_untuk == "hutang_usaha"){
-				$sisa_hutang = $hutang_usaha;
-			} else if($pembayaran_untuk == "hutang_lainnya"){
-				$sisa_hutang = $hutang_lain;
-			}
+			$this->master_model_m->simpan_voucher_hutang($no_hutang, $no_bukti, $kode_akun_add, $nominal, $tgl_cek, $id_atas_nama, $atas_nama, $uraian);
 
-			if($pembayaran_untuk == 'pajak'){
-				$kode_akun = $kode_akun_pajak;
-			} else {
-				$kode_akun = $kode_akun_hutang;
-			}
+			$this->model->save_next_nomor($id_klien, 'Hutang', $no_hutang2);
 
-			$this->model->simpan_jbk($id_klien, $no_trx_akun, $no_giro, $kode_akun, $tgl_cek, $total_kredit_all, 0, $uraian, $atas_nama, $sisa_hutang, $unit);
-
-			$kode_akun_row = $this->input->post('kode_akun_row');
-			$kredit_row    = $this->input->post('kredit_row');
-
-			foreach ($kode_akun_row as $key => $val) {
-				$this->model->simpan_jbk($id_klien, $no_trx_akun, $no_giro, $val, $tgl_cek, 0, $kredit_row[$key], $uraian, $atas_nama, 0, $unit);
-			}
-
-			$this->master_model_m->simpan_log($id_user, "Melakukan input jurnal bayar kas / bank dengan nomor transaksi akun : <b>".$no_trx_akun."</b>");
-			
+			$this->master_model_m->simpan_log($id_user, "Melakukan pelunasan hutang dengan nomor hutang : <b>".$no_hutang."</b>");
 		}
 
 		$dt = "";

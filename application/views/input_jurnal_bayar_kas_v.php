@@ -63,7 +63,8 @@ if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
                 <label class="control-label"> <b style="font-size: 14px;"> No. Hutang </b> </label>
                 <div class="controls">
                     <div class="input-append">
-                        <input style="width: 90%;" type="text" id="unit_txt" name="unit_txt" value="HUT<?=$no_transaksi;?>" readonly>
+                        <input style="width: 90%;" type="text" id="no_hutang" name="no_hutang" value="HUT<?=$no_transaksi;?>" readonly>
+                        <input style="width: 90%;" type="hidden" id="no_hutang2" name="no_hutang2" value="<?=$no_transaksi;?>" readonly>
                     </div>
                 </div>
             </div>
@@ -72,7 +73,7 @@ if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
 				<label class="control-label"> <b style="font-size: 14px;"> No. Bukti Kas </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input type="text" id="no_trx_akun" name="no_trx_akun" readonly style="background:#FFF;">
+						<input type="text" id="no_bukti" name="no_bukti" readonly style="background:#FFF;">
 						<button onclick="show_pop_no_bukti();" type="button" class="btn">Cari</button>
 					</div>
 				</div>
@@ -91,13 +92,22 @@ if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
 				<label class="control-label"> <b style="font-size: 14px;"> Atas Nama </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input style="background:#FFF;" type="text" id="atas_nama" name="atas_nama" value="" readonly>
+						<input style="background:#FFF;" type="hidden" id="id_atas_nama" name="id_atas_nama" value="" readonly>
+                        <input style="background:#FFF;" type="text" id="atas_nama" name="atas_nama" value="" readonly>
 					</div>
 				</div>
 			</div>
                     
 		</div>
 		
+        <div class="span6">
+            <div class="control-group" style="margin-left: 10px;">
+                <label class="control-label"> <b style="font-size: 14px;"> Uraian </b> </label>
+                <div class="controls">
+                    <textarea rows="4" id="uraian" name="uraian" required="" style="resize:none; height: 87px; width: 80%;"></textarea>
+                </div>
+            </div> 
+        </div>
 	</div>
 </div>
 
@@ -144,7 +154,7 @@ if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
     <div class="span12">
         <div class="widget-head blue">
-            <h3> Input Transaksi </h3>
+            <h3> Data Transaksi </h3>
         </div>
 
         <table class="stat-table table table-hover">
@@ -180,8 +190,8 @@ if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
                 <div class="form-actions">
                     <center>
                     <input type="hidden" name="total_all" id="total_all" value="" />
-                    <input type="submit" value="Simpan Transaksi" name="simpan" class="btn btn-success">
                     <button class="btn" onclick="window.location='<?=base_url();?>input_jurnal_bayar_kas_c' " type="button"> Batal dan Kembali </button>
+                    <input type="submit" value="Simpan Transaksi" name="simpan" class="btn btn-success">
                     </center>
                 </div>
             </div>
@@ -281,10 +291,12 @@ function get_transaksi(no_voucher , no_bukti){
             no_voucher : no_voucher,
         },
         success : function(res){
-            $('#no_trx_akun').val(no_voucher);
+            $('#no_bukti').val(no_voucher);
             $('#uraian').val(res.URAIAN);
+            $('#id_atas_nama').val(res.ID_KONTAK);
             $('#atas_nama').val(res.KONTAK);
-            $('#nominal').val(NumberToMoney(res.KREDIT));
+            $('#nominal').val(NumberToMoney(res.KREDIT).split('.00').join(''));
+            $('#tot_kredit_txt').html(NumberToMoney(res.KREDIT));
             $('#tgl').val(res.TGL);
 
             // get_hitungan_hutang(no_voucher);

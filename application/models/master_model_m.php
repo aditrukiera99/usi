@@ -294,6 +294,37 @@ class Master_model_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function simpan_voucher_hutang($no_hutang, $no_bukti, $kode_akun, $nominal, $tgl_cek, $id_atas_nama, $atas_nama, $uraian){
+        $kode_akun_hutang = "100051";
+
+        $sql_simpan = "
+        INSERT INTO ak_input_voucher
+        (NO_VOUCHER, NO_BUKTI, KODE_AKUN, TGL, DEBET, KREDIT, URAIAN, ID_KONTAK, KONTAK, TIPE, IS_LUNAS)
+        VALUES 
+        ('$no_hutang', '$no_bukti', '$kode_akun', '$tgl_cek', 0 , '$nominal', '$uraian', '$id_atas_nama', '$atas_nama', 'HUT', 1)
+        ";
+
+        $this->db->query($sql_simpan);
+
+        $sql_simpan_detail_debet = "
+        INSERT INTO ak_input_voucher_detail
+        (NO_VOUCHER_DETAIL, KODE_AKUN, DEBET, KREDIT, NO_BUKTI)
+        VALUES 
+        ('$no_hutang', '$kode_akun_hutang', '$nominal', 0, '$no_bukti')
+        ";
+
+        $this->db->query($sql_simpan_detail_debet);
+
+        $sql_simpan_detail_kredit = "
+        INSERT INTO ak_input_voucher_detail
+        (NO_VOUCHER_DETAIL, KODE_AKUN, DEBET, KREDIT, NO_BUKTI)
+        VALUES 
+        ('$no_hutang', '$kode_akun', 0, '$nominal', '$no_bukti')
+        ";
+
+        $this->db->query($sql_simpan_detail_kredit);
+    }
+
 }
 
 ?>

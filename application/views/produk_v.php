@@ -88,7 +88,7 @@
 							<td align="center" <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->KODE_PRODUK;?> </td>
 							<td <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->NAMA_PRODUK;?> </td>
 							<!-- <td <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->KATEGORI_PRODUK;?> </td> -->
-							<td align="center" <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->SATUAN;?> </td>/
+							<td align="center" <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->SATUAN;?> </td>
 							<!-- <td align="center" <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->STOK;?> <?=$row->SATUAN;?> </td> -->
 							<!-- <td align="left" <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > PPN : <?=$row->PPN;?>% <br> PPH : <?=$row->PPH;?>% <br> SERVICE : <?=$row->SERVICE;?>% </td>
 							<td align="center" <?PHP if($kode_produk == $row->KODE_PRODUK){ echo "style='background: #CDE69C;'"; } ?> > <?=number_format($row->HARGA);?> </td>
@@ -161,7 +161,7 @@
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 
-					<div class="control-group">
+					<div class="control-group" style="display: none;">
 						<label class="control-label"> <b style="font-size: 14px;"> Tipe Barang </b> </label>
 						<div class="controls">
 							<label class="radio inline">
@@ -185,7 +185,7 @@
 					<div class="control-group">
 						<label class="control-label"> <b>Kode Akun Produk</b> </label>
 						<div class="controls">
-							<select disabled="" data-placeholder="Pilih ..." class="chzn-select" tabindex="2" id="kode_akun_sel" name="kode_akun_sel" style="width: 300px;" onchange="$('#kode_akun').val(this.value);">
+							<select  data-placeholder="Pilih ..." class="chzn-select" tabindex="2" id="kode_akun_sel" name="kode_akun_sel" style="width: 300px;" onchange="$('#kode_akun').val(this.value);">
 									<option value="">Pilih ...</option>
 								<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
 									<option value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>

@@ -43,6 +43,28 @@ class Input_jurnal_bayar_kas_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function simpan_pelunasan_hutang($no_hutang, $no_bukti, $tgl_cek, $id_atas_nama, $atas_nama, $kode_akun_add, $nominal){
+        $sql = "
+        INSERT INTO ak_pelunasan_hutang 
+            (NO_HUTANG, NO_BUKTI, KODE_AKUN, NILAI, TGL, ID_ATAS_NAMA, ATAS_NAMA)
+        VALUES 
+            ('$no_hutang', '$no_bukti', '$kode_akun_add', '$nominal', '$tgl_cek', '$id_atas_nama', '$atas_nama')
+        ";
+
+         $this->db->query($sql);
+    }
+
+    function update_no_bukti($no_bukti, $no_hutang){
+        $sql = "
+        UPDATE ak_input_voucher SET 
+            NO_HUTANG = '$no_hutang',
+            IS_LUNAS = 1
+        WHERE NO_VOUCHER = '$no_bukti'
+        ";
+
+         $this->db->query($sql);
+    }
+
     function simpan_trx_akuntansi($id_klien, $no_trx_akun, $no_bukti, $total_debet_all, $total_kredit_all, $tgl_trx, $tipe, $kontak, $uraian){
         $total_debet_all   = str_replace(',', '', $total_debet_all);
         $total_kredit_all  = str_replace(',', '', $total_kredit_all);

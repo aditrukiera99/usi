@@ -58,7 +58,7 @@
 							<th align="center"> MAIN GRUP </th>
 							<th align="center"> KODE GRUP </th>
 							<th align="center"> NAMA GRUP </th>
-							<th align="center"> STATUS </th>							
+							<!-- <th align="center"> STATUS </th>							 -->
 							<th align="center"> Aksi </th>
 						</tr>						
 					</thead>
@@ -74,7 +74,7 @@
 							<td> <?=$row->KODE_GRUP;?> </td>
 							<td> <?=$row->NAMA_GRUP;?> </td>
 
-							<td>
+							<!-- <td>
 								<?PHP if($row->APPROVE == 0){
 									echo "<font style='color:#e88a05; font-weight:bold;'>Menunggu Persetujuan</font>";
 								} else if($row->APPROVE == 1){
@@ -84,8 +84,8 @@
 								} else {
 									echo "<font style='color:green; font-weight:bold;'>Approved</font>";
 								} ?>
-							</td>
-
+							</td> -->
+							
 							<td align="center" style="text-align: center;">
 							<?PHP if($row->APPROVE == 3){?> 															
 								<button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
