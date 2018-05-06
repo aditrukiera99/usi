@@ -127,6 +127,19 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 		}
 
+		if($this->input->post('edit_inv')){
+			$msg = 1;
+
+			$no_invoice    = $this->input->post('no_invoice');
+			$qty_diterima  = $this->input->post('qty_diterima');
+			$no_trx        = $this->input->post('no_trx');
+			// $qty           = $this->input->post('qty');
+
+			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx);
+
+
+		}
+
 		if($this->input->post('edit_cui')){
 			$msg = 1;
 
@@ -304,7 +317,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$inv = $this->model->get_no_trx_inv($id_klien);
 		$get_broker = $this->model->get_broker();
 		$dt_supplier = $this->model->get_supplier();
-		$dt = $this->model->get_penjualan($keyword, $id_klien);
+		$dt = $this->model->get_penjualan_invoice($keyword, $id_klien);
 
 		$data =  array(
 			'page' => "invoice_new_v", 
@@ -326,6 +339,49 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'inv' => $inv,
 			'dt' => $dt,
 			'get_broker' => $get_broker, 
+			'post_url' => 'transaksi_penjualan_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function buka_invoice_baru(){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		$get_all_produk    = $this->model->get_all_produk($id_klien);
+		$get_pel_sup = $this->model->get_pel_sup($id_klien);
+		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		$no_pem= $this->model->get_no_trx_pembelian($id_klien);
+		$no_lpb= $this->model->get_no_trx_lpb($id_klien);
+		$no_do = $this->model->get_no_trx_do($id_klien);
+		$inv = $this->model->get_no_trx_inv($id_klien);
+		$dt_supplier = $this->model->get_supplier();
+		$dt = $this->model->get_penjualan($keyword, $id_klien);
+
+		$data =  array(
+			'page' => "buat_invoice_new_v", 
+			'title' => "Buat Penjualan Baru", 
+			'msg' => "", 
+			'master' => "penjualan", 
+			'view' => "transaksi_penjualan", 
+			'msg' => $msg, 
+			'dt_supplier' => $dt_supplier, 
+			'get_all_produk' => $get_all_produk, 
+			'get_pel_sup' => $get_pel_sup, 
+			'no_trx' => $no_trx, 
+			'no_pem' => $no_pem, 
+			'no_lpb' => $no_lpb,
+			'no_do' => $no_do,
+			'inv' => $inv,
+			'dt' => $dt,
 			'post_url' => 'transaksi_penjualan_c', 
 		);
 		
@@ -497,6 +553,34 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
+	function get_inv_popup(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$where = "1=1";
+
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$keyword = $this->input->post('keyword');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND STATUS_INV is null AND $where  
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
 	function cetak($id=""){
 
 		$dt = $this->model->get_data_trx($id);
@@ -540,6 +624,21 @@ class Transaksi_penjualan_c extends CI_Controller {
 		);
 		
 		$this->load->view('pdf/report_invoice_new_pdf', $data);
+	}
+
+	function cetak_loses($id=""){
+
+		$dt = $this->model->get_data_trx_loses($id);
+		$dt_deti = $this->model->get_data_trx_detail_loses($id);
+
+		$data =  array(
+			'page' => "transaksi_penjualan_c", 
+			'dt' => $dt,
+			'dt_deti' => $dt_deti,
+			'dt_detil' => $dt_detil,
+		);
+		
+		$this->load->view('pdf/cetak_loses_pdf', $data);
 	}
 
 	function cetak_do($id=""){

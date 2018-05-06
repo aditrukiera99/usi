@@ -83,9 +83,9 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 		</form>
 	</div>
 
-	<!-- <div class="span6">
-		<button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pembelian Baru </button>
-	</div> -->
+	<div class="span6">
+		<button onclick="window.location='<?=base_url();?>penerimaan_barang_c/new_pb';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pnerimaan Barang Baru </button>
+	</div>
 </div>
 
 

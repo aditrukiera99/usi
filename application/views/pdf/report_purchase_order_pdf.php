@@ -93,7 +93,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Tanggal</td>
 			<td style="width: 40%;text-align:left;font-size: 15px;">: <b><?=$dt->TGL_TRX;?></b></td>
-			<td style="width: 40%;text-align:left;font-size: 15px;"><b>Customer</b></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"><b>Kepada Yth :</b></td>
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Nomor</td>
@@ -134,18 +134,14 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 				?>
 			</tr>
 			
-				<?php
-			foreach ($dt_det as $key => $va) {
-				?>
+				
 				<tr>
-					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
-					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->QTY;?> Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->HARGA_SATUAN, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->TOTAL, 2);?></td>
+					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$dt_det->NAMA_PRODUK;?></td>
+					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$dt_det->KUI;?> Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($dt_det->HARGA_SATUAN, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($dt_det->TOTAL_SE, 2);?></td>
 				</tr>
-				<?php
-			}
-			?>
+				
 
 		<tr>
 			<td></td>

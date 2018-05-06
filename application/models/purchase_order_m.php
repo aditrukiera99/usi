@@ -7,6 +7,50 @@ class Purchase_order_m extends CI_Model
           $this->load->database();
     }
 
+    function simpan_pembelian_po($no_po, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_so, $sp, $jatuh_tempo)
+    {
+
+        $sql = "
+        INSERT INTO ak_pembelian
+        (
+            ID_KLIEN,
+            NO_PO,
+            ID_PELANGGAN,
+            PELANGGAN,
+            TGL_TRX,
+            SUB_TOTAL,
+            MEMO,
+            UNIT,
+            PPN,
+            PPH,
+            PBBKB,
+            NO_SO,
+            SUPPLY_POINT,
+            TGL_JATUH_TEMPO
+
+        )
+        VALUES 
+        (
+           '13', 
+           '$no_po', 
+           '$id_supplier', 
+           '$supplier', 
+           '$tgl_trx', 
+           '$sub_total', 
+           '$keterangan',
+           '13',
+           '$ppn', 
+           '$nilai_pph', 
+           '$nilai_pbbkb', 
+           '$no_so',
+           '$sp',
+           '$jatuh_tempo'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
     function get_penjualan($keyword, $id_klien){
 
         $sess_user = $this->session->userdata('masuk_akuntansi');
@@ -42,13 +86,21 @@ class Purchase_order_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function get_data_trx_detail($id){
+    function supply($id){
         $sql = "
-        SELECT * FROM ak_pembelian_detail 
-        WHERE ID_PENJUALAN = '$id'
+        SELECT * FROM ak_gudang
         ";
 
         return $this->db->query($sql)->result();
+    }
+
+    function get_data_trx_detail($id){
+        $sql = "
+        SELECT SUM(QTY) as KUI , SUM(TOTAL) as TOTAL_SE , HARGA_SATUAN , NAMA_PRODUK FROM ak_pembelian_detail 
+        WHERE ID_PENJUALAN = '$id' AND QTY > 0
+        ";
+
+        return $this->db->query($sql)->row();
     }
 
     function get_data_trxx_detail($id){
@@ -478,7 +530,7 @@ class Purchase_order_m extends CI_Model
         $harga_invoice  = str_replace(',', '', $harga_invoice);
 
         $sql = "
-        INSERT INTO ak_pembelian_new_detail 
+        INSERT INTO ak_pembelian_detail 
         (
             ID_PENJUALAN,
             KODE_AKUN,
@@ -497,6 +549,43 @@ class Purchase_order_m extends CI_Model
         '$qty', 
         '$harga_modal',  
         '$harga_invoice'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function simpan_detail_pembelian($id_penjualan, $val, $kode_akun, $nama_produk, $qty, $harga_modal, $total_id,$no_po, $no_so){
+        
+        $qty            = str_replace(',', '', $qty);
+        $harga_modal    = str_replace(',', '', $harga_modal);
+
+        $sql = "
+        INSERT INTO ak_pembelian_detail 
+        (
+            ID_KLIEN,
+            ID_PENJUALAN,
+            NAMA_PRODUK,
+            QTY,
+            SATUAN,
+            HARGA_SATUAN,
+            TOTAL,
+            ID_PRODUK,
+            NO_PO,
+            NO_SO
+        )
+        VALUES 
+        (
+        '13',
+        '$id_penjualan',
+        '$nama_produk', 
+        '$qty', 
+        'LITER', 
+        '$harga_modal', 
+        '$total_id', 
+        '$val',
+        '$no_po',
+        '$no_so'
         )
         ";
 
@@ -549,6 +638,16 @@ class Purchase_order_m extends CI_Model
         $sql = "
         UPDATE ak_produk SET STOK = STOK - $qty
         WHERE ID = $id_produk
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_status_so($nomor_so){
+       
+        $sql = "
+        UPDATE ak_penjualan SET STATUS_PO = '1'
+        WHERE NO_BUKTI = '$nomor_so'
         ";
 
         $this->db->query($sql);

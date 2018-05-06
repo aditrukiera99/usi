@@ -149,44 +149,26 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       <th style="width: 15%;padding: 5px 5px 5px 5px;text-align: center;border-right: 1px solid black;border-top: 1px solid black; ">JUMLAH (Rp.)</th>
       
     </tr>
-  
-    <tr>
-      <?php 
-        if($dt->PBBKB == '0'){
-
-        }else{
-          ?>
-          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
-          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">10%</td>
-          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Rp. <?php echo number_format($dt->PBBKB,2); ?></td>
-          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Rp. <?php echo number_format($dt->PBBKB,2); ?></td>
-          <?php 
-        }
-        ?>
-      </tr>
       
-        <?php
-      foreach ($dt_deti as $key => $va) {
-        ?>
         <tr>
-          <td style="padding: 5px;height: 300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"><?=$va->NAMA_PRODUK;?></td>
-          <td style="padding: 5px;height: 300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;vertical-align: top;"><?=$va->QTY;?></td>
-          <td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;">Rp. <?php echo number_format($va->HARGA_SATUAN,2);?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;vertical-align: top;">Rp. <?php $jml_tit = $va->QTY * $va->HARGA_SATUAN; echo number_format($jml_tit,2);?></td>
+          <td style="padding: 5px;height: 300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"><?=$dt_deti->NAMA_PRODUK;?></td>
+          <td style="padding: 5px;height: 300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;vertical-align: top;"><?php $loses = $dt_deti->QTY - 3 - $dt->QTY_DITERIMA; echo $loses;  ?></td>
+          <td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;">Rp. <?php echo number_format($dt_deti->HARGA_SATUAN,2);?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;vertical-align: top;">Rp. <?php $total_loses = $loses * $dt_deti->HARGA_SATUAN; echo number_format($total_loses,2);?></td>
         </tr>
         <?php
-        $tuti += $jml_tit;
-      }
+        
+      
       ?>
       <tr>
       <td></td>
       <?php 
-        $ppn = 0.1 * $tuti;
+        $ppn = 0.1 * $total_loses;
 
       ?>
       <td style="border-right: 1px solid black;border-left: none !important;"></td>
       <td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-      <td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($tuti, 2);?><br>Rp.<?=number_format($ppn, 2);?><br><?php $totali = 0; $totali =$tuti - $ppn; echo 'Rp.'.number_format($totali, 2); ?></td>
+      <td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($total_loses, 2);?><br>Rp.<?=number_format($ppn, 2);?><br><?php $totali = 0; $totali =$total_loses - $ppn; echo 'Rp.'.number_format($totali, 2); ?></td>
     </tr>
 
       

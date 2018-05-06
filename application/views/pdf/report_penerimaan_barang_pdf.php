@@ -128,7 +128,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"></td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PBBKB</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PBBKB</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
 					<?php 
@@ -141,7 +141,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 				?>
 				<tr>
 					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;"><?=$va->QTY;?></td>
-					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;"><?=$va->ID_PRODUK;?> - SMD</td>
+					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;"><?=$va->ID_PRODUK;?> SMD</td>
 					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;">Ltr</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->KETERANGAN;?></td>

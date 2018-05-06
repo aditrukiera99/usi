@@ -683,7 +683,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               <ul>
                   <!-- <li><a href="<?=base_url();?>penawaran_barang_beli_c"><i class="icon-caret-right "></i> Penawaran Barang </a></li> -->
                   <li><a href="<?=base_url();?>purchase_order_c"><i class="icon-caret-right "></i> Pembelian </a></li>
-                  <li><a href="<?=base_url();?>delivery_order_beli_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
+                  <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
               </ul>
             </div>
             </li>

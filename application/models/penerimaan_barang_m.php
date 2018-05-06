@@ -7,6 +7,73 @@ class Penerimaan_barang_m extends CI_Model
           $this->load->database();
     }
 
+    function simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang ,$tgl_trx)
+    {
+
+        $sql = "
+        INSERT INTO ak_penerimaan_barang
+        (
+            NO_BUKTI,
+            ID_SUPPLIER,
+            SUPPLIER,
+            MEMO,
+            NO_PO,
+            PBBKB,
+            STATUS,
+            GUDANG,
+            TGL_TRX
+
+        )
+        VALUES 
+        (
+           '$no_lpbe',
+           '$id_supplier', 
+           '$supplier', 
+           '$keterangan',
+           '$no_po',
+           '$nilai_pbbkb', 
+           '0',
+           '$id_gudang',
+           '$tgl_trx'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function simpan_detail_penerimaan($id_penjualan, $val, $nama_produk, $qty, $harga_modal, $total_id){
+        
+        $qty            = str_replace(',', '', $qty);
+        $harga_modal    = str_replace(',', '', $harga_modal);
+
+        $sql = "
+        INSERT INTO ak_penerimaan_detail 
+        (
+            ID_KLIEN,
+            ID_PENJUALAN,
+            NAMA_PRODUK,
+            QTY,
+            SATUAN,
+            HARGA_SATUAN,
+            TOTAL,
+            ID_PRODUK
+        )
+        VALUES 
+        (
+        '13',
+        '$id_penjualan',
+        '$nama_produk', 
+        '$qty', 
+        'LITER', 
+        '$harga_modal', 
+        '$total_id', 
+        '$val'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
     function get_penjualan($keyword, $id_klien){
 
         $sess_user = $this->session->userdata('masuk_akuntansi');
@@ -33,6 +100,22 @@ class Penerimaan_barang_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_so_detail($id_pel){
+        $sql = "
+        SELECT * FROM ak_pembelian WHERE ID = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_sales_detail($id_pel){
+        $sql = "
+        SELECT NAMA_PRODUK,SUM(QTY) as QTY , HARGA_SATUAN , SUM(TOTAL) as TOTAL FROM ak_pembelian_detail WHERE ID_PENJUALAN = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_penerimaan_barang
@@ -40,6 +123,14 @@ class Penerimaan_barang_m extends CI_Model
         ";
 
         return $this->db->query($sql)->row();
+    }
+
+    function get_data_trx_depan(){
+        $sql = "
+        SELECT * FROM ak_penerimaan_barang
+        ";
+
+        return $this->db->query($sql)->result();
     }
 
     function get_data_trx_detail($id){
@@ -554,6 +645,16 @@ class Penerimaan_barang_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function update_status_gudang($id_gudang,$qty){
+        $qty          = str_replace(',', '', $qty);
+        $sql = "
+        UPDATE ak_gudang SET ISI = ISI - $qty
+        WHERE ID = $id_gudang
+        ";
+
+        $this->db->query($sql);
+    }
+
     function update_tanggal_penerimaan($id){
 
         $tgj = date('d-m-Y'); 
@@ -561,6 +662,18 @@ class Penerimaan_barang_m extends CI_Model
         $sql = "
         UPDATE ak_penerimaan_barang SET TGL_TRX = '$tgj' , STATUS = '1'
         WHERE ID = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_status_penerimaan($id){
+
+        $tgj = date('d-m-Y'); 
+       
+        $sql = "
+        UPDATE ak_pembelian SET PENERIMAAN_STATUS = '1' 
+        WHERE NO_PO = '$id'
         ";
 
         $this->db->query($sql);

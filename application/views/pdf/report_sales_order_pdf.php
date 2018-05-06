@@ -135,7 +135,9 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			</tr>
 			
 				<?php
+				$tutik = 0;
 			foreach ($dt_deti as $key => $va) {
+				
 				?>
 				<tr>
 					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
@@ -144,14 +146,16 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->TOTAL, 2);?></td>
 				</tr>
 				<?php
+				
 			}
 			?>
 
 		<tr>
 			<td></td>
+			
 			<td style="border-right: 1px solid black;"></td>
 			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPNM<br>Total</td>
-			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($dt->SUB_TOTAL, 2);?><br>Rp.<?=number_format($dt->PPN, 2);?><br><?php $totali = 0; $totali =$dt->SUB_TOTAL - $dt->PPN; echo 'Rp.'.number_format($totali, 2); ?></td>
+			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($tutik, 2);?><br>Rp.<?=number_format($dt->PPN, 2);?><br><?php $totali = 0; $totali =$dt->SUB_TOTAL - $dt->PPN; echo 'Rp.'.number_format($totali, 2); ?></td>
 		</tr>
 </table>
 <table style="width: 55%;">

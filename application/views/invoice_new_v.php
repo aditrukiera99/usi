@@ -83,6 +83,10 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 		</form>
 	</div>
 
+	<div class="span6">
+		<button onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice_baru';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Invoice Baru </button>
+	</div>
+
 	
 </div>
 
@@ -96,6 +100,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 					<thead>
 						<tr>
 							<th align="center"> Aksi </th>
+							<th align="center"> Catak Losess </th>
 							<th align="center"> No. Invoice </th>
 							<th align="center"> Tanggal </th>
 							<th align="center"> Customer </th>
@@ -119,6 +124,10 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								<td align="center">						
 									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>
 									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_inv/<?=$row->ID;?>" class="btn btn-success" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+								</td>
+
+								<td align="center">	
+									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 								</td>
 								
 								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NO_INV;?> /INV</td>

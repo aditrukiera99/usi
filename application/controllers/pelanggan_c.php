@@ -38,6 +38,7 @@ class Pelanggan_c extends CI_Controller {
 			$no_telp   	     = $this->input->post('no_telp');
 			$no_hp   		 = $this->input->post('no_hp');
 			$email   		 = $this->input->post('email');
+			$limit_beli   	 = $this->input->post('limit_beli');
 			$tipe   		 = $this->input->post('tipe');
 			$wilayah   		 = $this->input->post('wilayah');
 			$nama_usaha   	 = addslashes($this->input->post('nama_usaha'));
@@ -50,7 +51,7 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah);
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli);
 
 			$broker_nama   = addslashes($this->input->post('broker_nama'));
 			$broker_alamat = addslashes($this->input->post('broker_alamat'));

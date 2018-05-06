@@ -31,63 +31,30 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$msg = 1;
 
-			$no_trx 	   = $this->input->post('no_trx');
-			$no_trx2       = $this->input->post('no_trx2');
-			$id_pelanggan  = $this->input->post('pelanggan_sel');
-			$pelanggan     = $this->input->post('pelanggan');
-			$alamat_tagih  = $this->input->post('alamat_tagih');
-			$kota_tujuan   = $this->input->post('kota_tujuan');
-			$no_po         = $this->input->post('no_po');
-			$no_do         = $this->input->post('no_do');
-			$tgl_trx 	   = $this->input->post('tgl_trx');
-			$keterangan    = $this->input->post('memo_lunas');
-			$jatuh_tempo   = $this->input->post('jatuh_tempo');
-			$no_pol        = $this->input->post('no_pol');
-			$sopir 		   = $this->input->post('sopir');
-			$alat_angkut   = $this->input->post('alat_angkut');
-			$segel_atas    = $this->input->post('segel_atas');
-			$segel_bawah   = $this->input->post('segel_bawah');
-			$broker        = $this->input->post('broker');
+			$no_lpbe      = $this->input->post('no_lpbe');
+			$supplier     = $this->input->post('pelanggan');
+			$id_supplier  = $this->input->post('pelanggan_sel');
+			$keterangan   = $this->input->post('memo_lunas');
+			$tgl_trx      = $this->input->post('tgl_trx');
+			$no_po        = $this->input->post('no_trx');
+			$id_gudang    = $this->input->post('id_gudang');
+			$nama_produk  = $this->input->post('nama_produk');
+			$produk       = $this->input->post('produk');
+			$qty          = $this->input->post('qty');
+			$harga_modal  = $this->input->post('harga_modal');
+			$total_id     = $this->input->post('total_id');
 
-			$atas_nama        = $this->input->post('atas_nama');
-			$transport        = $this->input->post('transport');
 
-			$temperatur    = $this->input->post('temperatur');
-			$density       = $this->input->post('density');
-			$flash_point   = $this->input->post('flash_point');
-			$water_content = $this->input->post('water_content');
 
-			$tgl_ambil = $this->input->post('tgl_ambil');
+			$this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang , $tgl_trx );
 
-			$tgl_do        = $this->input->post('tgl_trx');
-			$tgl_sj        = $this->input->post('tgl_trx');
-			$tgl_inv       = $this->input->post('tgl_trx');
-			$tgl_kwi       = $this->input->post('tgl_trx');	
-			$operator      = $user->NAMA;
+			$id_penerimaan = $this->db->insert_id();
 
-			$this->model->simpan_penjualan($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator, $atas_nama, $transport, $tgl_ambil);
+			$this->model->simpan_detail_penerimaan($id_penerimaan, $produk, $nama_produk, $qty, $harga_modal, $total_id);
 
-			$id_penjualan = $this->db->insert_id(); 
+			$this->model->update_status_penerimaan($no_po);
 
-			$this->model->save_next_nomor($id_klien, 'Pembelian', $no_trx2);
-
-			$id_produk 	    = $this->input->post('produk');
-			$kode_akun 	 	= $this->input->post('kode_akun');
-			$nama_produk 	= $this->input->post('nama_produk');
-			$qty 	        = $this->input->post('qty');
-
-			$harga_modal    = $this->input->post('harga_modal');
-			$harga_invoice  = $this->input->post('harga_invoice');			
-
-			foreach ($id_produk as $key => $val) {
-				$this->model->simpan_detail_penjualan($id_penjualan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $harga_invoice[$key]);	
-				$this->model->update_stok($id_klien, $id_produk[$key], $qty[$key]);
-			}
-
-			$data_cust = $this->input->post('data_cust');
-			foreach ($data_cust as $key => $val) {
-				$this->db->query("INSERT INTO ak_pembelian_customer (ID_PEMBELIAN, NAMA_CUSTOMER) VALUES ('$id_penjualan', '$val') ");
-			}
+			$this->model->update_status_gudang($id_gudang,$qty);
 
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 
@@ -182,7 +149,7 @@ class Penerimaan_barang_c extends CI_Controller {
 
 
 		$get_list_akun_all = $this->master_model_m->get_list_akun_all();
-		$dt = $this->model->get_penjualan($keyword, $id_klien);
+		$dt = $this->model->get_data_trx_depan($keyword, $id_klien);
 		
 		$data =  array(
 			'page' => "penerimaan_barang_v", 
@@ -206,7 +173,22 @@ class Penerimaan_barang_c extends CI_Controller {
 		}
 	}
 
-	function new_invoice(){
+	function get_so_detail(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_so_detail($id_pel);
+
+		echo json_encode($dt);
+	}
+
+	function get_sales_detail(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_sales_detail($id_pel);
+
+		echo json_encode($dt);
+	}
+
+
+	function new_pb(){
 		$keyword = "";
 		$msg = "";
 		$kode_produk = "";
@@ -226,8 +208,8 @@ class Penerimaan_barang_c extends CI_Controller {
 		$get_broker = $this->model->get_broker();
 
 		$data =  array(
-			'page' => "buat_transaksi_po_new_v", 
-			'title' => "Buat Penjualan Baru", 
+			'page' => "input_lap_penerimaan_barang", 
+			'title' => "Buat Penerimaan Barang", 
 			'msg' => "", 
 			'master' => "pembelian", 
 			'view' => "purchase_order", 
@@ -238,6 +220,34 @@ class Penerimaan_barang_c extends CI_Controller {
 		);
 		
 		$this->load->view('beranda_v', $data);
+	}
+
+	function get_po_popup(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$where = "1=1";
+
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$keyword = $this->input->post('keyword');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS is null AND $where  
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
 	}
 
 	function ubah_data($id=""){
@@ -335,7 +345,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			}
 		}
 
-		$dt = $this->model->get_data_trx($id);
+		$dt = $this->model->get_data_trx_depan();
 		$dt_detail = $this->model->get_data_trx_detail($id);
 
 		$data =  array(

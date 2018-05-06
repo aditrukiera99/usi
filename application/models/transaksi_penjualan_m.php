@@ -38,6 +38,32 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_penjualan_invoice($keyword, $id_klien){
+
+        $sess_user = $this->session->userdata('masuk_akuntansi');
+        $id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+
+        $where = "1=1";
+        // if($keyword != "" || $keyword != null){
+        //     $where = $where." AND (a.KODE_AKUN LIKE '%$keyword%' OR a.NAMA_AKUN LIKE '%$keyword%' ) ";
+        // }
+
+        $sql = "
+        SELECT * FROM ak_penjualan WHERE STATUS_INV = '1'
+        ORDER BY ID DESC
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_penjualan
@@ -54,6 +80,24 @@ class Transaksi_penjualan_m extends CI_Model
         ";
 
         return $this->db->query($sql)->result();
+    }
+
+    function get_data_trx_loses($id){
+        $sql = "
+        SELECT * FROM ak_penjualan
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_data_trx_detail_loses($id){
+        $sql = "
+        SELECT * FROM ak_penjualan_detail 
+        WHERE ID_PENJUALAN = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
     }
 
     function get_data_trxx_detail($id){
@@ -769,6 +813,19 @@ class Transaksi_penjualan_m extends CI_Model
 
         $this->db->query($sql);
     }
+
+    function edit_status_invoice($no_invoice,$qty_diterima,$no_trx){
+
+        // $loses = $qty - 3 - $qty_diterima;
+       
+        $sql = "
+        UPDATE ak_penjualan SET NO_INV = '$no_invoice' , QTY_DITERIMA = '$qty_diterima' , STATUS_INV = '1'
+        WHERE NO_BUKTI = '$no_trx'
+        ";
+
+        $this->db->query($sql);
+    }
+
 
     function get_broker(){
         $sql = "

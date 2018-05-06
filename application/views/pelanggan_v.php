@@ -326,6 +326,13 @@ input[type=radio]:not(old):checked +  label > span > span{
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label class="control-label"> <b> Limit Pembelian </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="limit_beli" autocomplete="off">
+						</div>
+					</div>
+
 					<hr style="background: #ccc; height: 1px;">
 
 					<div style="display: none;">

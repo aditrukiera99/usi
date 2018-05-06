@@ -57,7 +57,7 @@ class Pelanggan_m extends CI_Model
     }
 
 
-    function simpan_pelanggan($id_klien, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah){
+    function simpan_pelanggan($id_klien, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah, $limit_beli){
         $tgl = date('d-m-Y');
         $jam = date('H:i');
         $waktu = $tgl.", ".$jam;
@@ -89,9 +89,9 @@ class Pelanggan_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_pelanggan
-        (ID_KLIEN, NAMA_PELANGGAN, NPWP, ALAMAT_TAGIH, ALAMAT_KIRIM, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, WILAYAH)
+        (ID_KLIEN, NAMA_PELANGGAN, NPWP, ALAMAT_TAGIH, ALAMAT_KIRIM, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, WILAYAH, LIMIT_BIAYA)
         VALUES 
-        ($id_klien, '$nama_pelanggan', '$npwp', '$alamat_tagih', '$alamat_kirim', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$unit', '$wilayah')
+        ($id_klien, '$nama_pelanggan', '$npwp', '$alamat_tagih', '$alamat_kirim', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$unit', '$wilayah','$limit_beli')
         ";
 
         $this->db->query($sql);
