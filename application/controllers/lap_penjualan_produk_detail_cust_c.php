@@ -91,6 +91,10 @@ class Lap_penjualan_produk_detail_cust_c extends CI_Controller {
 
 			$bulan = $this->input->post('bulan');
 			$tahun = $this->input->post('tahun');
+			$bulan_lalu = $bulan - 1;
+			if($bulan_lalu == 0){
+				$bulan_lalu = 12;
+			}
 
 			$judul =  $this->datetostr($bulan)." ".$tahun;
 
@@ -113,6 +117,8 @@ class Lap_penjualan_produk_detail_cust_c extends CI_Controller {
 			'data'			=> $dt,
 			'judul'			=> $judul,
 			'dt_unit'		=> $dt_unit,
+			'bulan_txt'		=> $this->datetostr($bulan),
+			'bulan_lalu_txt'		=> $this->datetostr($bulan_lalu),
 			'data_usaha'    => $this->master_model_m->data_usaha($id_klien),
 		);
 		$this->load->view($view,$data);

@@ -31,7 +31,7 @@
     <center>
     <div>
       <span><b style="font-size: 22px;">Laporan Summary Penjualan</b></span><br>
-      <span style="font-size: 70%;">14-Mar-2018 - 16-Mar-2018</span>
+      <span style="font-size: 70%;"><?=$judul;?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
@@ -55,25 +55,36 @@
           <td style="border: 1px solid black;">NAMA</td>
           <td style="border: 1px solid black;">LOKASI</td>
         </tr>
+        <?PHP 
+        $total_1 = 0;
+        $total_2 = 0;
+        $total_3 = 0;
+        foreach ($data as $key => $row) {
+          $total_ppn = $row->TOTAL + $row->PPN;
+          $total_1 += $row->TOTAL;
+          $total_2 += $row->PPN;
+          $total_3 += $total_ppn;
+        ?>
         <tr>
-          <td style="border: 1px solid black;">3/14/2018</td>
-          <td style="border: 1px solid black;">104/SMD/III/18</td>
-          <td style="border: 1px solid black;">PT.PERTAMINA (PERSERO) (IDR)</td>
-          <td style="border: 1px solid black;">Jakarta</td>
-          <td style="border: 1px solid black;">PO 37/SMD/III/18</td>
-          <td style="border: 1px solid black;">3/14/2018</td>
+          <td style="border: 1px solid black; text-align: center;"><?=$row->TGL_TRX;?></td>
+          <td style="border: 1px solid black;"><?=$row->NO_BUKTI;?></td>
+          <td style="border: 1px solid black;"><?=$row->PELANGGAN;?></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"><?=$row->STATUS_PO;?></td>
+          <td style="border: 1px solid black; text-align: center;"><?=$row->TGL_TRX;?></td>
           <td style="border: 1px solid black;">RETAIL</td>
-          <td style="border: 1px solid black;">REA KALTIM SMI180017</td>
-          <td style="border: 1px solid black; ">243,479,820.00</td>
-          <td style="border: 1px solid black; ">2,000,000</td>
-          <td style="border: 1px solid black; ">245,479,820.00</td>
+          <td style="border: 1px solid black;"><?=$row->MEMO;?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->PPN);?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($total_ppn);?></td>
           <td style="border: 1px solid black; ">NEW</td>
         </tr>
+        <?PHP } ?>
         <tr>
-          <td colspan="8" style="border: 1px solid black;">GRAND TOTAL</td>
-          <td style="border: 1px solid black;">3,478,608,306.00</td>
-          <td style="border: 1px solid black;">3,478,608,306.00</td>
-          <td style="border: 1px solid black;">3,478,608,306.00</td>
+          <td colspan="8" style="border: 1px solid black; font-weight: bold;">GRAND TOTAL</td>
+          <td style="border: 1px solid black; font-weight: bold; text-align: right;"><?=number_format($total_1);?></td>
+          <td style="border: 1px solid black; font-weight: bold; text-align: right;"><?=number_format($total_2);?></td>
+          <td style="border: 1px solid black; font-weight: bold; text-align: right;"><?=number_format($total_3);?></td>
           <td style="border: 1px solid black;"></td>
         </tr>
       </tbody>

@@ -9,7 +9,7 @@
 <br><br>01-31-534607 
 <br>
 <p align="center"><br><b><font size="3px">Laporan Penjualan Produk Detail Customer ( Bulanan )</b>
-<br><b>TANGGAL : 14-MAR-2018 - 19-MAR-2018</font></b></p></font>
+<br><b>BULAN : <?=$judul;?></font></b></p></font>
 <br>
 
 
@@ -38,9 +38,9 @@
     <th class="tg-amwm" rowspan="2">No</th>
     <th class="tg-amwm" rowspan="2">Nama Item<br>Nama Customer</th>
     <th class="tg-amwm" rowspan="2">Kode Item<br>Kode CUstomer</th>
-    <th class="tg-amwm" colspan="2">S/D FEBRUARI</th>
-    <th class="tg-amwm" colspan="2">MARET</th>
-    <th class="tg-amwm" colspan="2">S/D MARET</th>
+    <th class="tg-amwm" colspan="2">S/D <?=$bulan_lalu_txt;?></th>
+    <th class="tg-amwm" colspan="2"><?=$bulan_txt;?></th>
+    <th class="tg-amwm" colspan="2">S/D <?=$bulan_txt;?></th>
   </tr>
   <tr>
     <td class="tg-amwm">QTY</td>
@@ -50,10 +50,17 @@
     <td class="tg-amwm">QTY</td>
     <td class="tg-amwm">Nilai</td>
   </tr>
+  <?PHP 
+  $no = 0;
+  $total_all = 0;
+  foreach ($data as $key => $row) {
+    $no++;
+    $total_all += $row->JML * $row->HARGA;
+  ?>
   <tr>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"><?=$no;?></td>
+    <td class="tg-yw4l"><?=$row->NAMA_PRODUK;?></td>
+    <td class="tg-yw4l"><?=$row->KODE_PRODUK;?></td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
@@ -61,6 +68,7 @@
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
   </tr>
+  <?PHP } ?>
   <tr>
     <td class="tg-yw4l" colspan="3">TOTAL</td>
     <td class="tg-yw4l"></td>
