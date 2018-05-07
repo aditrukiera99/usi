@@ -246,6 +246,47 @@ class Purchase_order_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
+	function new_invoice_baru(){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		$list_akun = $this->model->get_list_akun($id_klien);
+		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
+		$get_all_produk    = $this->model->get_all_produk($id_klien);
+		$get_pel_sup = $this->model->get_pel_sup($id_klien);
+		$get_pajak = $this->model->get_pajak($id_klien);
+		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		$get_broker = $this->model->get_broker();
+		$supply = $this->model->supply();
+
+		$data =  array(
+			'page' => "buat_transaksi_po_langsung_v", 
+			'title' => "Buat Penjualan Baru", 
+			'msg' => "", 
+			'master' => "pembelian", 
+			'view' => "purchase_order", 
+			'msg' => $msg, 
+			'list_akun' => $list_akun, 
+			'get_list_akun_all' => $get_list_akun_all, 
+			'get_all_produk' => $get_all_produk, 
+			'get_pel_sup' => $get_pel_sup, 
+			'get_pajak' => $get_pajak, 
+			'no_trx' => $no_trx, 
+			'get_broker' => $get_broker, 
+			'supply' => $supply, 
+			'post_url' => 'purchase_order_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
 	function ubah_data($id=""){
 		$keyword = "";
 		$msg = "";
@@ -435,6 +476,13 @@ class Purchase_order_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
+	function get_produk_detail_langsung(){
+		$id_produk = $this->input->get('id_produk');
+		$dt = $this->model->get_produk_detail_langsung($id_produk);
+
+		echo json_encode($dt);
+	}
+
 	function get_pajak_prosen(){
 		$id_pajak = $this->input->get('id_pajak');
 		$dt = $this->model->get_pajak_prosen($id_pajak);
@@ -508,6 +556,35 @@ class Purchase_order_c extends CI_Controller {
 
 		$sql = "
 		SELECT * FROM ak_penjualan WHERE $where AND STATUS_PO = '0'
+		LIMIT 10
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function get_produk_popup_cari(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$where = "1=1";
+
+		$keyword = $this->input->post('keyword');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (KODE_PRODUK LIKE '%$keyword%' OR NAMA_PRODUK LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_produk WHERE ID_KLIEN = $id_klien AND $where AND $where_unit AND APPROVE = 3
 		LIMIT 10
 		";
 

@@ -154,7 +154,7 @@ class Penerimaan_barang_c extends CI_Controller {
 		$data =  array(
 			'page' => "penerimaan_barang_v", 
 			'title' => "Transaksi Penerimaan Barang",  
-			'master' => "penerimaan", 
+			'master' => "pembelian", 
 			'view' => "purchase_order", 
 			'dt' => $dt, 
 			'msg' => $msg, 

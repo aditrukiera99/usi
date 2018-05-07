@@ -376,6 +376,14 @@ class Purchase_order_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_produk_detail_langsung($id_produk){
+        $sql = "
+        SELECT * FROM ak_produk WHERE ID = $id_produk
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_pajak($id_klien){
         $sql = "
         SELECT * FROM ak_setup_pajak WHERE ID_KLIEN = $id_klien ORDER BY ID
