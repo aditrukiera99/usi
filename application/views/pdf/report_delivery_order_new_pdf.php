@@ -88,9 +88,9 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
             <p align="left" style="margin: 10px;">
               DELIVERY OREDER
             <br>
-            <br>No.DO
-            <br>TGL.DO
-            <br>NO.SO
+            <br>No.DO : <?=$dt->NO_BUKTI;?>
+            <br>TGL.DO : <?=$dt->TGL_TRX;?>
+            <br>NO.SO : <?=$dt->NO_SO;?>
             
           </p>
           </td>   
@@ -108,23 +108,23 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
         <tr>
           
           <td style="border: 0px solid black;text-align: left;border-left: 1px solid black;padding-left: 5px;">Ship to</td>
-          <td style="border: 0px solid black;text-align: left;">PT.Putra Perkasa Abadi</td>
+          <td style="border: 0px solid black;text-align: left;"><?=$dt->PELANGGAN;?></td>
           <td style="border: 0px solid black;text-align: left;">Sold to</td>
-          <td style="border: 0px solid black;text-align: left;border-right: 1px solid black;">PT.Putra Perkasa Abadi</td>
+          <td style="border: 0px solid black;text-align: left;border-right: 1px solid black;"><?=$dt->PELANGGAN;?></td>
         </tr>
 
         <tr>
           
           <td style="border: 0px solid black;text-align: left;border-left: 1px solid black;padding-left: 5px;">Alamat</td>
-          <td style="border: 0px solid black;text-align: left;">Desa Jembayaan Kec.Loa Kulo</td>
+          <td style="border: 0px solid black;text-align: left;"></td>
           <td style="border: 0px solid black;text-align: left;">Alamat</td>
-          <td style="border: 0px solid black;text-align: left;border-right: 1px solid black;">Jakarta</td>
+          <td style="border: 0px solid black;text-align: left;border-right: 1px solid black;"></td>
         </tr>
 
         <tr>
           
           <td style="border: 0px solid black;text-align: left;border-left: 1px solid black;padding-left: 5px;">No. Pelanggan</td>
-          <td style="border: 0px solid black;text-align: left;">Kab.Kutai Kartanegara</td>
+          <td style="border: 0px solid black;text-align: left;"></td>
           <td style="border: 0px solid black;text-align: left;">No. Pelanggan</td>
           <td style="border: 0px solid black;text-align: left;border-right: 1px solid black;"> - </td>
         </tr>
@@ -149,9 +149,9 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
           <td style="border: 1px solid black;width: 30%;">Kwantitas</td>
 </tr>
 <tr>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;">Solar</td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"><?=$dt->TGL_TRX;?></td>
+          <td style="border: 1px solid black;"><?=$dt->PRODUK;?></td>
+          <td style="border: 1px solid black;"><?=$dt->QTY;?></td>
 </tr>
 <tr>
           <td colspan="3" style="border: 1px solid black;text-align: left;padding-left: 5px;">Terbilang : </td>
@@ -167,23 +167,23 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 <tr>
           <td style="border: 1px solid black;width: 15%;text-align: left;padding-left: 5px;">Dikirim Dengan</td>
           <td style="border: 1px solid black;width: 20%;text-align: center;padding-left: 5px;">Truck / Kapal</td>
-          <td style="border: 1px solid black;width: 30%;text-align: left;padding-left: 5px;">Segel Atas :</td>
-          <td style="border: 1px solid black;width: 30%;text-align: left;padding-left: 5px;">Meter Awal :</td>
+          <td style="border: 1px solid black;width: 30%;text-align: left;padding-left: 5px;">Segel Atas : <?=$dt->SEGEL_ATAS;?></td>
+          <td style="border: 1px solid black;width: 30%;text-align: left;padding-left: 5px;">Meter Awal : <?=$dt->METER_AWAL;?></td>
 </tr>
 <tr>
-          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">No Kendaraan</td>
-          <td style="border: 1px solid black;text-align: center;padding-left: 5px;"></td>
-          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Segel Bawah :</td>
-          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Meter Akhir :</td>
+          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">No Kendaraan </td>
+          <td style="border: 1px solid black;text-align: center;padding-left: 5px;"><?=$dt->NO_KENDARAAN;?></td>
+          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Segel Bawah : <?=$dt->SEGEL_BAWAH;?></td>
+          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Meter Akhir : <?=$dt->METER_AKHIR;?></td>
 </tr>
 <tr>
           <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Nama Kapal</td>
-          <td style="border: 1px solid black;text-align: center;padding-left: 5px;"></td>
-          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Temperatur :</td>
-          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">SG Meter :</td>
+          <td style="border: 1px solid black;text-align: center;padding-left: 5px;">: <?=$dt->NAMA_KAPAL;?></td>
+          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">Temperatur : <?=$dt->TEMPERATUR;?></td>
+          <td style="border: 1px solid black;text-align: left;padding-left: 5px;">SG Meter : <?=$dt->SG_METER;?></td>
 </tr>
 <tr>
-          <td colspan="4" style="border: 1px solid black;text-align: left;padding-left: 5px;">Keterangan</td>
+          <td colspan="4" style="border: 1px solid black;text-align: left;padding-left: 5px;">Keterangan : <?=$dt->KETERANGAN;?></td>
 </tr>
 <tr>
           <td style="border: 1px solid black;">Distribusi</td>

@@ -226,7 +226,7 @@ class Delivery_order_new_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND STATUS_DO = '0' AND $where  
+		SELECT * FROM ak_penjualan WHERE STATUS_DO = '0' AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -368,11 +368,6 @@ class Delivery_order_new_c extends CI_Controller {
 
 	function cetak($id=""){
 
-		if($id == ''){
-			echo 'kosong';
-		}else{
-			$this->model->update_tanggal_penerimaan($id);
-		}
 
 		$dt = $this->model->get_data_do($id);
 		$dt_det = $this->model->get_data_trx_detail($id);
