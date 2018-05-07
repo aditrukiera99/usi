@@ -112,7 +112,7 @@ class Stock_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function get_penerimaan_item($id, $nama_produk){
+    function get_penerimaan_item($id, $nama_produk, $id_sp){
         $sess_user = $this->session->userdata('masuk_akuntansi');
         $id_user = $sess_user['id'];
         $user = $this->master_model_m->get_user_info($id_user);
@@ -125,7 +125,7 @@ class Stock_m extends CI_Model
         SELECT SUM(a.TOTAL_1) AS TOTAL_1, SUM(a.TOTAL_2) AS TOTAL_2 FROM (
         SELECT SUM(b.QTY) AS TOTAL_1, 0 AS TOTAL_2 FROM ak_pembelian a 
         JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN
-        WHERE b.NAMA_PRODUK = '$nama_produk' AND a.TGL_TRX LIKE '%-$bulan-$tahun%'
+        WHERE b.NAMA_PRODUK = '$nama_produk' AND a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a,SUPPLY_POINT = '$id_sp'
         ) a
         ) a
         ";
@@ -133,7 +133,7 @@ class Stock_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function get_pengeluaran_item($id, $nama_produk){
+    function get_pengeluaran_item($id, $nama_produk, $id_sp){
         $sess_user = $this->session->userdata('masuk_akuntansi');
         $id_user = $sess_user['id'];
         $user = $this->master_model_m->get_user_info($id_user);

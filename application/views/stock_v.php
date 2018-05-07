@@ -30,7 +30,7 @@
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-container">
-				<table class="stat-table table table-hover" id="data-table">
+				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
 							<th align="center"> Nama Item </th>
@@ -44,18 +44,26 @@
 					</thead>
 					<tbody id="tes">
 						<?PHP 
+						$data_sp = $this->db->query("SELECT * FROM ak_gudang")->result();
+						foreach ($data_sp as $key => $row_sp) {							
+						?>
+						<tr style="font-weight: bold;">
+							<td align="left" style="text-align: left;" colspan="7"> SUPPLY POINT :  <?=$row_sp->NAMA;?> </td>														
+						</tr>
+
+						<?PHP 
 						$no = 0;
 						foreach ($dt as $key => $row) {
 							$no++;
 
-							$get_penerimaan  = $this->model->get_penerimaan_item($row->ID, $row->NAMA_PRODUK);
-							$get_pengeluaran = $this->model->get_pengeluaran_item($row->ID, $row->NAMA_PRODUK);
+							$get_penerimaan  = $this->model->get_penerimaan_item($row->ID, $row->NAMA_PRODUK, $row_sp->ID);
+							$get_pengeluaran = $this->model->get_pengeluaran_item($row->ID, $row->NAMA_PRODUK, $row_sp->ID);
 							$get_koreksi = $this->model->get_koreksi_item($row->ID, $row->NAMA_PRODUK);
 							$saldo_akhir = ($get_penerimaan->TOTAL - $get_pengeluaran->TOTAL) + $get_koreksi->TOTAL;
 
 						?>
 						<tr style="font-weight: bold;">
-							<td align="left" style="text-align: left;"> <?=$row->NAMA_PRODUK;?> </td>							
+							<td align="left" style="text-align: left;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <?=$row->NAMA_PRODUK;?> </td>							
 							<td align="center" style="text-align: center;"> <?=$row->SATUAN;?> </td>							
 							<td align="right" style="text-align: right;"> 0 </td>							
 							<td align="right" style="text-align: right;"> <?=$get_penerimaan->TOTAL;?> <?=$row->SATUAN;?> </td>							
@@ -63,6 +71,7 @@
 							<td align="right" style="text-align: right;"> <?=$get_koreksi->TOTAL;?> <?=$row->SATUAN;?> </td>							
 							<td align="right" style="text-align: right;"> <?=$saldo_akhir;?> <?=$row->SATUAN;?> </td>							
 						</tr>
+						<?PHP } ?>
 						<?PHP } ?>
 					</tbody>
 				</table>
