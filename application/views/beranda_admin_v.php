@@ -705,6 +705,19 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             </li>
             <?PHP } ?>
 
+            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user"></i>Kepegawaian<b class="icon-angle-down"></b></a>
+            <div class="dropdown-menu">
+              <ul>
+                  
+                  <li><a href="<?=base_url();?>pegawai_c"><i class="icon-caret-right "></i> Data Pegawai </a></li>
+                  <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
+                 
+              </ul>
+            </div>
+            </li>
+            <?PHP } ?>
+
             <?php if($this->master_model_m->cek_master($id_user, 'Input Akuntansi', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-briefcase"></i> Input Akuntansi  <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
