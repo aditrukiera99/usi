@@ -31,7 +31,7 @@
     <center>
     <div>
       <span><strong>Laporan Penjualan Produk Detail Customer</strong></span><br>
-      <span style="font-size: 100%;">TANGGAL : 14-Mar-2018 - 16-Mar-2018</span>
+      <span style="font-size: 100%;"><?=$judul;?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
@@ -47,22 +47,44 @@
           <td style="border: 1px solid black;">Kurs</td>
           <td style="border: 1px solid black;">Nilai IDR</td>
         </tr>
+        <?PHP 
+        $no = 0;
+        $total_all = 0;
+        foreach ($data as $key => $row) {
+          $no++;
+          $total_all += $row->JML * $row->HARGA;
+        ?>
         <tr>
-          <td style="border: 1px solid black;">1</td>
-          <td style="border: 1px solid black;">PT. PERTAMINA (PERSERO) (IDR) <br> <span style="color: blue;">High Speed DIESEL / SOLAR</span></td>
-          <td style="border: 1px solid black;">001-SMD <br> <span style="color: blue;">S00001</span></td>
-          <td style="border: 1px solid black;"><br> <span style="color: blue;">30,000.00</span></td>
-          <td style="border: 1px solid black;"><br><span style="color: blue;">6,889.64</span></td>
-          <td style="border: 1px solid black;"><br><span style="color: blue;">6,889.64</span></td>
-          <td style="border: 1px solid black;"><br> <span style="color: blue;">206.689,200.00</span></td>
+          <td class="tg-yw4l" rowspan="2"><?=$no;?></td>
+          <td class="tg-yw4l" rowspan="2"><?=$row->NAMA_PRODUK;?></td>
+          <td class="tg-yw4l" rowspan="2"><?=$row->KODE_PRODUK;?></td>
+          <td class="tg-yw4l" rowspan="2"></td>
+          <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
+          <td class="tg-yw4l" rowspan="2"></td>
+          <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
         </tr>
+
+        <?PHP 
+        $sql_det = "
+        SELECT c.NAMA_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
+        JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
+        JOIN ak_pelanggan c ON a.ID_PELANGGAN = b.ID
+        ";
+        $dt_det = $this->db->query($sql_det)->result();
+        foreach ($dt_det as $key => $row_det) {
+        ?>
         <tr>
-          <td colspan="3" style="border: 1px solid black;">TOTAL</td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;">3,478,608,306.00</td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;">3,478,608,306.00</td>
-        </tr>
+          <td class="tg-yw4l"></td>
+          <td class="tg-yw4l"><?=$row_det->NAMA_PELANGGAN;?></td>
+          <td class="tg-yw4l"></td>
+          <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
+          <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+          <td class="tg-yw4l" style="text-align: right;">1.00</td>
+          <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+        </tr>  
+        <?PHP } ?>
+
+      <?PHP } ?>
       </tbody>
     </table>
   </body>

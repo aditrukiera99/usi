@@ -77,8 +77,6 @@
   <?PHP } ?>
 
   <?PHP } ?>
-  <tr>
-  </tr>
   <tr style="font-weight: bold;">
     <td class="tg-baqh" colspan="3"><b>Total</b></td>
     <td class="tg-yw4l"></td>
