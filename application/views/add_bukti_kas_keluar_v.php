@@ -63,7 +63,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<button style="margin-bottom: 15px;" onclick="input_from(this, 'Manual');" type="button" class="btn_from btn btn-default btn_from_selected">Input Manual</button>
 			<button style="margin-bottom: 15px;" onclick="input_from(this, 'PO');"     type="button" class="btn_from btn btn-default">Dari Order Pembelian</button>
-			<button style="margin-bottom: 15px;" onclick="input_from(this, 'OPR');"    type="button" class="btn_from btn btn-default">Dari Pengeluaran Operasional</button>
+			<button style="margin-bottom: 15px;" onclick="input_from(this, 'OPR');"    type="button" class="btn_from btn btn-default">Dari Pengeluaran Operasional / Kas Kecil</button>
 			<input type="hidden" id="from_trx" name="from_trx" value="Manual">
 		</div>
 
@@ -93,7 +93,7 @@ input[type=checkbox]
 				<div class="input-append">
 					<input type="text" id="no_reff" name="no_reff" style="background:#FFF; width: 70%;">
 					<button style="display: none;" onclick="show_pop_PO();" type="button" class="btn" id="cari_PO">Cari</button>
-					<button style="display: none;" onclick="show_pop_pelanggan();" type="button" class="btn" id="cari_OPR">Cari</button>
+					<button style="display: none;" onclick="show_pop_OPR();" type="button" class="btn" id="cari_OPR">Cari</button>
 				</div>
 			</div>
 		</div>
@@ -433,6 +433,131 @@ function get_PO_detail2(id){
 	});
 }
 
+
+function show_pop_OPR(id){
+	$('#popup_koang').remove();
+    get_popup_OPR();
+    ajax_OPR();
+}
+
+function get_popup_OPR(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang" id="search_koang" class="form-control" value="" placeholder="Cari...">'+
+                '    <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO. ORDER</th>'+
+                '                        <th style="white-space:nowrap;"> TANGGAL</th>'+
+                '                        <th> OLEH</th>'+
+                '                        <th> UNTUK</th>'+
+                '                        <th> NILAI</th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
+
+function ajax_OPR(){
+    var keyword = $('#search_koang').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>bukti_kas_keluar_c/get_OPR',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+                isine += '<tr onclick="get_OPR_detail('+res.ID+');" style="cursor:pointer;">'+
+                            '<td align="center">'+res.NO_BUKTI+'</td>'+
+                            '<td align="center">'+res.TGL+'</td>'+
+                            '<td align="center">'+res.DIBUAT_OLEH+'</td>'+
+                            '<td align="center">'+res.UNTUK+'</td>'+
+                            '<td align="center">'+NumberToMoney(res.NILAI).split('.00').join('')+'</td>'+
+                        '</tr>';
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='3' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+            $('#search_koang').off('keyup').keyup(function(){
+                ajax_OPR();
+            });
+        }
+    });
+}
+
+function get_OPR_detail(id){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>bukti_kas_keluar_c/get_OPR_detail',
+		data : {id:id},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+			// $('#alamat_tagih').val(result.ALAMAT_TAGIH);
+			$('#id_pelanggan').val(0);
+			$('#pelanggan').val(result.DIBUAT_OLEH);
+			$('#no_reff').val(result.NO_BUKTI);
+			$('#search_koang').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+
+		    var coa = $('#copy_ag').html();
+        	var i = 1;
+            var isine = 
+            '<tr id="tr_'+i+'" class="tr_utama">'+
+				'<td>'+coa+'</td>'+
+				'<td style="vertical-align:middle;">'+
+					'<div class="controls">'+
+						'<input style="font-size: 14px; text-align:left; width: 90%;" type="text"  value="'+result.UNTUK+'" name="ket[]" id="ket_'+i+'">'+
+					'</div>'+
+				'</td>'+
+
+				'<td align="center" style="vertical-align:middle;"> '+
+					'<div class="controls">'+
+						'<input onkeyup="FormatCurrency(this);" style="font-size: 14px; text-align:right; width: 80%;" type="text" value="'+NumberToMoney(result.NILAI)+'" name="nilai[]" id="nilai_'+i+'">'+
+					'</div>'+
+				'</td>'+
+
+				'<td class="center" style="background:#FFF; text-align:center;">'+
+					'<button style="width: 100%;" onclick="hapus_row('+i+');" type="button" class="btn btn-danger"> Hapus </button>'+
+				'</td>'+
+			'</tr>';
+
+			$('#tes').html(isine);
+			$('#tr_'+i).find('.cek_select').attr('class', 'cek_select_'+i);
+			$(".cek_select_"+i).chosen();
+		}
+	});
+}
 
 function cek_islunas(){
 	if($("#is_lunas").is(':checked')){

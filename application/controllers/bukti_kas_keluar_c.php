@@ -46,6 +46,11 @@ class Bukti_kas_keluar_c extends CI_Controller {
 				$is_lunas = 1;
 			}
 
+			if($from_trx == "OPR"){
+				$is_lunas = 1;
+				$this->model->update_kas_kecil($no_reff);
+			}
+
 			$data = array(
 				'NO_VOUCHER'   => addslashes($this->input->post('no_trx')),
 				'NO_BUKTI'     => addslashes($this->input->post('no_reff')),
@@ -308,6 +313,30 @@ class Bukti_kas_keluar_c extends CI_Controller {
 	function get_PO_detail2(){
 		$id = $this->input->post('id');
 		$dt = $this->model->get_PO_detail2($id);
+
+		echo json_encode($dt);
+	}
+
+	function get_OPR(){
+		$where = "1=1";
+
+		$keyword = $this->input->post('keyword');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (NO_BUKTI LIKE '%$keyword%' OR UNTUK LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_kas_kecil WHERE IS_LUNAS = 0 AND $where
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function get_OPR_detail(){
+		$id = $this->input->get('id');
+		$dt = $this->model->get_OPR_detail($id);
 
 		echo json_encode($dt);
 	}

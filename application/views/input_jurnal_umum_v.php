@@ -69,7 +69,7 @@ input[type=checkbox]
 <div class="row-fluid form-horizontal" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div>
 		<div class="span6">
-			<div class="control-group">
+			<div class="control-group" style="display: none;">
 				<label class="control-label"> <b style="font-size: 14px;"> Unit </b> </label>
 				<div class="controls">
 					<div class="input-append">

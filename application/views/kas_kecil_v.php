@@ -112,11 +112,11 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;"> <?=$row->UNTUK;?> </td>
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($row->NILAI);?> </td>
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> 
-									<?PHP if($row->IS_LUNAS == 1){
-										echo "Belum di Proses";
+								<td style="font-size:14px; text-align:center; vertical-align:middle;"> 
+									<?PHP if($row->IS_LUNAS == 0){
+										echo "<b style='color:orange;'>Belum di Proses</b>";
 									} else {
-										echo "Telah Cair";
+										echo "<b style='color:green;'>Telah di Proses</b>";
 									}?>
 								</td>
 								<td align="center">

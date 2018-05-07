@@ -90,6 +90,15 @@ class Bukti_kas_keluar_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_OPR_detail($id){
+        $sql = "
+        SELECT * FROM ak_kas_kecil 
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function hapus_voucher($id_klien, $no_voc){
         $sql_1 = "
         DELETE FROM ak_input_voucher WHERE NO_VOUCHER = '$no_voc' AND ID_KLIEN = $id_klien
@@ -604,6 +613,15 @@ class Bukti_kas_keluar_m extends CI_Model
         ";
 
         return $this->db->query($sql)->result();
+    }
+
+    function update_kas_kecil($no_reff){
+        $sql = "
+        UPDATE ak_kas_kecil SET IS_LUNAS = 1
+        WHERE NO_BUKTI = '$no_reff'
+        ";
+
+        $this->db->query($sql);
     }
 
 }
