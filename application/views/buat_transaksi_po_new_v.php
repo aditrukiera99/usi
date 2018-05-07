@@ -244,9 +244,10 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 80%;">
+											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 60%;">
 											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
+											<button style="width: 30%;" onclick="show_pop_barang(1);" type="button" class="btn">Cari</button>
 											
 										</div>
 									</div>
@@ -417,6 +418,47 @@ function show_pop_produk(no){
     ajax_produk(no);
 }
 
+function show_pop_barang(no){
+	get_popup_barang();
+    ajax_barang(no);
+}
+
+function get_popup_barang(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang_pro" id="search_koang_pro" class="form-control" value="" placeholder="Cari Produk...">'+
+                '    <div class="table-responsive">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO</th>'+
+                '                        <th> KODE PRODUK </th>'+
+                '                        <th style="white-space:nowrap;"> NAMA PRODUK </th>'+
+                '                        <th> HARGA </th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+        $('#popup_koang').remove();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
 
 function get_popup_produk(){
     var base_url = '<?php echo $base_url2; ?>';
@@ -493,6 +535,52 @@ function ajax_produk(id_form){
             $('#search_koang_pro').off('keyup').keyup(function(){
                 ajax_produk(id_form);
             });
+        }
+    });
+}
+
+function ajax_barang(id_form){
+   var keyword = $('#search_koang_pro').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_popup',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+                nama_pel = res.STOK+" "+res.SATUAN;
+                if(res.TIPE == "JASA"){
+                	nama_pel = "UNLIMITED";
+                }
+
+
+
+                isine += '<tr onclick="get_barang_detail(\'' +res.ID+ '\',\'' +id_form+ '\');" style="cursor:pointer;">'+
+                            '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.KODE_PRODUK+'</td>'+
+                            '<td align="left">'+res.NAMA_PRODUK+'</td>'+
+                             '<td align="center">Rp '+NumberToMoney(res.HARGA).split('.00').join('')+'</td>'+
+                        '</tr>';
+                        
+                $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+
+            $('#search_koang_pro').off('keyup').keyup(function(){
+                ajax_produk(id_form);
+            });
+
         }
     });
 }
@@ -656,6 +744,31 @@ function get_produk_detail(id, no_form,nomor_so){
 
 }
 
+function get_barang_detail(id, no_form,nomor_so){
+    var id_produk = id;
+    $.ajax({
+		url : '<?php echo base_url(); ?>purchase_order_c/get_produk_detail_langsung',
+		data : {id_produk:id_produk},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#harga_modal_'+no_form).val(result.HARGA);
+			$('#id_produk_'+no_form).val(id_produk);
+			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
+
+
+
+			$('#search_koang_pro').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+		    $('#popup_koang').remove();
+
+		    
+		}
+	});
+
+}
+
 function always_one(id){
 
 
@@ -690,9 +803,10 @@ function tambah_data() {
 			'<div class="control-group">'+
 				'<div class="controls">'+
 					'<div class="input-append">'+
-						'<input type="text" id="nama_produk_'+i+'" name="nama_produk[]" readonly style="background:#FFF; width: 80%">'+
+						'<input type="text" id="nama_produk_'+i+'" name="nama_produk[]" readonly style="background:#FFF; width: 60%">'+
 						'<input type="hidden" id="id_produk_'+i+'" name="produk[]" readonly style="background:#FFF;">'+
 						'<input type="hidden" id="jenis_produk_'+i+'" name="jenis_produk[]" readonly style="background:#FFF;" value="">'+
+						'<button style="width: 30%;" onclick="show_pop_barang('+i+');" type="button" class="btn">Cari</button>'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
