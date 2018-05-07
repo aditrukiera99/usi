@@ -33,14 +33,14 @@
       <span><strong>LAPORAN REALISASI ORDER PENJUALAN</strong></span><br>
       <!-- <span style="font-size: 100%;">10-Mar-2018 - 1-Mar-2018</span> -->
     </div>
-<div style="float:left;text-align: left;">
+<!-- <div style="float:left;text-align: left;">
     <span style="font-size: 60%;">
 
     	<br>PEMASOK : PT.CIPTA DAVIA MANDIRI (IDR)
     	<br>ALAMAT  : GEDUNG PAM TOWER LT.0 JL.JEND SUDIRMAN STAL KUDA KOMP.BSB NO.47 RT.019
     	<br>TELPON
      
-  </div>
+  </div> -->
   </center>
   <div style="clear: both;"></div>
   <br>
@@ -63,42 +63,48 @@
 
 
 <!-- ---------------------------------------------------------------- -->
-
+       <?PHP 
+       $no = 0;
+       $total = 0;
+       foreach ($data as $key => $row) { 
+        $no++;
+        $total += $row->TOTAL;
+       ?>
        <tr>
-          <td  style="border: 0px solid black;">1</td>
+          <td  style="border: 0px solid black;"><?=$no;?></td>
           <td  style="
           border-left:1px solid black;
           border-right:0px solid black;
           border-bottom:0px solid black;
           border-top:0px solid black;
-          ">xxxxx</td>
+          "><?=$row->NO_BUKTI;?></td>
           <td  style="
           border-left:0px solid black;
           border-right:1px solid black;
           border-bottom:0px solid black;
           border-top:0px solid black;
-          ">xxxxxxx</td>
-          <td  style="border-right: 1px solid black;"></td>
-          <td  style="border-right: 1px solid black;"></td>
-          <td  style="border-right: 1px solid black;"></td>
-          <td  style="border-right: 1px solid black;"></td>
-          <td  style="border-right: 1px solid black;"></td>
+          "><?=$row->TGL_TRX  ;?></td>
+          <td  style="border-right: 1px solid black;"><?=$row->NAMA_PRODUK;?></td>
+          <td  style="border-right: 1px solid black; text-align: right;"><?=$row->QTY;?></td>
+          <td  style="border-right: 1px solid black;"><?=$row->SATUAN;?></td>
+          <td  style="border-right: 1px solid black; text-align: right;"><?=number_format($row->HARGA_SATUAN);?></td>
+          <td  style="border-right: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
           <td  style="
           border-left:0px solid black;
           border-right:0px solid black;
           border-bottom:0px solid black;
           border-top:0px solid black;
-          ">xxxxxxx</td>
+          "><?=$row->NO_SJ;?></td>
           <td  style="
           border-left:0px solid black;
           border-right:1px solid black;
           border-bottom:0px solid black;
           border-top:0px solid black;
-          ">xxxxxxxx</td>
-          <td  style="border-right: 1px solid black;"></td>
-          <td  style="border-right: 1px solid black;"></td>
+          "><?=$row->TGL_SJ;?></td>
+          <td  style="border-right: 1px solid black; text-align: right;"><?=$row->QTY;?></td>
+          <td  style="border-right: 1px solid black; text-align: right;">0.00</td>
         </tr>
-
+        <?PHP } ?>
 <!-- ---------------------------------------------------------------- -->
 
 
@@ -110,7 +116,7 @@
           <td  style="border-top: 1px solid black;"></td>
           <td  style="border-top: 1px solid black;"></td>
           <td colspan="4" style="border: 1px solid black;">GRAND TOTAL</td>
-          <td  style="border: 1px solid black;">xxxxx</td>
+          <td  style="border: 1px solid black; text-align: right;"><?=number_format($total);?></td>
           <td  style="border-top: 1px solid black;"></td>
           <td  style="border-top: 1px solid black;"></td>
           <td  style="border-top: 1px solid black;"></td>

@@ -30,7 +30,7 @@
     <div style="clear: both;"></div>
     <center>
     <div>
-      <span><strong>Laporan Detail Order Penjualan</strong></span><br>
+      <span><strong>Laporan SO OUTSTANDING</strong></span><br>
       <span style="font-size: 100%;">10-Mar-2018 - 1-Mar-2018</span>
     </div>
   </center>

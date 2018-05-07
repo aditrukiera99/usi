@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					
-					<div class="control-group">
+					<div class="control-group" style="display: none;">
 						<label class="control-label"> <b style="font-size: 14px;"> Filter </b> </label>
 						<div class="controls">
 							<label class="radio inline">
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 
-					<div class="control-group harian">
+					<div class="control-group harian" style="display: none;">
 						<label class="control-label"> <b style="font-size: 14px;"> Tanggal </b> </label>
 						<div class="controls">
 							<div class="input-prepend">

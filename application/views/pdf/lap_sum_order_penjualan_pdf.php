@@ -31,7 +31,7 @@
     <center>
     <div>
       <span><strong>Laporan Summary Order Penjualan</strong></span><br>
-      <span style="font-size: 100%;">10-Mar-2018 - 1-Mar-2018</span>
+      <span style="font-size: 100%;"><?=$judul;?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
@@ -68,20 +68,25 @@
           <td style="border: 1px solid black;"></td> -->
         </tr>
 
+        <?PHP 
+        $total = 0;
+        foreach ($data as $key => $row) { 
+          $total += $row->TOTAL;
+        ?>
         <tr>
-          <td style="border: 1px solid black;">3/12/2018</td>
+          <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
+          <td style="border: 1px solid black;"><?=$row->NO_BUKTI;?></td>
+          <td style="border: 1px solid black;"><?=$row->PELANGGAN;?></td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;">MUHAMMAD</td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"><?=$row->STATUS_PO;?></td>
+          <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
+          <td style="border: 1px solid black;"><?=$row->MEMO;?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
+          <td style="border: 1px solid black;">1.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
+          <td style="border: 1px solid black;">NEW</td>
         </tr>
-
+        <?PHP } ?>
 
 
 <!-- <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
@@ -100,7 +105,7 @@
           border-left:0px solid black;
           border-right:0px solid black;
           border-top:1px solid black;
-          border-bottom:1px solid black;">xxxxxxxxxx</td>
+          border-bottom:1px solid black; text-align: right; font-weight: bold;"><?=number_format($total);?></td>
 
           <td colspan="1" style="
           border-left:0px solid black;

@@ -56,22 +56,25 @@
 		
 
 <!-- ------------ISI--------------- -->
-
-      <tr style="font-weight: bold">
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;">xxx</td>
+    <?PHP
+    $no = 0;
+    foreach ($data as $key => $row) { 
+      $no++;
+    ?>
+    <tr style="font-weight: bold">
+      <td  style="border: 1px solid black;"><?=$no;?></td>
+      <td  style="border: 1px solid black;">-</td>
+      <td  style="border: 1px solid black;"><?=$row->NAMA_PELANGGAN;?></td>
+      <td  style="border: 1px solid black;"><?=$row->ALAMAT_KIRIM;?></td>
+      <td  style="border: 1px solid black;"><?=$row->ALAMAT_TAGIH;?></td>
+      <td  style="border: 1px solid black;">0.00</td>
+      <td  style="border: 1px solid black;"><?=$row->NO_TELP;?></td>
+      <td  style="border: 1px solid black;"><?=$row->NO_HP;?></td>
+      <td  style="border: 1px solid black;">-</td>
+      <td  style="border: 1px solid black;">-</td>
+      <td  style="border: 1px solid black;">Y</td>
 	  </tr>
-
-  
+    <?PHP } ?>  
 
 <!-- --------------------------- -->
 

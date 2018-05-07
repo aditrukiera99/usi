@@ -1,14 +1,14 @@
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-book"></i> Laporan Penjualan Produk Detail Customer</h3>
+			<h3 class="page-header"> <i class="icon-book"></i> Laporan SO OUTSTANDING</h3>
 
 
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#"> Laporan </a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Laporan Penjualan Produk Detail Customer</li>
+			<li class="active"> Laporan SO OUTSTANDING</li>
 		</ul>
 	</div>
 </div>
