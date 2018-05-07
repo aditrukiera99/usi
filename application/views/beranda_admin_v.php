@@ -709,15 +709,18 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-briefcase"></i> Input Akuntansi  <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum</a></li>
+                    <?PHP } ?>
+                    
+                    <li><a href="<?=base_url();?>kas_kecil_c"><i class="icon-plus-sign"></i> Input Kas Kecil </a></li>
+
                     <li><a href="<?=base_url();?>bukti_kas_keluar_c"><i class="icon-plus-sign"></i> Bukti Kas Keluar </a></li>
                     <li><a href="<?=base_url();?>bukti_kas_masuk_c"><i class="icon-plus-sign"></i> Bukti Kas Masuk </a></li>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
                     <!-- <li><a href="<?=base_url();?>input_transaksi_akuntansi_c"><i class="icon-plus-sign"></i> Transaksi Akuntansi</a></li> -->
-                    <?PHP } ?>
-
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
-                    <li><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum</a></li>
                     <?PHP } ?>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Jurnal Bayar Kas Bank', $user->LEVEL)){ ?>

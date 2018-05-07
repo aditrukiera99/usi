@@ -418,6 +418,12 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-briefcase"></i> Input Akuntansi  <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum</a></li>
+                    <?PHP } ?>
+
+                    <li><a href="<?=base_url();?>kas_kecil_c"><i class="icon-plus-sign"></i> Input Kas Kecil </a></li>
+
                     <li><a href="<?=base_url();?>bukti_kas_keluar_c"><i class="icon-plus-sign"></i> Bukti Kas Keluar </a></li>
                     <li><a href="<?=base_url();?>bukti_kas_masuk_c"><i class="icon-plus-sign"></i> Bukti Kas Masuk </a></li>
 
@@ -425,9 +431,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <!-- <li><a href="<?=base_url();?>input_transaksi_akuntansi_c"><i class="icon-plus-sign"></i> Transaksi Akuntansi</a></li> -->
                     <?PHP } ?>
 
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
-                    <li><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum</a></li>
-                    <?PHP } ?>
+                    
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Jurnal Bayar Kas Bank', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_jurnal_bayar_kas_c"><i class="icon-plus-sign"></i> Pelunasan Hutang </a></li>
@@ -935,13 +939,19 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
           <div class="tab-pane <?PHP if($master == "input_akuntansi"){ echo "active"; } ?>" id="input_akun">
               <h4 class="side-head">Input Akuntansi</h4>
               <ul id="nav" class="accordion-nav">
+
+
                   <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
-                  <li <?PHP if($view == "input_transaksi_akuntansi"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>input_transaksi_akuntansi_c"><i class="icon-plus-sign"></i> Transaksi Akuntansi </a></li>
-                  <?PHP } ?>
+                  <!-- <li <?PHP if($view == "input_transaksi_akuntansi"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>input_transaksi_akuntansi_c"><i class="icon-plus-sign"></i> Transaksi Akuntansi </a></li>
+                  <?PHP } ?> -->
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "input_jurnal_umum"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum </a></li>
                   <?PHP } ?>
+
+                  <li <?PHP if($view == "kk"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>kas_kecil_c"><i class="icon-plus-sign"></i> Input Kas Kecil </a></li>
+                  <li <?PHP if($view == "bkk"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>bukti_kas_keluar_c"><i class="icon-plus-sign"></i> Bukti Kas Keluar </a></li>
+                  <li <?PHP if($view == "bkm"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>bukti_kas_masuk_c"><i class="icon-plus-sign"></i> Bukti Kas Masuk </a></li>
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Jurnal Bayar Kas Bank', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "jurnal_bayar_kas"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>input_jurnal_bayar_kas_c"><i class="icon-plus-sign"></i> Pelunasan Hutang </a></li>
@@ -955,9 +965,9 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <li <?PHP if($view == "jp"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>input_jurnal_penyesuaian_c"><i class="icon-plus-sign"></i> Jurnal Penyesuaian </a></li>
                   <?PHP } ?> -->
 
-                  <?php if($this->master_model_m->cek_anak($id_user, 'Hapus Transaksi Akun', $user->LEVEL)){ ?>
+                  <!-- <?php if($this->master_model_m->cek_anak($id_user, 'Hapus Transaksi Akun', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "hapus_trx_akun"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>hapus_transaksi_akun_c"><i class="icon-remove-sign"></i> Hapus Transaksi Akun </a></li>
-                  <?PHP } ?>
+                  <?PHP } ?> -->
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Kas & Bank', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "kas_bank"){ echo "class='active'"; } ?> ><a href="<?=base_url();?>kas_bank_c">

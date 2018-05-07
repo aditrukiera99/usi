@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Bukti_kas_keluar_m extends CI_Model
+class Kas_kecil_m extends CI_Model
 {
     function __construct() {
           parent::__construct();
@@ -21,8 +21,7 @@ class Bukti_kas_keluar_m extends CI_Model
 
         $where = "1=1";
         $sql = "
-        SELECT * FROM ak_input_voucher 
-        WHERE TIPE = 'BKK' 
+        SELECT * FROM ak_kas_kecil 
         ORDER BY ID DESC
         ";
 
@@ -36,8 +35,8 @@ class Bukti_kas_keluar_m extends CI_Model
         $where = $where." AND STR_TO_DATE(TGL,'%d-%m-%Y') >= STR_TO_DATE('$tgl_awal','%d-%m-%Y')  AND STR_TO_DATE(TGL,'%d-%m-%Y') <= STR_TO_DATE('$tgl_akhir','%d-%m-%Y')";
 
         $sql = "
-        SELECT * FROM ak_input_voucher 
-        WHERE TIPE = 'BKK' AND $where
+        SELECT * FROM ak_kas_kecil 
+        WHERE $where
         ORDER BY ID DESC
         ";
 
@@ -112,7 +111,7 @@ class Bukti_kas_keluar_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_input_voucher WHERE NO_VOUCHER = '$id_hapus'
+        DELETE FROM ak_kas_kecil WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);
@@ -216,7 +215,7 @@ class Bukti_kas_keluar_m extends CI_Model
 
     function get_no_trx_penjualan($id_klien){
         $sql = "
-        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'BKK'
+        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'KK'
         ";
 
         return $this->db->query($sql)->row();
@@ -573,7 +572,7 @@ class Bukti_kas_keluar_m extends CI_Model
 
     function hapus_detail_trx($id){
         $sql = "
-        DELETE FROM ak_input_voucher_detail WHERE NO_VOUCHER_DETAIL = '$id'
+        DELETE FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id'
         ";
 
         $this->db->query($sql);
