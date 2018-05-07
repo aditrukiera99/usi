@@ -573,7 +573,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND STATUS_INV is null AND $where  
+		SELECT * FROM ak_penjualan WHERE STATUS_INV is null AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();

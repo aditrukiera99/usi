@@ -456,7 +456,8 @@ class Transaksi_penjualan_m extends CI_Model
             OAT,
             PPN_OAT,
             STATUS_LPB,
-            STATUS_DO
+            STATUS_DO,
+            STATUS_PO
 
         )
         VALUES 
@@ -475,6 +476,7 @@ class Transaksi_penjualan_m extends CI_Model
            '$nilai_pbbkb', 
            '$nilai_qty_total', 
            '$ppn_oat',
+           '0',
            '0',
            '0'
         )

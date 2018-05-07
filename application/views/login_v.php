@@ -83,9 +83,9 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
                         <div class="col-sm-col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                                    <p align="center">
+                                    <!-- <p align="center">
                                     <img src="<?=$base_url2;?>/assets/img/usi Uk kecil.png" alt="" style="width: 50%;height: 50%;">
-                                    </p>
+                                    </p> -->
                                     <br>
                         			<h3>Masuk ke aplikasi akuntansi</h3>
                             		<p>Isikan username dan password anda:</p>
