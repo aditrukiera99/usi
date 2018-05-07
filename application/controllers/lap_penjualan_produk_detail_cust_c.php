@@ -108,8 +108,6 @@ class Lap_penjualan_produk_detail_cust_c extends CI_Controller {
 			")->result();
 		}
 
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',

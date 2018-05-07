@@ -74,7 +74,7 @@ class Lap_daftar_supplier_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$dt = $this->db->query("SELECT * FROM ak_supplier ORDER BY ID")->result();
 		} 
 
 		$data = array(

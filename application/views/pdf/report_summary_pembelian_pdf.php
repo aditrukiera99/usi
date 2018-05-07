@@ -31,7 +31,7 @@
     <center>
     <div>
       <span><b style="font-size: 22px;">Laporan Summary Pembelian</b></span><br>
-      <span style="font-size: 70%;">14-Mar-2018 - 16-Mar-2018</span>
+      <span style="font-size: 70%;"><?=$judul;?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
@@ -53,21 +53,27 @@
           <td style="border: 1px solid black;">NAMA</td>
           <td style="border: 1px solid black;">LOKASI</td>
         </tr>
+        <?PHP 
+        $total = 0;
+        foreach ($data as $key => $dt) { 
+          $total += $row->TOTAL;
+        ?>
         <tr>
-          <td style="border: 1px solid black;">3/14/2018</td>
-          <td style="border: 1px solid black;">104/SMD/III/18</td>
-          <td style="border: 1px solid black;">PT.PERTAMINA (PERSERO) (IDR)</td>
-          <td style="border: 1px solid black;">Jakarta</td>
-          <td style="border: 1px solid black;">PO 37/SMD/III/18</td>
-          <td style="border: 1px solid black;">3/14/2018</td>
-          <td style="border: 1px solid black;">RETAIL</td>
-          <td style="border: 1px solid black;">REA KALTIM SMI180017</td>
-          <td style="border: 1px solid black; ">243,479,820.00</td>
+          <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
+          <td style="border: 1px solid black;"><?=$row->NO_PO;?></td>
+          <td style="border: 1px solid black;"><?=$row->PELANGGAN;?></td>
+          <td style="border: 1px solid black;">-</td>
+          <td style="border: 1px solid black;"><?=$row->NO_SO;?></td>
+          <td style="border: 1px solid black;"><?=$row->TGL_JATUH_TEMPO;?></td>
+          <td style="border: 1px solid black;"><?=$row->GUDANG;?></td>
+          <td style="border: 1px solid black;"><?=$row->MEMO;?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
           <td style="border: 1px solid black; ">NEW</td>
         </tr>
+        <?PHP } ?>
         <tr>
-          <td colspan="8" style="border: 1px solid black;">TOTAL</td>
-          <td colspan="2" style="border: 1px solid black;">3,478,608,306.00</td>
+          <td colspan="8" style="border: 1px solid black; font-weight: bold;">TOTAL</td>
+          <td colspan="2" style="border: 1px solid black; font-weight: bold;"><?=number_format($total);?></td>
         </tr>
       </tbody>
     </table>

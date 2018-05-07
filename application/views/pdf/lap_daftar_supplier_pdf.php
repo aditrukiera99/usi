@@ -50,19 +50,25 @@
           <td style="border: 1px solid black;">FAX</td>
           <td style="border: 1px solid black;">STATUS</td>
         </tr>
+        <?PHP 
+        $no = 0;
+        foreach ($data as $key => $row) { 
+          $no++;
+        ?>
         <tr>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"><?=$no;?></td>
+          <td style="border: 1px solid black;">-</td>
+          <td style="border: 1px solid black;"><?=$row->NAMA_SUPPLIER;?></td>
+          <td style="border: 1px solid black;">0.00</td>
+          <td style="border: 1px solid black;">0.00</td>
+          <td style="border: 1px solid black;"><?=$row->KOTA;?></td>
+          <td style="border: 1px solid black;"><?=$row->ALAMAT_TAGIH;?></td>
+          <td style="border: 1px solid black;"><?=$row->NO_TELP;?></td>
+          <td style="border: 1px solid black;"><?=$row->NO_HP;?></td>
+          <td style="border: 1px solid black;">-</td>
+          <td style="border: 1px solid black;">Y</td>
         </tr>
+        <?PHP } ?>
       </tbody>
     </table>
   </body>

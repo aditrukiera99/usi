@@ -28,10 +28,10 @@
     <center>
     <div>
       <span><strong>LAPORAN DETAIL PEMBELIAN</strong></span><br>
-      <span style="font-size: 80%;">Periode 13-Mar-2018</span>
+      <span style="font-size: 80%;">Periode <?=$judul;?></span>
     </div>
   </center>
-  <div style="clear: both;"></div>
+  <?PHP foreach ($data as $key => $row) { ?>
   <table style="font-size: 80%;">
         <thead>
           <th></th>
@@ -41,18 +41,18 @@
         <tbody>
           <tr>
             <td><strong>TANGGAL</strong></td>
-            <td style="width: 50%;">13.03.2018</td>
+            <td style="width: 50%;"><?=$row->TGL_TRX;?></td>
             <td ><strong>SUPPLIER</strong></td>
-            <td>PT. PERTAMINA (PERSERO) (IDR)</td>
+            <td><?=$row->PELANGGAN;?></td>
           </tr>
           <tr>
             <td><strong>NO FAKTUR</strong></td>
-            <td style="text-transform: uppercase; width: 50%;">100/SMD/III/18</td>
+            <td style="text-transform: uppercase; width: 50%;"><?=$row->NO_PO;?></td>
             <td><strong>LOKASI</strong></td>
-            <td>Jl. Medan Merdeka TImur 1 A</td>
+            <td>-</td>
           </tr>
         </tbody>
-      </table>
+  </table>
   <br>
   <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
       <tbody>
@@ -66,20 +66,31 @@
           <td style="border-bottom: 1px solid black;"><strong>Disc %</strong></td>
           <td style="border-bottom: 1px solid black;"><strong>Subtotal</strong></td>
         </tr>
+        <?PHP 
+        $dt_det = $this->db->query("
+          SELECT a.*, b.KODE_PRODUK FROM ak_pembelian_detail a
+          LEFT JOIN ak_produk b ON a.ID_PRODUK = b.ID
+          WHERE a.ID_PENJUALAN = '".$row->ID."' 
+          ")->result();
+        $total_all = 0;
+        foreach ($dt_det as $key => $row_det) {
+          $total_all += $row_det->TOTAL;
+        ?>
         <tr style="text-align:center;">
-          <td>Gas-SMD</td>
-          <td>HIGH SPEED DIESEL / SOLAR</td>
-          <td>64,000.00</td>
-          <td>ltr</td>
-          <td>6,760.78</td>
+          <td><?=$row_det->KODE_PRODUK;?></td>
+          <td><?=$row_det->NAMA_PRODUK;?></td>
+          <td><?=$row_det->QTY;?></td>
+          <td><?=$row_det->SATUAN;?></td>
+          <td><?=number_format($row_det->HARGA_SATUAN);?></td>
           <td>0.00</td>
           <td></td>
-          <td style="text-align:right;">432,689,920.00</td>
+          <td style="text-align:right;"><?=number_format($row_det->TOTAL);?></td>
         </tr>
+        <?PHP } ?>
         <tr>
           <td colspan="6" style="border-top: 1px solid black;"></td>
           <td style="border-top: 1px solid black;"><strong>TOTAL</strong></td>
-          <td style="border-top: 1px solid black; text-align: right;">466,689,920.00</td>
+          <td style="border-top: 1px solid black; text-align: right;"><?=number_format($total_all);?></td>
         </tr>
         <tr>
           <td colspan="6"></td>
@@ -89,7 +100,7 @@
         <tr>
           <td colspan="6"></td>
           <td><strong>TOTAL NET</strong></td>
-          <td style="text-align: right;"><strong>509,708,672.00</strong></td>
+          <td style="text-align: right;"><strong><?=number_format($total_all);?></strong></td>
         </tr>
         <tr>
           <td colspan="6"></td>
@@ -99,81 +110,11 @@
         <tr>
           <td colspan="6"></td>
           <td><strong>TOTAL IDR</strong></td>
-          <td style="text-align: right;"><strong>509,708,672.00</strong></td>
+          <td style="text-align: right;"><strong><?=number_format($total_all);?></strong></td>
         </tr>
       </tbody>
-    </table>
-    <div style="clear: both;"></div>
-    <table style="font-size: 80%;">
-          <thead>
-            <th></th>
-            <th></th>
-            <th></th>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>TANGGAL</strong></td>
-              <td style="width: 50%;">13.03.2018</td>
-              <td ><strong>SUPPLIER</strong></td>
-              <td>PT. PERTAMINA (PERSERO) (IDR)</td>
-            </tr>
-            <tr>
-              <td><strong>NO FAKTUR</strong></td>
-              <td style="text-transform: uppercase; width: 50%;">100/SMD/III/18</td>
-              <td><strong>LOKASI</strong></td>
-              <td>Jl. Medan Merdeka TImur 1 A</td>
-            </tr>
-          </tbody>
-        </table>
-    <br>
-    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
-        <tbody>
-          <tr style="text-align:center;">
-            <td style="border-bottom: 1px solid black;"><strong>Kode Barang</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Nama Barang</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Jumlah</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Satuan</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Harga</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Disc Rp</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Disc %</strong></td>
-            <td style="border-bottom: 1px solid black;"><strong>Subtotal</strong></td>
-          </tr>
-          <tr style="text-align:center;">
-            <td>Gas-SMD</td>
-            <td>HIGH SPEED DIESEL / SOLAR</td>
-            <td>64,000.00</td>
-            <td>ltr</td>
-            <td>6,760.78</td>
-            <td>0.00</td>
-            <td></td>
-            <td style="text-align:right;">432,689,920.00</td>
-          </tr>
-          <tr>
-            <td colspan="6" style="border-top: 1px solid black;"></td>
-            <td style="border-top: 1px solid black;"><strong>TOTAL</strong></td>
-            <td style="border-top: 1px solid black; text-align: right;">466,689,920.00</td>
-          </tr>
-          <tr>
-            <td colspan="6"></td>
-            <td style="float: left;"><strong>DISC</strong></td>
-            <td style="text-align: right;">0.00</td>
-          </tr>
-          <tr>
-            <td colspan="6"></td>
-            <td><strong>TOTAL NET</strong></td>
-            <td style="text-align: right;"><strong>509,708,672.00</strong></td>
-          </tr>
-          <tr>
-            <td colspan="6"></td>
-            <td><strong>KURS</strong></td>
-            <td style="text-align: right;"><strong>1.00</strong></td>
-          </tr>
-          <tr>
-            <td colspan="6"></td>
-            <td><strong>TOTAL IDR</strong></td>
-            <td style="text-align: right;"><strong>509,708,672.00</strong></td>
-          </tr>
-        </tbody>
-      </table>
+  </table>
+  <div style="clear: both;"></div>
+  <?PHP } ?>
   </body>
 </html>
