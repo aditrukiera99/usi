@@ -25,13 +25,15 @@ class Stock_m extends CI_Model
         }
 
         $sql = "
-        SELECT * FROM ak_produk
-        WHERE $where AND ID_KLIEN = $id_klien AND $where_unit AND TIPE != 'JASA'
+        SELECT * FROM ak_produk a 
+        WHERE $where AND TIPE != 'JASA'
+
         ORDER BY APPROVE ASC, ID DESC
         ";
 
         return $this->db->query($sql)->result();
     }
+
 
 
     function hapus_produk($id){
@@ -121,14 +123,9 @@ class Stock_m extends CI_Model
         $sql = "
         SELECT ( IFNULL(a.TOTAL_1, 0) + IFNULL(a.TOTAL_2 ,0) ) AS TOTAL FROM (
         SELECT SUM(a.TOTAL_1) AS TOTAL_1, SUM(a.TOTAL_2) AS TOTAL_2 FROM (
-        SELECT SUM(b.QTY) AS TOTAL_1, 0 AS TOTAL_2 FROM ak_pembelian_new a 
-        JOIN ak_pembelian_new_detail b ON a.ID = b.ID_PENJUALAN
+        SELECT SUM(b.QTY) AS TOTAL_1, 0 AS TOTAL_2 FROM ak_pembelian a 
+        JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN
         WHERE b.NAMA_PRODUK = '$nama_produk' AND a.TGL_TRX LIKE '%-$bulan-$tahun%'
-
-        UNION ALL 
-
-        SELECT 0 AS TOTAL_1, SUM(JML_PRODUKSI) AS TOTAL_2 FROM ak_produksi_barang 
-        WHERE ID_ITEM = '$id' AND TGL LIKE '%-$bulan-$tahun%'
         ) a
         ) a
         ";
@@ -146,8 +143,8 @@ class Stock_m extends CI_Model
 
         $sql = "
         SELECT IFNULL(TOTAL, 0) AS TOTAL FROM (
-        SELECT SUM(b.QTY) AS TOTAL FROM ak_penjualan_new a 
-        JOIN ak_penjualan_new_detail b ON a.ID = b.ID_PENJUALAN
+        SELECT SUM(b.QTY) AS TOTAL FROM ak_penjualan a 
+        JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
         WHERE b.NAMA_PRODUK = '$nama_produk'  AND a.TGL_TRX LIKE '%-$bulan-$tahun%'
         ) a
         ";

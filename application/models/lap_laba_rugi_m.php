@@ -50,30 +50,21 @@ class Lap_laba_rugi_m extends CI_Model
 
     function cetak_laba_rugi_bulanan($id_klien, $bulan, $tahun, $unit){
         $sql = "
-        SELECT a.ID_KLIEN, a.TIPE, a.KODE_AKUN, a.NAMA_AKUN, a.KATEGORI, a.URUT, a.WARNA, (a.DEBET + a.KREDIT) AS JML FROM (
-            SELECT a.ID_KLIEN, a.TIPE, a.KODE_AKUN, a.NAMA_AKUN, a.KATEGORI, c.URUT, c.WARNA, IFNULL(SUM(b.DEBET), 0) AS DEBET, IFNULL(SUM(b.KREDIT), 0) AS KREDIT FROM ak_kode_akuntansi a 
+        SELECT a.TIPE, a.KODE_AKUN, a.NAMA_AKUN, a.KATEGORI, a.URUT, a.WARNA, (a.DEBET + a.KREDIT) AS JML FROM (
+            SELECT a.TIPE, a.KODE_AKUN, a.NAMA_AKUN, d.KATEGORI, d.URUT, d.WARNA, IFNULL(SUM(b.DEBET), 0) AS DEBET, IFNULL(SUM(b.KREDIT), 0) AS KREDIT FROM ak_kode_akuntansi a 
             LEFT JOIN (
-                SELECT a.ID_KLIEN, a.KODE_AKUN, IFNULL(a.DEBET, 0) AS DEBET, IFNULL(a.KREDIT, 0) AS KREDIT FROM(
-                    SELECT VOUCHER.ID_KLIEN, DETAIL.KODE_AKUN, SUM(DETAIL.DEBET) AS DEBET, SUM(DETAIL.KREDIT) AS KREDIT
+                SELECT a.KODE_AKUN, IFNULL(a.DEBET, 0) AS DEBET, IFNULL(a.KREDIT, 0) AS KREDIT FROM(
+                    SELECT DETAIL.KODE_AKUN, SUM(DETAIL.DEBET) AS DEBET, SUM(DETAIL.KREDIT) AS KREDIT
                     FROM ak_input_voucher VOUCHER
-                    JOIN ak_input_voucher_detail DETAIL ON VOUCHER.NO_VOUCHER = DETAIL.NO_VOUCHER_DETAIL AND VOUCHER.ID_KLIEN = DETAIL.ID_KLIEN
-                    WHERE VOUCHER.ID_KLIEN = $id_klien
-                    AND VOUCHER.TGL LIKE '%-$bulan-$tahun%'
-                    AND VOUCHER.UNIT = '$unit'
-                    GROUP BY VOUCHER.ID_KLIEN, DETAIL.KODE_AKUN
-
-                    UNION ALL 
-
-                    SELECT a.ID_KLIEN, b.KODE_AKUN, SUM(b.DEBET) AS DEBET, SUM(b.KREDIT) AS KREDIT FROM ak_jurnal_penye a 
-                    JOIN ak_jurnal_penye_detail b ON a.NO_BUKTI = b.NO_BUKTI AND a.ID_KLIEN = b.ID_KLIEN
-                    WHERE a.ID_KLIEN = $id_klien AND a.TGL LIKE '%-$bulan-$tahun%' AND a.UNIT = '$unit'
-                    GROUP BY a.ID_KLIEN, b.KODE_AKUN
+                    JOIN ak_input_voucher_detail DETAIL ON VOUCHER.NO_VOUCHER = DETAIL.NO_VOUCHER_DETAIL
+                    WHERE VOUCHER.TGL LIKE '%-$bulan-$tahun%'
+                    GROUP BY DETAIL.KODE_AKUN
                 ) a
             ) b ON a.KODE_AKUN = b.KODE_AKUN
-            JOIN ak_setup_urut_labarugi c ON a.KATEGORI = c.KATEGORI
-            GROUP BY a.ID_KLIEN, a.TIPE, a.KODE_AKUN, a.NAMA_AKUN, a.KATEGORI, c.URUT, c.WARNA
+            JOIN ak_grup_kode_akun c ON a.KODE_GRUP = c.KODE_GRUP
+            JOIN ak_setup_urut_labarugi d ON d.KATEGORI = c.TMP_LR
+            GROUP BY a.TIPE, a.KODE_AKUN, a.NAMA_AKUN, d.KATEGORI, d.URUT, d.WARNA
         ) a 
-        WHERE a.ID_KLIEN = $id_klien
         ORDER BY a.URUT, a.KODE_AKUN
         ";
 

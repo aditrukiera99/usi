@@ -48,13 +48,13 @@ table th {
     $old_voc = "";
 ?>
 
-<table cellspacing="0" align="left"> 
-    <tr align="center">
-        <td align="left">
-            <h5>
-                PT. Prima Elektrik Power <br><br>
-                <?=strtoupper($dt_unit->NAMA_UNIT);?>    
-            </h5>
+<table align="left">
+    <tr>
+        <td align="left" style="line-height: 7px;">
+            <h3 style="font-weight: bold;">
+                PT. UNITED SHIPPING INDONESIA
+            </h3>
+            <font style="font-size: 9px;">GONDOSULI NO. 08 RT 005 RW 006, KETABANG, GENTENG, SURABAYA</font>
         </td>
     </tr>
 </table>
@@ -85,14 +85,16 @@ table th {
 
     foreach ($data as $key => $row) {
         $no++;   
-
+        $total_terima = $this->model->get_penerimaan_item(1, $row->NAMA_PRODUK);
+        $total_keluar = $this->model->get_pengeluaran_item(1, $row->NAMA_PRODUK);
+        $stok = $total_terima->TOTAL - $total_keluar->TOTAL;
 
         echo "<tr>" ;
             echo "<td class='gridtd' style='text-align:center;'>".$no."</td>";
             echo "<td class='gridtd' style='text-align:center;'>".$row->KODE_PRODUK."</td>";
             echo "<td class='gridtd' style='text-align:left;'>".$row->NAMA_PRODUK."</td>";
-            echo "<td class='gridtd' style='text-align:center;'>".format_akuntansi($row->STOK)." ".$row->SATUAN."</td>";
-            echo "<td class='gridtd' style='text-align:right;'>".format_akuntansi($row->HARGA_JUAL)."</td>";
+            echo "<td class='gridtd' style='text-align:center;'>".$stok." ".$row->SATUAN."</td>";
+            echo "<td class='gridtd' style='text-align:right;'>".format_akuntansi($row->HARGA)."</td>";
         echo "</tr>" ; 
     }
     ?>

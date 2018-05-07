@@ -32,13 +32,8 @@ class Input_rkap_m extends CI_Model
     function get_list_akun($unit){
         $sql = "
         SELECT KODE_GRUP AS KODE_AKUN, NAMA_GRUP AS NAMA_AKUN, '' AS SUB FROM ak_grup_kode_akun
-        WHERE UNIT = '$unit'
-        UNION ALL
-        SELECT KODE_SUB AS KODE_AKUN, NAMA_SUB AS NAMA_AKUN, KODE_GRUP AS SUB FROM ak_sub_grup_kode_akun
-        WHERE UNIT = '$unit'
         UNION ALL
         SELECT KODE_AKUN, NAMA_AKUN , '' AS SUB FROM ak_kode_akuntansi
-        WHERE UNIT = '$unit'
         ";
 
         return $this->db->query($sql)->result();

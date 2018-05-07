@@ -9,7 +9,7 @@
 <br><br>01-31-534607 
 <br>
 <p align="center"><br><b><font size="3px">Laporan Penjualan Produk Detail Customer</b>
-<br><b>TANGGAL : 14-MAR-2018 - 19-MAR-2018</font></b></p></font>
+<br><b>TANGGAL : <?=$judul;?></font></b></p></font>
 <br>
 
 <style type="text/css">
@@ -39,23 +39,52 @@
     <th class="tg-yw4l"><b>Kurs</b></th>
     <th class="tg-yw4l"><b>Nilai IDR</b></th>
   </tr>
+  <?PHP 
+  $no = 0;
+  $total_all = 0;
+  foreach ($data as $key => $row) {
+    $no++;
+    $total_all += $row->JML * $row->HARGA;
+  ?>
   <tr>
+    <td class="tg-yw4l" rowspan="2"><?=$no;?></td>
+    <td class="tg-yw4l" rowspan="2"><?=$row->NAMA_PRODUK;?></td>
+    <td class="tg-yw4l" rowspan="2"><?=$row->KODE_PRODUK;?></td>
     <td class="tg-yw4l" rowspan="2"></td>
+    <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
     <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2"></td>
+    <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
   </tr>
+
+  <?PHP 
+  $sql_det = "
+  SELECT c.NAMA_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
+  JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
+  JOIN ak_pelanggan c ON a.ID_PELANGGAN = b.ID
+  ";
+  $dt_det = $this->db->query($sql_det)->result();
+  foreach ($dt_det as $key => $row_det) {
+  ?>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"><?=$row_det->NAMA_PELANGGAN;?></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+    <td class="tg-yw4l" style="text-align: right;">1.00</td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+  </tr>  
+  <?PHP } ?>
+
+  <?PHP } ?>
   <tr>
   </tr>
-  <tr>
+  <tr style="font-weight: bold;">
     <td class="tg-baqh" colspan="3"><b>Total</b></td>
     <td class="tg-yw4l"></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($total_all);?></td>
     <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($total_all);?></td>
   </tr>
 </table>
 

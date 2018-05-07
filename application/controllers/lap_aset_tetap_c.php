@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Lap_neraca_c extends CI_Controller {
+class Lap_aset_tetap_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -10,7 +10,7 @@ class Lap_neraca_c extends CI_Controller {
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
-	    $this->load->model('lap_neraca_m','model');
+	    $this->load->model('lap_aset_tetap_m','model');
 	    $this->load->helper('url');
 		$this->load->library('fpdf/HTML2PDF');
 	}
@@ -26,29 +26,29 @@ class Lap_neraca_c extends CI_Controller {
 		$user 	  = $this->master_model_m->get_user_info($id_user);
 
 		if($this->input->post('pdf')){
-			$this->cetak_penye_pdf();
+			$this->cetak_jurnal_umum_pdf();
 		} else if($this->input->post('excel')){
-			$this->cetak_penye_xls();
+			$this->cetak_jurnal_umum_xls();
 		} 
 
 		//$dt = $this->model->get_no_akun($keyword, $id_klien);
 
 		$data =  array(
-			'page' => "lap_neraca_v", 
-			'title' => "Laporan Neraca Perusahaan", 
+			'page' => "lap_aset_tetap_v", 
+			'title' => "Laporan Aset Tetap", 
 			'msg' => "", 
-			'master' => "laporan", 
-			'view' => "neraca", 
+			'master' => "aset", 
+			'view' => "lap_aset_tetap", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
-			'post_url' => 'lap_neraca_c', 
+			'post_url' => 'lap_aset_tetap_c', 
 		);
 		
 		$this->load->view('beranda_v', $data);
 	}
 
-	function cetak_penye_pdf(){
+	function cetak_jurnal_umum_pdf(){
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_klien = $sess_user['id_klien'];
 
@@ -56,41 +56,35 @@ class Lap_neraca_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
-		$view = "pdf/report_laporan_neraca_pdf";
+		$view = "pdf/report_aset_tetap_pdf";
 		$dt = "";
 		$judul = "";
-		$dt_aktiva = "";
-		$dt_wajib = "";
-
-		$laba = "";
-		$laba_lalu = "";
-
 		$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
+
+		$tahun = $this->input->post('tahun');
 		$bulan = $this->input->post('bulan');
-		$tahun = $this->input->post('tahun');	
+		$bln_txt = $this->datetostr($bulan);
+		$judul = "Bulan $bln_txt $tahun";
+		$dt = $this->model->get_lap_aset($bulan, $tahun);
 
-		$dt = "";
-		$dt_aktiva = $this->model->get_lap_neraca_bulanan($bulan, $tahun, 'AKTIVA');
-		$dt_wajib =  $this->model->get_lap_neraca_bulanan($bulan, $tahun, 'KEWAJIBAN');
-
-		$laba      = $this->model->cetak_laba_rugi_bulanan($bulan, $tahun, 'NOW');
-		$laba_lalu = $this->model->cetak_laba_rugi_bulanan($bulan, $tahun, 'LALU');
 
 		$data = array(
-			'title' 		=> 'LAPORAN BUKU BESAR',
+			'title' 		=> 'LAPORAN JURNAL MEMORIAL',
 			'title2'		=> 'SEMUA BAGIAN',
-			'dt'			=> $dt,
-			'dt_aktiva'     => $dt_aktiva,
-			'dt_wajib'      => $dt_wajib,
-			'laba'          => $laba,
-			'laba_lalu'     => $laba_lalu,
-			'judul'			=> $this->datetostr($bulan)." ".$tahun,
+			'data'			=> $dt,
+			'judul'			=> $judul,
+			'dt_unit'		=> $dt_unit,
+			'bln_txt'		=> $bln_txt,
+			'bulan'		    => $bulan,
+			'tahun'		    => $tahun,
+			'data_usaha'    => $this->master_model_m->data_usaha($id_klien),
 		);
 		$this->load->view($view,$data);
 	}
 
-	function cetak_penye_xls(){
+	function cetak_jurnal_umum_xls(){
+
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_klien = $sess_user['id_klien'];
 
@@ -98,39 +92,29 @@ class Lap_neraca_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
-		$view = "xls/report_laporan_neraca_xls";
+		$view = "xls/report_aset_tetap_xls";
 		$dt = "";
 		$judul = "";
-		$dt_aktiva = "";
-		$dt_wajib = "";
-
-		$laba = "";
-		$laba_lalu = "";
-
 		$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-		$bulan_lalu = date('m');
-		$tahun_lalu = date('Y');
 
+		$tahun = $this->input->post('tahun');
 		$bulan = $this->input->post('bulan');
-		$tahun = $this->input->post('tahun');	
+		$bln_txt = $this->datetostr($bulan);
+		$judul = "Bulan $bln_txt $tahun";
+		$dt = $this->model->get_lap_aset($bulan, $tahun);
 
-		$dt = "";
-		$dt_aktiva = $this->model->get_lap_neraca_bulanan($bulan, $tahun, 'AKTIVA');
-		$dt_wajib =  $this->model->get_lap_neraca_bulanan($bulan, $tahun, 'KEWAJIBAN');
-
-		$laba      = $this->model->cetak_laba_rugi_bulanan($bulan, $tahun, 'NOW');
-		$laba_lalu = $this->model->cetak_laba_rugi_bulanan($bulan, $tahun, 'LALU');
 
 		$data = array(
-			'title' 		=> 'LAPORAN BUKU BESAR',
+			'title' 		=> 'LAPORAN JURNAL MEMORIAL',
 			'title2'		=> 'SEMUA BAGIAN',
-			'dt'			=> $dt,
-			'dt_aktiva'     => $dt_aktiva,
-			'dt_wajib'      => $dt_wajib,
-			'laba'          => $laba,
-			'laba_lalu'     => $laba_lalu,
-			'judul'			=> $this->datetostr($bulan)." ".$tahun,
+			'data'			=> $dt,
+			'judul'			=> $judul,
+			'dt_unit'		=> $dt_unit,
+			'bln_txt'		=> $bln_txt,
+			'bulan'		    => $bulan,
+			'tahun'		    => $tahun,
+			'data_usaha'    => $this->master_model_m->data_usaha($id_klien),
 		);
 		$this->load->view($view,$data);
 	}
@@ -151,40 +135,6 @@ class Lap_neraca_c extends CI_Controller {
 		$dt = $this->model->cari_kode_by_id($id);
 
 		echo json_encode($dt);
-	}
-
-	function datetostr_last_day($var){
-
-		 if($var == "01"){
-		 	$var = "31 Januari";
-		 } else if($var == "02"){
-		 	$var = "28 Februari";
-		 } else if($var == "03"){
-		 	$var = "31 Maret";
-		 } else if($var == "04"){
-		 	$var = "30 April";
-		 } else if($var == "05"){
-		 	$var = "31 Mei";
-		 } else if($var == "06"){
-		 	$var = "30 Juni";
-		 } else if($var == "07"){
-		 	$var = "31 Juli";
-		 } else if($var == "08"){
-		 	$var = "31 Agustus";
-		 } else if($var == "09"){
-		 	$var = "30 September";
-		 } else if($var == "10"){
-		 	$var = "31 Oktober";
-		 } else if($var == "11"){
-		 	$var = "30 November";
-		 } else if($var == "12"){
-		 	$var = "31 Desember";
-		 } else{
-		 	$var = "";
-		 }
-
-		 return $var;
-
 	}
 
 	function datetostr($var){
@@ -213,8 +163,6 @@ class Lap_neraca_c extends CI_Controller {
 		 	$var = "November";
 		 } else if($var == "12"){
 		 	$var = "Desember";
-		 } else{
-		 	$var = "";
 		 }
 
 		 return $var;
