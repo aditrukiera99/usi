@@ -80,7 +80,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-col-sm-offset-3 form-box">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
                                     <p align="center">
