@@ -125,7 +125,7 @@ class Stock_m extends CI_Model
         SELECT SUM(a.TOTAL_1) AS TOTAL_1, SUM(a.TOTAL_2) AS TOTAL_2 FROM (
         SELECT SUM(b.QTY) AS TOTAL_1, 0 AS TOTAL_2 FROM ak_pembelian a 
         JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN
-        WHERE b.NAMA_PRODUK = '$nama_produk' AND a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a,SUPPLY_POINT = '$id_sp'
+        WHERE b.NAMA_PRODUK = '$nama_produk' AND a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a.SUPPLY_POINT = '$id_sp'
         ) a
         ) a
         ";
