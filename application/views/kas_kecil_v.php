@@ -57,12 +57,12 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-minus"></i> Bukti Kas Keluar </h3>
+			<h3 class="page-header"> <i class="icon-minus"></i> Kas Kecil </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#">Input Akuntansi</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Bukti Kas Keluar </li>
+			<li class="active"> Kas Kecil </li>
 		</ul>
 	</div>
 </div>
@@ -84,7 +84,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 	</div>
 
 	<div class="span6">
-		<button onclick="window.location='<?=base_url();?>bukti_kas_keluar_c/add_new';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Bukti Kas Keluar </button>
+		<button onclick="window.location='<?=base_url();?>kas_kecil_c/add_new';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Kas Kecil / Operasional </button>
 	</div>
 </div>
 
@@ -97,24 +97,32 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 				<table class="stat-table table table-hover" id="data-table">
 					<thead>
 						<tr>
-							<th align="center"> No. BKK </th>
+							<th align="center"> No. KK </th>
 							<th align="center"> Tanggal </th>
-							<th align="center"> Kepada </th>
+							<th align="center"> Untuk </th>
 							<th align="center"> Nilai </th>
+							<th align="center"> Status </th>
 							<th align="center"> Aksi </th>
 						</tr>						
 					</thead>
 					<tbody id="tes">
 						<?PHP  foreach ($dt as $key => $row) { ?>							
 							<tr>								
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_VOUCHER;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;"> <?=$row->KONTAK;?> </td>
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($row->KREDIT);?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;"> <?=$row->UNTUK;?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($row->NILAI);?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> 
+									<?PHP if($row->IS_LUNAS == 1){
+										echo "Belum di Proses";
+									} else {
+										echo "Telah Cair";
+									}?>
+								</td>
 								<td align="center">
-									<a target="blank" href="<?=base_url();?>bukti_kas_keluar_c/cetak/<?=$row->NO_VOUCHER;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<!-- <a target="blank" href="<?=base_url();?>bukti_kas_keluar_c/cetak/<?=$row->NO_VOUCHER;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
 
-									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->NO_VOUCHER;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
+									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
 									<!-- <a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a> -->						
 									<!-- <button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button> -->
 								</td>
