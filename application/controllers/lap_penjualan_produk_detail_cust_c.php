@@ -76,23 +76,32 @@ class Lap_penjualan_produk_detail_cust_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$dt = $this->db->query("
+				SELECT a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA, SUM(DETAIL.QTY) AS JML FROM ak_produk a 
+				JOIN ak_penjualan_detail DETAIL ON a.ID = DETAIL.ID_PRODUK
+				JOIN ak_penjualan JUAL ON DETAIL.ID_PENJUALAN = JUAL.ID
+				WHERE STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+				GROUP BY a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA
+				ORDER BY a.ID
+			")->result();
 		} else {
 			$view = "pdf/lap_penjualan_produk_detail_cust_bulanan_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-			$tgl_full = $this->input->post('tgl');
-			if($tgl_full == ""){
-				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
-			}
-			
-			$tgl = explode(' sampai ', $tgl_full);
-			$tgl_awal = $tgl[0];
-			$tgl_akhir = $tgl[1];
-			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
+			$bulan = $this->input->post('bulan');
+			$tahun = $this->input->post('tahun');
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$judul =  $this->datetostr($bulan)." ".$tahun;
+
+			$dt = $this->db->query("
+				SELECT a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA, SUM(DETAIL.QTY) AS JML FROM ak_produk a 
+				JOIN ak_penjualan_detail DETAIL ON a.ID = DETAIL.ID_PRODUK
+				JOIN ak_penjualan JUAL ON DETAIL.ID_PENJUALAN = JUAL.ID
+				WHERE JUAL.TGL_TRX LIKE '%-$bulan-$tahun%'
+				GROUP BY a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA
+				ORDER BY a.ID
+			")->result();
 		}
 
 		

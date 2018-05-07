@@ -133,27 +133,13 @@ class Lap_laba_rugi_c extends CI_Controller {
 
 		$dt_unit = $this->master_model_m->get_unit_by_id($unit);	
 
-		if($filter == "Harian"){
-			$tgl_full = $this->input->post('tgl');
-			if($tgl_full == ""){
-				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
-			}
-			
-			$tgl = explode(' sampai ', $tgl_full);
-			$tgl_awal = $tgl[0];
-			$tgl_akhir = $tgl[1];
-			$judul = "Tanggal $tgl_awal s/d $tgl_akhir";
+		$tahun = $this->input->post('tahun');
+		$bulan = $this->input->post('bulan');
+		$bln_txt = $this->datetostr($bulan);
+		$judul = "Bulan $bln_txt Tahun $tahun";
 
-			$dt = $this->model->cetak_laba_rugi($id_klien, $tgl_awal, $tgl_akhir, $unit);
+		$dt = $this->model->cetak_laba_rugi_bulanan($id_klien, $bulan, $tahun, $unit);
 		
-		} else if($filter == "Bulanan"){
-			$tahun = $this->input->post('tahun');
-			$bulan = $this->input->post('bulan');
-			$bln_txt = $this->datetostr($bulan);
-			$judul = "Bulan $bln_txt Tahun $tahun";
-
-			$dt = $this->model->cetak_laba_rugi_bulanan($id_klien, $bulan, $tahun, $unit);
-		} 
 
 		$bulan_depan = $bulan + 1;
         $tahun_depan = $tahun;
@@ -167,7 +153,7 @@ class Lap_laba_rugi_c extends CI_Controller {
 		$data = array(
 			'title' 		=> 'LAPORAN LABA RUGI ',
 			'title2'		=> 'SEMUA BAGIAN',
-			'data'			=> $dt,
+			'dt'			=> $dt,
 			'filter'		=> $filter,
 			'judul'			=> $judul,
 			'tgl_awal'		=> $tgl_awal,

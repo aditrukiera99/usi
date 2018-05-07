@@ -16,9 +16,9 @@
 				<i class="icon-plus" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> INPUT STOCK OPNAME 
 			</a>
 
-			<button data-toggle='modal' data-target='#laporan_modal' type="button" class="btn btn-warning view_data" style="float: right; margin-right: 10px;"> 
+			<!-- <button data-toggle='modal' data-target='#laporan_modal' type="button" class="btn btn-warning view_data" style="float: right; margin-right: 10px;"> 
 				<i class="icon-print" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> CETAK LAPORAN
-			</button>
+			</button> -->
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>

@@ -1,14 +1,14 @@
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-book"></i> Laporan Laba Rugi </h3>
+			<h3 class="page-header"> <i class="icon-book"></i> Laporan Aset Tetap</h3>
 
 
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#"> Laporan </a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Laporan Laba Rugi </li>
+			<li><a href="#"> Aset </a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Laporan Aset Tetap</li>
 		</ul>
 	</div>
 </div>
@@ -29,28 +29,6 @@
 						</div>
 					</div>
 					
-					<div class="control-group" style="display: none;">
-						<label class="control-label"> <b style="font-size: 14px;"> Filter </b> </label>
-						<div class="controls">
-							<label class="radio inline">
-							<input onclick="isfilter();" type="radio" value="Harian" id="harian" name="filter">
-								Harian </label>
-							<label class="radio inline">
-							<input onclick="isfilter();" type="radio" checked="" value="Bulanan" id="bulanan" name="filter">
-							Bulanan </label>
-						</div>
-					</div>
-
-					<div class="control-group harian" style="display:none;">
-						<label class="control-label"> <b style="font-size: 14px;"> Tanggal </b> </label>
-						<div class="controls">
-							<div class="input-prepend">
-								<span class="add-on"><i class="icon-calendar"></i></span>
-								<input type="text" name="tgl" id="reservation" value=""/>
-							</div>
-						</div>
-					</div>
-
 					<div class="control-group bulanan">
 						<label class="control-label"> <b style="font-size: 14px;"> Bulan </b> </label>
 						<div class="controls">
@@ -84,20 +62,6 @@
 							</select>
 						</div>
 					</div>
-
-
-					<div class="control-group" style="display: none;">
-						<label class="control-label"> <b style="font-size: 14px;"> Tipe Laporan </b> </label>
-						<div class="controls">
-							<label class="radio inline">
-							<input type="radio" checked="" value="Rinci" id="rinci" name="tipe_laporan">
-								Rinci </label>
-							<label class="radio inline">
-							<input type="radio" value="Tdk_Rinci" id="tdk_rinci" name="tipe_laporan">
-							Tidak Rinci </label>
-						</div>
-					</div>
-
 
 					<div class="form-actions">
 						<input type="submit" value="Cetak PDF" name="pdf" class="btn btn-danger">

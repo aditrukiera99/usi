@@ -19,7 +19,7 @@
 		<div class="content-widgets light-gray">
 			<div class="widget-container">
 				<form action="<?=base_url().$post_url;?>" method="post" class="form-horizontal" target="_blank">
-					<div class="control-group">
+					<div class="control-group" style="display: none;">
 						<label class="control-label"> <b style="font-size: 14px;"> Unit </b> </label>
 						<div class="controls">
 							<div class="input-append" style="width: 50%;">

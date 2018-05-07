@@ -30,27 +30,38 @@
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-container">
-				<table class="stat-table table table-hover">
+				<table class="stat-table table table-hover" id="data-table">
 					<thead>
 						<tr>
-							<th align="center"> Suppplier </th>
 							<th align="center"> Nama Item </th>
+							<th align="center"> Satuan </th>
+							<th align="center"> Saldo Awal </th>
 							<th align="center"> Penerimaan </th>
 							<th align="center"> Pengeluaran </th>
-							<th align="center"> Stok </th>
+							<th align="center"> Koreksi </th>
+							<th align="center"> Saldo Akhir </th>
 						</tr>						
 					</thead>
 					<tbody id="tes">
-						<?PHP foreach ($data_supplier2 as $key => $row) { ?>
-						<tr>
-							<td><?=$row->NAMA_SUPPLIER;?></td>
-							<?PHP 
-							$data_stok = $this->model->get_data_stok($row->ID);
-							?>
-							<td>SOLAR HSD (HIGH SPEED DIESEL)</td>
-							<td style="text-align: center;"><?=$data_stok->JML_BELI;?></td>
-							<td style="text-align: center;"><?=$data_stok->JML_JUAL;?></td>
-							<td style="text-align: center;"><?=$data_stok->JML_BELI - $data_stok->JML_JUAL;?></td>
+						<?PHP 
+						$no = 0;
+						foreach ($dt as $key => $row) {
+							$no++;
+
+							$get_penerimaan  = $this->model->get_penerimaan_item($row->ID, $row->NAMA_PRODUK);
+							$get_pengeluaran = $this->model->get_pengeluaran_item($row->ID, $row->NAMA_PRODUK);
+							$get_koreksi = $this->model->get_koreksi_item($row->ID, $row->NAMA_PRODUK);
+							$saldo_akhir = ($get_penerimaan->TOTAL - $get_pengeluaran->TOTAL) + $get_koreksi->TOTAL;
+
+						?>
+						<tr style="font-weight: bold;">
+							<td align="left" style="text-align: left;"> <?=$row->NAMA_PRODUK;?> </td>							
+							<td align="center" style="text-align: center;"> <?=$row->SATUAN;?> </td>							
+							<td align="right" style="text-align: right;"> 0 </td>							
+							<td align="right" style="text-align: right;"> <?=$get_penerimaan->TOTAL;?> <?=$row->SATUAN;?> </td>							
+							<td align="right" style="text-align: right;"> <?=$get_pengeluaran->TOTAL;?> <?=$row->SATUAN;?> </td>							
+							<td align="right" style="text-align: right;"> <?=$get_koreksi->TOTAL;?> <?=$row->SATUAN;?> </td>							
+							<td align="right" style="text-align: right;"> <?=$saldo_akhir;?> <?=$row->SATUAN;?> </td>							
 						</tr>
 						<?PHP } ?>
 					</tbody>
@@ -59,7 +70,6 @@
 		</div>
 	</div>
 </div>
-
 <div id="laporan_modal" class="modal fade" role="dialog" style="display: none;">
     <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
