@@ -333,7 +333,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <?PHP } ?>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
-                    <li><a href="<?=base_url();?>pelanggan_c"> <i class="icon-caret-right "></i> Pelanggan </a></li>
+                    <li><a href="<?=base_url();?>pelanggan_c"> <i class="icon-caret-right "></i> Customer </a></li>
                     <?PHP } ?>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Supplier', $user->LEVEL)){ ?>
@@ -351,7 +351,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
                     <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li> -->
                     <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li>
-                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Gudang </a></li>
+                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Supply Point </a></li>
                 </ul>
             </div>
             </li>
@@ -659,7 +659,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <?PHP } ?>
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
-                  <li><a class=" dark-yellow" href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i><span> Pelanggan </span></a></li>
+                  <li><a class=" dark-yellow" href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i><span> Customer </span></a></li>
 
                   <?PHP } ?>
 
@@ -782,8 +782,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </li>
 
                   <li <?PHP if($view == "gudang"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>gudang_c"><i class="icon-briefcase "></i> Gudang
-                        <span> Data gudang</span> 
+                      <a href="<?=base_url();?>gudang_c"><i class="icon-briefcase "></i> Supply Point
+                        <span> Data Supply Point</span> 
                       </a>
                   </li>
               </ul>

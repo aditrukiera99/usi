@@ -229,7 +229,7 @@
 						</div>
 					</div>
 
-					<div class="control-group" style="display: none;">
+					<div class="control-group">
 						<label class="control-label"> <b>Harga Beli</b> </label>
 						<div class="controls">
 							<input type="text" required onkeyup="FormatCurrency(this);" class="span12" value="0" name="harga_beli">
