@@ -38,7 +38,7 @@ class Lap_pembayaran_ke_supplier_c extends CI_Controller {
 			'page' => "lap_pembayaran_ke_supplier_v", 
 			'title' => "Laporan Pembayaran Ke Supplier", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_keuangan", 
 			'view' => "lap_pembayaran_ke_supplier_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

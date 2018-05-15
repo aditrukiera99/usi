@@ -38,7 +38,7 @@ class Lap_kas_bank_rinci_c extends CI_Controller {
 			'page' => "lap_kas_bank_rinci_v", 
 			'title' => "Laporan Kas/Bank Rinci", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_keuangan", 
 			'view' => "lap_kas_bank_rinci_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
