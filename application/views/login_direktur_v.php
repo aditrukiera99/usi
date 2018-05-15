@@ -70,7 +70,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     </head>
     <body>
         <div id="bg">
-          <img src="https://cdn-enterprise.discourse.org/turtlerock/uploads/default/original/3X/6/d/6d1e41aa7964ea6d7e9212d4e68a64f7ceea7e46.jpg" alt="">
+          <img src="<?=$base_url2;?>/assets/begron foto.png" alt="" style="width: 100%;height: 100%;">
         </div>
         <!-- Top content -->
         <div class="top-content">
@@ -88,7 +88,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
                             <div class="form-top">
                                 <div class="form-top-left">
                                     <p align="center">
-                                    <img src="<?=$base_url2;?>/assets/img/usi Uk kecil.png" alt="" style="width: 50%;height: 50%;">
+                                    <!-- <img src="<?=$base_url2;?>/assets/img/usi Uk kecil.png" alt="" style="width: 50%;height: 50%;"> -->
                                     </p>
                                 </div>
                                 <div class="form-top-right">
