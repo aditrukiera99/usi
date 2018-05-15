@@ -37,7 +37,7 @@ class Lap_pembelian_c extends CI_Controller {
 			'page' => "lap_pembelian_v", 
 			'title' => "Laporan Pembelian", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_pembelian", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

@@ -33,7 +33,7 @@ class Lap_kartu_hutang_c extends CI_Controller {
 			'page' => "lap_kartu_hutang_v", 
 			'title' => "Laporan Kartu Hutang", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_kartu_hutang_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

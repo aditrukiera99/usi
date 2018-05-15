@@ -69,7 +69,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 <div class="row-fluid ">
 	<div class="span6">
-		<form method="post" action="<?=base_url();?>bukti_kas_masuk_c">
+		<form method="post" action="<?=base_url();?>bukti_kas_keluar_c">
 		<div class="control-group">
 			<label class="control-label" style="font-weight: bold; font-size: 13px;">Tampilkan berdasarkan tanggal :</label>
 			<div class="controls">

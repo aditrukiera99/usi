@@ -33,7 +33,7 @@ class Lap_pembelian_supp_produk_c extends CI_Controller {
 			'page' => "lap_pembelian_supp_produk_v", 
 			'title' => "Laporan Pembelian Supplier Detail Produk", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_pembelian_supp_produk_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

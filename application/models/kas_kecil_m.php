@@ -22,7 +22,7 @@ class Kas_kecil_m extends CI_Model
         $where = "1=1";
         $sql = "
         SELECT * FROM ak_kas_kecil 
-        ORDER BY ID DESC
+        ORDER BY ID ASC
         ";
 
         return $this->db->query($sql)->result();
@@ -37,7 +37,7 @@ class Kas_kecil_m extends CI_Model
         $sql = "
         SELECT * FROM ak_kas_kecil 
         WHERE $where
-        ORDER BY ID DESC
+        ORDER BY ID ASC
         ";
 
         return $this->db->query($sql)->result();

@@ -33,7 +33,7 @@ class Lap_sum_um_beli_c extends CI_Controller {
 			'page' => "lap_sum_um_beli_v", 
 			'title' => "Laporan Summary Uang Muka Pembelian", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_sum_um_beli_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

@@ -33,7 +33,7 @@ class Lap_sum_po_c extends CI_Controller {
 			'page' => "lap_sum_po_v", 
 			'title' => "Laporan Summary Order Pembelian", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_sum_po_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

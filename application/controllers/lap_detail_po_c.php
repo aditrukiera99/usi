@@ -33,7 +33,7 @@ class Lap_detail_po_c extends CI_Controller {
 			'page' => "lap_detail_po_v", 
 			'title' => "Laporan Detail Order Pembelia", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_detail_po_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

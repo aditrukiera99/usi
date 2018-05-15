@@ -33,7 +33,7 @@ class Lap_history_harga_c extends CI_Controller {
 			'page' => "lap_history_harga_v", 
 			'title' => "Laporan History Harga", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_pembelian", 
 			'view' => "lap_history_harga_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
