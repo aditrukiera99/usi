@@ -45,9 +45,12 @@ class Pelanggan_c extends CI_Controller {
 			$ppn   		 	 = $this->input->post('ppn');
 			$pph_23   		 = $this->input->post('pph_23');
 			$pph_15   		 = $this->input->post('pph_15');
+			$pajak_pbbkb   	 = $this->input->post('pajak_pbbkb');
 			$nama_usaha   	 = addslashes($this->input->post('nama_usaha'));
 			$tdp   	 	     = addslashes($this->input->post('tdp'));
 			$siup   	     = addslashes($this->input->post('siup'));
+			$kode_customer   = addslashes($this->input->post('kode_customer'));
+			$lokasi   	     = addslashes($this->input->post('lokasi'));
 
 			if($tipe == "Perorangan"){
 				$nama_usaha = "";
@@ -55,7 +58,7 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 );
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi);
 
 			$broker_nama   = addslashes($this->input->post('broker_nama'));
 			$broker_alamat = addslashes($this->input->post('broker_alamat'));

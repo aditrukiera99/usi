@@ -246,6 +246,30 @@
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label class="control-label"> <b> PPN </b> </label>
+						<div class="controls">
+							<input type="text" class="span12" name="ppn" value="0">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 23 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_23" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 15 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_15" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
 					<div class="form-actions">
                         <?PHP if($user->LEVEL == "USER"){ ?>
                         <input type="submit" class="btn btn-info" name="simpan" value="AJUKAN SUPPLIER">

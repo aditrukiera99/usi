@@ -57,7 +57,7 @@ class Supplier_m extends CI_Model
     }
 
 
-    function simpan_supplier($id_klien,$kode_sup, $nama_supplier, $npwp, $alamat_tagih, $kota, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup){
+    function simpan_supplier($id_klien,$kode_sup, $nama_supplier, $npwp, $alamat_tagih, $kota, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup,$ppn,$pph_23,$pph_15){
 
         if($npwp == "" || $npwp == null){
             $npwp = "-";
@@ -92,9 +92,9 @@ class Supplier_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_supplier
-        (ID_KLIEN,KODE_SUP, NAMA_SUPPLIER, NPWP, ALAMAT_TAGIH, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, KOTA)
+        (ID_KLIEN,KODE_SUP, NAMA_SUPPLIER, NPWP, ALAMAT_TAGIH, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, KOTA,PPN,PPH_23,PPH_15)
         VALUES 
-        ($id_klien,'$kode_sup', '$nama_supplier', '$npwp', '$alamat_tagih', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$user->UNIT', '$kota')
+        ($id_klien,'$kode_sup', '$nama_supplier', '$npwp', '$alamat_tagih', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$user->UNIT', '$kota','$ppn','$pph_23','$pph_15')
         ";
 
         $this->db->query($sql);

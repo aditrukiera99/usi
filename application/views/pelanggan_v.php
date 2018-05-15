@@ -263,9 +263,23 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<?PHP } ?>
 
 					<div class="control-group">
-						<label class="control-label"> <b>Kode Customer</b> </label>
+						<label class="control-label"> <b>Kode SH</b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="" name="kode_pelanggan" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>Kode Costumer</b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="kode_customer" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>Lokasi</b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="lokasi" autocomplete="off">
 						</div>
 					</div>
 
@@ -339,6 +353,14 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label"> <b> Limit Pembelian </b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="" name="limit_beli" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> Pajak PBBKB </b> </label>
+						<div class="controls">
+							<input type="text" class="span12" name="pajak_pbbkb" value="0">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
 
