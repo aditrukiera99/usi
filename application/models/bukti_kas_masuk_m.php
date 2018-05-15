@@ -112,7 +112,7 @@ class Bukti_kas_masuk_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_pembelian_new WHERE ID = $id_hapus
+        DELETE FROM ak_input_voucher WHERE NO_VOUCHER = '$id_hapus'
         ";
 
         $this->db->query($sql_1);
@@ -573,12 +573,11 @@ class Bukti_kas_masuk_m extends CI_Model
 
     function hapus_detail_trx($id){
         $sql = "
-        DELETE FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id'
+        DELETE FROM ak_input_voucher_detail WHERE NO_VOUCHER_DETAIL = '$id'
         ";
 
         $this->db->query($sql);
     }
-
     function hapus_detail_cust($id){
         $sql = "
         DELETE FROM ak_pembelian_customer WHERE ID_PEMBELIAN = '$id'
@@ -601,6 +600,26 @@ class Bukti_kas_masuk_m extends CI_Model
         $sql = "
         SELECT * FROM ak_broker
         ORDER BY ID DESC 
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
+    function get_data_trx_edit($no_voucher){
+        $sql = "
+        SELECT a.*, b.NAMA_AKUN FROM ak_input_voucher a 
+        LEFT JOIN ak_kode_akuntansi b ON a.KODE_AKUN = b.KODE_AKUN
+        WHERE NO_VOUCHER = '$no_voucher'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_data_trx_detail_edit($no_voucher){
+        $sql = "
+        SELECT a.*, b.NAMA_AKUN FROM ak_input_voucher_detail a 
+        LEFT JOIN ak_kode_akuntansi b ON a.KODE_AKUN = b.KODE_AKUN
+        WHERE a.NO_VOUCHER_DETAIL = '$no_voucher' AND a.KREDIT > 0
         ";
 
         return $this->db->query($sql)->result();

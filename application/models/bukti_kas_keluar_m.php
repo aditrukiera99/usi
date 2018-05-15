@@ -624,6 +624,27 @@ class Bukti_kas_keluar_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function get_data_trx_edit($no_voucher){
+        $sql = "
+        SELECT a.*, b.NAMA_AKUN FROM ak_input_voucher a 
+        LEFT JOIN ak_kode_akuntansi b ON a.KODE_AKUN = b.KODE_AKUN
+        WHERE NO_VOUCHER = '$no_voucher'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_data_trx_detail_edit($no_voucher){
+        $sql = "
+        SELECT a.*, b.NAMA_AKUN FROM ak_input_voucher_detail a 
+        LEFT JOIN ak_kode_akuntansi b ON a.KODE_AKUN = b.KODE_AKUN
+        WHERE a.NO_VOUCHER_DETAIL = '$no_voucher' AND a.DEBET > 0
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
+
 }
 
 ?>

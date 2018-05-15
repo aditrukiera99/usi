@@ -82,6 +82,41 @@ class Bukti_kas_keluar_c extends CI_Controller {
 
 		}
 
+		if($this->input->post('edit')){
+			$msg = 1;
+			$no_trx    		     = $this->input->post('no_trx');
+			$tgl_trx 			 = $this->input->post('tgl_trx');
+			$memo                = $this->input->post('memo');
+			$kode_akun_kasbank   = $this->input->post('kode_akun_kasbank');
+
+			$data = array(
+				'TGL'          => $this->input->post('tgl_trx'),
+				'URAIAN'       => $this->input->post('memo'),
+				'KODE_AKUN'    => $this->input->post('kode_akun_kasbank')
+		    );
+
+		    $this->db->where('NO_VOUCHER', $no_trx);
+    		$this->db->update('ak_input_voucher', $data);
+
+    		$this->db->where('NO_VOUCHER_DETAIL', $no_trx);
+   			$this->db->delete('ak_input_voucher_detail');  
+
+			$kode_akun 	= $this->input->post('kode_akun');
+			$ket 	    = $this->input->post('ket');
+			$nilai      = $this->input->post('nilai');			
+
+			$nilai_total = 0;
+			foreach ($kode_akun as $key => $val) {
+				$nilai_total += str_replace(',', '', $nilai[$key]);
+				$this->model->simpan_detail_penjualan($no_trx, $no_reff, $val, $ket[$key], $nilai[$key], 0);
+			}
+
+			$this->model->simpan_detail_penjualan_kasbank($no_trx, $no_reff, $kode_akun_kasbank, '', 0, $nilai_total);
+			$this->model->update_nilai_voucher($no_trx, $nilai_total);
+
+			$this->master_model_m->simpan_log($id_user, "Melakukan ubah bukti kas keluar dengan nomor : <b>".$no_trx."</b>");
+		}
+
 		if($this->input->post('cari')){
 			$tgl_full = $this->input->post('tgl');
 			$tgl = explode(' sampai ', $tgl_full);
@@ -90,13 +125,15 @@ class Bukti_kas_keluar_c extends CI_Controller {
 
 			$dt = $this->model->get_penjualan_filter($keyword, $id_klien, $tgl_awal, $tgl_akhir);
 		
-		} else if($this->input->post('id_hapus')){
+		} 
+
+		if($this->input->post('id_hapus')){
 			$msg = 2;
 
 			$id_hapus = $this->input->post('id_hapus');
 			$this->model->hapus_trx_penjualan($id_hapus);
 			$this->model->hapus_detail_trx($id_hapus);
-			// $this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
+			$this->master_model_m->simpan_log($id_user, "Menghapus Bukti Kas Keluar dengan nomor bukti : <b>".$id_hapus."</b>");
 		}
 
 		$get_list_akun_all = $this->master_model_m->get_list_akun_all();
@@ -165,7 +202,7 @@ class Bukti_kas_keluar_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
-	function ubah_data($id=""){
+	function ubah_data($no_voucher=""){
 		$keyword = "";
 		$msg = "";
 		$kode_produk = "";
@@ -175,36 +212,28 @@ class Bukti_kas_keluar_c extends CI_Controller {
 
 		$list_akun = $this->model->get_list_akun($id_klien);
 		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
+		$get_list_akun_bank = $this->master_model_m->get_list_akun_bank();
 		$get_all_produk    = $this->model->get_all_produk($id_klien);
 		$get_pajak = $this->model->get_pajak($id_klien);
 		$get_pel_sup = $this->model->get_pel_sup($id_klien);
 
-		
-
-		$dt_count = $this->db->query("SELECT COUNT(*) as HITUNG FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id' ")->row();
-		$dt_count1 = $this->db->query("SELECT COUNT(*) as HITUNG_CUST FROM ak_pembelian_customer WHERE ID_PEMBELIAN = '$id' ")->row();
-		$dt = $this->model->get_data_trx($id);
-		$dt_detail = $this->model->get_data_trxx_detail($id);
-		$dt_cust = $this->model->get_data_cust_detail($id);
+		$dt = $this->model->get_data_trx_edit($no_voucher);
+		$dt_detail = $this->model->get_data_trx_detail_edit($no_voucher);
 
 		$data =  array(
-			'page' => "edit_transaksi_po_v", 
-			'title' => "Ubah Transaksi Penjualan", 
+			'page' => "edit_bukti_kas_keluar_v", 
+			'title' => "Edit Bukti Kas Keluar", 
 			'msg' => "", 
-			'master' => "pembelian", 
-			'view' => "fatulsembiring", 
+			'master' => "input_akuntansi", 
+			'view' => "bkk", 
 			'msg' => $msg, 
-			'dt' => $dt, 
-			'dt_count' => $dt_count, 
-			'dt_count1' => $dt_count1, 
-			'dt_detail' => $dt_detail, 
-			'dt_cust' => $dt_cust, 
 			'list_akun' => $list_akun, 
 			'get_list_akun_all' => $get_list_akun_all, 
-			'get_all_produk' => $get_all_produk, 
-			'get_pel_sup' => $get_pel_sup, 
-			'get_pajak' => $get_pajak, 
-			'post_url' => 'purchase_order_c', 
+			'get_list_akun_bank' => $get_list_akun_bank, 
+			'get_all_produk' => $get_all_produk,
+			'dt' => $dt,
+			'dt_detail' => $dt_detail,
+			'post_url' => 'bukti_kas_keluar_c', 
 		);
 		
 		$this->load->view('beranda_v', $data);
