@@ -34,7 +34,11 @@ class Lap_umur_hutang_c extends CI_Controller {
 			'title' => "Laporan Umur Hutang", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
+<<<<<<< HEAD
 			'view' => "lap_umur_hutang", 
+=======
+			'view' => "lap_umur_hutang_v", 
+>>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 

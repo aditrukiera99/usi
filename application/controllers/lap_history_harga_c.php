@@ -34,7 +34,11 @@ class Lap_history_harga_c extends CI_Controller {
 			'title' => "Laporan History Harga", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
+<<<<<<< HEAD
 			'view' => "lap_history_harga", 
+=======
+			'view' => "lap_history_harga_v", 
+>>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 

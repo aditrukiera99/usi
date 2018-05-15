@@ -38,7 +38,7 @@ class Lap_pengeluaran_kas_bank_c extends CI_Controller {
 			'page' => "lap_pengeluaran_kas_bank_v", 
 			'title' => "Laporan Pengeluaran Kas/Bank", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_keuangan", 
 			'view' => "lap_pengeluaran_kas_bank_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

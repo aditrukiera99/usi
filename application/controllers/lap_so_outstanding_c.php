@@ -33,7 +33,7 @@ class Lap_so_outstanding_c extends CI_Controller {
 			'page' => "lap_so_outstanding_v", 
 			'title' => "Laporan SO Outstanding", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_so_outstanding_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

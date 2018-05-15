@@ -33,7 +33,7 @@ class Lap_summary_piutang_cust_c extends CI_Controller {
 			'page' => "lap_summary_piutang_cust_v", 
 			'title' => "Summary Piutang Customer", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_summary_piutang_cust_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

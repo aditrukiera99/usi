@@ -69,7 +69,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 <div class="row-fluid ">
 	<div class="span6">
-		<form method="post" action="<?=base_url();?>bukti_kas_masuk_c">
+		<form method="post" action="<?=base_url();?>kas_kecil_c">
 		<div class="control-group">
 			<label class="control-label" style="font-weight: bold; font-size: 13px;">Tampilkan berdasarkan tanggal :</label>
 			<div class="controls">
@@ -120,11 +120,16 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									}?>
 								</td>
 								<td align="center">
+									<?PHP if($row->IS_LUNAS == 0){ ?>
 									<!-- <a target="blank" href="<?=base_url();?>bukti_kas_keluar_c/cetak/<?=$row->NO_VOUCHER;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
 
+									<a class="btn btn-warning" href="<?=base_url();?>kas_kecil_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>	
+
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
-									<!-- <a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a> -->						
 									<!-- <button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button> -->
+									<?PHP } else {
+										echo "-";
+									}?>
 								</td>
 								
 							</tr>

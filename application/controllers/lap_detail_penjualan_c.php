@@ -33,7 +33,7 @@ class Lap_detail_penjualan_c extends CI_Controller {
 			'page' => "lap_detail_penjualan_v", 
 			'title' => "Laporan Detail Penjualan", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_detail_penjualan_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

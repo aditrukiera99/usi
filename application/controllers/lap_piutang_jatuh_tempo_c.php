@@ -33,7 +33,7 @@ class Lap_piutang_jatuh_tempo_c extends CI_Controller {
 			'page' => "lap_piutang_jatuh_tempo_v", 
 			'title' => "Laporan Piutang Jatuh Tempo", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_piutang_jatuh_tempo_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

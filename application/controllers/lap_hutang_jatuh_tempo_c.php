@@ -34,7 +34,11 @@ class Lap_hutang_jatuh_tempo_c extends CI_Controller {
 			'title' => "Laporan Hutang Jatuh Tempo", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
+<<<<<<< HEAD
 			'view' => "lap_hutang_jatuh_tempo", 
+=======
+			'view' => "lap_hutang_jatuh_tempo_v", 
+>>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 

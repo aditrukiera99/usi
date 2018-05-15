@@ -33,7 +33,7 @@ class Lap_rincian_pelunasan_per_nota_c extends CI_Controller {
 			'page' => "lap_rincian_pelunasan_per_nota_v", 
 			'title' => "Laporan Perincian Pelunasan Tiap Nota Penjualan", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_rincian_pelunasan_per_nota_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

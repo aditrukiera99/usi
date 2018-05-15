@@ -33,7 +33,7 @@ class Lap_sum_order_penjualan_c extends CI_Controller {
 			'page' => "lap_sum_order_penjualan_v", 
 			'title' => "Laporan Summary Order Penjualan", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_sum_order_penjualan_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

@@ -34,7 +34,11 @@ class Lap_detail_pembelian_c extends CI_Controller {
 			'title' => "Laporan Detail Bulanan", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
+<<<<<<< HEAD
 			'view' => "lap_detail_pembelian", 
+=======
+			'view' => "lap_detail_pembelian_v", 
+>>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 

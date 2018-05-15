@@ -1127,6 +1127,93 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               </ul>
           </div>
 
+           <div class="tab-pane <?PHP if($master == "laporan_penjualan"){ echo "active"; } ?>" id="persediaan">
+              <h4 class="side-head">Laporan Penjualan</h4>
+              <ul class="accordion-nav">
+                  <li <?PHP if($view == "lap_penjualan_produk_detail_cust_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_penjualan_produk_detail_cust_c"><i class="icon-minus"></i> Laporan Penjualan Produk Detail Customer 
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_summary_penjualan_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_summary_penjualan_c"><i class="icon-minus"></i> Laporan Summary Penjualan
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_detail_penjualan_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_detail_penjualan_c"><i class="icon-minus"></i> Laporan Detail Penjualan
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_penjualan_produk_cust_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_penjualan_produk_cust_c"><i class="icon-minus"></i> Laporan Penjualan Produk Per Custom
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_penjualan_cust_produk_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_penjualan_cust_produk_c"><i class="icon-minus"></i> Laporan Penjualan Customer Per Produk
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_sum_order_penjualan_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_sum_order_penjualan_c"><i class="icon-minus"></i> Laporan Summary Order Penjualan
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_realisasi_order_penjualan_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_realisasi_order_penjualan_c"><i class="icon-minus"></i> Laporan Realisasi Order Penjualan
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_so_outstanding_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_so_outstanding_c"><i class="icon-minus"></i> SO Outstanding
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_rincian_pelunasan_per_nota_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_rincian_pelunasan_per_nota_c"><i class="icon-minus"></i>Rincian Pelunasan Tiap Nota
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_piutang_jatuh_tempo_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_piutang_jatuh_tempo_c"><i class="icon-minus"></i> Laporan Piutang Jatuh Tempo
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_summary_piutang_cust_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_summary_piutang_cust_c"><i class="icon-minus"></i> Summary Piutang Customer
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_summary_piutang_dagang_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_summary_piutang_dagang_c"><i class="icon-minus"></i> Summary Piutang Dagang
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_kartu_piutang_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_kartu_piutang_c"><i class="icon-minus"></i> Kartu Piutang
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_sisa_piutang_dagang_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_sisa_piutang_dagang_c"><i class="icon-minus"></i> Laporan Sisa Piutang Dagang
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_umur_piutang_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_umur_piutang_c"><i class="icon-minus"></i> Laporan Umur Piutang
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_daftar_customer_c"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_daftar_customer_c"><i class="icon-minus"></i> Daftar Customer
+                      </a>
+                  </li>
+
+                  
+              </ul>
+          </div>
+
           <div class="tab-pane <?PHP if($master == "setting"){ echo "active"; } ?>" id="pengaturan">
             <h4 class="side-head"> Pengaturan </h4>
             <ul class="accordion-nav">

@@ -34,7 +34,11 @@ class Lap_sum_hutang_dagang_c extends CI_Controller {
 			'title' => "Laporan Summary Hutang Dagang", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
+<<<<<<< HEAD
 			'view' => "lap_sum_hutang_dagang", 
+=======
+			'view' => "lap_sum_hutang_dagang_v", 
+>>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
