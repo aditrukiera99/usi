@@ -33,7 +33,7 @@
   <tr >
     <th class="tg-baqh"><b>No</b></th>
     <th class="tg-baqh"><b>Nama Item<br><b>Nama Customer</b></th>
-    <th class="tg-baqh"><b>Kode Item</b><br><b>Kode CUstomer</b></th>
+    <th class="tg-baqh"><b>Kode Item</b><br><b>Kode Customer</b></th>
     <th class="tg-baqh"><b>Qty</b></th>
     <th class="tg-yw4l"><b>Nilai</b></th>
     <th class="tg-yw4l"><b>Kurs</b></th>
@@ -47,20 +47,21 @@
     $total_all += $row->JML * $row->HARGA;
   ?>
   <tr>
-    <td class="tg-yw4l" rowspan="2"><?=$no;?></td>
-    <td class="tg-yw4l" rowspan="2"><?=$row->NAMA_PRODUK;?></td>
-    <td class="tg-yw4l" rowspan="2"><?=$row->KODE_PRODUK;?></td>
-    <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
-    <td class="tg-yw4l" rowspan="2"></td>
-    <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
+    <td class="tg-yw4l" style="color: blue;"><?=$no;?></td>
+    <td class="tg-yw4l" style="color: blue;"><?=$row->NAMA_PRODUK;?></td>
+    <td class="tg-yw4l" style="color: blue;"><?=$row->KODE_PRODUK;?></td>
+    <td class="tg-yw4l" style="color: blue;"></td>
+    <td class="tg-yw4l" style="color: blue; text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
+    <td class="tg-yw4l" style="color: blue;"></td>
+    <td class="tg-yw4l" style="color: blue; text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
   </tr>
 
   <?PHP 
   $sql_det = "
   SELECT c.NAMA_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
   JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
-  JOIN ak_pelanggan c ON a.ID_PELANGGAN = b.ID
+  JOIN ak_pelanggan c ON c.ID = a.ID_PELANGGAN
+  WHERE b.ID_PRODUK = '$row->ID'
   ";
   $dt_det = $this->db->query($sql_det)->result();
   foreach ($dt_det as $key => $row_det) {

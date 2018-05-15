@@ -37,7 +37,7 @@
   <tr>
     <th class="tg-amwm" rowspan="2">No</th>
     <th class="tg-amwm" rowspan="2">Nama Item<br>Nama Customer</th>
-    <th class="tg-amwm" rowspan="2">Kode Item<br>Kode CUstomer</th>
+    <th class="tg-amwm" rowspan="2">Kode Item<br>Kode Customer</th>
     <th class="tg-amwm" colspan="2">S/D <?=$bulan_lalu_txt;?></th>
     <th class="tg-amwm" colspan="2"><?=$bulan_txt;?></th>
     <th class="tg-amwm" colspan="2">S/D <?=$bulan_txt;?></th>
@@ -58,25 +58,54 @@
     $total_all += $row->JML * $row->HARGA;
   ?>
   <tr>
-    <td class="tg-yw4l"><?=$no;?></td>
-    <td class="tg-yw4l"><?=$row->NAMA_PRODUK;?></td>
-    <td class="tg-yw4l"><?=$row->KODE_PRODUK;?></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l" style="color:blue;"><?=$no;?></td>
+    <td class="tg-yw4l" style="color:blue;"><?=$row->NAMA_PRODUK;?></td>
+    <td class="tg-yw4l" style="color:blue;"><?=$row->KODE_PRODUK;?></td>
+    <td class="tg-yw4l" style="color:blue;"></td>
+    <td class="tg-yw4l" style="color:blue;"></td>
+    <td class="tg-yw4l" style="color:blue;"></td>
+    <td class="tg-yw4l" style="color:blue;"></td>
+    <td class="tg-yw4l" style="color:blue;"></td>
+    <td class="tg-yw4l" style="color:blue;"></td>
   </tr>
+
+  <?PHP 
+  $sql_det = "
+  SELECT c.NAMA_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
+  JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
+  JOIN ak_pelanggan c ON c.ID = a.ID_PELANGGAN
+  WHERE b.ID_PRODUK = '$row->ID'
+  ";
+
+  $total_1 = 0;
+  $total_2 = 0;
+  $dt_det = $this->db->query($sql_det)->result();
+  foreach ($dt_det as $key => $row_det) {
+      $total_1 += $row_det->QTY;
+      $total_2 += $row_det->TOTAL;
+  ?>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"><?=$row_det->NAMA_PELANGGAN;?></td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l" style="text-align: right;"></td>
+    <td class="tg-yw4l" style="text-align: right;"></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+  </tr>  
+  <?PHP } ?>
+
   <?PHP } ?>
   <tr>
-    <td class="tg-yw4l" colspan="3">TOTAL</td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l" style="font-weight: bold;" colspan="3">TOTAL</td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_1);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_2);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_1);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_2);?></td>
   </tr>
 </table>
 
