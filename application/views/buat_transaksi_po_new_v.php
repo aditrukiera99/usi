@@ -95,6 +95,7 @@ input[type=checkbox]
 
 <div class="breadcrumb" style="background:#E0F7FF;">
 	<div class="row-fluid">
+
 		<div class="span4">
 			<div class="control-group">
 				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
@@ -120,11 +121,20 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
+
+	
+
+
 	</div>
 </div>
 
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span6">
+		<div class="control-group" style="margin-left: 10px;">
+			<button style="margin-bottom: 15px;margin-right: 10px;" onclick="input_from(this, 'Manual');" type="button" class="btn_from btn btn-default btn_from_selected">Pembelian Solar</button>
+			<a href="<?php echo base_url(); ?>purchase_order_c/new_invoice_umum"><button style="margin-bottom: 15px;"  type="button" class="btn_from btn btn-default">Pembelian Umum</button></a>
+		</div>
+
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
@@ -760,6 +770,10 @@ function get_produk_detail(id, no_form,nomor_so){
 	hitung_total_semua();
 
 }
+
+// form_direk(){
+// 	window.location.href = "<?php echo base_url(); ?>purchase_order_c/new_invoice_umum";
+// }
 
 function get_barang_detail(id, no_form,nomor_so){
     var id_produk = id;

@@ -12,7 +12,9 @@
 	<div class="span12">
 		<div class="primary-head">
 			<h3 class="page-header"> <i class="icon-bookmark"></i>  Grup Kode Akun </h3>
-
+			<button type="button" class="btn btn-info view_data" onclick="tambah_klik();" style="float: right;"> 
+				<i class="icon-plus" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> TAMBAH GRUP KODE AKUN 
+			</button>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
@@ -45,9 +47,7 @@
 
 <div class="row-fluid" id="view_data">
 	<div class="span12">
-		<button type="button" class="btn btn-block btn-info" onclick="tambah_klik();"> 
-			<i class="icon-plus" style="color: #FFF; font-size: 16px;"></i> TAMBAH GRUP AKUN
-		</button>
+		
 		<br>
 		<div class="content-widgets light-gray">
 			<div class="widget-container">

@@ -30,6 +30,7 @@ class Supplier_c extends CI_Controller {
 				$msg = 1;
 			}
 
+			$kode_sup   = addslashes($this->input->post('kode_sup'));
 			$nama_supplier   = addslashes($this->input->post('nama_supplier'));
 			$npwp 			 = addslashes($this->input->post('npwp'));
 			$alamat_tagih    = addslashes($this->input->post('alamat_tagih'));
@@ -50,7 +51,7 @@ class Supplier_c extends CI_Controller {
 			}
 
 
-			$id_supplier = $this->model->simpan_supplier($id_klien, $nama_supplier, $npwp, $alamat_tagih, $kota, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup);
+			$id_supplier = $this->model->simpan_supplier($id_klien,$kode_sup, $nama_supplier, $npwp, $alamat_tagih, $kota, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup);
 
 			$deskripsi_persetujuan = "Penambahan Supplier : <br> <b>Nama Supplier : ".$nama_supplier."</b> <br> <b> NPWP : ".$npwp."</b> <br> <b> Alamat : ".$alamat_tagih."</b>";
 			$this->master_model_m->simpan_persetujuan('supplier', $id_supplier, 'ADD', $id_user, $deskripsi_persetujuan);

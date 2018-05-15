@@ -176,6 +176,13 @@
 					</div>
 
 					<div class="control-group">
+						<label class="control-label"> <b>Kode Supplier</b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="kode_sup" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="control-group">
 						<label class="control-label orang_show"> <b> Nama Supplier </b> </label> 
 						<label class="control-label usaha_show" style="display:none;"> <b> Nama Pemilik </b> </label>
 						<div class="controls">

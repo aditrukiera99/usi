@@ -126,6 +126,10 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span6">
 		<div class="control-group" style="margin-left: 10px;">
+			<a href="<?php echo base_url(); ?>purchase_order_c/new_invoice"><button style="margin-bottom: 15px;margin-right: 10px;" onclick="input_from(this, 'Manual');" type="button" class="btn_from btn btn-default btn_from_selected">Pembelian Solar</button></a>
+			<button style="margin-bottom: 15px;"  type="button" class="btn_from btn btn-default">Pembelian Umum</button>
+		</div>
+		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
 				<input type="text" class="span8" value="<?=$no_transaksi;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
