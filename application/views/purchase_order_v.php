@@ -84,7 +84,9 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 	</div>
 
 	<div class="span6">
-		<button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pembelian Refrensi </button>
+		<button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pembelian Solar </button>
+
+		<button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice_umum';" style="float: right; margin-top: 12px;margin-right: 5px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pembelian Umum </button>
 
 		<!-- <button onclick="window.location='<?=base_url();?>purchase_order_c/new_invoice_baru';" style="float: right; margin-top: 12px;" type="button" class="btn btn-success opt_btn"> <i class="icon-plus"></i> Buat Pembelian Langsung </button> -->
 	</div>

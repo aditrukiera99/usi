@@ -147,7 +147,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			<td></td>
 			<td style="border-right: 1px solid black;"></td>
 			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($titi, 2);?><br>Rp.<?php $ppn = 0.1 * $titi; echo number_format($ppn, 2);?><br><?php $totali = 0; $totali =$titi - $ppn; echo 'Rp.'.number_format($totali, 2); ?></td>
+			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($titi + $dt->PBBKB, 2);?><br>Rp.<?php $ppn = 0.1 * $titi; echo number_format($ppn, 2);?><br><?php $totali = 0; $totali = $titi + $ppn + $dt->PBBKB ; echo 'Rp.'.number_format($totali, 2); ?></td>
 		</tr>
 </table>
 <table style="width: 55%;">

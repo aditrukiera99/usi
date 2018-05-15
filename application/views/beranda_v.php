@@ -757,8 +757,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "daftar_pelanggan"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i> Pelanggan 
-                      <span> Daftar Pelanggan Anda  </span> 
+                      <a href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i> Customer 
+                      <span> Daftar Customer Anda  </span> 
 
                       <?PHP if($user->LEVEL == 'MANAGER'){ ?>
                       <?PHP if(count($dt_pengajuan_pelanggan) > 0){ ?>

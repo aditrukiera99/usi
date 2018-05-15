@@ -24,9 +24,31 @@ class Gudang_m extends CI_Model
         
     }
 
+    function hapus_kategori_pajak($id){
+        
+            $sql = " DELETE FROM ak_pajak_supply WHERE ID = $id"; 
+            $this->db->query($sql);
+        
+    }
+
+    function hapus_kategori_pajak_induk($id){
+        
+            $sql = " DELETE FROM ak_pajak_supply WHERE ID_SUPPLY = $id"; 
+            $this->db->query($sql);
+        
+    }
+
     function cari_gudang_by_id($id){
         $sql = "
         SELECT * FROM ak_gudang WHERE ID = $id
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function cari_pajak_by_id($id){
+        $sql = "
+        SELECT * FROM ak_pajak_supply WHERE ID = $id
         ";
 
         return $this->db->query($sql)->row();
@@ -37,32 +59,56 @@ class Gudang_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_gudang
-        (NAMA,KAPASITAS ,PENANGGUNG_JAWAB)
+        (NAMA,KAPASITAS ,PENANGGUNG_JAWAB,ISI)
         VALUES 
-        ('$nama', '$kapasitas', '$penanggung_jawab')
+        ('$nama', '$kapasitas', '$penanggung_jawab','0')
         ";
 
         $this->db->query($sql);
         return $this->db->insert_id();
     }
 
-    function edit_gudang($id_grup, $no_polisi, $merk, $tahun, $no_rangka, $no_mesin, $kapasitas, $sopir){
+    function simpan_pajak($id_supply,$nama_bppkb,$prosentase){
+       
+
+        $sql = "
+        INSERT INTO ak_pajak_supply
+        (ID_SUPPLY,NAMA_BPPKB ,PAJAK)
+        VALUES 
+        ('$id_supply', '$nama_bppkb', '$prosentase')
+        ";
+
+        $this->db->query($sql);
+        return $this->db->insert_id();
+    }
+
+    function edit_gudang($id_grup,$nama,$kapasitas,$penanggung_jawab){
         
 
         $sql = "
         UPDATE ak_gudang SET 
-            NOPOL = '$no_polisi', 
-            MERK = '$merk',
-            TAHUN = '$tahun',
-            NORANGKA = '$no_rangka',
-            NOMESIN = '$no_mesin',
+            NAMA = '$nama',
             KAPASITAS = '$kapasitas',
-            SOPIR = '$sopir'
+            PENANGGUNG_JAWAB = '$penanggung_jawab'
         WHERE ID = '$id_grup'
         ";
 
         $this->db->query($sql);
     }
+
+    function edit_pajak($id_grup,$nama_pajak,$prosentase_pajak){
+        
+
+        $sql = "
+        UPDATE ak_pajak_supply SET 
+            NAMA_BPPKB = '$nama_pajak',
+            PAJAK = '$prosentase_pajak'
+        WHERE ID = '$id_grup'
+        ";
+
+        $this->db->query($sql);
+    }
+
 
 }
 

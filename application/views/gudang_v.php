@@ -11,13 +11,13 @@
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-bookmark"></i>  Gudang </h3>
+			<h3 class="page-header"> <i class="icon-bookmark"></i>  SUPPLY POINT </h3>
 
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#">Master Data</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Gudang </li>
+			<li class="active"> SUPPLY POINT </li>
 		</ul>
 	</div>
 </div>
@@ -46,46 +46,71 @@
 <div class="row-fluid" id="view_data">
 	<div class="span12">
 		<button type="button" class="btn btn-block btn-info" onclick="tambah_klik();"> 
-			<i class="icon-plus" style="color: #FFF; font-size: 16px;"></i> TAMBAH GUDANG
+			<i class="icon-plus" style="color: #FFF; font-size: 16px;"></i> TAMBAH SUPPLY POINT
 		</button>
 		<br>
 		<div class="content-widgets light-gray">
 			<div class="widget-container">
-				<table class="responsive table table-striped table-bordered" id="data-table">
+				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
-							<th align="center"> No </th>
-							<th align="center"> Nama </th>
-							<th align="center"> Kapasitas </th>
-							<th align="center"> Isi </th>						
-							<th align="center"> Penaggung Jawab </th>						
-							<th align="center"> Aksi </th>
+							<th align="center" style="width: 5%;"> No </th>
+							<th align="center" style="width: 20%"> Nama </th>
+							<th align="center" style="width: 10%"> Kapasitas </th>
+							<th align="center" style="width: 10%"> Isi </th>						
+							<th align="center" style="width: 20%"> Penaggung Jawab </th>						
+							<th align="center" style="width: 30%"> Aksi </th>
 						</tr>						
 					</thead>
 					<tbody id="tes">
 						<?php
 						$no = 0;
-						foreach ($dt as $key => $row) { 
+						$gudang = $this->db->query("SELECT * FROM ak_gudang")->result();
+						foreach ($gudang as $key => $row) { 
 							$no++;
 						?>
-						<tr>
-							<td align="center" style="text-align: center;"> <?=$no;?> </td>
-							<td align="center"> <?=$row->NAMA;?> </td>
-							<td align="center"> <?=$row->KAPASITAS;?> </td>
-							<td align="center"> <?=$row->ISI;?> </td>
-							<td align="center"> <?=$row->PENANGGUNG_JAWAB;?> </td>
-							<td align="center"><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
+						<tr >
+							<td align="center" style="text-align: center;background-color: #dff0d8;" > <?=$no;?> </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->NAMA;?> </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->KAPASITAS;?> L </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->ISI;?> L </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->PENANGGUNG_JAWAB;?> </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> <i class="icon-edit"></i>
 								Ubah 
 								</button>
-								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
+								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> <i class="icon-trash"></i>
 								Hapus
 								</button>
+								<button style="padding: 2px 10px;"   onclick="tambah_bppkb('<?=$row->ID;?>');" type="button" class="btn btn-small btn-success"> 
+								<i class="icon-plus"></i>		Tambah PBBKB
+										</button>
 							</td>
-							
-
-						
 						</tr>
-						<?PHP } ?>
+
+						<?php 
+							$id_gudang = $row->ID;
+							$pbbkb = $this->db->query("SELECT * FROM ak_pajak_supply WHERE ID_SUPPLY = '$id_gudang' ")->result();
+							$nmr = 0;	
+							foreach ($pbbkb as $key => $value) {
+								$nmr++;
+							?>
+								<tr >
+									<td align="center" style="text-align: center;background-color: #f2dede;" ><?=$no;?>.<?=$nmr;?> </td>
+									<td align="center" colspan="3" style="text-align: center;background-color: #f2dede;" > <?=$value->NAMA_BPPKB;?> </td>
+									
+									<td align="center" style="text-align: center;background-color: #f2dede;" >PAJAK : <?=$value->PAJAK;?> %</td>
+									<td align="center" style="text-align: center;background-color: #f2dede;"><button style="padding: 2px 10px;"  onclick="ubah_data_pajak(<?=$value->ID;?>);" type="button" class="btn btn-small btn-inverse"> <i class="icon-edit"></i>
+										Ubah 
+										</button>
+										<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus_pajak').val('<?=$value->ID;?>');" type="button" class="btn btn-small btn-info"> <i class="icon-trash"></i>
+										Hapus
+										</button>
+										
+									</td>
+								</tr>
+						<?php 
+							}
+						} ?>
 					</tbody>
 				</table>
 			</div>
@@ -97,7 +122,7 @@
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-head blue">
-				<h3> <i class="icon-plus"></i> Tambah Gudang </h3>
+				<h3> <i class="icon-plus"></i> Tambah Supply Point </h3>
 			</div>
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
@@ -124,9 +149,45 @@
 
 					<div class="form-actions">
 						
-						<input type="submit" class="btn btn-info" name="simpan" value="SIMPAN Gudang">
+						<input type="submit" class="btn btn-info" name="simpan" value="SIMPAN SUPPLY POINT">
 						
 						<button type="button" onclick="batal_klik();" class="btn"> BATAL </button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row-fluid" id="tambah_bppkb" style="display:none;">
+	<div class="span12">
+		<div class="content-widgets light-gray">
+			<div class="widget-head blue">
+				<h3> <i class="icon-plus"></i> Tambah BPPKB </h3>
+			</div>
+			<div class="widget-container">
+				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
+					<div class="control-group">
+						<label class="control-label"> NAMA BPPKB </label>
+						<div class="controls">
+							<input required type="hidden" class="span6" value="" id="id_supply" name="id_supply" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="nama_bppkb" style="font-size: 14px;">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> PROSENTASE </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" name="prosentase" style="font-size: 14px;">
+						</div>
+					</div>
+
+
+					<div class="form-actions">
+						
+						<input type="submit" class="btn btn-info" name="simpan_bppkb" value="SIMPAN PAJAK">
+						
+						<button type="button" onclick="batal_klik_bppkb();" class="btn"> BATAL </button>
 					</div>
 				</form>
 			</div>
@@ -145,7 +206,7 @@
 					<div class="control-group">
 						<label class="control-label"> Nama </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="no_polisi" name="nama" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" id="nama" name="nama" style="font-size: 14px;">
 							<input required type="hidden" class="span6" value="" id="id_gr" name="id_gr" style="font-size: 14px;">
 						</div>
 					</div>
@@ -176,6 +237,41 @@
 	</div>
 </div>
 
+<div class="row-fluid" id="edit_data_pajak" style="display:none;">
+	<div class="span12">
+		<div class="content-widgets light-gray">
+			<div class="widget-head blue">
+				<h3> <i class="icon-edit"></i> Ubah Data Pajak </h3>
+			</div>
+			<div class="widget-container">
+				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
+					<div class="control-group">
+						<label class="control-label"> Nama </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" id="nama_pajak" name="nama_pajak" style="font-size: 14px;">
+							<input required type="hidden" class="span6" value="" id="id_gr_pajak" name="id_gr_pajak" style="font-size: 14px;">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> Prosentase </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" id="prosentase_pajak" name="prosentase_pajak" style="font-size: 14px;">
+						</div>
+					</div>
+
+					<div class="form-actions">
+						
+						<input type="submit" class="btn btn-info" name="edit_pajak" value="UBAH PAJAK">
+						
+						<button type="button" onclick="batal_edit_klik_pajak();" class="btn"> BATAL </button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- HAPUS MODAL -->
 <a id="dialog-btn" href="javascript:;" class="cd-popup-trigger" style="display:none;">View Pop-up</a>
 <div class="cd-popup" role="alert">
@@ -183,18 +279,18 @@
 
         <form id="delete" method="post" action="<?=base_url().$post_url;?>">
             <input type="hidden" name="id_hapus" id="id_hapus" value="" />
+            <input type="hidden" name="id_hapus_pajak" id="id_hapus_pajak" value="" />
         </form>   
          
         <p>Apakah anda yakin ingin mengajukan penghapusan data ini? </p>
         <ul class="cd-buttons">            
             <li><a href="javascript:;" onclick="$('#delete').submit();">Ya</a></li>
-            <li><a onclick="$('.cd-popup-close').click(); $('#id_hapus').val('');" href="javascript:;">Tidak</a></li>
+            <li><a onclick="$('.cd-popup-close').click(); $('#id_hapus').val(''); $('#id_hapus_pajak').val('');" href="javascript:;">Tidak</a></li>
         </ul>
-        <a href="#0" onclick="$('#id_hapus').val('');" class="cd-popup-close img-replace">Close</a>
+        <a href="#0" onclick="$('.cd-popup-close').click();$('#id_hapus').val('');$('#id_hapus_pajak').val('');" class="cd-popup-close img-replace">Close</a>
     </div> <!-- cd-popup-container -->
 </div> <!-- cd-popup -->
 <!-- END HAPUS MODAL -->
-
 
 <!-- MODAL SETUJU / TIDAK -->
 <button id="appr_btn" data-toggle="modal" data-target="#approval_modal" class="btn btn-warning" style="display: none;">a</button>
@@ -257,9 +353,34 @@ function ubah_data_produk(id){
 	});
 }
 
+function ubah_data_pajak(id){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>Gudang_c/cari_pajak_by_id',
+		data : {id:id},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+			$('#id_gr_pajak').val(result.ID);
+			$('#nama_pajak').val(result.NAMA_BPPKB);
+			$('#prosentase_pajak').val(result.PAJAK);
+
+	        $('#view_data').hide();
+	        $('#edit_data_pajak').fadeIn('slow');
+		}
+	});
+}
+
 function tambah_klik(){
 	$('#view_data').hide();
 	$('#add_data').fadeIn('slow');
+}
+
+function tambah_bppkb(id){
+	$('#id_supply').val(id);
+	$('#view_data').hide();
+	$('#tambah_bppkb').fadeIn('slow');
 }
 
 function batal_klik(){
@@ -267,8 +388,18 @@ function batal_klik(){
 	$('#view_data').fadeIn('slow');
 }
 
+function batal_klik_bppkb(){
+	$('#tambah_bppkb').hide();
+	$('#view_data').fadeIn('slow');
+}
+
 function batal_edit_klik(){
 	$('#edit_data').hide();
+	$('#view_data').fadeIn('slow');
+}
+
+function batal_edit_klik_pajak(){
+	$('#edit_data_pajak').hide();
 	$('#view_data').fadeIn('slow');
 }
 

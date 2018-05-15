@@ -7,7 +7,7 @@ class Purchase_order_m extends CI_Model
           $this->load->database();
     }
 
-    function simpan_pembelian_po($no_po, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_so, $sp, $jatuh_tempo)
+    function simpan_pembelian_po($no_po,$kode_sh, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_so, $sp, $jatuh_tempo,$pajak_supply)
     {
 
         $sql = "
@@ -26,7 +26,9 @@ class Purchase_order_m extends CI_Model
             PBBKB,
             NO_SO,
             SUPPLY_POINT,
-            TGL_JATUH_TEMPO
+            TGL_JATUH_TEMPO,
+            KODE_SH,
+            PAJAK_SUPPLY
 
         )
         VALUES 
@@ -44,11 +46,55 @@ class Purchase_order_m extends CI_Model
            '$nilai_pbbkb', 
            '$no_so',
            '$sp',
-           '$jatuh_tempo'
+           '$jatuh_tempo',
+           '$kode_sh',
+           '$pajak_supply'
         )
         ";
 
         $this->db->query($sql);
+    }
+
+    function simpan_pembelian_po_umum($no_trx,$id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan,$supply_point)
+    {
+
+        $sql = "
+        INSERT INTO ak_pembelian
+        (
+            ID_KLIEN,
+            NO_PO,
+            ID_PELANGGAN,
+            PELANGGAN,
+            TGL_TRX,
+            SUB_TOTAL,
+            MEMO,
+            UNIT,
+            SUPPLY_POINT
+
+        )
+        VALUES 
+        (
+           '13', 
+           '$no_trx', 
+           '$id_pelanggan', 
+           '$pelanggan', 
+           '$tgl_trx', 
+           '$sub_total', 
+           '$keterangan',
+           '13',
+           '$supply_point'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
+     function get_supply_point($id_barang){
+        $sql = "
+        SELECT * FROM ak_pajak_supply WHERE ID_SUPPLY = '$id_barang'
+        ";
+
+        return $this->db->query($sql)->result();
     }
 
     function get_penjualan($keyword, $id_klien){
@@ -105,7 +151,7 @@ class Purchase_order_m extends CI_Model
 
     function get_data_trxx_detail($id){
         $sql = "
-        SELECT * FROM ak_pembelian_detail 
+        SELECT SUM(QTY) as QTY , HARGA_SATUAN FROM ak_pembelian_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
 
@@ -262,6 +308,14 @@ class Purchase_order_m extends CI_Model
     function get_no_trx_penjualan($id_klien){
         $sql = "
         SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Pembelian'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_no_trx_umum($id_klien){
+        $sql = "
+        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Umum'
         ";
 
         return $this->db->query($sql)->row();
@@ -594,6 +648,40 @@ class Purchase_order_m extends CI_Model
         '$val',
         '$no_po',
         '$no_so'
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function simpan_detail_pembelian_umum($id_pembelian, $val, $qty, $harga_modal, $harga_invoice, $no_trx){
+        
+        $qty            = str_replace(',', '', $qty);
+        $harga_modal    = str_replace(',', '', $harga_modal);
+        $total = $qty * $harga_modal ;
+
+        $sql = "
+        INSERT INTO ak_pembelian_detail 
+        (
+            ID_KLIEN,
+            ID_PENJUALAN,
+            NAMA_PRODUK,
+            QTY,
+            SATUAN,
+            HARGA_SATUAN,
+            TOTAL,
+            NO_PO
+        )
+        VALUES 
+        (
+        '13',
+        '$id_pembelian',
+        '$val', 
+        '$qty', 
+        'LITER', 
+        '$harga_modal', 
+        '$total',
+        '$no_trx'
         )
         ";
 

@@ -144,7 +144,7 @@ class Penerimaan_barang_m extends CI_Model
 
     function get_data_trxx_detail($id){
         $sql = "
-        SELECT * FROM ak_pembelian_detail 
+        SELECT * FROM ak_penerimaan_detail 
         WHERE ID_PENJUALAN = '$id'
         ";
 
@@ -648,7 +648,7 @@ class Penerimaan_barang_m extends CI_Model
     function update_status_gudang($id_gudang,$qty){
         $qty          = str_replace(',', '', $qty);
         $sql = "
-        UPDATE ak_gudang SET ISI = ISI - $qty
+        UPDATE ak_gudang SET ISI = ISI + $qty
         WHERE ID = $id_gudang
         ";
 

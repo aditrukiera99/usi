@@ -32,6 +32,7 @@ class Pelanggan_c extends CI_Controller {
 			}
 
 			$nama_pelanggan  = addslashes($this->input->post('nama_pelanggan'));
+			$kode_pelanggan  = addslashes($this->input->post('kode_pelanggan'));
 			$npwp 			 = addslashes($this->input->post('npwp'));
 			$alamat_tagih    = addslashes($this->input->post('alamat_tagih'));
 			$alamat_kirim    = addslashes($this->input->post('alamat_kirim'));
@@ -41,6 +42,9 @@ class Pelanggan_c extends CI_Controller {
 			$limit_beli   	 = $this->input->post('limit_beli');
 			$tipe   		 = $this->input->post('tipe');
 			$wilayah   		 = $this->input->post('wilayah');
+			$ppn   		 	 = $this->input->post('ppn');
+			$pph_23   		 = $this->input->post('pph_23');
+			$pph_15   		 = $this->input->post('pph_15');
 			$nama_usaha   	 = addslashes($this->input->post('nama_usaha'));
 			$tdp   	 	     = addslashes($this->input->post('tdp'));
 			$siup   	     = addslashes($this->input->post('siup'));
@@ -51,7 +55,7 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli);
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 );
 
 			$broker_nama   = addslashes($this->input->post('broker_nama'));
 			$broker_alamat = addslashes($this->input->post('broker_alamat'));

@@ -81,15 +81,15 @@ input[type=radio]:not(old):checked +  label > span > span{
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-group"></i>  Daftar Pelanggan </h3>
+			<h3 class="page-header"> <i class="icon-group"></i>  Daftar Customer </h3>
 			<button type="button" class="btn btn-info view_data" onclick="tambah_klik();" style="float: right;"> 
-				<i class="icon-plus" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> TAMBAH PELANGGAN 
+				<i class="icon-plus" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> TAMBAH CUSTOMER 
 			</button>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#">Master Data</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Pelanggan </li>
+			<li class="active"> Customer </li>
 		</ul>
 	</div>
 </div>
@@ -123,7 +123,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<thead>
 						<tr>
 							<th align="center"> No </th>
-							<th align="center"> Nama Pelanggan / Usaha</th>
+							<th align="center"> Nama Customer / Usaha</th>
 							<?PHP if($user->UNIT == 15){ ?>
 							<th align="center"> Wilayah</th>
 							<?PHP } ?>
@@ -227,12 +227,12 @@ input[type=radio]:not(old):checked +  label > span > span{
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-head blue">
-				<h3> <i class="icon-plus"></i> Tambah Data Pelanggan </h3>
+				<h3> <i class="icon-plus"></i> Tambah Data Customer </h3>
 			</div>
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 					<div class="control-group">
-						<label class="control-label"> <b> Tipe Pelanggan </b> </label>
+						<label class="control-label"> <b> Tipe Customer </b> </label>
 						<div class="controls">
 							<input onclick="isfilter();" id="perorang" type="radio" name="tipe" value="Perorangan" checked="checked"><label for="perorang"><span><span></span></span>  Perorangan </label>
                             <input onclick="isfilter();" id="perusaha" type="radio" name="tipe" value="Perusahaan"><label for="perusaha"><span><span></span></span>  Perusahaan </label>
@@ -263,12 +263,21 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<?PHP } ?>
 
 					<div class="control-group">
-						<label class="control-label orang_show"> <b> Nama Pelanggan </b> </label>
+						<label class="control-label"> <b>Kode Customer</b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="kode_pelanggan" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label orang_show"> <b> Nama Customer </b> </label>
 						<label class="control-label usaha_show" style="display:none;"> <b> Nama Pemilik </b> </label>
 						<div class="controls">
 							<input required type="text" placeholder="Nama Pelanggan / Pemilik Usaha"  class="span12" value="" name="nama_pelanggan" autocomplete="off">
 						</div>
 					</div>
+
+					
 
 					<div class="control-group">
 						<label class="control-label"> <b>NPWP (jika ada)</b> </label>
@@ -333,6 +342,30 @@ input[type=radio]:not(old):checked +  label > span > span{
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label class="control-label"> <b> PPN </b> </label>
+						<div class="controls">
+							<input type="text" class="span12" name="ppn" value="0">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 23 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_23" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 15 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_15" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
 					<hr style="background: #ccc; height: 1px;">
 
 					<div style="display: none;">
@@ -388,9 +421,9 @@ input[type=radio]:not(old):checked +  label > span > span{
 
 					<div class="form-actions">
                         <?PHP if($user->LEVEL == "USER"){ ?>
-                        <input type="submit" class="btn btn-info" name="simpan" value="AJUKAN PELANGGAN">
+                        <input type="submit" class="btn btn-info" name="simpan" value="AJUKAN CUSTOMER">
                         <?PHP } else { ?>
-                        <input type="submit" class="btn btn-info" name="simpan" value="SIMPAN PELANGGAN">
+                        <input type="submit" class="btn btn-info" name="simpan" value="SIMPAN CUSTOMER">
                         <?PHP } ?>
                         <button type="button" onclick="batal_klik();" class="btn"> BATAL </button>
                     </div>
@@ -405,13 +438,13 @@ input[type=radio]:not(old):checked +  label > span > span{
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-head blue">
-				<h3> <i class="icon-edit"></i> Ubah Data Pelanggan </h3>
+				<h3> <i class="icon-edit"></i> Ubah Data Customer </h3>
 			</div>
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 					
 					<div class="control-group">
-						<label class="control-label"> <b> Tipe Pelanggan </b> </label>
+						<label class="control-label"> <b> Tipe Customer </b> </label>
 						<div class="controls">
 							<input onclick="isfilter_ed();" id="perorang_ed" type="radio" name="tipe_ed" value="Perorangan" checked="checked"><label for="perorang"><span><span></span></span>  Perorangan </label>
                             <input onclick="isfilter_ed();" id="perusaha_ed" type="radio" name="tipe_ed" value="Perusahaan"><label for="perusaha"><span><span></span></span>  Perusahaan </label>
@@ -426,7 +459,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					</div>
 
 					<div class="control-group">
-						<label class="control-label orang_show_ed"> <b> Nama Pelanggan </b> </label>
+						<label class="control-label orang_show_ed"> <b> Nama Customer </b> </label>
 						<label class="control-label usaha_show_ed" style="display:none;"> <b> Nama Pemilik </b> </label>
 						<div class="controls">
 							<input required type="text" placeholder="Nama Pelanggan atau Perusahaan" class="span12" value="" id="nama_pelanggan_ed" name="nama_pelanggan_ed">
@@ -494,9 +527,9 @@ input[type=radio]:not(old):checked +  label > span > span{
 
 					<div class="form-actions">
                         <?PHP if($user->LEVEL == "USER"){ ?>
-                        <input type="submit" class="btn btn-info" name="edit" value="AJUKAN PENGUBAHAN PELANGGAN">
+                        <input type="submit" class="btn btn-info" name="edit" value="AJUKAN PENGUBAHAN CUSTOMER">
                         <?PHP } else { ?>
-                        <input type="submit" class="btn btn-info" name="edit" value="UBAH PELANGGAN">
+                        <input type="submit" class="btn btn-info" name="edit" value="UBAH CUSTOMER">
                         <?PHP } ?>
                         <button type="button" onclick="batal_edit_klik();" class="btn"> BATAL </button>
 					</div>

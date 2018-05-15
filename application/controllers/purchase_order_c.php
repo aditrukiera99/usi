@@ -33,26 +33,30 @@ class Purchase_order_c extends CI_Controller {
 
 			$no_trx 	   = $this->input->post('no_trx');
 			$no_trx2       = $this->input->post('no_trx2');
+			$kode_sh       = $this->input->post('kode_sh');
 			$id_pelanggan  = $this->input->post('pelanggan_sel');
 			$pelanggan     = $this->input->post('pelanggan');
 			$alamat_tagih  = $this->input->post('alamat_tagih');
 			$supply_point  = $this->input->post('supply_point');
+			$pajak_supply  = $this->input->post('aksi_on');
 
 			$tgl_trx 	    = $this->input->post('tgl_trx');
 			$jatuh_tempo 	= $this->input->post('jatuh_tempo');
 			$keterangan     = $this->input->post('memo_lunas');
-			$sub_total      = $this->input->post('sub_total');
+			$sub_total      = $this->input->post('subtotal_txt');
 			$pbbkb      	= $this->input->post('pbbkb');
 			$oat      		= $this->input->post('oat');
 			$qty_total      = $this->input->post('qty_total');
 			$ppn 			= 0.1 * $sub_total;
+
+			$pajak_area = $this->db->query("SELECT * FROM ak_pajak_supply WHERE ID = '$pajak_supply'")->row();
 
 			$nilai_pbbkb = 0;
 			$nilai_qty_total = 0;
 			$ppn_oat = 0 ;
 			$nilai_pph = 0;
 			if ($pbbkb == 'ada') {
-			 	$nilai_pbbkb = 0.05 * $sub_total;
+			 	$nilai_pbbkb = ($pajak_area->PAJAK/100) * $sub_total;
 			 	$nilai_pph = 0.003 * $sub_total;
 			 }
 
@@ -62,7 +66,7 @@ class Purchase_order_c extends CI_Controller {
 			} 
 			$operator      = $user->NAMA;
 
-			$this->model->simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx, $supply_point,$jatuh_tempo);
+			$this->model->simpan_pembelian_po($no_trx,$kode_sh, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply);
 
 			$id_pembelian = $this->db->insert_id();
 
@@ -87,6 +91,44 @@ class Purchase_order_c extends CI_Controller {
 			// foreach ($data_cust as $key => $val) {
 			// 	$this->db->query("INSERT INTO ak_pembelian_customer (ID_PEMBELIAN, NAMA_CUSTOMER) VALUES ('$id_penjualan', '$val') ");
 			// }
+
+			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
+
+		}
+
+		if($this->input->post('simpan_umum')){
+
+			$msg = 1;
+
+			$no_trx 	   = $this->input->post('no_trx');
+			$no_trx2       = $this->input->post('no_trx2');
+			$id_pelanggan  = $this->input->post('pelanggan_sel');
+			$pelanggan     = $this->input->post('pelanggan');
+			$supply_point  = $this->input->post('supply_point');
+
+			$tgl_trx 	    = $this->input->post('tgl_trx');
+			$keterangan     = $this->input->post('memo_lunas');
+			$sub_total      = $this->input->post('sub_total');
+			
+			$operator      = $user->NAMA;
+
+			$this->model->simpan_pembelian_po_umum($no_trx,$id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $supply_point);
+
+			$id_pembelian = $this->db->insert_id();
+
+			$this->model->save_next_nomor($id_klien, 'Umum', $no_trx2);
+
+			$nama_produk 	= $this->input->post('nama_produk');
+			$qty 	        = $this->input->post('qty');
+
+			$harga_modal    = $this->input->post('harga_modal');
+			$harga_invoice  = $this->input->post('harga_invoice');			
+
+			foreach ($nama_produk as $key => $val) {
+				$this->model->simpan_detail_pembelian_umum($id_pembelian, $val, $qty[$key], $harga_modal[$key], $harga_invoice[$key],$no_trx);	
+			}
+
+	
 
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 
@@ -227,7 +269,48 @@ class Purchase_order_c extends CI_Controller {
 
 		$data =  array(
 			'page' => "buat_transaksi_po_new_v", 
-			'title' => "Buat Penjualan Baru", 
+			'title' => "Buat Pembelian Baru", 
+			'msg' => "", 
+			'master' => "pembelian", 
+			'view' => "purchase_order", 
+			'msg' => $msg, 
+			'list_akun' => $list_akun, 
+			'get_list_akun_all' => $get_list_akun_all, 
+			'get_all_produk' => $get_all_produk, 
+			'get_pel_sup' => $get_pel_sup, 
+			'get_pajak' => $get_pajak, 
+			'no_trx' => $no_trx, 
+			'get_broker' => $get_broker, 
+			'supply' => $supply, 
+			'post_url' => 'purchase_order_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function new_invoice_umum(){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		$list_akun = $this->model->get_list_akun($id_klien);
+		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
+		$get_all_produk    = $this->model->get_all_produk($id_klien);
+		$get_pel_sup = $this->model->get_pel_sup($id_klien);
+		$get_pajak = $this->model->get_pajak($id_klien);
+		$no_trx = $this->model->get_no_trx_umum($id_klien);
+		$get_broker = $this->model->get_broker();
+		$supply = $this->model->supply();
+
+		$data =  array(
+			'page' => "buat_transaksi_po_umum_v", 
+			'title' => "Buat Pembelian Baru", 
 			'msg' => "", 
 			'master' => "pembelian", 
 			'view' => "purchase_order", 
@@ -460,7 +543,12 @@ class Purchase_order_c extends CI_Controller {
 		$this->load->view('pdf/report_kwitansi_pdf.php', $data);
 	}
 
+	function get_supply_point(){
+		$id = $this->input->post('id');
+		$dt = $this->model->get_supply_point($id);
 
+		echo json_encode($dt);
+	}
 
 	function get_pelanggan_detail(){
 		$id_pel = $this->input->get('id_pel');

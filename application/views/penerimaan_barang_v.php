@@ -84,7 +84,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 	</div>
 
 	<div class="span6">
-		<button onclick="window.location='<?=base_url();?>penerimaan_barang_c/new_pb';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Pnerimaan Barang Baru </button>
+		<button onclick="window.location='<?=base_url();?>penerimaan_barang_c/new_pb';" style="float: right; margin-top: 12px;" type="button" class="btn btn-info opt_btn"> <i class="icon-plus"></i> Buat Penerimaan Barang Baru </button>
 	</div>
 </div>
 
@@ -119,7 +119,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								</td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_PO;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->SUPPLIER;?> </td>
 
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN);?> </td>

@@ -448,6 +448,30 @@ input[type=checkbox]
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Discount :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<div class="input-append">
+							<input type="text" name="discount" id="discount" onkeyup="disc_txt(this.value);">
+							<span class="add-on">%</span>
+						</div>
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="tot_disc"></h3>
+							<input type="hidden" name="tot_disc" id="tot_disc_txt">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
 							<h3> PBBKB :</h3> 
 						</div>
 
@@ -881,6 +905,19 @@ function hitung_total(id){
 	$('#inp_sub_total').val(profit);
 	$('#inp_qty_total').val(qty);
 	$('#sub_total').html('Rp. '+acc_format(profit, "").split('.00').join('') );
+}
+
+function disc_txt(disc){
+	var sub_total = $('#inp_sub_total').val();
+
+	var total = parseFloat(disc/100) * parseFloat(sub_total);
+
+	var total_semua = sub_total - total;
+
+	$('#tot_disc').html('Rp. '+acc_format(total_semua, "").split('.00').join('') );
+
+
+	$('#tot_disc_txt').val(total);
 }
 
 function get_produk_detail(id, no_form){

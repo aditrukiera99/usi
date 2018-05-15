@@ -46,9 +46,18 @@ class Gudang_c extends CI_Controller {
 				$msg = 2;
 			}
 			
+
 			$id   = $this->input->post('id_hapus');
+			$id_pajak   = $this->input->post('id_hapus_pajak');
+
+			if($id == ''){
+				$this->model->hapus_kategori_pajak($id_pajak);
+			}else{
+				$this->model->hapus_kategori($id);
+				$this->model->hapus_kategori_pajak_induk($id);
+			}
 			
-			$this->model->hapus_kategori($id);
+			
 			
 
 		} else if($this->input->post('edit')){
@@ -59,16 +68,60 @@ class Gudang_c extends CI_Controller {
 			}			
 
 
-			$id_grup   = $this->input->post('id');
+			$id_grup   = $this->input->post('id_gr');
 
 		
 			$nama         = addslashes($this->input->post('nama'));
 			$kapasitas         = addslashes($this->input->post('kapasitas'));
 			$penanggung_jawab    = addslashes($this->input->post('penanggung_jawab'));
 
-			$this->model->edit_gudang($id_gr,$no_polisi,$merk,$tahun,$no_rangka,$no_mesin,$kapasitas,$sopir);
+			$this->model->edit_gudang($id_grup,$nama,$kapasitas,$penanggung_jawab);
 
 			
+		} else if($this->input->post('edit_pajak')){
+			if($user->LEVEL == "USER"){
+				$msg = 11;
+			} else {
+				$msg = 1;
+			}			
+
+
+			$id_grup   = $this->input->post('id_gr_pajak');
+
+		
+			$nama_pajak         	  = addslashes($this->input->post('nama_pajak'));
+			$prosentase_pajak         = addslashes($this->input->post('prosentase_pajak'));
+
+			$this->model->edit_pajak($id_grup,$nama_pajak,$prosentase_pajak);
+
+			
+		} else if($this->input->post('simpan_bppkb')){
+			if($user->LEVEL == "USER"){
+				$msg = 33;
+			} else {
+				$msg = 1;
+			}
+			
+			$id_supply         = addslashes($this->input->post('id_supply'));
+			$nama_bppkb         = addslashes($this->input->post('nama_bppkb'));
+			$prosentase    = addslashes($this->input->post('prosentase'));
+
+
+			$this->model->simpan_pajak($id_supply,$nama_bppkb,$prosentase);
+
+		} else if($this->input->post('id_hapus_pajak')){
+
+			if($user->LEVEL == "USER"){
+				$msg = 22;
+			} else {
+				$msg = 2;
+			}
+			
+			$id   = $this->input->post('id_hapus_pajak');
+			
+			$this->model->hapus_kategori_pajak($id);
+			
+
 		}
 
 		$dt = $this->model->get_data_gudang();
@@ -102,6 +155,13 @@ class Gudang_c extends CI_Controller {
 	function cari_gudang_by_id(){
 		$id = $this->input->get('id');
 		$dt = $this->model->cari_gudang_by_id($id);
+
+		echo json_encode($dt);
+	}
+
+	function cari_pajak_by_id(){
+		$id = $this->input->get('id');
+		$dt = $this->model->cari_pajak_by_id($id);
 
 		echo json_encode($dt);
 	}
