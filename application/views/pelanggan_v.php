@@ -277,7 +277,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> <b>Lokasi</b> </label>
+						<label class="control-label"> <b>Alamat Pengiriman Invoice</b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="" name="lokasi" autocomplete="off">
 						</div>
