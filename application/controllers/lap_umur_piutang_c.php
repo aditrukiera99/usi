@@ -33,7 +33,7 @@ class Lap_umur_piutang_c extends CI_Controller {
 			'page' => "lap_umur_piutang_v", 
 			'title' => "Laporan Umur Piutang", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_umur_piutang_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

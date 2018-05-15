@@ -33,7 +33,7 @@ class Lap_penjualan_produk_cust_c extends CI_Controller {
 			'page' => "lap_penjualan_produk_cust_v", 
 			'title' => "Laporan Penjualan Produk Detail Per Customer", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_penjualan_produk_cust_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

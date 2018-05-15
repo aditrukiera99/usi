@@ -33,7 +33,7 @@ class Lap_summary_piutang_dagang_c extends CI_Controller {
 			'page' => "lap_summary_piutang_dagang_v", 
 			'title' => "Summary Piutang Dagang", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_summary_piutang_dagang_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 

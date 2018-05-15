@@ -33,7 +33,7 @@ class Lap_realisasi_order_penjualan_c extends CI_Controller {
 			'page' => "lap_realisasi_order_penjualan_v", 
 			'title' => "Laporan Realisasi Order Penjualan", 
 			'msg' => "", 
-			'master' => "laporan", 
+			'master' => "laporan_penjualan", 
 			'view' => "lap_realisasi_order_penjualan_v", 
 			//'dt' => $dt, 
 			'msg' => $msg, 
