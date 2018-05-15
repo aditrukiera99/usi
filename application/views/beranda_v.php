@@ -613,11 +613,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 			</div>
 			<div class="admin-meta">
 				<ul>
-          <li class="admin-username" style="color:#FFF;"> <?=$user->NAMA;?> </li>
+          <li class="admin-username" style="color: red;"> <?=$user->NAMA;?> </li>
           <?PHP if($user->LEVEL == 'ADMIN'){ ?>
           <li class="admin-username" style="color:#FFF;"> DIREKTUR </li>
           <?PHP } else { ?>
-          <li class="admin-username" style="color:#FFF;"> <!-- <?=$user->NAMA_UNIT;?>  | --> <font style="color:red;"><?=$user->LEVEL;?></font></li>
+          <li class="admin-username" style="color:#FFF;"> <font style="color:#FFF;"><?=$user->LEVEL;?></font></li>
           <?PHP } ?>
 
           <li>
@@ -634,6 +634,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 		<div class="left-nav clearfix" style="background:#203956;">
 			<div class="left-primary-nav">
 				<ul id="myTab">
+          <?PHP if($user->LEVEL != 'ADMIN'){ ?>
 					<li <?PHP if($master == ""){ echo "class='active'"; } ?> ><a href="#main" onclick="window.location='<?=base_url();?>beranda_c';"  class="icon-desktop" title="Dashboard"></a></li>					
             <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
             <li <?PHP if($master == "master_data"){ echo "class='active'"; } ?> ><a href="#features" class="icon-globe" title="Master Data"></a></li>
@@ -685,6 +686,14 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
             <?php if($this->master_model_m->cek_master($id_user, 'Pengaturan', $user->LEVEL)){ ?>
 	          <li <?PHP if($master == "setting"){ echo "class='active'"; } ?> ><a href="#pengaturan" class="icon-cog" title="Pengaturan"></a></li>
+            <?PHP } ?>
+
+            <?PHP } else { ?>
+            <li <?PHP if($master == ""){ echo "class='active'"; } ?> ><a href="#main" onclick="window.location='<?=base_url();?>beranda_c';"  class="icon-desktop" title="Dashboard"></a></li>
+            <li <?PHP if($master == "laporan_pembelian"){ echo "class='active'"; } ?> ><a href="#lap_pembelian" class="icon-file-alt" title="Laporan"></a></li>
+            <li <?PHP if($master == "laporan_penjualan"){ echo "class='active'"; } ?> ><a href="#lap_penjualan" class="icon-file-alt" title="Laporan"></a></li>
+            <li <?PHP if($master == "laporan_keuangan"){ echo "class='active'"; } ?> ><a href="#lap_keuangan" class="icon-file-alt" title="Laporan"></a></li>
+            <li <?PHP if($master == "laporan_akuntansi"){ echo "class='active'"; } ?> ><a href="#lap_akuntansi" class="icon-file-alt" title="Laporan"></a></li>
             <?PHP } ?>
 				</ul>
 			</div>

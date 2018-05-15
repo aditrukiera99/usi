@@ -74,39 +74,40 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
         </div>
         <!-- Top content -->
         <div class="top-content">
-        	
+            
             <div class="inner-bg" style="padding-top:45px;">
-                <div class="container">
+                <div class="container" style="position: relative;">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <!-- <h1><img src="http://tamboraagungmakmur.com/img/images/logo.png"></h1> -->
+                            <h2 style="margin-bottom: -20px; color: blue; font-weight: bold; color: #FFF; background: red; text-align: center; width: 50%;">DIREKTUR</h2>
+                            <h1 style="color: blue; font-weight: bold; color: #FFF; background: #003666; text-align: center;">UNITED SHIPPING INDONESIA</h1>
                         </div>
                     </div>
-                    <br><br><br>
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 form-box">
-                        	<div class="form-top">
-                        		<div class="form-top-left">
-                        			<h3>Masuk ke aplikasi akuntansi</h3>
-                            		<p>Isikan username dan password anda:</p>
-                        		</div>
-                        		<div class="form-top-right">
-                        			<i class="fa fa-key"></i>
-                        		</div>
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <p align="center">
+                                    <img src="<?=$base_url2;?>/assets/img/usi Uk kecil.png" alt="" style="width: 50%;height: 50%;">
+                                    </p>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-key"></i>
+                                </div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" method="post" action="" class="login-form">
-			                    	<div class="form-group">
-			                    		<label class="sr-only" for="form-username">Username</label>
-			                        	<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-password">Password</label>
-			                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
-			                        </div>
-			                        <button type="submit" class="btn">Sign in!</button>
-			                    </form>
-		                    </div>
+                                <form role="form" method="post" action="" class="login-form">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-username">Username</label>
+                                        <input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Password</label>
+                                        <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Sign in!</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

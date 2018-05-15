@@ -899,12 +899,12 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             </div>
             <div class="admin-meta">
                 <ul>
-          <li class="admin-username" style="color:#FFF;"> <?=$user->NAMA;?> </li>
-          <?PHP if($user->LEVEL == 'ADMIN'){ ?>
-          <li class="admin-username" style="color:#FFF;"> DIREKTUR </li>
-          <?PHP } else { ?>
-          <li class="admin-username" style="color:#FFF;"> <!-- <?=$user->NAMA_UNIT;?>  | --> <font style="color:red;"><?=$user->LEVEL;?></font></li>
-          <?PHP } ?>
+                <li class="admin-username" style="color: red;"> <?=$user->NAMA;?> </li>
+              <?PHP if($user->LEVEL == 'ADMIN'){ ?>
+              <li class="admin-username" style="color:#FFF;"> DIREKTUR </li>
+              <?PHP } else { ?>
+              <li class="admin-username" style="color:#FFF;"> <font style="color:#FFF;"><?=$user->LEVEL;?></font></li>
+              <?PHP } ?>
 
           <li>
             <?PHP if($user->LEVEL == 'ADMIN'){ ?>
