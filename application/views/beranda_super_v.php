@@ -662,32 +662,8 @@ $user = $this->master_model_m->get_user_info($id_user);
                     <h4 class="side-head">Dashboard</h4>
                                         
                     <ul class="metro-sidenav clearfix">
-                        <li><a class="blue" href="<?=base_url();?>beranda_c"><i class="icon-home"></i><span> Beranda </span></a></li>
-                        <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Penjualan', $user->LEVEL)){ ?>
-                        <li><a class="green" href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-random"></i><span> Penjualan </span></a></li>
-                        <?PHP } ?>
-
-                        <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Pembelian', $user->LEVEL)){ ?>
-                        <li><a class="brown" href="<?=base_url();?>transaksi_pembelian_c"><i class="icon-shopping-cart"></i><span>Pembelian </span></a></li>
-                        <?PHP } ?>
-
-                        <?php if($this->master_model_m->cek_anak($id_user, 'Produk', $user->LEVEL)){ ?>
-                        <li><a class=" bondi-blue" href="<?=base_url();?>produk_c"><i class="icon-hdd"></i><span> Produk </span></a></li>
-                        <?PHP } ?>
-
-                        <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
-                        <li><a class=" dark-yellow" href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i><span> Pelanggan </span></a></li>
-                        <?PHP } ?>
-
-                        <?php if($this->master_model_m->cek_anak($id_user, 'Supplier', $user->LEVEL)){ ?>
-                        <li><a class=" blue" href="<?=base_url();?>supplier_c"><i class="icon-truck"></i><span> Supplier </span></a></li>
-                        <?PHP } ?>
-
-                        <?PHP if($user->LEVEL == 'ADMIN'){ ?>
-                        <li><a class=" magenta" href="<?=base_url();?>profil_perusahaan_c"><i class="icon-pencil"></i><span>Profil Usaha</span></a></li>
-                        <?PHP } else { ?>
+                        <li><a class="blue" href="<?=base_url();?>beranda_c"><i class="icon-home"></i><span> Dashboard </span></a></li>
                         <li><a class=" magenta" href="<?=base_url();?>pengaturan_akun_c"><i class="icon-pencil"></i><span>Profil Saya</span></a></li>
-                        <?PHP } ?>
                     </ul>
                 </div>
             </div>
@@ -707,18 +683,14 @@ $user = $this->master_model_m->get_user_info($id_user);
         <div class="row-fluid">
             <div class="span12">
                 <div class="switch-board gray">
-                    <center><h4>Pilih unit untuk menampilkan laporan</h4></center>
+                    <center><h4>Pilih divisi untuk menampilkan laporan</h4></center>
                     <br>
                     <ul class="clearfix switch-item">
                         <?PHP foreach ($dt_unit as $key => $row) { ?>
                         <li style="width: 200px; height: 120px; padding: 10px; vertical-align: top; margin-top: 10px;">
-                            <a style="width: 200px; height: 130px; padding: 10px !important;" href="javascript:;" onclick="pilih_unit('<?=$row->ID;?>', '<?=$row->NAMA_UNIT;?>', this, '<?=$row->URL;?>');" class="white unit_box">
-                                <?PHP if($row->LOGO == ""){ ?>
-                                <img src="<?=$base_url2;?>files/logo.png" style="width: 130px; min-height: 80px; max-height: 80px;">
-                                <?PHP } else { ?>
-                                <img src="<?=$base_url2;?>files/logo.png" style="width: 130px; min-height: 80px; max-height: 80px;">
-                                <?PHP } ?>
+                            <a style="width: 200px; height: 60px;  padding: 10px !important;" href="javascript:;" onclick="pilih_unit('<?=$row->ID;?>', '<?=$row->NAMA_UNIT;?>', this, '<?=$row->URL;?>');" class="white unit_box">
                                 <center>
+                                    <b>DIVISI</b>
                                     <span style="width: 180px; color: #666 !important; font-size: 13px !important; margin-top: 8px; font-weight: bold;"><?=$row->NAMA_UNIT;?></span>
                                 </center>                          
                             </a>
@@ -730,81 +702,14 @@ $user = $this->master_model_m->get_user_info($id_user);
             </div>
         </div>
 
-        <!-- LAPORAN KOMPILASI-->
-        <div class="row-fluid">
-            <div class="span12">
-                <h3 class=" page-header"> <i class="icon-file-alt"></i> LAPORAN KOMPILASI </h3>
-            </div>
-        </div>
-
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="content-widgets light-gray">
-                    <form id="form_laporan_kompilasi" method="post" action="<?=base_url();?>beranda_c" target="blank">
-                    <div class="widget-container">
-                        <div class="row-fluid">
-                            <div class="span3"></div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    <label class="control-label"> <b style="font-size: 14px;"> Bulan </b> </label>
-                                    <div class="controls">
-                                        <select  required  class="chzn-select" tabindex="2" style="width:100%;" name="bulan">
-                                            <option <?PHP if(date('m') == '01' ){ echo "selected"; } ?> value="01"> Januari </option>
-                                            <option <?PHP if(date('m') == '02' ){ echo "selected"; } ?> value="02"> Februari </option>
-                                            <option <?PHP if(date('m') == '03' ){ echo "selected"; } ?> value="03"> Maret </option>
-                                            <option <?PHP if(date('m') == '04' ){ echo "selected"; } ?> value="04"> April </option>
-                                            <option <?PHP if(date('m') == '05' ){ echo "selected"; } ?> value="05"> Mei </option>
-                                            <option <?PHP if(date('m') == '06' ){ echo "selected"; } ?> value="06"> Juni </option>
-                                            <option <?PHP if(date('m') == '07' ){ echo "selected"; } ?> value="07"> Juli </option>
-                                            <option <?PHP if(date('m') == '08' ){ echo "selected"; } ?> value="08"> Agustus </option>
-                                            <option <?PHP if(date('m') == '09' ){ echo "selected"; } ?> value="09"> September </option>
-                                            <option <?PHP if(date('m') == '10' ){ echo "selected"; } ?> value="10"> Oktober </option>
-                                            <option <?PHP if(date('m') == '11' ){ echo "selected"; } ?> value="11"> November </option>
-                                            <option <?PHP if(date('m') == '12' ){ echo "selected"; } ?> value="12"> Desember </option>            
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="span3">
-                                <div class="control-group">
-                                    <label class="control-label"> <b style="font-size: 14px;"> Tahun </b> </label>
-                                    <div class="controls">
-                                        <select  required  class="chzn-select" tabindex="2" style="width:100%;" name="tahun">
-                                            <option <?PHP if(date('Y') == '2016' ){ echo "selected"; } ?> value="2016"> 2016 </option>
-                                            <option <?PHP if(date('Y') == '2017' ){ echo "selected"; } ?> value="2017"> 2017 </option>
-                                            <option <?PHP if(date('Y') == '2018' ){ echo "selected"; } ?> value="2018"> 2018 </option>
-                                            <option <?PHP if(date('Y') == '2019' ){ echo "selected"; } ?> value="2019"> 2019 </option>
-                                            <option <?PHP if(date('Y') == '2020' ){ echo "selected"; } ?> value="2020"> 2020 </option>        
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="form-actions">
-                            <center>
-                                <button type="button" <?PHP if($aktif == 1){ ?> onclick="get_laporan_komp_neraca();" <?PHP } else { echo "disabled";} ?> class="btn btn-info" style="width: 20%;">CETAK KOMPILASI NERACA</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button type="button" <?PHP if($aktif == 1){ ?> onclick="get_laporan_komp_laba();" <?PHP } else { echo "disabled";} ?> class="btn btn-info" style="width: 20%;">CETAK KOMPILASI LABA RUGI</button>
-               
-                                <input type="submit" name="excel" value="excel" id="cetak_xls_kompilasi" style="display: none;" />                      
-                            </center>
-                        </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!-- DAFTAR UNIT -->
         <div class="row-fluid">
             <div class="span12">
-                <h3 class=" page-header"> <i class="icon-sitemap"></i> DAFTAR UNIT (<?=count($dt_unit);?> of <?=$dt_setting->BATAS_UNIT;?>) </h3>
+                <h3 class=" page-header"> <i class="icon-sitemap"></i> DAFTAR DIVISI </h3>
                 <?PHP if(count($dt_unit) < $dt_setting->BATAS_UNIT){?>
                 <span>
                     <button type="button" data-toggle="modal" data-target="#add_unit_modal" class="btn btn-inverse"> 
-                        <i class="icon-plus" style="color: #FFF; font-size: 16px;"></i> Tambah Data Unit 
+                        <i class="icon-plus" style="color: #FFF; font-size: 16px;"></i> Tambah Data Divisi 
                     </button>
                 </span>
                 <br><br>
@@ -1266,7 +1171,7 @@ $user = $this->master_model_m->get_user_info($id_user);
                                 <div class="row-fluid">
                                     <div class="span4">
                                         <div class="control-group">
-                                            <label class="control-label"> <b style="font-size: 14px;"> Unit </b> </label>
+                                            <label class="control-label"> <b style="font-size: 14px;"> Divisi </b> </label>
                                             <div class="controls">
                                                 <input type="text" id="unit_txt" name="unit_txt" value="<?=$user->NAMA_UNIT;?>" readonly style="background:#FFF; width: 100%;">
                                                 <input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>" readonly style="background:#FFF;">
@@ -1282,22 +1187,22 @@ $user = $this->master_model_m->get_user_info($id_user);
                                             <label class="control-label"> <b style="font-size: 14px;"> Pilih Laporan </b> </label>
                                             <div class="controls">
                                                 <select  required  class="chzn-select" tabindex="2"  name="laporan" id="laporan">
-                                                    <option value="lap_penjualan_c"> Laporan Penjualan </option>          
-                                                    <option value="lap_pembelian_c"> Laporan Pembelian </option>          
-                                                    <option value="lap_buku_besar_c"> Laporan Buku Besar </option>          
-                                                    <option value="lap_laba_rugi_c"> Laporan Laba Rugi </option>          
-                                                    <option value="lap_jurnal_umum_c"> Laporan Jurnal Memorial </option>          
-                                                    <option value="lap_arus_kas_c"> Laporan Arus Kas </option>          
-                                                    <option value="lap_jurnal_penyesuaian_c"> Laporan Jurnal Penyesuaian </option>          
-                                                    <option value="lap_neraca_c"> Laporan Neraca </option>          
-                                                    <option value="lap_neraca_lajur_c"> Laporan Neraca Lajur </option>          
-                                                    <option value="lap_realisasi_pendapatan_biaya_c"> Realisasi Pendapatan dan Biaya </option>          
-                                                    <option value="lap_rku_c"> Ringkasan Laporan Keuangan </option>          
-                                                    <option value="lap_hutang_c"> Laporan Rincian Hutang </option>          
-                                                    <option value="lap_hasil_pendapatan_c"> Laporan Hasil Pendapatan </option>          
-                                                    <option value="lap_realisasi_rkp_c"> Realisasi Pelaksanaan RKP </option>          
-                                                    <option value="lap_mutasi_hutang_c"> Daftar Mutasi Hutang </option>       
-                                                    <option value="lap_mutasi_piutang_c"> Daftar Mutasi Piutang </option>       
+                                                    <option value="lap_pembelian_c"> Laporan Pembelian </option>     
+                                                    <option value="lap_summary_pembelian_c"> Laporan Summary Pembelian </option>     
+                                                    <option value="lap_detail_pembelian_c"> Laporan Detail Pembelian </option>     
+                                                    <option value="lap_pembelian_produk_supp_c"> Laporan Pembelian Produk Detail Supplier </option>     
+                                                    <option value="lap_pembelian_supp_produk_c"> Laporan Pembelian Supplier Detail Produk </option>     
+                                                    <option value="lap_history_harga_c"> History Harga Pembelian </option>     
+                                                    <option value="lap_sum_um_beli_c"> Summary Uang Muka Pembelian </option>     
+                                                    <option value="lap_sum_po_c"> Summary Order Pembelian (PO) </option>     
+                                                    <option value="lap_detail_po_c"> Laporan Detail Order Pembelian (PO) </option>     
+                                                    <option value="lap_po_outstanding_c"> PO Outstanding </option>     
+                                                    <option value="lap_hutang_jatuh_tempo_c"> Hutang Jatuh Tempo </option>     
+                                                    <option value="lap_sum_hutang_dagang_c"> Summary Hutang Dagang </option>     
+                                                    <option value="lap_kartu_hutang_c"> Kartu Hutang </option>     
+                                                    <option value="lap_sisa_hutang_dagang_c"> Sisa Hutang Dagang </option>     
+                                                    <option value="lap_umur_hutang_c"> Laporan Umur hutang </option>     
+                                                    <option value="lap_daftar_supplier_c"> Daftar Supplier </option>     
                                                 </select>
                                             </div>
                                         </div>
@@ -1374,7 +1279,7 @@ $user = $this->master_model_m->get_user_info($id_user);
                     <input type="hidden" name="id_hapus" id="id_hapus" value="" />
                 </form>   
                  
-                <p>Apakah anda yakin ingin menghapus unit ini?</p>
+                <p>Apakah anda yakin ingin menghapus divisi ini?</p>
                 <ul class="cd-buttons">            
                     <li><a href="javascript:;" onclick="$('#delete').submit();">Ya</a></li>
                     <li><a onclick="$('.cd-popup-close').click(); $('#id_hapus').val('');" href="javascript:;">Tidak</a></li>
@@ -1698,7 +1603,7 @@ $user = $this->master_model_m->get_user_info($id_user);
     function get_laporan_beranda(){
         var laporan = $('#laporan').val();
         var link  = $('#url_laporan').val();
-        $('#form_laporan').attr('action', link+laporan);
+        $('#form_laporan').attr('action', laporan);
         $('#cetak_pdf_beranda').click();
     }
 

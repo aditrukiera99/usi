@@ -32,11 +32,7 @@ class Lap_daftar_supplier_c extends CI_Controller {
 			'title' => "Laporan Daftar Supplier", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
-<<<<<<< HEAD
-			'view' => "lap_daftar_supplier", 
-=======
 			'view' => "lap_daftar_supplier_v", 
->>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 

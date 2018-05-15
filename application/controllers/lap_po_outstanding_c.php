@@ -34,11 +34,7 @@ class Lap_po_outstanding_c extends CI_Controller {
 			'title' => "Laporan PO Outstanding", 
 			'msg' => "", 
 			'master' => "laporan_pembelian", 
-<<<<<<< HEAD
-			'view' => "lap_po_outstanding", 
-=======
 			'view' => "lap_po_outstanding_v", 
->>>>>>> 172ec68308933fd1aab4f032b428947a4bd26024
 			//'dt' => $dt, 
 			'msg' => $msg, 
 			'user' => $user, 
