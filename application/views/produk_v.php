@@ -165,19 +165,19 @@
 						<label class="control-label"> <b style="font-size: 14px;"> Tipe Barang </b> </label>
 						<div class="controls">
 							<label class="radio inline">
-							<input type="radio" value="JADI" name="tipe_barang" required onclick="get_kode_akun(this.value);">
+							<input type="radio" value="JADI" name="tipe_barang" onclick="get_kode_akun(this.value);">
 							Barang Jadi </label>
 
 							<label class="radio inline">
-							<input type="radio" value="BAKU" name="tipe_barang" required onclick="get_kode_akun(this.value);">
+							<input type="radio" value="BAKU" name="tipe_barang" onclick="get_kode_akun(this.value);">
 							Barang Baku </label>
 
 							<label class="radio inline">
-							<input type="radio" value="PEMBANTU" name="tipe_barang" required onclick="get_kode_akun(this.value);">
+							<input type="radio" value="PEMBANTU" name="tipe_barang" onclick="get_kode_akun(this.value);">
 							Barang Pembantu </label>
 
 							<label class="radio inline">
-							<input type="radio" value="JASA" name="tipe_barang" required onclick="get_kode_akun(this.value);">
+							<input type="radio" value="JASA" name="tipe_barang" onclick="get_kode_akun(this.value);">
 							Jasa </label>
 						</div>
 					</div>
@@ -191,7 +191,7 @@
 									<option value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
 								<?PHP } ?>				
 							</select>
-							<input required type="hidden" class="span12" value="" name="kode_akun" id="kode_akun">
+							<input type="hidden" class="span12" value="" name="kode_akun" id="kode_akun">
 						</div>
 					</div>
 
@@ -239,7 +239,7 @@
 					<div class="control-group" style="display: none;">
 						<label class="control-label"> <b>Harga Jual</b> </label>
 						<div class="controls">
-							<input type="text" required onkeyup="FormatCurrency(this);" class="span12" value="0" name="harga_jual">
+							<input type="text" onkeyup="FormatCurrency(this);" class="span12" value="0" name="harga_jual">
 						</div>
 					</div>	
 
