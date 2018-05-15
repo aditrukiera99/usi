@@ -157,7 +157,7 @@ class Delivery_order_new_c extends CI_Controller {
 			'page' => "delivery_order_new_v", 
 			'title' => "Transaksi Penerimaan Barang",  
 			'master' => "penjualan", 
-			'view' => "purchase_order", 
+			'view' => "delivery_order", 
 			'dt' => $dt, 
 			'msg' => $msg, 
 			'tgl_full' => $tgl_full, 

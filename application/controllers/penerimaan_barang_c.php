@@ -155,7 +155,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			'page' => "penerimaan_barang_v", 
 			'title' => "Transaksi Penerimaan Barang",  
 			'master' => "pembelian", 
-			'view' => "purchase_order", 
+			'view' => "penerimaan_barang", 
 			'dt' => $dt, 
 			'msg' => $msg, 
 			'tgl_full' => $tgl_full, 
