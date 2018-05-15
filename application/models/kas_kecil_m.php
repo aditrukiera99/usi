@@ -605,6 +605,15 @@ class Kas_kecil_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_data_trx_edit($id){
+        $sql = "
+        SELECT * FROM ak_kas_kecil
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
 }
 
 ?>

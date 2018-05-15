@@ -51,6 +51,27 @@ class Kas_kecil_c extends CI_Controller {
 
 		}
 
+		if($this->input->post('edit')){
+
+			$msg = 1;
+
+			$no_trx    		     = $this->input->post('no_trx');
+
+			$data = array(
+				'TGL'          => addslashes($this->input->post('tgl_trx')),
+				'UNTUK'        => addslashes($this->input->post('untuk')),
+				'DIBUAT_OLEH'  => addslashes($this->input->post('oleh')),
+				'KETERANGAN'   => addslashes($this->input->post('memo')),
+				'NILAI'        => str_replace(',', '', $this->input->post('nilai')),
+		    );
+
+		    $this->db->where('NO_BUKTI', $no_trx);
+    		$this->db->update('ak_kas_kecil', $data);
+
+			$this->master_model_m->simpan_log($id_user, "Melakukan ubah kas kecil dengan nomor : <b>".$no_trx."</b>");
+
+		}
+
 		if($this->input->post('cari')){
 			$tgl_full = $this->input->post('tgl');
 			$tgl = explode(' sampai ', $tgl_full);
@@ -59,7 +80,9 @@ class Kas_kecil_c extends CI_Controller {
 
 			$dt = $this->model->get_penjualan_filter($keyword, $id_klien, $tgl_awal, $tgl_akhir);
 		
-		} else if($this->input->post('id_hapus')){
+		} 
+
+		if($this->input->post('id_hapus')){
 			$msg = 2;
 
 			$id_hapus = $this->input->post('id_hapus');
@@ -148,32 +171,25 @@ class Kas_kecil_c extends CI_Controller {
 		$get_pajak = $this->model->get_pajak($id_klien);
 		$get_pel_sup = $this->model->get_pel_sup($id_klien);
 
-		
-
-		$dt_count = $this->db->query("SELECT COUNT(*) as HITUNG FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id' ")->row();
-		$dt_count1 = $this->db->query("SELECT COUNT(*) as HITUNG_CUST FROM ak_pembelian_customer WHERE ID_PEMBELIAN = '$id' ")->row();
-		$dt = $this->model->get_data_trx($id);
-		$dt_detail = $this->model->get_data_trxx_detail($id);
-		$dt_cust = $this->model->get_data_cust_detail($id);
+		$dt = $this->model->get_data_trx_edit($id);
 
 		$data =  array(
-			'page' => "edit_transaksi_po_v", 
-			'title' => "Ubah Transaksi Penjualan", 
+			'page' => "edit_kas_kecil_v", 
+			'title' => "Ubah Kas Kecil", 
 			'msg' => "", 
-			'master' => "pembelian", 
-			'view' => "fatulsembiring", 
+			'master' => "input_akuntansi", 
+			'view' => "kk", 
 			'msg' => $msg, 
-			'dt' => $dt, 
-			'dt_count' => $dt_count, 
-			'dt_count1' => $dt_count1, 
-			'dt_detail' => $dt_detail, 
-			'dt_cust' => $dt_cust, 
 			'list_akun' => $list_akun, 
 			'get_list_akun_all' => $get_list_akun_all, 
+			'get_list_akun_bank' => $get_list_akun_bank, 
 			'get_all_produk' => $get_all_produk, 
 			'get_pel_sup' => $get_pel_sup, 
 			'get_pajak' => $get_pajak, 
-			'post_url' => 'purchase_order_c', 
+			'no_trx' => $no_trx, 
+			'get_broker' => $get_broker, 
+			'dt' => $dt, 
+			'post_url' => 'kas_kecil_c', 
 		);
 		
 		$this->load->view('beranda_v', $data);
