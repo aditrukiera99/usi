@@ -48,9 +48,10 @@ class Delivery_order_new_c extends CI_Controller {
 			$sg_meter   	= $this->input->post('sg_meter');
 			$nama_produk 	= $this->input->post('nama_produk');
 			$qty 	        = $this->input->post('qty');
+			$harga_modal 	= $this->input->post('harga_modal');
 			$operator       = $user->NAMA;
 
-			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx);
+			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0]);
 
 			$this->model->update_status_so($no_trx);
 
@@ -286,9 +287,23 @@ class Delivery_order_new_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
+	function get_do_detail(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_do_detail($id_pel);
+
+		echo json_encode($dt);
+	}
+
 	function get_sales_detail(){
 		$id_pel = $this->input->get('id_pel');
 		$dt = $this->model->get_sales_detail($id_pel);
+
+		echo json_encode($dt);
+	}
+
+	function get_do_tabel(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_do_tabel($id_pel);
 
 		echo json_encode($dt);
 	}

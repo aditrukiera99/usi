@@ -132,7 +132,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			$no_invoice    = $this->input->post('no_invoice');
 			$qty_diterima  = $this->input->post('qty_diterima');
-			$no_trx        = $this->input->post('no_trx');
+			$no_trx        = $this->input->post('no_solo');
 			// $qty           = $this->input->post('qty');
 
 			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx);
@@ -324,7 +324,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'title' => "Buat Penjualan Baru", 
 			'msg' => "", 
 			'master' => "penjualan", 
-			'view' => "transaksi_penjualan", 
+			'view' => "invoice", 
 			'msg' => $msg, 
 			'dt_supplier' => $dt_supplier, 
 			'list_akun' => $list_akun, 
@@ -371,7 +371,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'title' => "Buat Penjualan Baru", 
 			'msg' => "", 
 			'master' => "penjualan", 
-			'view' => "transaksi_penjualan", 
+			'view' => "invoice", 
 			'msg' => $msg, 
 			'dt_supplier' => $dt_supplier, 
 			'get_all_produk' => $get_all_produk, 
@@ -574,6 +574,34 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 		$sql = "
 		SELECT * FROM ak_penjualan WHERE STATUS_INV is null AND $where  
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function get_do_popup(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$where = "1=1";
+
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$keyword = $this->input->post('keyword');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_delivery_order WHERE STATUS = '0' 
 		";
 
 		$dt = $this->db->query($sql)->result();

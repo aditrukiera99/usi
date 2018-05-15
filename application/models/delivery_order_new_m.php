@@ -334,9 +334,25 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_do_detail($id_pel){
+        $sql = "
+        SELECT * FROM ak_delivery_order WHERE ID = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_sales_detail($id_pel){
         $sql = "
         SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_do_tabel($id_pel){
+        $sql = "
+        SELECT * FROM ak_delivery_order WHERE ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -374,7 +390,7 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl)
+    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal)
     {
 
         $sql = "
@@ -396,7 +412,8 @@ class Delivery_order_new_m extends CI_Model
             KETERANGAN,
             NO_SO,
             STATUS,
-            TGL_TRX
+            TGL_TRX,
+            HARGA_SATUAN
 
 
         )
@@ -418,7 +435,8 @@ class Delivery_order_new_m extends CI_Model
            '$keterangan', 
            '$no_trx', 
            '0',
-           '$tgl'
+           '$tgl',
+           '$harga_modal'
         )
         ";
 

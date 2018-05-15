@@ -121,7 +121,7 @@ input[type=checkbox]
 	<div class="row-fluid">
 		<div class="span5">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Sales Order </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Delivery Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
@@ -150,7 +150,7 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 			</div>
@@ -191,9 +191,9 @@ input[type=checkbox]
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="" id="no_do" >
+				<input type="text" class="span10" value="" name="no_solo" id="no_do" >
 				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;">
 			</div>
 		</div>
@@ -307,7 +307,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Delivery Order" name="edit_inv" class="btn btn-success">
+					<input type="submit" value="Simpan Invoice" name="edit_inv" class="btn btn-success">
 					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -549,7 +549,7 @@ function get_popup_supplier(){
 function ajax_pelanggan(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_inv_popup',
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_do_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -742,7 +742,7 @@ function tambah_data() {
 function get_pelanggan_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>delivery_order_new_c/get_so_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_do_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -758,6 +758,7 @@ function get_pelanggan_det(id_pel){
 			$('#pelanggan').val(result.PELANGGAN);
 			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(id_pel);
+			$('#no_do').val(result.NO_SO);
 		}
 	});
 }
@@ -765,7 +766,7 @@ function get_pelanggan_det(id_pel){
 function get_sales_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>delivery_order_new_c/get_sales_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_do_tabel',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -777,7 +778,7 @@ function get_sales_det(id_pel){
 		    $('#popup_koang').hide();
 		    $('#popup_koang').remove();
 
-			$('#nama_produk_1').val(result.NAMA_PRODUK);
+			$('#nama_produk_1').val(result.PRODUK);
 			$('#qty_1').val(result.QTY);
 			$('#harga_modal_1').val(result.HARGA_SATUAN);
 		}
