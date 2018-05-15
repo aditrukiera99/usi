@@ -55,7 +55,7 @@
         </tr>
         <?PHP 
         $total = 0;
-        foreach ($data as $key => $dt) { 
+        foreach ($data as $key => $row) { 
           $total += $row->TOTAL;
         ?>
         <tr>
