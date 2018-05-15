@@ -333,6 +333,10 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <?PHP } ?>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>divisi_c"> <i class="icon-caret-right "></i> Divisi </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>pelanggan_c"> <i class="icon-caret-right "></i> Customer </a></li>
                     <?PHP } ?>
 
@@ -416,17 +420,17 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+           <!--  <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user"></i>Kepegawaian<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
-              <ul                 
+              <ul>               
                   <li><a href="<?=base_url();?>pegawai_c"><i class="icon-caret-right "></i> Data Pegawai </a></li>
                   <li><a href=""><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
                  
               </ul>
             </div>
             </li>
-            <?PHP } ?>
+            <?PHP } ?> -->
 
             <?php if($this->master_model_m->cek_master($id_user, 'Input Akuntansi', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-briefcase"></i> Input Akuntansi  <b class="icon-angle-down"></b></a>
@@ -659,9 +663,25 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li <?PHP if($master == "input_akuntansi"){ echo "class='active'"; } ?> ><a href="#input_akun" class="icon-briefcase" title="Input Akuntansi "></a></li>
 	         <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Laporan Akuntansi', $user->LEVEL)){ ?>
+           <!--  <?php if($this->master_model_m->cek_master($id_user, 'Laporan Akuntansi', $user->LEVEL)){ ?>
             <li <?PHP if($master == "laporan"){ echo "class='active'"; } ?> ><a href="#pages" class="icon-file-alt" title="Laporan"></a></li>
-            <?PHP } ?>
+            <?PHP } ?> -->
+
+           
+            <li <?PHP if($master == "laporan_pembelian"){ echo "class='active'"; } ?> ><a href="#lap_pembelian" class="icon-file-alt" title="Laporan"></a></li>
+           
+
+             
+            <li <?PHP if($master == "laporan_penjualan"){ echo "class='active'"; } ?> ><a href="#lap_penjualan" class="icon-file-alt" title="Laporan"></a></li>
+           
+
+
+            <li <?PHP if($master == "laporan_keuangan"){ echo "class='active'"; } ?> ><a href="#lap_keuangan" class="icon-file-alt" title="Laporan"></a></li>
+           
+
+         
+            <li <?PHP if($master == "laporan_akuntansi"){ echo "class='active'"; } ?> ><a href="#lap_akuntansi" class="icon-file-alt" title="Laporan"></a></li>
+           
 
             <?php if($this->master_model_m->cek_master($id_user, 'Pengaturan', $user->LEVEL)){ ?>
 	          <li <?PHP if($master == "setting"){ echo "class='active'"; } ?> ><a href="#pengaturan" class="icon-cog" title="Pengaturan"></a></li>
@@ -745,6 +765,19 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <li <?PHP if($view == "daftar_akun"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>daftar_kode_akun_c"><i class="icon-tag"></i> Daftar Kode Akun 
                           <span> Mengelola Kode Akun Anda </span> 
+                          <?PHP if($user->LEVEL == 'MANAGER'){ ?>
+                          <?PHP if(count($dt_pengajuan_kode_akun) > 0){ ?>
+                          <span class="notify-tip"><?=count($dt_pengajuan_kode_akun);?></span> 
+                          <?PHP } ?>
+                          <?PHP } ?>
+                      </a>
+                  </li>
+                  <?PHP } ?>
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kode Akun', $user->LEVEL)){ ?>
+                  <li <?PHP if($view == "divisi"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>divisi_c"><i class="icon-tag"></i> Divisi
+                          <span> Mengelola Divisi </span> 
                           <?PHP if($user->LEVEL == 'MANAGER'){ ?>
                           <?PHP if(count($dt_pengajuan_kode_akun) > 0){ ?>
                           <span class="notify-tip"><?=count($dt_pengajuan_kode_akun);?></span> 
@@ -1040,7 +1073,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             </ul>
           </div>
 
-          <div class="tab-pane <?PHP if($master == "laporan_pembelian"){ echo "active"; } ?>" id="persediaan">
+          <div class="tab-pane <?PHP if($master == "laporan_pembelian"){ echo "active"; } ?>" id="lap_pembelian">
               <h4 class="side-head">Laporan Pembelian</h4>
               <ul class="accordion-nav">
                   <li <?PHP if($view == "lap_pembelian"){ echo "class='active'"; } ?> >
@@ -1127,90 +1160,166 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               </ul>
           </div>
 
-           <div class="tab-pane <?PHP if($master == "laporan_penjualan"){ echo "active"; } ?>" id="persediaan">
+           <div class="tab-pane <?PHP if($master == "laporan_penjualan"){ echo "active"; } ?>" id="lap_penjualan">
               <h4 class="side-head">Laporan Penjualan</h4>
               <ul class="accordion-nav">
-                  <li <?PHP if($view == "lap_penjualan_produk_detail_cust_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_penjualan_produk_detail_cust_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_penjualan_produk_detail_cust_c"><i class="icon-minus"></i> Laporan Penjualan Produk Detail Customer 
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_summary_penjualan_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_summary_penjualan_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_summary_penjualan_c"><i class="icon-minus"></i> Laporan Summary Penjualan
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_detail_penjualan_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_detail_penjualan_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_detail_penjualan_c"><i class="icon-minus"></i> Laporan Detail Penjualan
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_penjualan_produk_cust_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_penjualan_produk_cust_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_penjualan_produk_cust_c"><i class="icon-minus"></i> Laporan Penjualan Produk Per Custom
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_penjualan_cust_produk_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_penjualan_cust_produk_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_penjualan_cust_produk_c"><i class="icon-minus"></i> Laporan Penjualan Customer Per Produk
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_sum_order_penjualan_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_sum_order_penjualan_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_sum_order_penjualan_c"><i class="icon-minus"></i> Laporan Summary Order Penjualan
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_realisasi_order_penjualan_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_realisasi_order_penjualan_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_realisasi_order_penjualan_c"><i class="icon-minus"></i> Laporan Realisasi Order Penjualan
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_so_outstanding_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_so_outstanding_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_so_outstanding_c"><i class="icon-minus"></i> SO Outstanding
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_rincian_pelunasan_per_nota_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_rincian_pelunasan_per_nota_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_rincian_pelunasan_per_nota_c"><i class="icon-minus"></i>Rincian Pelunasan Tiap Nota
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_piutang_jatuh_tempo_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_piutang_jatuh_tempo_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_piutang_jatuh_tempo_c"><i class="icon-minus"></i> Laporan Piutang Jatuh Tempo
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_summary_piutang_cust_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_summary_piutang_cust_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_summary_piutang_cust_c"><i class="icon-minus"></i> Summary Piutang Customer
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_summary_piutang_dagang_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_summary_piutang_dagang_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_summary_piutang_dagang_c"><i class="icon-minus"></i> Summary Piutang Dagang
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_kartu_piutang_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_kartu_piutang_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_kartu_piutang_c"><i class="icon-minus"></i> Kartu Piutang
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_sisa_piutang_dagang_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_sisa_piutang_dagang_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_sisa_piutang_dagang_c"><i class="icon-minus"></i> Laporan Sisa Piutang Dagang
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_umur_piutang_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_umur_piutang_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_umur_piutang_c"><i class="icon-minus"></i> Laporan Umur Piutang
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "lap_daftar_customer_c"){ echo "class='active'"; } ?> >
+                  <li <?PHP if($view == "lap_daftar_customer_v"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_daftar_customer_c"><i class="icon-minus"></i> Daftar Customer
                       </a>
                   </li>
 
                   
+              </ul>
+          </div>
+
+          <div class="tab-pane <?PHP if($master == "laporan_keuangan"){ echo "active"; } ?>" id="lap_keuangan">
+              <h4 class="side-head">Laporan Keuangan</h4>
+              <ul class="accordion-nav">
+                  <li <?PHP if($view == "lap_kas_bank_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_kas_bank_c"><i class="icon-minus"></i> Laporan Kas/Bank 
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_kas_bank_rinci_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_kas_bank_rinci_c"><i class="icon-minus"></i> Laporan Kas/Bank Rinci
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_pelunasan_kas_bank_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_pelunasan_kas_bank_c"><i class="icon-minus"></i> Laporan Pelunasan Kas/Bank
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_pembayaran_ke_supplier_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_pembayaran_ke_supplier_c"><i class="icon-minus"></i> Laporan Pembayaran Ke Supplier
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_penerimaan_kas_bank_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_penerimaan_kas_bank_c"><i class="icon-minus"></i> Laporan Penerimaan Kas/Bank
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_pengeluaran_kas_bank_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_pengeluaran_kas_bank_c"><i class="icon-minus"></i> Laporan Pengeluaran Kas/Bank
+                        
+                      </a>
+                  </li>
+
+                 
+              </ul>
+          </div>
+
+          <div class="tab-pane <?PHP if($master == "laporan_akuntansi"){ echo "active"; } ?>" id="lap_akuntansi">
+              <h4 class="side-head">Laporan Akuntansi</h4>
+              <ul class="accordion-nav">
+                  <li <?PHP if($view == "lap_buku_besar_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_buku_besar_c"><i class="icon-minus"></i> Laporan Buku Besar
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_laba_rugi_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_laba_rugi_c"><i class="icon-minus"></i> Laporan Laba Rugi
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_jurnal_umum_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_jurnal_umum_c"><i class="icon-minus"></i> Laporan Jurnal Akuntansi 
+                        
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "lap_neraca_v"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>lap_neraca_c"><i class="icon-minus"></i> Laporan Neraca 
+                        
+                      </a>
+                  </li>
+
+                 
+
+                 
               </ul>
           </div>
 
