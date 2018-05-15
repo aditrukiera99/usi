@@ -71,7 +71,7 @@
 
   <?PHP 
   $sql_det = "
-  SELECT c.NAMA_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
+  SELECT c.NAMA_PELANGGAN, c.KODE_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
   JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
   JOIN ak_pelanggan c ON c.ID = a.ID_PELANGGAN
   WHERE b.ID_PRODUK = '$row->ID'
@@ -87,7 +87,7 @@
   <tr>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"><?=$row_det->NAMA_PELANGGAN;?></td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"><?=$row_det->KODE_PELANGGAN;?></td>
     <td class="tg-yw4l" style="text-align: right;"></td>
     <td class="tg-yw4l" style="text-align: right;"></td>
     <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
