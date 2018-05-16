@@ -208,6 +208,22 @@ class Pelanggan_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
+	function save_tipe_usaha(){
+		$tipe = addslashes($this->input->post('nama_tipe'));
+
+		$sql = "
+			INSERT INTO ak_master_tipe
+			(NAMA)
+			VALUES 
+			('$tipe')
+		";
+
+		$this->db->query($sql);
+
+		$sql_tampil = $this->db->query("SELECT * FROM ak_master_tipe ORDER BY ID ASC")->result();
+		echo json_encode($sql_tampil);
+	}
+
 }
 
 /* End of file welcome.php */

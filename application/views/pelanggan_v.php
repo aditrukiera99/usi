@@ -241,8 +241,24 @@ input[type=radio]:not(old):checked +  label > span > span{
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label class="control-label orang_show"> <b> Nama Pelanggan </b> </label>
+						<label class="control-label usaha_show" style="display:none;"> <b> Nama Perusahaan </b> </label>
+						<div class="controls">
+							<select class="span1 usaha_show" name="tipe_perusahaan" id="tipe_perusahaan" onchange="add_tipe_perusahaan(this.value);">
+								<?php foreach ($master_tipe as $key => $value_tipe) {
+									?>
+									<option value="<?=$value_tipe->NAMA;?>"><?=$value_tipe->NAMA;?></option>
+									<?php
+								} ?>
+								<option value="more">.......</option>
+							</select>
+							<input required type="text" placeholder="Nama Pelanggan / Pemilik Usaha"  class="span11" value="" name="nama_pelanggan" autocomplete="off">
+						</div>
+					</div>
+
 					<div class="control-group usaha_show" style="display:none;">
-						<label class="control-label"> <b> Nama Perusahaan </b> </label>
+						<label class="control-label"> <b> Nama Pemilik </b> </label>
 						<div class="controls">
 							<input type="text" placeholder="Nama Perusahaan / Badan Usaha" class="span12" value="" name="nama_usaha" autocomplete="off">
 						</div>
@@ -285,22 +301,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 						</div>
 					</div>
 
-					<div class="control-group">
-						<label class="control-label orang_show"> <b> Nama Customer </b> </label>
-						<label class="control-label usaha_show" style="display:none;"> <b> Nama Pemilik </b> </label>
-						<div class="controls">
-							<select class="span1 usaha_show" name="tipe_perusahaan">
-								<option>PT</option>
-								<?php foreach ($master_tipe as $key => $value_tipe) {
-									?>
-									<option value="<?=$value_tipe->NAMA;?>"><?=$value_tipe->NAMA;?></option>
-									<?php
-								} ?>
-								<option value="more">.......</option>
-							</select>
-							<input required type="text" placeholder="Nama Pelanggan / Pemilik Usaha"  class="span11" value="" name="nama_pelanggan" autocomplete="off">
-						</div>
-					</div>
+					
 
 					
 
@@ -736,12 +737,68 @@ input[type=radio]:not(old):checked +  label > span > span{
   </div>
 </div>
 
+
+<button id="add_tipe_perusahaan_modal_btn" data-toggle="modal" data-target="#add_tipe_perusahaan_modal" class="btn btn-warning" style="display: none;">a</button>
+<div id="add_tipe_perusahaan_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tambah</h4>
+      </div>
+      <div class="modal-body">
+            <div class="row-fluid">
+                <div class="span12" style="font-size: 15px;">
+                    <div class="control-group" style="margin-left: 10px;">
+                        <label class="control-label"> <b style="font-size: 14px;"> NAMA TIPE </b> </label>
+                        <div class="controls">
+                            <input type="text"  class="span12" value="" id="nama_tipe" name="nama_tipe">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="save_tipe_usaha();" class="btn btn-success">Simpan</button>
+        <button type="button" id="add_tipe_perusahaan_modal_btn_tutup" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 
 $(document).ready(function(){
 	isfilter();
 	// isfilter_ed();
 })
+
+function add_tipe_perusahaan(a) {
+	if(a == 'more'){
+		$('#add_tipe_perusahaan_modal_btn').click();
+	}
+}
+
+function save_tipe_usaha(){
+	var nama_tipe = $('#nama_tipe').val();
+	$.ajax({
+		url : '<?php echo base_url(); ?>pelanggan_c/save_tipe_usaha',
+		data : {nama_tipe:nama_tipe},
+		type : "POST",
+		dataType : "json",
+		success : function(result){
+			var isi = "";
+			if(result == 1){
+				$('#add_tipe_perusahaan_modal_btn_tutup').click();			
+
+				$.each(result,function(i,res){
+
+                    isi += '<option selected value="'+res.NAMA+'">'+res.NAMA+'</option>';
+                })
+                $('#tipe_perusahaan').html(isi);
+			}
+		}
+	});
+}
 
 function cari_pelanggan(keyword) {
 	$.ajax({
