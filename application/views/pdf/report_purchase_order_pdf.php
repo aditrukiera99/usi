@@ -102,7 +102,27 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: SO <?=$dt->NO_SO;?>/BRU/<?php echo $var; ?>/<?php echo $tahun_kas; ?></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: SO <?=$dt_det->NO_SO;?></td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+		</tr>
+		<?php 
+			$no_so_det = $dt_det->NO_SO;
+			$data_pelanggan = $this->db->query("SELECT p.KODE_PELANGGAN , p.NAMA_PELANGGAN , p.ALAMAT_TAGIH FROM ak_pelanggan p, ak_penjualan ap WHERE  ap.ID_PELANGGAN = p.ID AND ap.NO_BUKTI = '$no_so_det' ")->row();
+
+		?>
+		<tr>
+			<td style="width: 20%;text-align:left;font-size: 15px;">Client</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$data_pelanggan->NAMA_PELANGGAN;?> </td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+		</tr>
+		<tr>
+			<td style="width: 20%;text-align:left;font-size: 15px;">No SH</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$data_pelanggan->KODE_PELANGGAN;?> </td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+		</tr>
+		<tr>
+			<td style="width: 20%;text-align:left;font-size: 15px;">Alamat</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$data_pelanggan->ALAMAT_TAGIH;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 	</table>

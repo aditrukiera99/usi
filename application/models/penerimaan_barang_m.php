@@ -655,6 +655,16 @@ class Penerimaan_barang_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function update_status_po_tgl($id_po,$tgl){
+       
+        $sql = "
+        UPDATE ak_pembelian SET TGL_PENERIMAAN = '$tgl'
+        WHERE NO_PO = '$id_po'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function update_tanggal_penerimaan($id){
 
         $tgj = date('d-m-Y'); 

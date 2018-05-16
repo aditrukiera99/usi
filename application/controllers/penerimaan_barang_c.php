@@ -56,6 +56,8 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$this->model->update_status_gudang($id_gudang,$qty);
 
+			$this->model->update_status_po_tgl($no_po,$tgl_trx);
+
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 
 		}

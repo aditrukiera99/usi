@@ -109,52 +109,75 @@
 			</div>
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
-					<div class="control-group">
+
+					
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> No Polisi </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_polisi" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> Merk </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="merk" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> Tahun </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="tahun" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> No Rangka </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_rangka" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> No Mesin </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_mesin" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> Kapasitas </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="kapasitas" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="control-group kendaraan-darat">
 						<label class="control-label"> Sopir </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="sopir" style="font-size: 14px;">
+						</div>
+					</div>
+
+					<div class="control-group kendaraan-laut" style="display: none;">
+						<label class="control-label"> Nama Kapal </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" name="merk" style="font-size: 14px;">
+						</div>
+					</div>
+
+					<div class="control-group kendaraan-laut" style="display: none;">
+						<label class="control-label"> Kapasitas </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" name="kapasitas" style="font-size: 14px;">
+						</div>
+					</div>
+
+					<div class="control-group kendaraan-laut" style="display: none;">
+						<label class="control-label"> No Lambung </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" name="no_polisi" style="font-size: 14px;">
 						</div>
 					</div>
 

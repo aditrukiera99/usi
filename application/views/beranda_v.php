@@ -336,6 +336,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <li><a href="<?=base_url();?>divisi_c"> <i class="icon-caret-right "></i> Divisi </a></li>
                     <?PHP } ?>
 
+                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Supply Point </a></li>
+
                     <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>pelanggan_c"> <i class="icon-caret-right "></i> Customer </a></li>
                     <?PHP } ?>
@@ -355,7 +357,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
                     <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li> -->
                     <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li>
-                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Supply Point </a></li>
+                    
                 </ul>
             </div>
             </li>
@@ -796,6 +798,12 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </li>
                   <?PHP } ?>
 
+                  <li <?PHP if($view == "gudang"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>gudang_c"><i class="icon-briefcase "></i> Supply Point
+                        <span> Data Supply Point</span> 
+                      </a>
+                  </li>
+
                   <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "daftar_pelanggan"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i> Customer 
@@ -860,11 +868,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "gudang"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>gudang_c"><i class="icon-briefcase "></i> Supply Point
-                        <span> Data Supply Point</span> 
-                      </a>
-                  </li>
+                  
               </ul>
           </div>
 

@@ -142,7 +142,7 @@ class Purchase_order_m extends CI_Model
 
     function get_data_trx_detail($id){
         $sql = "
-        SELECT SUM(QTY) as KUI , SUM(TOTAL) as TOTAL_SE , HARGA_SATUAN , NAMA_PRODUK FROM ak_pembelian_detail 
+        SELECT SUM(QTY) as KUI , SUM(TOTAL) as TOTAL_SE , HARGA_SATUAN , NAMA_PRODUK , NO_SO FROM ak_pembelian_detail 
         WHERE ID_PENJUALAN = '$id' AND QTY > 0
         ";
 
@@ -424,7 +424,7 @@ class Purchase_order_m extends CI_Model
 
     function get_produk_detail($id_produk){
         $sql = "
-        SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = $id_produk
+        SELECT p.KODE_PELANGGAN , pd.* FROM ak_penjualan_detail pd , ak_pelanggan p , ak_penjualan ap WHERE pd.ID_PENJUALAN = ap.ID AND ap.ID_PELANGGAN = p.ID AND pd.ID_PENJUALAN = $id_produk
         ";
 
         return $this->db->query($sql)->row();

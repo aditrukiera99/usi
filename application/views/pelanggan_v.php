@@ -7,7 +7,7 @@
 	vertical-align: middle;
 }
 
-input[type=checkbox]:not(old),
+/*input[type=checkbox]:not(old),
 input[type=radio   ]:not(old){
   width     : 2em;
   margin    : 0;
@@ -75,7 +75,7 @@ input[type=radio]:not(old):checked +  label > span > span{
   background-image : -webkit-linear-gradient(rgb(179,217,140),rgb(153,204,102));
   background-image :         linear-gradient(rgb(179,217,140),rgb(153,204,102));
 }
-
+*/
 </style>
 
 <div class="row-fluid ">
@@ -128,7 +128,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 							<th align="center"> Wilayah</th>
 							<?PHP } ?>
 							<th align="center"> Alamat Tujuan </th>
-							<th align="center"> Kota Tujuan </th>
+							<th align="center"> Kode SH </th>
 							<th align="center"> Status</th>
 							<th align="center"> Aksi </th>
 						</tr>						
@@ -161,7 +161,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 							<?PHP } ?>
 
 							<td <?PHP if($nama_pelanggan == $row->NAMA_PELANGGAN){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->ALAMAT_TAGIH;?> </td>
-							<td <?PHP if($nama_pelanggan == $row->NAMA_PELANGGAN){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->ALAMAT_KIRIM;?> </td>
+							<td <?PHP if($nama_pelanggan == $row->NAMA_PELANGGAN){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->KODE_PELANGGAN;?> </td>
 							<td align="center" <?PHP if($nama_pelanggan == $row->NAMA_PELANGGAN){ echo "style='background: #CDE69C;'"; } ?>>
 								<?PHP if($row->APPROVE == 0){
 									echo "<font style='color:#e88a05; font-weight:bold;'>Menunggu Persetujuan</font>";
@@ -209,6 +209,8 @@ input[type=radio]:not(old):checked +  label > span > span{
 										</li>
 									</ul>
 								</div>
+								<a href="<?php echo base_url() ?>pelanggan_c/duplicate_pelanggan/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn-small btn btn-success"> Duplicate 
+								</button>
 								<?PHP } else { ?>
 									-
 								<?PHP } ?>
@@ -234,8 +236,8 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b> Tipe Customer </b> </label>
 						<div class="controls">
-							<input onclick="isfilter();" id="perorang" type="radio" name="tipe" value="Perorangan" checked="checked"><label for="perorang"><span><span></span></span>  Perorangan </label>
-                            <input onclick="isfilter();" id="perusaha" type="radio" name="tipe" value="Perusahaan"><label for="perusaha"><span><span></span></span>  Perusahaan </label>
+							<input style="float: left;" onclick="isfilter();" id="perorang" type="radio" name="tipe" value="Perorangan" checked="checked"><label for="perorang"><span><span></span></span>  Perorangan </label>
+                            <input style="float: left;" onclick="isfilter();" id="perusaha" type="radio" name="tipe" value="Perusahaan"><label for="perusaha"><span><span></span></span>  Perusahaan </label>
 						</div>
 					</div>
 
@@ -287,7 +289,16 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label orang_show"> <b> Nama Customer </b> </label>
 						<label class="control-label usaha_show" style="display:none;"> <b> Nama Pemilik </b> </label>
 						<div class="controls">
-							<input required type="text" placeholder="Nama Pelanggan / Pemilik Usaha"  class="span12" value="" name="nama_pelanggan" autocomplete="off">
+							<select class="span1" name="tipe_perusahaan">
+								<option>PT</option>
+								<?php foreach ($master_tipe as $key => $value_tipe) {
+									?>
+									<option value="<?=$value_tipe->NAMA;?>"><?=$value_tipe->NAMA;?></option>
+									<?php
+								} ?>
+								<option value="more">.......</option>
+							</select>
+							<input required type="text" placeholder="Nama Pelanggan / Pemilik Usaha"  class="span11" value="" name="nama_pelanggan" autocomplete="off">
 						</div>
 					</div>
 
@@ -311,6 +322,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label"> <b> No. SIUP </b> </label>
 						<div class="controls">
 							<input type="text" class="span12" value="" name="siup" autocomplete="off">
+							
 						</div>
 					</div>
 
@@ -322,9 +334,33 @@ input[type=radio]:not(old):checked +  label > span > span{
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> <b> Kota Tujuan </b> </label>
+						<label class="control-label"> <b> Stock Point </b> </label>
 						<div class="controls">
-							<input type="text" class="span12" value="" name="alamat_kirim" autocomplete="off">
+							<select class="span12" name="supply_point" onchange="get_supply_point(this.value);">
+									<option>--Supply Point--</option>
+									<?php 
+										foreach ($supply as $key => $sp) {
+										
+									?>
+									<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>
+									<?php } ?>
+								</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>  </b> </label>
+						<div class="controls">
+						    <table class="stat-table table table-hover" style="width: 100%;">
+						    	<thead>
+						    		<th align="center">Nama</th>
+						    		<th align="center">Pajak (%)</th>
+						    		<th align="center">Aksi</th>
+						    	</thead>
+						    	<tbody id="data_supply">
+						    		
+						    	</tbody>
+						    </table>
 						</div>
 					</div>
 
@@ -359,7 +395,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b> Pajak PBBKB </b> </label>
 						<div class="controls">
-							<input type="text" class="span12" name="pajak_pbbkb" value="0">
+							<input type="text" class="span12" name="pajak_pbbkb" value="0" id="pajak_pbbkb_val">
 							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
@@ -384,6 +420,14 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label"> <b> PPH 15 </b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="0" name="pph_15" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 21 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_21" autocomplete="off">
 							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
@@ -805,6 +849,45 @@ function ubah_data_pelanggan(id){
 	});
 }
 
+function duplicate_pelanggan(id){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>pelanggan_c/cari_pelanggan_by_id',
+		data : {id:id},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+			$('#id_pelanggan').val(result.ID);
+			$('#nama_pelanggan_ed').val(result.NAMA_PELANGGAN);
+			$('#npwp_ed').val(result.NPWP);
+			$('#alamat_tagih_ed').val(result.ALAMAT_TAGIH);
+			$('#alamat_kirim_ed').val(result.ALAMAT_KIRIM);
+			$('#no_telp_ed').val(result.NO_TELP);
+			$('#no_hp_ed').val(result.NO_HP);
+			$('#email_ed').val(result.EMAIL);
+
+			$('#tdp_ed').val(result.TDP);
+			$('#siup_ed').val(result.SIUP);
+
+			if(result.TIPE == 'Perorangan'){
+				$("#perorang_ed").prop("checked", true);
+				$('#nama_usaha_ed').val('');
+			} else {
+				$("#perusaha_ed").prop("checked", true);
+				$('#nama_usaha_ed').val(result.NAMA_USAHA);
+			}
+
+			isfilter_ed();
+
+	        //$("#kategori_ed").chosen("destroy");
+
+	        $('.view_data').hide();
+	        $('#edit_data').fadeIn('slow');
+		}
+	});
+}
+
 function detail_pelanggan(id){
 	$('#popup_load').show();
 	$.ajax({
@@ -928,5 +1011,38 @@ function save_persetujuan(){
         }
     });
 }
+
+function get_supply_point(id) {
+	
+        $.ajax({
+            url : '<?php echo base_url(); ?>purchase_order_c/get_supply_point',
+            data : {id:id},
+            type : "POST",
+            dataType : "json",
+            success : function(result){   
+                var isine = "";
+                if(result.length > 0){
+                    $.each(result,function(i,res){
+
+                        isine += '<tr>'+
+                                    '<td style="text-align:center;">'+res.NAMA_BPPKB+'</td>'+
+                                    '<td style="text-align:center;">'+res.PAJAK+' %</td>'+
+                                    '<td style="text-align:center;">'+
+                                    	'<input type="radio" value="'+res.ID+'" name="aksi_on" onchange="ganti('+res.PAJAK+')">'+
+                                    '</td>'+
+                                '</tr>';
+                    });
+                } else {
+                    isine = "<tr><td colspan='6' style='text-align:center;'> There are no transaction for this data </td></tr>";
+                }
+
+                $('#data_supply').html(isine);
+            }
+        });
+    }
+
+    function ganti(id){
+		$('#pajak_pbbkb_val').val(id);
+	}
 
 </script>

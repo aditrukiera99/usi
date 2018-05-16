@@ -176,8 +176,20 @@ input[type=checkbox]
 					<textarea name="alamat_tagih" class="span12" rows="5" id="alamat_tagih"></textarea>
 				</div>
 	
-			
+		</div>
 
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
+				<div class="controls">
+					<div id="" class="input-append date ">
+						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
+						<input style="width: 76%;" value="" id="jam_dinding_jadi" name="jatuh_tempo" type="text">
+						<input style="width: 68%;" value="<?=date('Y-m-d');?>" name="jatuh_tempo" type="hidden" id="jam_dinding_val">
+						<span class="add-on ">
+							<i class="icon-calendar"></i>
+						</span>
+					</div>
+				</div>
 		</div>
 	</div>
 
@@ -204,9 +216,11 @@ input[type=checkbox]
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Depot Pengambilan</b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> Supply Point</b> </label>
 			<div class="controls">
-				<input onkeyup="FormatCurrency(this);" type="text" class="span12" value="" name="depot" id="jatuh_tempo" style="font-size: 15px;">
+				<input type="text" name="supply_point_tempat" class="span5" id="supply_point_nama">
+				<input type="text" name="supply_pajak_tempat" class="span5" id="supply_pajak_nama">
+				<input type="text" name="pajak_tempat" class="span1" id="pajak_nama">
 			</div>
 		</div>
 
@@ -214,14 +228,12 @@ input[type=checkbox]
 
 
 	<div class="span4">
-		<!-- <div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> No. PO Pelanggan </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$no_deo;?>" name="no_do" id="no_do" style="font-size: 15px;">
-				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_inv" id="no_do" style="font-size: 15px;">
-				<input type="hidden" class="span10" value="<?=$no_surat_jalan;?>" name="no_sj" id="no_do" style="font-size: 15px;">
+				<input type="text" class="span10" value="" name="no_po_pelanggan" id="" style="font-size: 15px;">
 			</div>
-		</div> -->
+		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
@@ -459,16 +471,7 @@ input[type=checkbox]
 						</div>
 					</div>
 
-					<div class="row-fluid" style="margin-top: 10px;">
-						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> Total :</h3> 
-						</div>
-
-						<div style="margin-bottom: 15px;" class="span4">
-							<h3 style="color: green;" id="tot_disc"></h3>
-							<input type="hidden" name="tot_disc" id="tot_disc_txt">
-						</div>
-					</div>
+					
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
@@ -476,7 +479,9 @@ input[type=checkbox]
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
-							<input type="checkbox" name="pbbkb" value="ada">
+							<h3 style="color: green;" id="total_pbbkb"></h3>
+							<input type="checkbox" name="pbbkb" value="ada" style="display: none;">
+							<input type="hidden" name="pajak_pbbkb_validasi" id="pajak_pbbkb_validasi">
 						</div>
 					</div>
 
@@ -487,6 +492,17 @@ input[type=checkbox]
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<input type="checkbox" name="oat" value="ada">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="tot_disc"></h3>
+							<input type="hidden" name="tot_disc" id="tot_disc_txt">
 						</div>
 					</div>
 
@@ -910,14 +926,21 @@ function hitung_total(id){
 function disc_txt(disc){
 	var sub_total = $('#inp_sub_total').val();
 
-	var total = parseFloat(disc/100) * parseFloat(sub_total);
+	var jml_pajak = $('#pajak_pbbkb_validasi').val();
 
-	var total_semua = sub_total - total;
+	var total = parseFloat(disc/100) * parseFloat(sub_total);
+	
+	var total_pbbkb = (jml_pajak/100) * total ;
+
+	var total_semua = sub_total - total - total_pbbkb;
+
+	$('#total_pbbkb').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
 
 	$('#tot_disc').html('Rp. '+acc_format(total_semua, "").split('.00').join('') );
 
-
 	$('#tot_disc_txt').val(total);
+
+	
 }
 
 function get_produk_detail(id, no_form){
@@ -1026,6 +1049,10 @@ function get_pelanggan_det(id_pel){
 			$('#pelanggan').val(result.NAMA_PELANGGAN);
 			$('#kota_tujuan').val(result.ALAMAT_KIRIM);
 			$('#pelanggan_sel').val(id_pel);
+			$('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
+			$('#supply_point_nama').val(result.NAMA_GUDANG);
+			$('#supply_pajak_nama').val(result.NAMA_BPPKB);
+			$('#pajak_nama').val(result.PAJAK);
 		}
 	});
 }
@@ -1121,4 +1148,47 @@ function samakan_5(){
 	$('input[name="nama_produk[]"]').val(vail);
 }
 // modal jual Invoice
+
+ function jam_dinding(id){
+   	var dateString = $('#jam_dinding_val').val();
+
+	var startDate = new Date(dateString);
+
+	// seconds * minutes * hours * milliseconds = 1 day 
+	var day = (60 * 60 * 24 * 1000) * id;
+
+	var endDate = new Date(startDate.getTime('dd-MM-yyyy')+ day);
+	var tgl = endDate.toString("dd-MM-yyyy");
+	 $('#jam_dinding_jadi').val(tgl);
+
+   }
+
+   function get_supply_point(id) {
+	
+        $.ajax({
+            url : '<?php echo base_url(); ?>purchase_order_c/get_supply_point',
+            data : {id:id},
+            type : "POST",
+            dataType : "json",
+            success : function(result){   
+                var isine = "";
+                if(result.length > 0){
+                    $.each(result,function(i,res){
+
+                        isine += '<tr>'+
+                                    '<td style="text-align:center;">'+res.NAMA_BPPKB+'</td>'+
+                                    '<td style="text-align:center;">'+res.PAJAK+' %</td>'+
+                                    '<td style="text-align:center;">'+
+                                    	'<input type="radio" value="'+res.ID+'" name="aksi_on">'+
+                                    '</td>'+
+                                '</tr>';
+                    });
+                } else {
+                    isine = "<tr><td colspan='6' style='text-align:center;'> There are no transaction for this data </td></tr>";
+                }
+
+                $('#data_supply').html(isine);
+            }
+        });
+    }
 </script>

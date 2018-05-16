@@ -38,6 +38,14 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function supply($id){
+        $sql = "
+        SELECT * FROM ak_gudang
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
     function get_penjualan_invoice($keyword, $id_klien){
 
         $sess_user = $this->session->userdata('masuk_akuntansi');
@@ -389,7 +397,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_pelanggan_detail($id_pel){
         $sql = "
-        SELECT * FROM ak_pelanggan WHERE ID = $id_pel
+        SELECT g.NAMA as NAMA_GUDANG , ms.NAMA_BPPKB , ms.PAJAK , p.* FROM ak_pelanggan p , ak_gudang g , ak_pajak_supply ms WHERE p.ID_SUPPLY_POINT = g.ID AND p.ID_PAJAK_PBBKB = ms.ID AND p.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -435,7 +443,7 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat )
+    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan)
     {
 
         $sql = "
@@ -457,7 +465,8 @@ class Transaksi_penjualan_m extends CI_Model
             PPN_OAT,
             STATUS_LPB,
             STATUS_DO,
-            STATUS_PO
+            STATUS_PO,
+            PO_PELANGGAN
 
         )
         VALUES 
@@ -478,7 +487,8 @@ class Transaksi_penjualan_m extends CI_Model
            '$ppn_oat',
            '0',
            '0',
-           '0'
+           '0',
+           '$no_po_pelanggan'
         )
         ";
 

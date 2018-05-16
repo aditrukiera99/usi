@@ -39,6 +39,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			// $id_supplier   = $this->input->post('supplier_sel');
 			// $supplier      = $this->input->post('supplier');
 			$alamat_tagih  = $this->input->post('alamat_tagih');
+			$no_po_pelanggan  = $this->input->post('no_po_pelanggan');
 			// $kota_tujuan   = $this->input->post('kota_tujuan');
 			// $no_po          = $this->input->post('no_po');
 			// $no_lpbe        = $this->input->post('no_lpbe');
@@ -90,7 +91,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$harga_modal 	= $this->input->post('harga_modal');
 			$total_id 		= $this->input->post('total_id');
 
-			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat);
+			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan);
 
 			$id_penjualan = $this->db->insert_id(); 
 
@@ -268,6 +269,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$sj = $this->model->get_no_trx_sj($id_klien);
 		$get_broker = $this->model->get_broker();
 		$dt_supplier = $this->model->get_supplier();
+		$supply = $this->model->supply();
 
 		$data =  array(
 			'page' => "buat_transaksi_penjualan_new_v", 
@@ -288,6 +290,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'no_do' => $no_do,
 			'inv' => $inv,
 			'sj' => $sj,
+			'supply' => $supply,
 			'get_broker' => $get_broker, 
 			'post_url' => 'transaksi_penjualan_c', 
 		);

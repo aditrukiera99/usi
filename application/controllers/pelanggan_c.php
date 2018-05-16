@@ -45,12 +45,15 @@ class Pelanggan_c extends CI_Controller {
 			$ppn   		 	 = $this->input->post('ppn');
 			$pph_23   		 = $this->input->post('pph_23');
 			$pph_15   		 = $this->input->post('pph_15');
+			$pph_21   		 = $this->input->post('pph_21');
 			$pajak_pbbkb   	 = $this->input->post('pajak_pbbkb');
 			$nama_usaha   	 = addslashes($this->input->post('nama_usaha'));
 			$tdp   	 	     = addslashes($this->input->post('tdp'));
 			$siup   	     = addslashes($this->input->post('siup'));
 			$kode_customer   = addslashes($this->input->post('kode_customer'));
 			$lokasi   	     = addslashes($this->input->post('lokasi'));
+			$supply_point   	     = addslashes($this->input->post('supply_point'));
+			$aksi_on   	     = addslashes($this->input->post('aksi_on'));
 
 			if($tipe == "Perorangan"){
 				$nama_usaha = "";
@@ -58,7 +61,7 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi);
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on);
 
 			$broker_nama   = addslashes($this->input->post('broker_nama'));
 			$broker_alamat = addslashes($this->input->post('broker_alamat'));
@@ -134,6 +137,8 @@ class Pelanggan_c extends CI_Controller {
 		}
 
 		$dt = $this->model->get_data_pelanggan($keyword, $id_klien);
+		$master_tipe = $this->model->get_master_tipe();
+		$supply = $this->model->supply_kenter();
 
 		$data =  array(
 			'page' => "pelanggan_v", 
@@ -144,6 +149,8 @@ class Pelanggan_c extends CI_Controller {
 			'dt' => $dt, 
 			'msg' => $msg, 
 			'nama_pelanggan' => $nama_pelanggan, 
+			'master_tipe' => $master_tipe, 
+			'supply' => $supply,
 			'post_url' => 'pelanggan_c', 
 			'user' => $user, 
 		);
@@ -153,6 +160,35 @@ class Pelanggan_c extends CI_Controller {
 		} else {
 		$this->load->view('beranda_v', $data);			
 		}
+	}
+
+	function duplicate_pelanggan($id=""){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+
+		
+		$dt = $this->model->get_data_pelanggan_dup($id);
+		$master_tipe = $this->model->get_master_tipe();
+		$supply = $this->model->supply_kenter();
+
+		$data =  array(
+			'page' => "duplicate_pelanggan_v", 
+			'title' => "Duplicate Pelanggan", 
+			'msg' => "", 
+			'master' => "master_data", 
+			'view' => "daftar_pelanggan",
+			'msg' => $msg, 
+			'dt' => $dt,
+			'master_tipe' => $master_tipe, 
+			'supply' => $supply,
+			'post_url' => 'pelanggan_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
 	}
 
 	function cari_pelanggan(){

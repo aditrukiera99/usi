@@ -144,12 +144,12 @@ input[type=checkbox]
 			</div>
 		</div>
 
-		<div class="control-group" style="margin-left: 10px;">
+		<!-- <div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Kode SH </b> </label>
 			<div class="controls">
 				<input type="text" class="span11" value="" name="kode_sh" style="font-size: 15px;">
 			</div>
-		</div>
+		</div> -->
 
 		
 
@@ -169,7 +169,9 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="jatuh_tempo" data-format="dd-MM-yyyy" type="date">
+						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
+						<input style="width: 68%;" value="" id="jam_dinding_jadi" name="jatuh_tempo" type="text">
+						<input style="width: 68%;" value="<?=date('Y-m-d');?>" name="jatuh_tempo" type="hidden" id="jam_dinding_val">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -237,6 +239,7 @@ input[type=checkbox]
 						<tr>
 							
 							<th align="center" style="width: 20%;"> Nomor SO </th>
+							<th align="center"> No SH </th>
 							<th align="center"> Produk / Item </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Satuan </th>
@@ -257,6 +260,12 @@ input[type=checkbox]
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
 									</div>
+								</div>
+							</td>
+
+							<td align="center" style="vertical-align:middle;"> 
+								<div class="controls">
+									<input type="text" name="kode_sh_so[]" value="" id="kode_sh_1">
 								</div>
 							</td>
 
@@ -755,6 +764,7 @@ function get_produk_detail(id, no_form,nomor_so){
 			$('#harga_invoice_'+no_form).val(result.TOTAL);
 			$('#id_produk_'+no_form).val(id_produk);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
+			$('#kode_sh_'+no_form).val(result.KODE_PELANGGAN);
 
 
 
@@ -1010,4 +1020,18 @@ function get_supply_point(id) {
             }
         });
     }
+
+   function jam_dinding(id){
+   	var dateString = $('#jam_dinding_val').val();
+
+	var startDate = new Date(dateString);
+
+	// seconds * minutes * hours * milliseconds = 1 day 
+	var day = (60 * 60 * 24 * 1000) * id;
+
+	var endDate = new Date(startDate.getTime('dd-MM-yyyy')+ day);
+	var tgl = endDate.toString("dd-MM-yyyy");
+	 $('#jam_dinding_jadi').val(tgl);
+
+   }
 </script>
