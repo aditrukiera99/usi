@@ -737,6 +737,12 @@ input[type=radio]:not(old):checked +  label > span > span{
 </div>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	isfilter();
+	// isfilter_ed();
+})
+
 function cari_pelanggan(keyword) {
 	$.ajax({
 		url : '<?php echo base_url(); ?>pelanggan_c/cari_pelanggan',
