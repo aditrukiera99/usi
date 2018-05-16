@@ -98,7 +98,8 @@ class Lap_summary_pembelian_c extends CI_Controller {
 			$judul =  $this->datetostr($bulan)." ".$tahun;
 
 			$dt = $this->db->query("
-				SELECT a.* FROM ak_pembelian a
+				SELECT a.*, b.NAMA AS GUDANG FROM ak_pembelian a
+				LEFT JOIN ak_gudang b ON a.SUPPLY_POINT = b.ID
 				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
 				ORDER BY a.ID
 			")->result();
