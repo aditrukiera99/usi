@@ -787,15 +787,16 @@ function save_tipe_usaha(){
 		dataType : "json",
 		success : function(result){
 			var isi = "";
-			if(result == 1){
 				$('#add_tipe_perusahaan_modal_btn_tutup').click();			
 
 				$.each(result,function(i,res){
 
                     isi += '<option selected value="'+res.NAMA+'">'+res.NAMA+'</option>';
                 })
+
+                isi += '<option selected value="more">.......</option>';
                 $('#tipe_perusahaan').html(isi);
-			}
+			
 		}
 	});
 }
