@@ -111,74 +111,74 @@
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 
 					<div class="control-group" style="margin-left: 10px;">
-						<button style="margin-bottom: 15px;"  type="button" class="btn_from btn btn-default btn_from_selected">Kendaraan Laut</button>
-						<button style="margin-bottom: 15px;"  type="button" class="btn_from btn btn-default">Kendaraan Darat</button>
+						<button style="margin-bottom: 15px;" onclick="laut();" type="button" class="btn_from btn btn-default btn_from_selected">Kendaraan Laut</button>
+						<button style="margin-bottom: 15px;" onclick="darat();" type="button" class="btn_from btn btn-default">Kendaraan Darat</button>
 						
 					</div>
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> No Polisi </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_polisi" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> Merk </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="merk" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> Tahun </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="tahun" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> No Rangka </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_rangka" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> No Mesin </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_mesin" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> Kapasitas </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="kapasitas" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-darat">
+					<div class="control-group kendaraan_darat">
 						<label class="control-label"> Sopir </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="sopir" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-laut" style="display: none;">
+					<div class="control-group kendaraan_laut" style="display: none;">
 						<label class="control-label"> Nama Kapal </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="merk" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-laut" style="display: none;">
+					<div class="control-group kendaraan_laut" style="display: none;">
 						<label class="control-label"> Kapasitas </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="kapasitas" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan-laut" style="display: none;">
+					<div class="control-group kendaraan_laut" style="display: none;">
 						<label class="control-label"> No Lambung </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="no_polisi" style="font-size: 14px;">
@@ -365,6 +365,18 @@ function batal_klik(){
 function batal_edit_klik(){
 	$('#edit_data').hide();
 	$('#view_data').fadeIn('slow');
+}
+
+function laut(){
+	$('.kendaraan_darat').hide();
+	$('.kendaraan_laut').show();
+	
+}
+
+function darat(){
+	$('.kendaraan_laut').hide();
+	$('.kendaraan_darat').show();
+
 }
 
 function hapus_klik(id){
