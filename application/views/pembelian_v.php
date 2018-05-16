@@ -97,7 +97,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 				<table class="stat-table table table-hover" id="data-table">
 					<thead>
 						<tr>
-							<th align="center"> Aksi </th>
+							<!-- <th align="center"> Aksi </th> -->
 							<th align="center"> No. PO </th>
 							<th align="center"> No. Invoice </th>
 							<th align="center"> Tanggal </th>
@@ -111,11 +111,11 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							<?PHP $dt_detaili = $this->model->get_data_trxx_detail($row->ID); ?>
 							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_PO;?>" />
 							<tr>
-								<td align="center">
+								<!-- <td align="center">
 														
 									<a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
 									
-								</td>
+								</td> -->
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_PO;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_PO_INVOICE;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_PO_INVOICE;?> </td>

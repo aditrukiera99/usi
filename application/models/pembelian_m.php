@@ -677,6 +677,17 @@ class Pembelian_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function update_status_po_invoice($no_po,$no_invoice,$tgl_trx){
+
+       
+        $sql = "
+        UPDATE ak_pembelian SET NO_PO_INVOICE = '$no_invoice' , TGL_PO_INVOICE = '$tgl_trx'
+        WHERE NO_PO = '$no_po'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function update_status_penerimaan($id){
 
         $tgj = date('d-m-Y'); 

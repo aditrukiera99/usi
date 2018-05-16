@@ -349,7 +349,7 @@ input[type=checkbox]
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="subtotal_h">Rp</h3>
-							<input type="text" name="subtotal_txt" id="inp_sub_total">
+							<input type="hidden" name="subtotal_txt" id="inp_sub_total">
 							<input type="hidden" name="qty_total" id="inp_qty_total">
 						</div>
 					</div>

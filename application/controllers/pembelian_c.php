@@ -31,32 +31,12 @@ class Pembelian_c extends CI_Controller {
 
 			$msg = 1;
 
-			$no_lpbe      = $this->input->post('no_lpbe');
-			$supplier     = $this->input->post('pelanggan');
-			$id_supplier  = $this->input->post('pelanggan_sel');
-			$keterangan   = $this->input->post('memo_lunas');
-			$tgl_trx      = $this->input->post('tgl_trx');
 			$no_po        = $this->input->post('no_trx');
-			$id_gudang    = $this->input->post('id_gudang');
-			$nama_produk  = $this->input->post('nama_produk');
-			$produk       = $this->input->post('produk');
-			$qty          = $this->input->post('qty');
-			$harga_modal  = $this->input->post('harga_modal');
-			$total_id     = $this->input->post('total_id');
-
-
-
-			$this->model->simpan_pembelian($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang , $tgl_trx );
-
-			$id_penerimaan = $this->db->insert_id();
-
-			$this->model->simpan_detail_penerimaan($id_penerimaan, $produk, $nama_produk, $qty, $harga_modal, $total_id);
-
-			$this->model->update_status_penerimaan($no_po);
-
-			$this->model->update_status_gudang($id_gudang,$qty);
-
-			$this->model->update_status_po_tgl($no_po,$tgl_trx);
+			$no_invoice        = $this->input->post('no_invoice');
+			$tgl_trx        = $this->input->post('tgl_trx');
+			
+			
+			$this->model->update_status_po_invoice($no_po,$no_invoice,$tgl_trx);
 
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 
@@ -210,8 +190,8 @@ class Pembelian_c extends CI_Controller {
 		$get_broker = $this->model->get_broker();
 
 		$data =  array(
-			'page' => "input_lap_pembelian", 
-			'title' => "Buat Penerimaan Barang", 
+			'page' => "input_lap_pembelian_v", 
+			'title' => "Buat Pembelian", 
 			'msg' => "", 
 			'master' => "pembelian", 
 			'view' => "purchase_order", 
@@ -244,7 +224,7 @@ class Pembelian_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS is null AND $where  
+		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND NO_PO_INVOICE = '' AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();
