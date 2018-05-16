@@ -110,7 +110,11 @@
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 
-					
+					<div class="control-group" style="margin-left: 10px;">
+						<button style="margin-bottom: 15px;"  type="button" class="btn_from btn btn-default btn_from_selected">Kendaraan Laut</button>
+						<button style="margin-bottom: 15px;"  type="button" class="btn_from btn btn-default">Kendaraan Darat</button>
+						
+					</div>
 					<div class="control-group kendaraan-darat">
 						<label class="control-label"> No Polisi </label>
 						<div class="controls">
