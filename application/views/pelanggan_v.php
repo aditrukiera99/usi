@@ -289,7 +289,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label orang_show"> <b> Nama Customer </b> </label>
 						<label class="control-label usaha_show" style="display:none;"> <b> Nama Pemilik </b> </label>
 						<div class="controls">
-							<select class="span1" name="tipe_perusahaan">
+							<select class="span1 usaha_show" name="tipe_perusahaan">
 								<option>PT</option>
 								<?php foreach ($master_tipe as $key => $value_tipe) {
 									?>

@@ -167,6 +167,8 @@ input[type=checkbox]
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
 						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
@@ -838,6 +840,11 @@ function tambah_data() {
 						'<button style="width: 30%" onclick="show_pop_produk('+i+');" type="button" class="btn">Cari</button>'+
 					'</div>'+
 				'</div>'+
+			'</div>'+
+		'</td>'+
+		'<td align="center" style="vertical-align:middle;">'+
+			'<div class="controls">'+
+				'<input onkeyup="FormatCurrency(this); always_one('+i+');" onchange="" id="kode_sh_'+i+'" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="kode_sh[]">'+
 			'</div>'+
 		'</td>'+
 		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+

@@ -424,7 +424,7 @@ input[type=checkbox]
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
+				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Barais Data </button>
 
 			</div>
 		</div>
@@ -484,6 +484,54 @@ input[type=checkbox]
 							<input type="hidden" name="pajak_pbbkb_validasi" id="pajak_pbbkb_validasi">
 						</div>
 					</div>
+
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PPN :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_ppn"></h3>
+							<input type="checkbox" name="ppn" value="ada" style="display: none;">
+							<input type="text" name="pajak_ppn_validasi" id="pajak_ppn_validasi">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PPH 21 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_21"></h3>
+							<input type="checkbox" name="pph_21" value="ada" style="display: none;">
+							<input type="text" name="pajak_pph_21_validasi" id="pajak_pph_21_validasi">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PPH 15 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_15"></h3>
+							<input type="checkbox" name="pph_15" value="ada" style="display: none;">
+							<input type="text" name="pajak_pph_15_validasi" id="pajak_pph_15_validasi">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PPH 23 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_23"></h3>
+							<input type="checkbox" name="pph_23" value="ada" style="display: none;">
+							<input type="text" name="pajak_pph_23_validasi" id="pajak_pph_23_validasi">
+						</div>
+					</div> -->
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
@@ -985,7 +1033,7 @@ function tambah_data() {
 
 	$isi_1 = 
 	'<tr id="tr_'+i+'" class="tr_utama">'+
-		'<td>'+coa+'</td>'+
+		
 		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
 			'<div class="control-group">'+
 				'<div class="controls">'+
@@ -1000,14 +1048,14 @@ function tambah_data() {
 
 
 
-		'<td align="center" style="vertical-align:middle;"> '+
+		'<td align="center" class="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
 				'<input onkeyup="FormatCurrency(this); always_one('+i+'); hitung_total('+i+');hitung_total_semua();" onchange="" id="qty_'+i+'" style="font-size: 18px; text-align:center; width: 80%;" type="text"  +value="" name="qty[]">'+
 			'</div>'+
 		'</td>'+
 
 
-		'<td align="center" style="vertical-align:middle;"> '+
+		'<td align="center" class="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
 				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_'+i+'">'+
 				'<input type="hidden" id="total_id_'+i+'" name="total_id[]">'+
@@ -1050,6 +1098,10 @@ function get_pelanggan_det(id_pel){
 			$('#kota_tujuan').val(result.ALAMAT_KIRIM);
 			$('#pelanggan_sel').val(id_pel);
 			$('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
+			// $('#pajak_pbbkb_validasi').val(result.PPN);
+			// $('#pajak_pbbkb_validasi').val(result.PPH23);
+			// $('#pajak_pbbkb_validasi').val(result.PPH15);
+			// $('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
 			$('#supply_point_nama').val(result.NAMA_GUDANG);
 			$('#supply_pajak_nama').val(result.NAMA_BPPKB);
 			$('#pajak_nama').val(result.PAJAK);
