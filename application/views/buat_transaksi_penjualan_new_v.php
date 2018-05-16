@@ -485,7 +485,7 @@ input[type=checkbox]
 						</div>
 					</div>
 
-					<!-- <div class="row-fluid" style="margin-top: 10px;">
+					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
 							<h3> PPN :</h3> 
 						</div>
@@ -531,7 +531,7 @@ input[type=checkbox]
 							<input type="checkbox" name="pph_23" value="ada" style="display: none;">
 							<input type="text" name="pajak_pph_23_validasi" id="pajak_pph_23_validasi">
 						</div>
-					</div> -->
+					</div>
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
@@ -975,14 +975,26 @@ function disc_txt(disc){
 	var sub_total = $('#inp_sub_total').val();
 
 	var jml_pajak = $('#pajak_pbbkb_validasi').val();
+	var jml_pajak_ppn = $('#pajak_ppn_validasi').val();
+	var jml_pajak_pph_23 = $('#pajak_pph_23_validasi').val();
+	var jml_pajak_pph_15 = $('#pajak_pph_15_validasi').val();
+	var jml_pajak_pph_21 = $('#pajak_pph_21_validasi').val();
 
 	var total = parseFloat(disc/100) * parseFloat(sub_total);
 	
 	var total_pbbkb = (jml_pajak/100) * total ;
+	var total_ppn = (jml_pajak_ppn/100) * total ;
+	var total_pph_23 = (jml_pajak_pph_23/100) * total ;
+	var total_pph_15 = (jml_pajak_pph_15/100) * total ;
+	var total_pph_21 = (jml_pajak_pph_21/100) * total ;
 
-	var total_semua = sub_total - total - total_pbbkb;
+	var total_semua = sub_total + total;
 
 	$('#total_pbbkb').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
+	$('#total_ppn').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
+	$('#total_pph_23').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
+	$('#total_pph_15').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
+	$('#total_pph_21').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
 
 	$('#tot_disc').html('Rp. '+acc_format(total_semua, "").split('.00').join('') );
 
@@ -1098,10 +1110,10 @@ function get_pelanggan_det(id_pel){
 			$('#kota_tujuan').val(result.ALAMAT_KIRIM);
 			$('#pelanggan_sel').val(id_pel);
 			$('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
-			// $('#pajak_pbbkb_validasi').val(result.PPN);
-			// $('#pajak_pbbkb_validasi').val(result.PPH23);
-			// $('#pajak_pbbkb_validasi').val(result.PPH15);
-			// $('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
+			$('#pajak_ppn_validasi').val(result.PPN);
+			$('#pajak_pph_23_validasi').val(result.PPH23);
+			$('#pajak_pph_15_validasi').val(result.PPH15);
+			$('#pajak_pph_21_validasi').val(result.PPH_21);
 			$('#supply_point_nama').val(result.NAMA_GUDANG);
 			$('#supply_pajak_nama').val(result.NAMA_BPPKB);
 			$('#pajak_nama').val(result.PAJAK);
