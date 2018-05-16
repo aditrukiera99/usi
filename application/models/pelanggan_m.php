@@ -81,7 +81,7 @@ class Pelanggan_m extends CI_Model
     }
 
 
-    function simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah, $limit_beli,$ppn,$pph_23 ,$pph_15,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on){
+    function simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah, $limit_beli,$ppn,$pph_23 ,$pph_15,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$diskon_beli,$diskon_jual){
         $tgl = date('d-m-Y');
         $jam = date('H:i');
         $waktu = $tgl.", ".$jam;
@@ -113,9 +113,9 @@ class Pelanggan_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_pelanggan
-        (ID_KLIEN,KODE_PELANGGAN, NAMA_PELANGGAN, NPWP, ALAMAT_TAGIH, ALAMAT_KIRIM, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, WILAYAH, LIMIT_BIAYA,PPN,PPH23,PPH15,PAJAK_PBBKB,KODE_CUSTOMER,LOKASI,PPH_21,ID_SUPPLY_POINT,ID_PAJAK_PBBKB)
+        (ID_KLIEN,KODE_PELANGGAN, NAMA_PELANGGAN, NPWP, ALAMAT_TAGIH, ALAMAT_KIRIM, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, WILAYAH, LIMIT_BIAYA,PPN,PPH23,PPH15,PAJAK_PBBKB,KODE_CUSTOMER,LOKASI,PPH_21,ID_SUPPLY_POINT,ID_PAJAK_PBBKB,DISCOUNT_BELI,DISCOUNT_JUAL)
         VALUES 
-        ($id_klien,'$kode_pelanggan', '$nama_pelanggan', '$npwp', '$alamat_tagih', '$alamat_kirim', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$unit', '$wilayah','$limit_beli','$ppn','$pph_23' ,'$pph_15','$pajak_pbbkb','$kode_customer','$lokasi','$pph_21','$supply_point','$aksi_on')
+        ($id_klien,'$kode_pelanggan', '$nama_pelanggan', '$npwp', '$alamat_tagih', '$alamat_kirim', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$unit', '$wilayah','$limit_beli','$ppn','$pph_23' ,'$pph_15','$pajak_pbbkb','$kode_customer','$lokasi','$pph_21','$supply_point','$aksi_on','$diskon_beli','$diskon_jual')
         ";
 
         $this->db->query($sql);

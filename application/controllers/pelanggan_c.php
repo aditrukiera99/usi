@@ -54,6 +54,8 @@ class Pelanggan_c extends CI_Controller {
 			$lokasi   	     = addslashes($this->input->post('lokasi'));
 			$supply_point   	     = addslashes($this->input->post('supply_point'));
 			$aksi_on   	     = addslashes($this->input->post('aksi_on'));
+			$diskon_beli   	     = addslashes($this->input->post('diskon_beli'));
+			$diskon_jual   	     = addslashes($this->input->post('diskon_jual'));
 
 			if($tipe == "Perorangan"){
 				$nama_usaha = "";
@@ -61,7 +63,7 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on);
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$diskon_beli,$diskon_jual);
 
 			$broker_nama   = addslashes($this->input->post('broker_nama'));
 			$broker_alamat = addslashes($this->input->post('broker_alamat'));

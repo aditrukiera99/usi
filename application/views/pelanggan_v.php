@@ -258,7 +258,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					</div>
 
 					<div class="control-group usaha_show" style="display:none;">
-						<label class="control-label"> <b> Nama Pemilik </b> </label>
+						<label class="control-label"> <b> Nama Holding </b> </label>
 						<div class="controls">
 							<input type="text" placeholder="Nama Perusahaan / Badan Usaha" class="span12" value="" name="nama_usaha" autocomplete="off">
 						</div>
@@ -284,6 +284,23 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label"> <b>Kode SH</b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="" name="kode_pelanggan" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>Discount Beli</b> </label>
+						<div class="controls">
+							
+								<input type="text"  class="span12" value="" name="diskon_beli" autocomplete="off">
+								
+						
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>Diskon Jual</b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="diskon_jual" autocomplete="off">
 						</div>
 					</div>
 
