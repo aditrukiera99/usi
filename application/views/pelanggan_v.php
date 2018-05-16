@@ -396,7 +396,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b> Pajak PBBKB </b> </label>
 						<div class="controls">
-							<input type="text" class="span12" name="pajak_pbbkb" value="0" id="pajak_pbbkb_val">
+							<input type="text" class="span12" name="pajak_pbbkb" value="0" id="pajak_pbbkb_val" readonly>
 							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
