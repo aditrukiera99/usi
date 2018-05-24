@@ -131,7 +131,7 @@
 										</button>
 										<ul class="dropdown-menu" style="background-color:rgba(255, 255, 255, 1); min-width: 100px;">
 											<li>
-											<a onclick="ubah_data_produk(<?=$row->ID;?>);" href="javascript:;">Ubah</a>
+											<a href="<?php base_url();?>produk_c/ubah_produk/<?=$row->ID;?>">Ubah</a>
 											</li>
 											<li>
 											<a onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" href="javascript:;">Hapus</a>
@@ -229,12 +229,12 @@
 						</div>
 					</div>
 
-					<div class="control-group">
+					<!-- <div class="control-group">
 						<label class="control-label"> <b>Harga Beli</b> </label>
 						<div class="controls">
 							<input type="text" required onkeyup="FormatCurrency(this);" class="span12" value="0" name="harga_beli">
 						</div>
-					</div>
+					</div> -->
 
 					<div class="control-group" style="display: none;">
 						<label class="control-label"> <b>Harga Jual</b> </label>
@@ -656,7 +656,8 @@ function ubah_data_produk(id){
 	        //$("#kategori_ed").chosen("destroy");
 
 	        $('.view_data').hide();
-	        $('#edit_data').fadeIn('slow');
+	        $('#edit_data').show();
+	        // $('#edit_data').fadeIn('slow');
 		}
 	});
 }

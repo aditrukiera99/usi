@@ -13,7 +13,7 @@
 		<div class="primary-head">
 			<h3 class="page-header"> <i class="icon-bookmark"></i>  Kendaraan </h3>
 			<button type="button" class="btn btn-info view_data" onclick="tambah_klik();" style="float: right;"> 
-				<i class="icon-plus" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> TAMBAH KENDARAAN
+				<i class="icon-plus" style="color: #FFF; font-size: 16px; left: 0; position: relative; top: 2px;"></i> TAMBAH SERVICE KENDARAAN
 			</button>
 		</div>
 		<ul class="breadcrumb">
@@ -58,12 +58,8 @@
 						<tr>
 							<th align="center"> NO </th>
 							<th align="center"> No.Polisi </th>
-							<th align="center"> Merk </th>
-							<th align="center"> Tahun </th>
-							<th align="center"> No Rangka </th>							
-							<th align="center"> No Mesin </th>							
-							<th align="center"> Kapasitas </th>							
-							<th align="center"> Sopir </th>							
+							<th align="center"> Keterangan </th>
+							<th align="center"> Tanggal </th>						
 							<th align="center"> Aksi </th>
 						</tr>						
 					</thead>
@@ -75,16 +71,10 @@
 						?>
 						<tr>
 							<td align="center" style="text-align: center;"> <?=$no;?> </td>
-							<td> <?=$row->NOPOL;?> </td>
-							<td> <?=$row->MERK;?> </td>
-							<td> <?=$row->TAHUN;?> </td>
-							<td> <?=$row->NORANGKA;?> </td>
-							<td> <?=$row->NOMESIN;?> </td>
-							<td> <?=$row->KAPASITAS;?> </td>
-							<td> <?=$row->SOPIR;?> </td>
-							<td><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
-								Ubah 
-								</button>
+							<td> <?=$row->ID_KENDARAAN;?> </td>
+							<td> <?=$row->SERVICE;?> </td>
+							<td> <?=$row->TANGGAL;?> </td>
+							<td>
 								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
 								Hapus
 								</button>
@@ -105,97 +95,54 @@
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-head blue">
-				<h3> <i class="icon-plus"></i> Tambah Kendaraan </h3>
+				<h3> <i class="icon-plus"></i> Tambah Service Kendaraan </h3>
 			</div>
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 
-					<div class="control-group" style="margin-left: 10px;">
-						<button style="margin-bottom: 15px;" onclick="laut();" type="button" class="btn_from btn btn-default btn_from_selected">Kendaraan Laut</button>
-						<button style="margin-bottom: 15px;" onclick="darat();" type="button" class="btn_from btn btn-default">Kendaraan Darat</button>
-						
-					</div>
+
+					<?php 
+
+						$kendaraan = $this->db->query("SELECT * FROM ak_kendaraan")->result();
+
+					?>
+					
 					<div class="control-group kendaraan_darat">
 						<label class="control-label"> No Polisi </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" name="no_polisi" style="font-size: 14px;">
+							<select name="kendaraan_pol" class="span6">
+							<?php 
+
+								foreach ($kendaraan as $key => $value) {
+									?>
+										<option value="<?=$value->NOPOL?>"><?=$value->MERK?></option>
+									<?php
+								}
+
+
+							?>
+						</select>
 						</div>
 					</div>
 
 					<div class="control-group kendaraan_darat">
-						<label class="control-label"> Merk </label>
+						<label class="control-label"> Tanggal </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" name="merk" style="font-size: 14px;">
+							<input required type="date" class="span6" value="" name="tahun" style="font-size: 14px;">
 						</div>
 					</div>
 
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> Tahun </label>
+					<div class="control-group kendaraan_laut" >
+						<label class="control-label"> Keterangan </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" name="tahun" style="font-size: 14px;">
+							<textarea name="keterangan" class="span6" rows="5"></textarea>
 						</div>
 					</div>
 
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> No Rangka </label>
+					<div class="control-group kendaraan_laut" >
+						<label class="control-label"> Biaya </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" name="no_rangka" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> No Mesin </label>
-						<div class="controls">
-							<input required type="text" class="span6" value="" name="no_mesin" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> Kapasitas </label>
-						<div class="controls">
-							<input required type="text" class="span6" value="" name="kapasitas" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> Sopir </label>
-						<div class="controls">
-							<input required type="text" class="span6" value="" name="sopir" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> Tanggal Pajak </label>
-						<div class="controls">
-							<input type="date" class="span6" value="" name="tgl_pajak" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_darat">
-						<label class="control-label"> Besar Pajak </label>
-						<div class="controls">
-							<input type="text" class="span6" value="" name="besar_pajak" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_laut" style="display: none;">
-						<label class="control-label"> Nama Kapal </label>
-						<div class="controls">
-							<input type="text" class="span6" value="" name="merk_kapal" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_laut" style="display: none;">
-						<label class="control-label"> Kapasitas </label>
-						<div class="controls">
-							<input type="text" class="span6" value="" name="kapasitas_kapal" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group kendaraan_laut" style="display: none;">
-						<label class="control-label"> No Lambung </label>
-						<div class="controls">
-							<input type="text" class="span6" value="" name="no_polisi_kapal" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="biaya" style="font-size: 14px;">
 						</div>
 					</div>
 

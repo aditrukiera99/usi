@@ -100,7 +100,9 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 					<thead>
 						<tr>
 							<th align="center"> Aksi </th>
-							<th align="center"> Catak Losess </th>
+							<th align="center"> Cetak Losess </th>
+							<th align="center"> Cetak Bahan Bakar </th>
+							<th align="center"> Cetak Transport </th>
 							<th align="center"> No. Invoice </th>
 							<th align="center"> Tanggal </th>
 							<th align="center"> Customer </th>
@@ -129,8 +131,35 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								<td align="center">	
 									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 								</td>
+
+
+								<td align="center">	
+									<?php 
+
+									if($row->OAT){
+										?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_bbm/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+
+								<?php
+									}else{
+							     ?> 
+
+								<?php 	} ?>
+								</td>
+
+								<td align="center">	
+									<?php 
+
+										if($row->OAT){
+											?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_bbm/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+
+								<?php
+										}else{
+									?>
+									
+									<?php } ?>
+								</td>
 								
-								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NO_INV;?> /INV</td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NOMER_INV;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
 

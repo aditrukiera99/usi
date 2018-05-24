@@ -97,12 +97,12 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">No LPB</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NO_BUKTI;?>/SMD/<?php echo $var; ?>/<?php echo $tahun_kas; ?></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NOMER_LPB;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->SUPPLIER;?></td>
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: PO <?=$dt->NO_PO;?>/BRU/<?php echo $var; ?>/<?php echo $tahun_kas; ?></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: PO </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 	</table>
@@ -119,36 +119,66 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			<th style="width: 25%;padding: 5px 5px 5px 5px;text-align: center; ">KETERANGAN</th>
 			
 		</tr>
-	
-		<tr>
 			<?php 
-				if($dt->PBBKB == '0'){
-
-				}else{
-					?>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PBBKB</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PBBKB</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
-					<?php 
-				}
-				?>
-			</tr>
+				$id_lpb = $dt->ID;
+				$smd = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_penerimaan_barang pb WHERE pb.GUDANG = g.ID AND pb.ID = '$id_lpb'")->row();
+			?>
+		
 			
 				<?php
 			foreach ($dt_det as $key => $va) {
 				?>
 				<tr>
-					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;"><?=$va->QTY;?></td>
-					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;"><?=$va->ID_PRODUK;?> SMD</td>
-					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;text-align: center;">Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->KETERANGAN;?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($va->QTY,0);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?=$va->ID_PRODUK;?> <?=$smd->KODE_SUPPLY_POINT;?></td>
+					<td style="text-align:left;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"><?=$va->KETERANGAN;?></td>
 				</tr>
 				<?php
 			}
 			?>
+
+
+			<?php 
+				if($dt->PBBKB == '0'){
+
+				}else{
+					?>
+					<tr>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($va->QTY,0);?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PBBKB <?=$smd->KODE_SUPPLY_POINT;?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: left;">PBBKB</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
+					</tr>
+					<?php 
+				}
+				?>
+
+				<?php 
+				if($dt->PPH == '0'){
+
+				}else{
+					?>
+					<tr>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($va->QTY,0);?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PPh</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: left;">PPh</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
+					</tr>
+					<?php 
+				}
+				?>
+				<tr>
+					<td style="height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+					<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+					<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+					<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+					<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+				</tr>
+			
 
 			
 </table>

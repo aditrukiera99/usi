@@ -82,7 +82,7 @@
 						<tr>
 							<td align="center" <?PHP if($nama_supplier == $row->NAMA_SUPPLIER){ echo "style='background: #CDE69C;'"; } ?> > <?=$no;?> </td>
 							<td <?PHP if($nama_supplier == $row->NAMA_SUPPLIER){ echo "style='background: #CDE69C;'"; } ?> > 
-								<?=$row->NAMA_SUPPLIER;?> <?PHP if($row->TIPE == 'Perusahaan'){ echo " <br> (".$row->NAMA_USAHA.")"; } ?> 
+								<?=$row->NAMA_SUPPLIER;?> 
 							</td>
 							<td <?PHP if($nama_supplier == $row->NAMA_SUPPLIER){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->NPWP;?> </td>
 							<td <?PHP if($nama_supplier == $row->NAMA_SUPPLIER){ echo "style='background: #CDE69C;'"; } ?> > <?=$row->ALAMAT_TAGIH;?> </td>

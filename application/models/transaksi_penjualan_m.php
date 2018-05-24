@@ -397,7 +397,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_pelanggan_detail($id_pel){
         $sql = "
-        SELECT g.NAMA as NAMA_GUDANG , ms.NAMA_BPPKB , ms.PAJAK , p.* FROM ak_pelanggan p , ak_gudang g , ak_pajak_supply ms WHERE p.ID_SUPPLY_POINT = g.ID AND p.ID_PAJAK_PBBKB = ms.ID AND p.ID = $id_pel
+        SELECT g.NAMA as NAMA_GUDANG , g.ID as GUDANG_ID , ms.NAMA_BPPKB , ms.PAJAK , p.* , mh.HARGA_JUAL as HARGA_CUY , p.PPN as PPN_COY FROM ak_pelanggan p , ak_gudang g , ak_pajak_supply ms , ak_master_harga mh  WHERE p.ID_SUPPLY_POINT = g.ID AND p.ID_PAJAK_PBBKB = ms.ID AND p.KODE_PELANGGAN = mh.ID_PELANGGAN AND mh.status = '0' AND p.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -427,6 +427,14 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_produk_detail_mh($id_produk){
+        $sql = "
+        SELECT pr.NAMA_PRODUK , mh.HARGA_JUAL , mh.ID_PRODUK FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.ID = '$id_produk'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_pajak($id_klien){
         $sql = "
         SELECT * FROM ak_setup_pajak WHERE ID_KLIEN = $id_klien ORDER BY ID
@@ -443,7 +451,7 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan)
+    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so)
     {
 
         $sql = "
@@ -462,11 +470,11 @@ class Transaksi_penjualan_m extends CI_Model
             PPH,
             PBBKB,
             OAT,
-            PPN_OAT,
             STATUS_LPB,
             STATUS_DO,
             STATUS_PO,
-            PO_PELANGGAN
+            PO_PELANGGAN,
+            NOMER_SO
 
         )
         VALUES 
@@ -483,12 +491,12 @@ class Transaksi_penjualan_m extends CI_Model
            '$ppn', 
            '$nilai_pph', 
            '$nilai_pbbkb', 
-           '$nilai_qty_total', 
-           '$ppn_oat',
+           '$penampung_oat',
            '0',
            '0',
            '0',
-           '$no_po_pelanggan'
+           '$no_po_pelanggan',
+           '$nomer_so'
         )
         ";
 
@@ -826,13 +834,25 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function edit_status_invoice($no_invoice,$qty_diterima,$no_trx){
+    function edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real){
 
         // $loses = $qty - 3 - $qty_diterima;
        
         $sql = "
-        UPDATE ak_penjualan SET NO_INV = '$no_invoice' , QTY_DITERIMA = '$qty_diterima' , STATUS_INV = '1'
+        UPDATE ak_penjualan SET NO_INV = '$no_invoice' , QTY_DITERIMA = '$qty_diterima' , STATUS_INV = '1' , NOMER_INV = '$no_bukti_real'
         WHERE NO_BUKTI = '$no_trx'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function edit_status_do($no_do){
+
+        // $loses = $qty - 3 - $qty_diterima;
+       
+        $sql = "
+        UPDATE ak_delivery_order SET STATUS = '1'
+        WHERE NO_BUKTI = '$no_do'
         ";
 
         $this->db->query($sql);

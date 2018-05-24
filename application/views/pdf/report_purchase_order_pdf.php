@@ -97,11 +97,11 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Nomor</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NO_PO;?>/BRU/<?php echo $var; ?>/<?php echo $tahun_kas; ?></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NOMER_PO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
+			<td style="width: 20%;text-align:left;font-size: 15px;height: 40px;">Refrensi No</td>
 			<td style="width: 40%;text-align:left;font-size: 15px;">: SO <?=$dt_det->NO_SO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
@@ -110,20 +110,26 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			$data_pelanggan = $this->db->query("SELECT p.KODE_PELANGGAN , p.NAMA_PELANGGAN , p.ALAMAT_TAGIH FROM ak_pelanggan p, ak_penjualan ap WHERE  ap.ID_PELANGGAN = p.ID AND ap.NO_BUKTI = '$no_so_det' ")->row();
 
 		?>
+		
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Client</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$data_pelanggan->NAMA_PELANGGAN;?> </td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NAMA_CUSTOMER;?> </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">No SH</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$data_pelanggan->KODE_PELANGGAN;?> </td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->ID_CUSTOMER;?> </td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+		</tr>
+		<tr>
+			<td style="width: 20%;text-align:left;font-size: 15px;">No SP</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: 769314 </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Alamat</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$data_pelanggan->ALAMAT_TAGIH;?></td>
-			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <label><?=$dt->ALAMAT_CUSTOMER;?></label></td>
+			
 		</tr>
 	</table>
 </div>
@@ -139,40 +145,150 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			
 		</tr>
 	
-		<tr>
+		
+			
+				
+				<tr>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"><?=$dt_det->NAMA_PRODUK;?></td>
+					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"><?php echo number_format($dt_det->KUI);?> Ltr</td>
+
+					<?php 
+						
+						$kod = $dt->ID_CUSTOMER;
+						$pajak_pel = $this->db->query("SELECT * FROM ak_pelanggan WHERE KODE_PELANGGAN = '$kod' ")->row();
+
+						$harga_satuan = round($dt_det->HARGA_SATUAN / (1 + (10/100) + ($pajak_pel->PAJAK_PBBKB/100) + ($pajak_pel->PPH_21/100) + ($pajak_pel->PPH_23/100) + ($pajak_pel->PPH_22/100) + ($pajak_pel->PPH_15/100)  ),2);
+
+					?>
+
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($harga_satuan,2);?></td>
+
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt_det->KUI*$harga_satuan,2);?></td>
+				</tr>
+
+				
+
+			<tr> 
 			<?php 
 				if($dt->PBBKB == '0'){
-
+					
 				}else{
+					
+					$jumlah_pbbkb_satuan = number_format(($pajak_pel->PAJAK_PBBKB/100)*$harga_satuan,2);
+					$jumlah_pbbkb = $jumlah_pbbkb_satuan * $dt_det->KUI;
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">10%</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Rp.<?=number_format($dt->PBBKB, 2);?><</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Rp.<?=number_format($dt->PBBKB, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>  Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pbbkb_satuan, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pbbkb, 2);?></td>
 					<?php 
 				}
 				?>
 			</tr>
+
+			<tr>
+			<?php 
+				if($dt->PPH_21 == '0'){
+					
+				}else{
+					
+					$jumlah_pph_21_satuan = number_format(($pajak_pel->PPH_21/100)*$harga_satuan,2);
+					$jumlah_pph_21 = $jumlah_pph_21_satuan * $dt_det->KUI;
+					?>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 21</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>  Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_21_satuan, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_21, 2);?></td>
+					<?php 
+				}
+				?>
+			</tr>
+
+			<tr>
+			<?php 
+				if($dt->PPH_23 == '0'){
+
+				}else{
+
+					$jumlah_pph_23_satuan = number_format(($pajak_pel->PPH23/100) * $harga_satuan,2);
+					$jumlah_pph_23 = $jumlah_pph_23_satuan * $dt_det->KUI;
+					?>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 23</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>   Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($jumlah_pph_23_satuan, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_23, 2);?></td>
+					<?php 
+				}
+				?>
+			</tr>
+
+			<tr>
+			<?php 
+				if($dt->PPH_15 == '0'){
+
+				}else{
+
+					$jumlah_pph_15_satuan = number_format(($pajak_pel->PPH15/100) * $harga_satuan,2);
+					$jumlah_pph_15 = $jumlah_pph_15_satuan * $dt_det->KUI;
+					?>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 15</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>   Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($jumlah_pph_15_satuan, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_15, 2);?></td>
+					<?php 
+				}
+				?>
+			</tr>
+
+			<tr>
+			<?php 
+				if($dt->PPH_22 == '0'){
+
+				}else{
+
+					$jumlah_pph_22_satuan = number_format(($pajak_pel->PPH_22/100) * $harga_satuan,2);
+					$jumlah_pph_22 = $jumlah_pph_22_satuan * $dt_det->KUI;
+					?>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 22</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>   Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($jumlah_pph_22_satuan, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_22, 2);?></td>
+					<?php 
+				}
+				?>
+			</tr>
+
 			
-				
-				<tr>
-					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$dt_det->NAMA_PRODUK;?></td>
-					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$dt_det->KUI;?> Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($dt_det->HARGA_SATUAN, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?php $titi = $dt_det->KUI * $dt_det->HARGA_SATUAN; echo number_format($titi, 2);?></td>
-				</tr>
+			<tr>
+				<td style="height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+			</tr>
 				
 
 		<tr>
 			<td></td>
 			<td style="border-right: 1px solid black;"></td>
 			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($titi + $dt->PBBKB, 2);?><br>Rp.<?php $ppn = 0.1 * $titi; echo number_format($ppn, 2);?><br><?php $totali = 0; $totali = $titi + $ppn + $dt->PBBKB ; echo 'Rp.'.number_format($totali, 2); ?></td>
+			<td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format(($dt_det->KUI*$harga_satuan) + $jumlah_pbbkb + $jumlah_pph_21 + $jumlah_pph_23 + $jumlah_pph_22 + $jumlah_pph_15, 2);?><br>
+				<?php
+					if($dt->PPN == '0'){
+						$jl_ppn = 0;
+					}else{
+						$jl_ppn = (10/100) * ($dt_det->KUI*$harga_satuan);
+					}
+				 ?>
+
+				<?php echo number_format($jl_ppn, 2);?>
+				<br><?php $totali = 0; $totali = ($dt_det->KUI*$harga_satuan) + $jumlah_pbbkb + $jumlah_pph_21 + $jl_ppn + $jumlah_pph_23 + $jumlah_pph_22 + $jumlah_pph_15 ; echo number_format($totali, 2); ?></td>
 		</tr>
 </table>
+<br>
+<br>
 <table style="width: 55%;">
 	<tr>
-		<td style="width: 45%;text-align: center;height: 50px;">Hormat Kami</td>
+		<td style="width: 45%;text-align: center;height: 80px;">Hormat Kami</td>
 		<td style="width: 45%;text-align: center;">Mengetahui</td>
 	</tr>
 	<tr>

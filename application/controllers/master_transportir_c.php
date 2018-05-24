@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Kendaraan_c extends CI_Controller {
+class Master_transportir_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -10,7 +10,7 @@ class Kendaraan_c extends CI_Controller {
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
-	    $this->load->model('kendaraan_m','model');
+	    $this->load->model('master_transportir_m','model');
 	}
 
 	function index()
@@ -30,17 +30,10 @@ class Kendaraan_c extends CI_Controller {
 				$msg = 1;
 			}
 			
-			$no_polisi         = addslashes($this->input->post('no_polisi'));
-			$merk    = addslashes($this->input->post('merk'));
-			$tahun    = addslashes($this->input->post('tahun'));
-			$no_rangka    = addslashes($this->input->post('no_rangka'));
-			$no_mesin    = addslashes($this->input->post('no_mesin'));
-			$kapasitas    = addslashes($this->input->post('kapasitas'));
-			$sopir    = addslashes($this->input->post('sopir'));
-			$tgl_pajak    = addslashes($this->input->post('tgl_pajak'));
-			$besar_pajak    = addslashes($this->input->post('besar_pajak'));
+			$nama_master_transportir  = addslashes($this->input->post('nama_master_transportir'));
+			$alamat_master_transportir  = addslashes($this->input->post('alamat_master_transportir'));
 
-			$this->model->simpan_kendaraan($no_polisi,$merk,$tahun,$no_rangka,$no_mesin,$kapasitas,$sopir,$tgl_pajak,$besar_pajak);
+			$this->model->simpan_master_transportir($nama_master_transportir,$alamat_master_transportir);
 
 
 		} else if($this->input->post('id_hapus')){
@@ -62,37 +55,27 @@ class Kendaraan_c extends CI_Controller {
 			} else {
 				$msg = 1;
 			}			
-
-
-			$id_grup   = $this->input->post('id');
-
 		
-			$id_gr         = addslashes($this->input->post('id_gr'));
-			$no_polisi         = addslashes($this->input->post('no_polisi'));
-			$merk    = addslashes($this->input->post('merk'));
-			$tahun    = addslashes($this->input->post('tahun'));
-			$no_rangka    = addslashes($this->input->post('no_rangka'));
-			$no_mesin    = addslashes($this->input->post('no_mesin'));
-			$kapasitas    = addslashes($this->input->post('kapasitas'));
-			$sopir    = addslashes($this->input->post('sopir'));
+			$id_gr          = addslashes($this->input->post('id_gr'));
+			$nama_master_transportir_ed = addslashes($this->input->post('nama_transportir_ed'));
+			$alamat_master_transportir_ed = addslashes($this->input->post('alamat_transportir_ed'));
 
-			$this->model->edit_kendaraan($id_gr,$no_polisi,$merk,$tahun,$no_rangka,$no_mesin,$kapasitas,$sopir);
+			$this->model->edit_master_transportir($id_gr,$nama_master_transportir_ed,$alamat_master_transportir_ed);
 
 			
 		}
 
-		$dt = $this->model->get_data_kendaraan();
+		$dt = $this->model->get_data_transportir();
 
 		$data =  array(
-			'page' => "kendaraan_v", 
-			'title' => "Master Kendaraan", 
+			'page' => "master_transportir_v", 
+			'title' => "master_transportir", 
 			'msg' => "", 
 			'master' => "master_data", 
-			'view' => "kendaraan", 
+			'view' => "master_transportir", 
 			'dt' => $dt, 
 			'msg' => $msg, 
-			'kode_produk' => $kode_produk, 
-			'post_url' => 'kendaraan_c', 
+			'post_url' => 'master_transportir_c', 
 			'user' => $user,
 		);
 		

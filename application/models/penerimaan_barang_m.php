@@ -7,7 +7,7 @@ class Penerimaan_barang_m extends CI_Model
           $this->load->database();
     }
 
-    function simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang ,$tgl_trx)
+    function simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang ,$tgl_trx , $nomer_lpb)
     {
 
         $sql = "
@@ -21,7 +21,8 @@ class Penerimaan_barang_m extends CI_Model
             PBBKB,
             STATUS,
             GUDANG,
-            TGL_TRX
+            TGL_TRX,
+            NOMER_LPB
 
         )
         VALUES 
@@ -34,7 +35,8 @@ class Penerimaan_barang_m extends CI_Model
            '$nilai_pbbkb', 
            '0',
            '$id_gudang',
-           '$tgl_trx'
+           '$tgl_trx',
+           '$nomer_lpb'
         )
         ";
 
@@ -301,6 +303,14 @@ class Penerimaan_barang_m extends CI_Model
     function get_no_trx_penjualan($id_klien){
         $sql = "
         SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Pembelian'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_no_lpb($id_klien){
+        $sql = "
+        SELECT * FROM ak_nomor WHERE ID_KLIEN = $id_klien AND TIPE = 'Penerimaan_barang'
         ";
 
         return $this->db->query($sql)->row();

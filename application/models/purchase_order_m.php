@@ -7,7 +7,7 @@ class Purchase_order_m extends CI_Model
           $this->load->database();
     }
 
-    function simpan_pembelian_po($no_po,$kode_sh, $id_supplier, $supplier, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_so, $sp, $jatuh_tempo,$pajak_supply)
+    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22)
     {
 
         $sql = "
@@ -22,33 +22,50 @@ class Purchase_order_m extends CI_Model
             MEMO,
             UNIT,
             PPN,
-            PPH,
+            PPH_23,
+            PPH_21,
+            PPH_15,
             PBBKB,
             NO_SO,
             SUPPLY_POINT,
             TGL_JATUH_TEMPO,
             KODE_SH,
-            PAJAK_SUPPLY
+            PAJAK_SUPPLY,
+            ID_CUSTOMER,
+            NAMA_CUSTOMER,
+            ALAMAT_CUSTOMER,
+            TOTAL,
+            NOMER_PO,
+            PPH_22
 
         )
         VALUES 
         (
            '13', 
-           '$no_po', 
-           '$id_supplier', 
-           '$supplier', 
+           '$no_trx', 
+           '$id_pelanggan', 
+           '$pelanggan', 
            '$tgl_trx', 
            '$sub_total', 
            '$keterangan',
            '13',
-           '$ppn', 
-           '$nilai_pph', 
-           '$nilai_pbbkb', 
+           '$penampung_ppn', 
+           '$penampung_pph_23', 
+           '$penampung_pph_21', 
+           '$penampung_pph_15', 
+           '$penampung_pbbkb', 
            '$no_so',
            '$sp',
            '$jatuh_tempo',
-           '$kode_sh',
-           '$pajak_supply'
+           '$kode_sh_cust',
+           '$pajak_supply',
+           '$kode_sh_cust',
+           '$pelanggan_cust',
+           '$alamat_tagih_cust',
+           '$total_hasil_pajak',
+           '$no_bukti_real',
+           '$penampung_pph_22'
+           
         )
         ";
 
@@ -127,6 +144,14 @@ class Purchase_order_m extends CI_Model
         $sql = "
         SELECT * FROM ak_pembelian
         WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_supplier_detail($id_pel){
+        $sql = "
+        SELECT mh.HARGA_BELI as HARGA_CUY , p.* FROM ak_pelanggan p , ak_master_harga mh WHERE p.KODE_PELANGGAN = mh.ID_PELANGGAN AND p.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();

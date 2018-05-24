@@ -31,6 +31,36 @@ class Delivery_order_new_c extends CI_Controller {
 
 			$msg = 1;
 
+			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
+
+				if($bulan_kas == "01"){
+			    $var = "I";
+			   } else if($bulan_kas == "02"){
+			    $var = "II";
+			   } else if($bulan_kas == "03"){
+			    $var = "III";
+			   } else if($bulan_kas == "04"){
+			    $var = "IV";
+			   } else if($bulan_kas == "05"){
+			    $var = "V";
+			   } else if($bulan_kas == "06"){
+			    $var = "VI";
+			   } else if($bulan_kas == "07"){
+			    $var = "VII";
+			   } else if($bulan_kas == "08"){
+			    $var = "VIII";
+			   } else if($bulan_kas == "09"){
+			    $var = "IX";
+			   } else if($bulan_kas == "10"){
+			    $var = "X";
+			   } else if($bulan_kas == "11"){
+			    $var = "XI";
+			   } else if($bulan_kas == "12"){
+			    $var = "XII";
+			   }
+
+			   $tahun_kas = date("y",strtotime($this->input->post('tgl_trx')));
+
 			$no_deo         = $this->input->post('no_do');
 			$no_trx 	    = $this->input->post('no_trx');
 			$id_pelanggan   = $this->input->post('pelanggan_sel');
@@ -51,7 +81,11 @@ class Delivery_order_new_c extends CI_Controller {
 			$harga_modal 	= $this->input->post('harga_modal');
 			$operator       = $user->NAMA;
 
-			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0]);
+			$pjk = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND p.NO_BUKTI = '$no_trx' ")->row();
+
+			$no_bukti_real = $no_deo."/".$pjk->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
+
+			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0],$no_bukti_real);
 
 			$this->model->update_status_so($no_trx);
 

@@ -31,57 +31,61 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			$msg = 1;
 
+			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
+
+				if($bulan_kas == "01"){
+			    $var = "I";
+			   } else if($bulan_kas == "02"){
+			    $var = "II";
+			   } else if($bulan_kas == "03"){
+			    $var = "III";
+			   } else if($bulan_kas == "04"){
+			    $var = "IV";
+			   } else if($bulan_kas == "05"){
+			    $var = "V";
+			   } else if($bulan_kas == "06"){
+			    $var = "VI";
+			   } else if($bulan_kas == "07"){
+			    $var = "VII";
+			   } else if($bulan_kas == "08"){
+			    $var = "VIII";
+			   } else if($bulan_kas == "09"){
+			    $var = "IX";
+			   } else if($bulan_kas == "10"){
+			    $var = "X";
+			   } else if($bulan_kas == "11"){
+			    $var = "XI";
+			   } else if($bulan_kas == "12"){
+			    $var = "XII";
+			   }
+
+			   $tahun_kas = date("y",strtotime($this->input->post('tgl_trx')));
+
 			$id 	       = $this->input->post('id_pp');
 			$no_trx 	   = $this->input->post('no_trx');
 			$no_trx2       = $this->input->post('no_trx2');
 			$id_pelanggan  = $this->input->post('pelanggan_sel');
 			$pelanggan     = $this->input->post('pelanggan');
-			// $id_supplier   = $this->input->post('supplier_sel');
-			// $supplier      = $this->input->post('supplier');
+			
 			$alamat_tagih  = $this->input->post('alamat_tagih');
 			$no_po_pelanggan  = $this->input->post('no_po_pelanggan');
-			// $kota_tujuan   = $this->input->post('kota_tujuan');
-			// $no_po          = $this->input->post('no_po');
-			// $no_lpbe        = $this->input->post('no_lpbe');
-			// $no_deo         = $this->input->post('no_do');
-			// $no_inv         = $this->input->post('no_inv');
-			// $no_sj          = $this->input->post('no_sj');
+			
 			$tgl_trx 	    = $this->input->post('tgl_trx');
 			$keterangan     = $this->input->post('memo_lunas');
 			$sub_total      = $this->input->post('sub_total');
 			$pbbkb      	= $this->input->post('pbbkb');
 			$oat      		= $this->input->post('oat');
 			$qty_total      = $this->input->post('qty_total');
-			$ppn 			= 0.1 * $sub_total;
+			$penampung_oat  = $this->input->post('penampung_oat');
+			$pajak_id  		= $this->input->post('pajak_id');
 
-			$nilai_pbbkb = 0;
-			$nilai_qty_total = 0;
-			$ppn_oat = 0 ;
-			$nilai_pph = 0;
-			if ($pbbkb == 'ada') {
-			 	$nilai_pbbkb = 0.05 * $sub_total;
-			 	$nilai_pph = 0.003 * $sub_total;
-			 }
+			$ppn 			= $this->input->post('penampung_ppn');
 
-			if ($oat == 'ada') {
-			 	$nilai_qty_total = 100 * $qty_total;
-			 	$ppn_oat = 0.1 * $nilai_qty_total;
-			} 
 			
-			// $dikirim        = $this->input->post('dikirim');
-			// $segel_atas 	= $this->input->post('segel_atas');
-			// $meter_atas   	= $this->input->post('meter_atas');
-			// $no_pol    		= $this->input->post('no_pol');
-			// $segel_bawah    = $this->input->post('segel_bawah');
-			// $meter_bawah    = $this->input->post('meter_bawah');
-			// $nama_kapal     = $this->input->post('nama_kapal');
-			// $temperatur     = $this->input->post('temperatur');
-			// $sg_meter   	= $this->input->post('sg_meter');
+			$kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
 
-			// $tgl_do        = $this->input->post('tgl_trx');
-			// $tgl_sj        = $this->input->post('tgl_trx');
-			// $tgl_inv       = $this->input->post('tgl_trx');
-			// $tgl_kwi       = $this->input->post('tgl_trx');	
+			$no_bukti_real = $no_trx."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
+
 			$operator      = $user->NAMA;
 
 			$id_produk 	    = $this->input->post('produk');
@@ -89,9 +93,10 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$nama_produk 	= $this->input->post('nama_produk');
 			$qty 	        = $this->input->post('qty');
 			$harga_modal 	= $this->input->post('harga_modal');
+			$harga_beli 	= $this->input->post('harga_beli');
 			$total_id 		= $this->input->post('total_id');
 
-			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan);
+			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real);
 
 			$id_penjualan = $this->db->insert_id(); 
 
@@ -118,7 +123,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 
 			foreach ($id_produk as $key => $val) {
-				$this->model->simpan_detail_penjualan($id_penjualan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);	
+				$this->model->simpan_detail_penjualan($id_penjualan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key],$harga_beli[$key]);	
 				// $this->model->simpan_detail_pembelian($id_pembelian, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);
 				// $this->model->simpan_detail_penerimaan($id_penerimaan, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $total_id[$key]);	
 				// $this->model->update_stok($id_klien, $id_produk[$key], $qty[$key]);
@@ -131,12 +136,57 @@ class Transaksi_penjualan_c extends CI_Controller {
 		if($this->input->post('edit_inv')){
 			$msg = 1;
 
+			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
+
+				if($bulan_kas == "01"){
+			    $var = "I";
+			   } else if($bulan_kas == "02"){
+			    $var = "II";
+			   } else if($bulan_kas == "03"){
+			    $var = "III";
+			   } else if($bulan_kas == "04"){
+			    $var = "IV";
+			   } else if($bulan_kas == "05"){
+			    $var = "V";
+			   } else if($bulan_kas == "06"){
+			    $var = "VI";
+			   } else if($bulan_kas == "07"){
+			    $var = "VII";
+			   } else if($bulan_kas == "08"){
+			    $var = "VIII";
+			   } else if($bulan_kas == "09"){
+			    $var = "IX";
+			   } else if($bulan_kas == "10"){
+			    $var = "X";
+			   } else if($bulan_kas == "11"){
+			    $var = "XI";
+			   } else if($bulan_kas == "12"){
+			    $var = "XII";
+			   }
+
+			$tahun_kas = date("y",strtotime($this->input->post('tgl_trx')));
+
+
+
 			$no_invoice    = $this->input->post('no_invoice');
 			$qty_diterima  = $this->input->post('qty_diterima');
 			$no_trx        = $this->input->post('no_solo');
+			$invoice        = $this->input->post('no_invoice');
+			$no_do        = $this->input->post('no_trx');
+
+			$kode_gudang = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND p.NO_BUKTI = '$no_trx' ")->row();
+
+			$no_bukti_real = $invoice."/".$kode_gudang->KODE_SUPPLY_POINT."/INV/".$var."/".$tahun_kas;
 			// $qty           = $this->input->post('qty');
 
-			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx);
+			// $kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
+
+			// $no_bukti_real = $no_trx."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
+
+
+			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real);
+			$this->model->edit_status_do($no_do);
+			$this->model->save_next_nomor('13', 'Invoice', $invoice);
 
 
 		}
@@ -273,6 +323,58 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 		$data =  array(
 			'page' => "buat_transaksi_penjualan_new_v", 
+			'title' => "Buat Penjualan Baru", 
+			'msg' => "", 
+			'master' => "penjualan", 
+			'view' => "transaksi_penjualan", 
+			'msg' => $msg, 
+			'dt_supplier' => $dt_supplier, 
+			'list_akun' => $list_akun, 
+			'get_list_akun_all' => $get_list_akun_all, 
+			'get_all_produk' => $get_all_produk, 
+			'get_pel_sup' => $get_pel_sup, 
+			'get_pajak' => $get_pajak, 
+			'no_trx' => $no_trx, 
+			'no_pem' => $no_pem, 
+			'no_lpb' => $no_lpb,
+			'no_do' => $no_do,
+			'inv' => $inv,
+			'sj' => $sj,
+			'supply' => $supply,
+			'get_broker' => $get_broker, 
+			'post_url' => 'transaksi_penjualan_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function new_invoice_trans(){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		$list_akun = $this->model->get_list_akun($id_klien);
+		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
+		$get_all_produk    = $this->model->get_all_produk($id_klien);
+		$get_pel_sup = $this->model->get_pel_sup($id_klien);
+		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		$no_pem= $this->model->get_no_trx_pembelian($id_klien);
+		$no_lpb= $this->model->get_no_trx_lpb($id_klien);
+		$no_do = $this->model->get_no_trx_do($id_klien);
+		$inv = $this->model->get_no_trx_inv($id_klien);
+		$sj = $this->model->get_no_trx_sj($id_klien);
+		$get_broker = $this->model->get_broker();
+		$dt_supplier = $this->model->get_supplier();
+		$supply = $this->model->supply();
+
+		$data =  array(
+			'page' => "buat_transaksi_penjualan_new_trans_v", 
 			'title' => "Buat Penjualan Baru", 
 			'msg' => "", 
 			'master' => "penjualan", 
@@ -672,6 +774,36 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$this->load->view('pdf/cetak_loses_pdf', $data);
 	}
 
+	function cetak_bbm($id=""){
+
+		$dt = $this->model->get_data_trx_loses($id);
+		$dt_deti = $this->model->get_data_trx_detail_loses($id);
+
+		$data =  array(
+			'page' => "transaksi_penjualan_c", 
+			'dt' => $dt,
+			'dt_deti' => $dt_deti,
+			'dt_detil' => $dt_detil,
+		);
+		
+		$this->load->view('pdf/cetak_bbm_pdf', $data);
+	}
+
+	function cetak_transport($id=""){
+
+		$dt = $this->model->get_data_trx_loses($id);
+		$dt_deti = $this->model->get_data_trx_detail_loses($id);
+
+		$data =  array(
+			'page' => "transaksi_penjualan_c", 
+			'dt' => $dt,
+			'dt_deti' => $dt_deti,
+			'dt_detil' => $dt_detil,
+		);
+		
+		$this->load->view('pdf/cetak_transport_pdf', $data);
+	}
+
 	function cetak_do($id=""){
 
 
@@ -730,6 +862,13 @@ class Transaksi_penjualan_c extends CI_Controller {
 	function get_produk_detail(){
 		$id_produk = $this->input->get('id_produk');
 		$dt = $this->model->get_produk_detail($id_produk);
+
+		echo json_encode($dt);
+	}
+
+	function get_produk_detail_mh(){
+		$id_produk = $this->input->get('id_produk');
+		$dt = $this->model->get_produk_detail_mh($id_produk);
 
 		echo json_encode($dt);
 	}
@@ -829,13 +968,13 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$where = "1=1";
 
 		$keyword = $this->input->post('keyword');
+		$kode_pelanggan = $this->input->post('kode_pelanggan');
 		if($keyword != "" || $keyword != null){
 			$where = $where." AND (KODE_PRODUK LIKE '%$keyword%' OR NAMA_PRODUK LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_produk WHERE ID_KLIEN = $id_klien AND $where AND $where_unit AND APPROVE = 3
-		LIMIT 10
+		SELECT mh.HARGA_BELI , p.NAMA_PRODUK , p.KODE_PRODUK , mh.ID FROM ak_produk p , ak_master_harga mh WHERE  mh.ID_PRODUK = p.ID AND mh.ID_PELANGGAN = '$kode_pelanggan' AND mh.STATUS = '0'
 		";
 
 		$dt = $this->db->query($sql)->result();

@@ -1,15 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Kendaraan_m extends CI_Model
+class Service_kendaraan_m extends CI_Model
 {
 	function __construct() {
 		  parent::__construct();
 		  $this->load->database();
 	}
 
-    function get_data_kendaraan(){
+    function get_data_service_kendaraan(){
         $sql = "
-        SELECT * FROM ak_kendaraan
+        SELECT * FROM ak_service_kendaraan
         ORDER BY ID DESC
         ";
 
@@ -32,14 +32,14 @@ class Kendaraan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_kendaraan($no_polisi, $merk, $tahun, $no_rangka, $no_mesin, $kapasitas, $sopir,$tgl_pajak,$besar_pajak){
+    function simpan_service_kendaraan($kendaraan_pol, $tahun, $keterangan, $biaya){
        
 
         $sql = "
-        INSERT INTO ak_kendaraan
-        (NOPOL,MERK ,TAHUN ,NORANGKA ,NOMESIN , KAPASITAS,SOPIR,TANGGAL_PAJAK,BESAR_PAJAK)
+        INSERT INTO ak_service_kendaraan
+        (ID_KENDARAAN,TANGGAL ,SERVICE ,BIAYA )
         VALUES 
-        ('$no_polisi', '$merk', '$tahun', '$no_rangka', '$no_mesin', '$kapasitas', '$sopir','$tgl_pajak','$besar_pajak')
+        ('$kendaraan_pol', '$tahun', '$keterangan', '$biaya')
         ";
 
         $this->db->query($sql);

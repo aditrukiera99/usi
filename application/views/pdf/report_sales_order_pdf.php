@@ -69,10 +69,10 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 ?>
 
 <br>
-<table align="center">
+<table style="width: 100%;">
     <tr>
-        <td align="center">
-            <h3 style="font-weight: bold;">
+        <td style="text-align: center;width: 100%;">
+            <h3 style="font-weight: bold;text-align: center;">
                 SALES ORDER (SO)
             </h3>
         </td>
@@ -80,15 +80,13 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
     </tr>
     <tr>
     	<td align="left">
-        	<h3 style="font-weight: bold;">
+        	<h3 style="font-weight: bold;text-align: left;">
                 PT. UNITED SHIPPING INDONESIA
             </h3>
         </td>
     </tr>
 </table>
-<br>
-<br>
-<div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
+<div style="width: 100%;padding-bottom: 10px;padding-left:5px;">
 	<table style="width: 100%;">
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Tanggal</td>
@@ -97,8 +95,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Nomor SO</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NO_BUKTI;?>/BRU/<?php echo $var; ?>/<?php echo $tahun_kas; ?></td>
-			<td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NOMER_SO;?></td>
+			<td  style="width:40%;text-align:left;font-size: 15px;" rowspan="2"><?=$dt->PELANGGAN;?><br><?=$dt->ALAMAT;?></td>
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
@@ -107,32 +105,20 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		</tr>
 	</table>
 </div>
-<br>
 <div>
 <table style="border-collapse: collapse;border:1px solid black;">
 	
 		<tr>
-			<th style="width: 40%;padding: 5px 5px 5px 5px;text-align: center; ">KETERANGAN</th>
+			<th style="width: 40%;padding: 5px 5px 5px 5px;text-align: center; ">Keterangan</th>
 			<th style="width: 15%;padding: 5px 5px 5px 5px;text-align: center; ">QTY</th>
-			<th style="width: 20%;padding: 5px 5px 5px 5px;text-align: center; ">HARGA (Rp.)</th>
-			<th style="width: 25%;padding: 5px 5px 5px 5px;text-align: center; ">JUMLAH</th>
+			<th style="width: 20%;padding: 5px 5px 5px 5px;text-align: center; ">Harga (Rp.)</th>
+			<th style="width: 25%;padding: 5px 5px 5px 5px;text-align: center; ">Jumlah (Rp.)</th>
 			
 		</tr>
 	
-		<tr>
-			<?php 
-				if($dt->PBBKB == '0'){
+		
 
-				}else{
-					?>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">10%</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Rp.<?=number_format($dt->PBBKB, 2);?><</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Rp.<?=number_format($dt->PBBKB, 2);?></td>
-					<?php 
-				}
-				?>
-			</tr>
+			
 			
 				<?php
 				$tutik = 0;
@@ -140,22 +126,45 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 				
 				?>
 				<tr>
-					<td style="padding: 5px;height: 150px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
-					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"><?=$va->QTY;?> Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->HARGA_SATUAN, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">Rp.<?=number_format($va->TOTAL, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"><?=$va->NAMA_PRODUK;?></td>
+					<td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;"><?php echo number_format($va->QTY,2);?> Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($va->TOTAL / $va->QTY, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($va->TOTAL, 2);?></td>
 				</tr>
 				<?php
 				
 			}
 			?>
+			
+			<?php 
+				if($dt->OAT == '0' || $dt->OAT == ''){
+
+				}else{
+					$oati_sat = $dt->OAT / $va->QTY;
+					?>
+					<tr>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">Transportasi FEE</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($va->QTY,2);?> Ltr</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($oati_sat, 2);?><</td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->OAT, 2);?></td>
+					</tr>
+					<?php 
+				}
+				?>
+			
+			<tr>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;height: 150px;"></td>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+				<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;"></td>
+			</tr>
 
 		<tr>
 			<td></td>
 			
 			<td style="border-right: 1px solid black;"></td>
-			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPNM<br>Total</td>
-			<td style="border:1px solid black;padding: 5px;">Rp.<?=number_format($tutik, 2);?><br>Rp.<?=number_format($dt->PPN, 2);?><br><?php $totali = 0; $totali =$dt->SUB_TOTAL - $dt->PPN; echo 'Rp.'.number_format($totali, 2); ?></td>
+			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
+			<td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($dt->SUB_TOTAL + $oati, 2);?><br><?=number_format($dt->PPN, 2);?><br><?php $totali = 0; $totali =$dt->SUB_TOTAL + $dt->PPN + $dt->OAT; echo number_format($totali, 2); ?></td>
 		</tr>
 </table>
 <table style="width: 55%;">

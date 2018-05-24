@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Kendaraan_c extends CI_Controller {
+class Service_kendaraan_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -10,7 +10,7 @@ class Kendaraan_c extends CI_Controller {
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
-	    $this->load->model('kendaraan_m','model');
+	    $this->load->model('service_kendaraan_m','model');
 	}
 
 	function index()
@@ -30,17 +30,12 @@ class Kendaraan_c extends CI_Controller {
 				$msg = 1;
 			}
 			
-			$no_polisi         = addslashes($this->input->post('no_polisi'));
-			$merk    = addslashes($this->input->post('merk'));
-			$tahun    = addslashes($this->input->post('tahun'));
-			$no_rangka    = addslashes($this->input->post('no_rangka'));
-			$no_mesin    = addslashes($this->input->post('no_mesin'));
-			$kapasitas    = addslashes($this->input->post('kapasitas'));
-			$sopir    = addslashes($this->input->post('sopir'));
-			$tgl_pajak    = addslashes($this->input->post('tgl_pajak'));
-			$besar_pajak    = addslashes($this->input->post('besar_pajak'));
+			$kendaraan_pol          = addslashes($this->input->post('kendaraan_pol'));
+			$tahun    				= addslashes($this->input->post('tahun'));
+			$keterangan   			= addslashes($this->input->post('keterangan'));
+			$biaya   				= addslashes($this->input->post('biaya'));
 
-			$this->model->simpan_kendaraan($no_polisi,$merk,$tahun,$no_rangka,$no_mesin,$kapasitas,$sopir,$tgl_pajak,$besar_pajak);
+			$this->model->simpan_service_kendaraan($kendaraan_pol,$tahun,$keterangan,$biaya);
 
 
 		} else if($this->input->post('id_hapus')){
@@ -81,18 +76,18 @@ class Kendaraan_c extends CI_Controller {
 			
 		}
 
-		$dt = $this->model->get_data_kendaraan();
+		$dt = $this->model->get_data_service_kendaraan();
 
 		$data =  array(
-			'page' => "kendaraan_v", 
-			'title' => "Master Kendaraan", 
+			'page' => "service_kendaraan_v", 
+			'title' => "Service Kendaraan", 
 			'msg' => "", 
-			'master' => "master_data", 
-			'view' => "kendaraan", 
+			'master' => "logistik", 
+			'view' => "service_kendaraan", 
 			'dt' => $dt, 
 			'msg' => $msg, 
 			'kode_produk' => $kode_produk, 
-			'post_url' => 'kendaraan_c', 
+			'post_url' => 'service_kendaraan_c', 
 			'user' => $user,
 		);
 		

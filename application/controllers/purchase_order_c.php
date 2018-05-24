@@ -31,9 +31,41 @@ class Purchase_order_c extends CI_Controller {
 
 			$msg = 1;
 
+			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
+
+				if($bulan_kas == "01"){
+			    $var = "I";
+			   } else if($bulan_kas == "02"){
+			    $var = "II";
+			   } else if($bulan_kas == "03"){
+			    $var = "III";
+			   } else if($bulan_kas == "04"){
+			    $var = "IV";
+			   } else if($bulan_kas == "05"){
+			    $var = "V";
+			   } else if($bulan_kas == "06"){
+			    $var = "VI";
+			   } else if($bulan_kas == "07"){
+			    $var = "VII";
+			   } else if($bulan_kas == "08"){
+			    $var = "VIII";
+			   } else if($bulan_kas == "09"){
+			    $var = "IX";
+			   } else if($bulan_kas == "10"){
+			    $var = "X";
+			   } else if($bulan_kas == "11"){
+			    $var = "XI";
+			   } else if($bulan_kas == "12"){
+			    $var = "XII";
+			   }
+
+			   $tahun_kas = date("y",strtotime($this->input->post('tgl_trx')));
+
+			  
+
 			$no_trx 	   = $this->input->post('no_trx');
 			$no_trx2       = $this->input->post('no_trx2');
-			$kode_sh       = $this->input->post('kode_sh');
+			// $kode_sh       = $this->input->post('kode_sh');
 			$id_pelanggan  = $this->input->post('pelanggan_sel');
 			$pelanggan     = $this->input->post('pelanggan');
 			$alamat_tagih  = $this->input->post('alamat_tagih');
@@ -44,29 +76,47 @@ class Purchase_order_c extends CI_Controller {
 			$jatuh_tempo 	= $this->input->post('jatuh_tempo');
 			$keterangan     = $this->input->post('memo_lunas');
 			$sub_total      = $this->input->post('subtotal_txt');
-			$pbbkb      	= $this->input->post('pbbkb');
+
+			$penampung_pbbkb       = $this->input->post('penampung_pbbkb');
+			$penampung_ppn         = $this->input->post('penampung_ppn');
+			$penampung_pph_21      = $this->input->post('penampung_pph_21');
+			$penampung_pph_15      = $this->input->post('penampung_pph_15');
+			$penampung_pph_23      = $this->input->post('penampung_pph_23');
+			$penampung_pph_22      = $this->input->post('penampung_pph_22');
+
+
+			$total_hasil_pajak      = $this->input->post('total_hasil_pajak');
+
+			$pelanggan_cust      	= $this->input->post('pelanggan_cust');
+			$alamat_tagih_cust      = $this->input->post('alamat_tagih_cust');
+			$kode_sh_cust      		= $this->input->post('kode_sh_cust');
+
 			$oat      		= $this->input->post('oat');
 			$qty_total      = $this->input->post('qty_total');
 			$ppn 			= 0.1 * $sub_total;
 
+			$kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_supply' ")->row();
+
+			$no_bukti_real = $no_trx."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
+
 			$pajak_area = $this->db->query("SELECT * FROM ak_pajak_supply WHERE ID = '$pajak_supply'")->row();
 
-			$nilai_pbbkb = 0;
-			$nilai_qty_total = 0;
-			$ppn_oat = 0 ;
-			$nilai_pph = 0;
-			if ($pbbkb == 'ada') {
-			 	$nilai_pbbkb = ($pajak_area->PAJAK/100) * $sub_total;
-			 	$nilai_pph = 0.003 * $sub_total;
-			 }
+			// $nilai_pbbkb = 0;
+			// $nilai_qty_total = 0;
+			// $ppn_oat = 0 ;
+			// $nilai_pph = 0;
+			// if ($pbbkb == 'ada') {
+			//  	$nilai_pbbkb = ($pajak_area->PAJAK/100) * $sub_total;
+			//  	$nilai_pph = 0.003 * $sub_total;
+			//  }
 
-			if ($oat == 'ada') {
-			 	$nilai_qty_total = 100 * $qty_total;
-			 	$ppn_oat = 0.1 * $nilai_qty_total;
-			} 
+			// if ($oat == 'ada') {
+			//  	$nilai_qty_total = 100 * $qty_total;
+			//  	$ppn_oat = 0.1 * $nilai_qty_total;
+			// } 
 			$operator      = $user->NAMA;
 
-			$this->model->simpan_pembelian_po($no_trx,$kode_sh, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply);
+			$this->model->simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22);
 
 			$id_pembelian = $this->db->insert_id();
 
@@ -616,6 +666,44 @@ class Purchase_order_c extends CI_Controller {
 
 		$sql = "
 		SELECT * FROM ak_pelanggan WHERE ID_KLIEN = $id_klien AND $where AND APPROVE = 3 AND $where_unit
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function get_supplier_detail(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_supplier_detail($id_pel);
+
+		echo json_encode($dt);
+	}
+
+
+	function get_produk_popup_po(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$where = "1=1";
+
+		$keyword = $this->input->post('keyword');
+		$kode = $this->input->post('kode');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (KODE_PRODUK LIKE '%$keyword%' OR NAMA_PRODUK LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT mh.HARGA_BELI , p.NAMA_PRODUK , p.KODE_PRODUK , p.ID FROM ak_produk p , ak_master_harga mh WHERE ID_KLIEN = $id_klien AND mh.ID_PRODUK = p.ID AND ID_PELANGGAN = '$kode' AND STATUS = '0' AND $where AND $where_unit AND APPROVE = 3
+		LIMIT 10
 		";
 
 		$dt = $this->db->query($sql)->result();

@@ -124,11 +124,12 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
 									<!-- <button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button> -->
 									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak/<?=$row->ID;?>" class="btn btn-success" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<!-- <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/tutup_outstanding/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;" ><i class="icon-remove-circle"></i></a> -->
 								</td>
 								<td align="center">
 									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 								</td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_BUKTI;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NOMER_SO;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
 

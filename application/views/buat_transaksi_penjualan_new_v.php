@@ -119,6 +119,18 @@ input[type=checkbox]
 
 <div class="breadcrumb" style="background:#E0F7FF;">
 	<div class="row-fluid">
+		<div class="span3">
+			<div class="control-group">
+				
+				<div class="controls">
+					
+					<a href="<?=base_url();?>transaksi_penjualan_c/new_invoice_trans"><button type="button" name="dengan_oat" class="btn btn-default" style="float: right;margin-right: 10px;margin-bottom: 20px;">SO TRANSPORTASI</button></a>
+					<a href="<?=base_url();?>transaksi_penjualan_c/new_invoice"><button type="button" name="dengan_oat" class="btn btn-success" style="float: right;margin-right: 10px;margin-bottom: 20px;">SO BAHAN BAKAR</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
 		<div class="span5">
 			<div class="control-group">
 				<label class="control-label"> <b style="font-size: 14px;"> Pelanggan </b> </label>
@@ -128,6 +140,8 @@ input[type=checkbox]
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
+						<input type="hidden" name="kode_pelanggan" id="kode_pelanggan">
+						<input type="hidden" name="besar_oat" id="besar_oat">
 					</div>
 				</div>
 			</div>
@@ -143,19 +157,6 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
-		<!-- <div class="span3">
-			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
-				<div class="controls">
-					<div class="input-append">
-						<input type="text" id="supplier" name="supplier" readonly style="background:#FFF; width: 70%;">
-						<input type="hidden" id="supplier_sel" name="supplier_sel" readonly style="background:#FFF;">
-						
-						<button onclick="show_pop_supplier();" type="button" class="btn">Cari</button>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 </div>
 
@@ -180,6 +181,8 @@ input[type=checkbox]
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label>
 				<div class="controls">
 					<div id="" class="input-append date ">
 						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
@@ -220,7 +223,8 @@ input[type=checkbox]
 			<div class="controls">
 				<input type="text" name="supply_point_tempat" class="span5" id="supply_point_nama">
 				<input type="text" name="supply_pajak_tempat" class="span5" id="supply_pajak_nama">
-				<input type="text" name="pajak_tempat" class="span1" id="pajak_nama">
+				<input type="text" name="pajak_tempat" class="span2" id="pajak_nama">
+				<input type="hidden" name="pajak_id" class="span1" id="pajak_id">
 			</div>
 		</div>
 
@@ -245,104 +249,7 @@ input[type=checkbox]
 
 </div>
 
-<!-- <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
-	
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Dikirim Dengan </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="Truck / Kapal" name="dikirim" id="dikirim" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
 
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Segel Atas  </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="" name="segel_atas" id="segel_atas" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Meter Awal  </b> </label>
-			<div class="controls">
-				<input type="text" class="span10" value="" name="meter_atas" id="meter_atas" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-
-	
-
-</div>
-
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
-	
-
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No Kendaraan </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="" name="no_pol" id="no_pol" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-	
-
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Segel Bawah </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="" name="segel_bawah" id="segel_bawah" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Meter Akhir </b> </label>
-			<div class="controls">
-				<input type="text" class="span10" value="" name="meter_bawah" id="meter_bawah" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-
-	
-</div>
-
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
-	
-
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Nama Kapal </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="" name="nama_kapal" id="sopir" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-	
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Temperatur </b> </label>
-			<div class="controls">
-				<input type="text" class="span12" value="" name="temperatur" id="dikirim" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-
-
-	<div class="span4">
-		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> SG Meter </b> </label>
-			<div class="controls">
-				<input type="text" class="span10" value="" name="sg_meter" id="dikirim" style="font-size: 15px;">
-			</div>
-		</div>
-	</div>
-</div> -->
 
 
 
@@ -353,9 +260,7 @@ input[type=checkbox]
 				<h3> </h3>
 			</div>
 			<div class="widget-container">
-				<!-- <button data-toggle="modal" data-target="#modal_spek" type="button" class="btn btn-warning"> 
-					<i class="icon-plus"></i> Spesifikasi 
-				</button> -->
+				
 				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
@@ -368,26 +273,7 @@ input[type=checkbox]
 					</thead>
 					<tbody id="tes">
 						<tr id="tr_1" class="tr_utama">
-							<!-- <td align="left" style="vertical-align:middle;"> 
-								<div class="control-group">
-										<div class="controls">
-											<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun[]" onchange="samakan_4(this.value);">
-												<option value="">Pilih ...</option>
-												<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
-												<?PHP 
-												$sel = "";
-												if('401.01.01' == $akun_all->KODE_AKUN) { 
-													$sel = "selected";
-												} else {
-													$sel = "";
-												}
-												?>
-												<option <?=$sel;?>  value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
-												<?PHP } ?>				
-											</select>
-										</div>								
-								</div>
-							</td> -->
+							
 
 							<td style="vertical-align:middle;"> 
 
@@ -413,6 +299,7 @@ input[type=checkbox]
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
 									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
+									<input type="hidden" name="harga_beli[]" id="harga_beli_1">
 									<input type="hidden" name="total_id[]" id="total_id_1">
 								</div>
 							</td>
@@ -424,7 +311,7 @@ input[type=checkbox]
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Barais Data </button>
+				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
 
 			</div>
 		</div>
@@ -458,7 +345,7 @@ input[type=checkbox]
 						</div>
 					</div>
 
-					<div class="row-fluid" style="margin-top: 10px;">
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
 							<h3> Discount :</h3> 
 						</div>
@@ -469,79 +356,100 @@ input[type=checkbox]
 							<span class="add-on">%</span>
 						</div>
 						</div>
-					</div>
+					</div> -->
 
 					
 
-					<div class="row-fluid" style="margin-top: 10px;">
+					
+
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> PBBKB :</h3> 
+							<h3> <input type="checkbox" name="pbbkb" checked="checked" value="ada" id="pajak_pbbkb_ck" onchange="pajak_pbbkb(this.value);hitung_total_pajak();harga_final();"> PBBKB :</h3> 
+
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="total_pbbkb"></h3>
-							<input type="checkbox" name="pbbkb" value="ada" style="display: none;">
+							<input type="hidden" name="penampung_pbbkb" id="penampung_pbbkb" value="0">
+							
 							<input type="hidden" name="pajak_pbbkb_validasi" id="pajak_pbbkb_validasi">
+							<input type="hidden" name="total_pbbkb_text" id="total_pbbkb_text">
 						</div>
-					</div>
+					</div> -->
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> PPN :</h3> 
+							<h3> <input type="checkbox" name="ppn" checked="checked" value="ada" id="pajak_ppn_ck" onchange="pajak_ppn(this.value);hitung_total_pajak();harga_final();"> PPN :</h3> 
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="total_ppn"></h3>
-							<input type="checkbox" name="ppn" value="ada" style="display: none;">
-							<input type="text" name="pajak_ppn_validasi" id="pajak_ppn_validasi">
+							<input type="hidden" name="penampung_ppn" id="penampung_ppn" value="0">
+							<input type="hidden" name="pajak_ppn_validasi" id="pajak_ppn_validasi">
+							<input type="hidden" name="total_ppn_text" id="total_ppn_text">
 						</div>
 					</div>
 
-					<div class="row-fluid" style="margin-top: 10px;">
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> PPH 21 :</h3> 
+							<h3><input type="checkbox" name="pph_21" checked="checked" value="ada" id="pajak_pph_21_ck" onchange="pajak_pph_21(this.value);hitung_total_pajak();harga_final();"> PPH 21 :</h3> 
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="total_pph_21"></h3>
-							<input type="checkbox" name="pph_21" value="ada" style="display: none;">
-							<input type="text" name="pajak_pph_21_validasi" id="pajak_pph_21_validasi">
+							<input type="hidden" name="penampung_pph_21" id="penampung_pph_21" value="0">
+							<input type="hidden" name="pajak_pph_21_validasi" id="pajak_pph_21_validasi">
+							<input type="hidden" name="total_pph_21_text" id="total_pph_21_text">
 						</div>
 					</div>
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> PPH 15 :</h3> 
+							<h3><input type="checkbox" name="pph_15" checked="checked" value="ada" id="pajak_pph_15_ck" onchange="pajak_pph_15(this.value);hitung_total_pajak();harga_final();"> PPH 15 :</h3> 
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="total_pph_15"></h3>
-							<input type="checkbox" name="pph_15" value="ada" style="display: none;">
-							<input type="text" name="pajak_pph_15_validasi" id="pajak_pph_15_validasi">
+							<input type="hidden" name="penampung_pph_15" id="penampung_pph_15" value="0">
+							<input type="hidden" name="pajak_pph_15_validasi" id="pajak_pph_15_validasi">
+							<input type="hidden" name="total_pph_15_text" id="total_pph_15_text">
 						</div>
 					</div>
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> PPH 23 :</h3> 
+							<h3> <input type="checkbox" name="pph_23" checked="checked" value="ada" style="" id="pajak_pph_23_ck" onchange="pajak_pph_23(this.value);hitung_total_pajak();harga_final();"> PPH 23 :</h3> 
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="total_pph_23"></h3>
-							<input type="checkbox" name="pph_23" value="ada" style="display: none;">
-							<input type="text" name="pajak_pph_23_validasi" id="pajak_pph_23_validasi">
+							<input type="hidden" name="penampung_pph_23" id="penampung_pph_23" value="0">
+							<input type="hidden" name="pajak_pph_23_validasi" id="pajak_pph_23_validasi">
+							<input type="hidden" name="total_pph_23_text" id="total_pph_23_text">
 						</div>
-					</div>
+					</div> -->
 
 					<div class="row-fluid" style="margin-top: 10px;">
-						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> OAT :</h3> 
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span1">
+							<h3> <input type="checkbox" name="oat" value="ada" id="pajak_oat_ck" onchange="pajak_oat();hitung_total_pajak();harga_final();" checked="checked"> OAT :</h3> 
+						</div>
+
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span1">
+							<input type="text" name="update_oat" id="update_oat" onkeyup="update_oati(this.value);hitung_total_pajak();harga_final();">
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
-							<input type="checkbox" name="oat" value="ada">
+							<h3 style="color: green;" id="total_oat"></h3>
+
+							<input type="text" name="penampung_oat" id="penampung_oat" value="0">
+
+							<input type="hidden" name="oat_besar" id="oat_besar">
+							<input type="hidden" name="pajak_oat_validasi" id="pajak_oat_validasi">
+							<input type="hidden" name="total_oat_text" id="total_oat_text">
 						</div>
 					</div>
+
+					
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
@@ -551,6 +459,9 @@ input[type=checkbox]
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="tot_disc"></h3>
 							<input type="hidden" name="tot_disc" id="tot_disc_txt">
+							<input type="hidden" name="tot_semua_pajak" id="tot_semua_pajak">
+							<input type="hidden" name="penampung_total" id="penampung_total">
+							<input type="hidden" name="total_hasil_pajak" id="total_hasil_pajak">
 						</div>
 					</div>
 
@@ -565,48 +476,6 @@ input[type=checkbox]
 	</div>
 </div>
 
-<!-- Modal Detail -->
-<div class="modal fade" id="modal_spek" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Spesifikasi</h4>
-      </div>
-      <div class="modal-body">
-        
-
-		<div class="row-fluid">
-			<div class="span12" style="font-size: 15px;">
-				<address>
-					<strong> Temperatur </strong><br>
-					<input class="span12" type="text" name="temperatur" value="">
-				</address>
-
-				<address>
-					<strong> Density </strong><br>
-					<input class="span12" type="text" name="density" value="">
-				</address>
-
-				<address>
-					<strong> Flash Point </strong><br>
-					<input class="span12" type="text" name="flash_point" value="">
-				</address>
-
-				<address>
-					<strong> Water Content </strong><br>
-					<input class="span12" type="text" name="water_content" value="">
-				</address>
-			</div>
-		</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 </form>
@@ -639,6 +508,116 @@ input[type=checkbox]
 
 
 <script type="text/javascript">
+
+	
+
+	
+
+	function update_oati(besar){
+		
+		var qty = $('#qty_1').val();
+		var harga_modal   = $('#harga_modal_1').val();
+		var pajak_ppn 	  = $('#pajak_ppn_validasi').val();
+
+		qty           = qty.split(',').join('');
+		harga_modal   = harga_modal.split(',').join('');
+
+		var oat = parseInt(qty * besar) ;
+
+
+		var profit = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) - oat ;
+		var harga_tanpa = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) ;
+		var besar_ppn = parseFloat(pajak_ppn / 100) * harga_tanpa;
+
+
+		$('#total_oat_text').val(oat);
+		$('#total_ppn_text').val(besar_ppn);
+
+		$('#penampung_oat').val(oat);
+		$('#penampung_ppn').val(besar_ppn);
+
+		$('#inp_sub_total').val(profit);
+		
+		$('#total_ppn').html('Rp. '+acc_format(besar_ppn, "").split('.00').join('') );
+		$('#sub_total').html('Rp. '+acc_format(profit, "").split('.00').join('') );
+		$('#total_oat').html('Rp. '+acc_format(oat, "").split('.00').join('') );
+		
+
+
+
+	}
+
+
+
+	function hitung_total_pajak(){
+		
+		var pajak_ppn = $('#penampung_ppn').val();
+		var pajak_oat = $('#penampung_oat').val();
+		// var pajak_pbbkb = $('#penampung_pbbkb').val();
+
+		var total = parseFloat(pajak_ppn) + parseFloat(pajak_oat); 
+		// var total = parseFloat(pajak_ppn) + parseFloat(pajak_oat) + parseFloat(pajak_pbbkb); 
+
+
+		// $('#tot_disc').html('Rp. '+acc_format(total, "").split('.00').join('') );
+		$('#penampung_total').val(total);
+
+	}
+
+	function harga_final(){
+		var total_semua_pajak = $('#inp_sub_total').val();
+		var penampung_total = $('#penampung_total').val();
+
+		var martis = parseInt(total_semua_pajak) + parseInt(penampung_total);
+		
+
+		$('#tot_disc').html('Rp. '+acc_format(martis, "").split('.00').join('') );
+		$('#total_hasil_pajak').val(martis);
+
+		
+	}
+	
+	// function pajak_pbbkb(){
+	// 	var pajak_pbbkb = $('#total_pbbkb_text').val();
+	// 	var checkBox = document.getElementById("pajak_pbbkb_ck");
+
+	// 	if(checkBox.checked == true){
+	// 		$('#total_pbbkb').html('Rp. '+acc_format(parseFloat(pajak_pbbkb), "").split('.00').join('') );
+	// 		$('#penampung_pbbkb').val(pajak_pbbkb);
+	// 	}else if(checkBox.checked == false){
+	// 		$('#penampung_pbbkb').val('0');
+	// 		$('#total_pbbkb').html('Rp. '+acc_format(0, "").split('.00').join('') );
+	// 	}
+
+	// }
+
+	function pajak_ppn(){
+		var pajak_ppn = $('#total_ppn_text').val();
+		var checkBox = document.getElementById("pajak_ppn_ck");
+
+		if(checkBox.checked == true){
+			$('#total_ppn').html('Rp. '+acc_format(parseFloat(pajak_ppn), "").split('.00').join('') );
+			$('#penampung_ppn').val(pajak_ppn);
+		}else if(checkBox.checked == false){
+			$('#penampung_ppn').val('0');
+			$('#total_ppn').html('Rp. '+acc_format(0, "").split('.00').join('') );
+		}
+
+	}
+
+	function pajak_oat(){
+		var pajak_oat = $('#total_oat_text').val();
+		var checkBox = document.getElementById("pajak_oat_ck");
+
+		if(checkBox.checked == true){
+			$('#total_oat').html('Rp. '+acc_format(parseFloat(pajak_oat), "").split('.00').join('') );
+			$('#penampung_oat').val(pajak_oat);
+		}else if(checkBox.checked == false){
+			$('#penampung_oat').val('0');
+			$('#total_oat').html('Rp. '+acc_format(0, "").split('.00').join('') );
+		}
+
+	}
 
 function hapus_row_pertama(){
 	$('#nama_produk_1').val('');
@@ -746,12 +725,14 @@ function get_popup_produk(){
 
 function ajax_produk(id_form){
     var keyword = $('#search_koang_pro').val();
+    var kode_pelanggan = $('#kode_pelanggan').val();
     $.ajax({
         url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_popup',
         type : "POST",
         dataType : "json",
         data : {
             keyword : keyword,
+            kode_pelanggan : kode_pelanggan,
         },
         success : function(result){
             var isine = '';
@@ -770,7 +751,7 @@ function ajax_produk(id_form){
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.KODE_PRODUK+'</td>'+
                             '<td align="left">'+res.NAMA_PRODUK+'</td>'+
-                             '<td align="center">Rp '+NumberToMoney(res.HARGA).split('.00').join('')+'</td>'+
+                             '<td align="center">Rp '+NumberToMoney(res.HARGA_BELI).split('.00').join('')+'</td>'+
                         '</tr>';
                         
                 $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
@@ -956,6 +937,9 @@ function hitung_total(id){
 
 	var qty           = $('#qty_'+id).val();
 	var harga_modal   = $('#harga_modal_'+id).val();
+	var pajak_ppn 	  = $('#pajak_ppn_validasi').val();
+	// var pajak_pbbkb   = $('#pajak_pbbkb_validasi').val();
+	var semua_oat 	  = $('#besar_oat').val();
 
 	qty           = qty.split(',').join('');
 	harga_modal   = harga_modal.split(',').join('');
@@ -964,49 +948,83 @@ function hitung_total(id){
 	if(harga_modal   == "" || harga_modal   == null){ harga_modal   = 0; }
 
 
-	var profit = parseFloat(harga_modal) * parseFloat(qty) ;
+	var profit = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) - (qty * semua_oat) ;
+	var harga_tanpa = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) ;
+	var besar_ppn = parseFloat(pajak_ppn / 100) * harga_tanpa;
+	// var besar_pbbkb = parseFloat(pajak_pbbkb / 100) * profit;
+	var besar_oat = qty * semua_oat;
+
+	var total_semua_harga = parseFloat(profit + besar_ppn + besar_oat) ;
+
 	$('#total_id_'+id).val(profit);
 	$('#inp_sub_total').val(profit);
+
+
+
+
 	$('#inp_qty_total').val(qty);
+	$('#total_ppn_text').val(besar_ppn);
+	// $('#total_pbbkb_text').val(besar_pbbkb);
+	$('#total_oat_text').val(besar_oat);
+
+	// $('#penampung_pbbkb').val(besar_pbbkb);
+	$('#penampung_ppn').val(besar_ppn);	
+	$('#penampung_oat').val(besar_oat);
+
+
+
 	$('#sub_total').html('Rp. '+acc_format(profit, "").split('.00').join('') );
+	$('#total_ppn').html('Rp. '+acc_format(besar_ppn, "").split('.00').join('') );
+	// $('#total_pbbkb').html('Rp. '+acc_format(besar_pbbkb, "").split('.00').join('') );
+	$('#total_oat').html('Rp. '+acc_format(besar_oat, "").split('.00').join('') );
+
+	$('#tot_disc').html('Rp. '+acc_format(total_semua_harga, "").split('.00').join('') );
+
+	$('#tot_semua_pajak').val(profit);
+	// $('#penampung_total').val(total_semua_harga);
+
+
 }
 
 function disc_txt(disc){
 	var sub_total = $('#inp_sub_total').val();
 
-	var jml_pajak = $('#pajak_pbbkb_validasi').val();
+	// var jml_pajak = $('#pajak_pbbkb_validasi').val();
 	var jml_pajak_ppn = $('#pajak_ppn_validasi').val();
 	var jml_pajak_pph_23 = $('#pajak_pph_23_validasi').val();
 	var jml_pajak_pph_15 = $('#pajak_pph_15_validasi').val();
 	var jml_pajak_pph_21 = $('#pajak_pph_21_validasi').val();
 
 	var total = parseFloat(disc/100) * parseFloat(sub_total);
+	var total_diskon = sub_total - (parseFloat(disc/100) * parseFloat(sub_total));
 	
-	var total_pbbkb = (jml_pajak/100) * total ;
-	var total_ppn = (jml_pajak_ppn/100) * total ;
-	var total_pph_23 = (jml_pajak_pph_23/100) * total ;
-	var total_pph_15 = (jml_pajak_pph_15/100) * total ;
-	var total_pph_21 = (jml_pajak_pph_21/100) * total ;
+	var total_pbbkb = (jml_pajak/100) * total_diskon ;
+	var total_ppn = (jml_pajak_ppn/100) * total_diskon ;
+	var total_pph_23 = (jml_pajak_pph_23/100) * total_diskon ;
+	var total_pph_15 = (jml_pajak_pph_15/100) * total_diskon ;
+	var total_pph_21 = (jml_pajak_pph_21/100) * total_diskon ;
 
-	var total_semua = sub_total + total;
+	var total_semua = sub_total - total;
 
-	$('#total_pbbkb').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
-	$('#total_ppn').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
-	$('#total_pph_23').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
-	$('#total_pph_15').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
-	$('#total_pph_21').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
+
+
+	// $('#total_pbbkb').html('Rp. '+acc_format(total_pbbkb, "").split('.00').join('') );
+	$('#total_ppn').html('Rp. '+acc_format(total_ppn, "").split('.00').join('') );
+	$('#total_pph_23').html('Rp. '+acc_format(total_pph_23, "").split('.00').join('') );
+	$('#total_pph_15').html('Rp. '+acc_format(total_pph_15, "").split('.00').join('') );
+	$('#total_pph_21').html('Rp. '+acc_format(total_pph_21, "").split('.00').join('') );
 
 	$('#tot_disc').html('Rp. '+acc_format(total_semua, "").split('.00').join('') );
 
 	$('#tot_disc_txt').val(total);
 
-	
 }
+
 
 function get_produk_detail(id, no_form){
     var id_produk = id;
     $.ajax({
-		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_detail',
+		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_detail_mh',
 		data : {id_produk:id_produk},
 		type : "GET",
 		dataType : "json",
@@ -1014,7 +1032,7 @@ function get_produk_detail(id, no_form){
 			$('#qty_'+no_form).focus();
 			$('#id_produk_'+no_form).val(id_produk);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
-			$('#harga_modal_'+no_form).val(result.HARGA);
+			$('#harga_modal_'+no_form).val(result.HARGA_JUAL);
 
 
 			$('#search_koang_pro').val("");
@@ -1109,14 +1127,22 @@ function get_pelanggan_det(id_pel){
 			$('#pelanggan').val(result.NAMA_PELANGGAN);
 			$('#kota_tujuan').val(result.ALAMAT_KIRIM);
 			$('#pelanggan_sel').val(id_pel);
-			$('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
-			$('#pajak_ppn_validasi').val(result.PPN);
-			$('#pajak_pph_23_validasi').val(result.PPH23);
-			$('#pajak_pph_15_validasi').val(result.PPH15);
-			$('#pajak_pph_21_validasi').val(result.PPH_21);
+			$('#harga_modal_1').val(result.HARGA_CUY);
+			// $('#ppn_val').val(result.PPN);
+
+			// $('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
+			$('#pajak_ppn_validasi').val(result.PPN_COY);
+			// $('#pajak_pph_23_validasi').val(result.PPH23);
+			// $('#pajak_pph_15_validasi').val(result.PPH15);
+			// $('#pajak_pph_21_validasi').val(result.PPH_21);
 			$('#supply_point_nama').val(result.NAMA_GUDANG);
 			$('#supply_pajak_nama').val(result.NAMA_BPPKB);
 			$('#pajak_nama').val(result.PAJAK);
+			$('#pajak_id').val(result.GUDANG_ID);
+			$('#kode_pelanggan').val(result.KODE_PELANGGAN);
+			$('#besar_oat').val(result.OAT);
+			$('#update_oat').val(result.OAT);
+
 		}
 	});
 }

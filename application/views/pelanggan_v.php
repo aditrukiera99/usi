@@ -153,7 +153,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<tr>
 							<td align="center" <?PHP if($nama_pelanggan == $row->NAMA_PELANGGAN){ echo "style='background: #CDE69C;'"; } ?> > <?=$no;?> </td>
 							<td <?PHP if($nama_pelanggan == $row->NAMA_PELANGGAN){ echo "style='background: #CDE69C;'"; } ?> > 
-								<?=$row->NAMA_PELANGGAN;?> <?PHP if($row->TIPE == 'Perusahaan'){ echo " <br> (".$row->NAMA_USAHA.")"; } ?> 
+								<?=$row->NAMA_PELANGGAN;?>  
 							</td>
 
 							<?PHP if($user->UNIT == 15){ ?>
@@ -202,7 +202,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 									</button>
 									<ul class="dropdown-menu" style="background-color:rgba(255, 255, 255, 1); min-width: 100px;">
 										<li>
-										<a onclick="ubah_data_pelanggan(<?=$row->ID;?>);" href="javascript:;">Ubah</a>
+										<a href="<?=base_url();?>pelanggan_c/ubah_data_customer/<?=$row->ID;?>">Ubah</a>
 										</li>
 										<li>
 										<a onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" href="javascript:;">Hapus</a>
@@ -236,14 +236,15 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b> Tipe Customer </b> </label>
 						<div class="controls">
-							<input style="float: left;" onclick="isfilter();" id="perorang" type="radio" name="tipe" value="Perorangan" checked="checked"><label for="perorang"><span><span></span></span>  Perorangan </label>
-                            <input style="float: left;" onclick="isfilter();" id="perusaha" type="radio" name="tipe" value="Perusahaan"><label for="perusaha"><span><span></span></span>  Perusahaan </label>
+							<input style="float: left;" onclick="isfilter();" id="perusaha" type="radio" name="tipe" value="Perusahaan" checked="checked"><label for="perusaha"><span><span></span></span>  Perusahaan </label>
+							<input style="float: left;" onclick="isfilter();" id="perorang" type="radio" name="tipe" value="Perorangan" ><label for="perorang"><span><span></span></span>  Perorangan </label>
+                            
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label orang_show"> <b> Nama Pelanggan </b> </label>
-						<label class="control-label usaha_show" style="display:none;"> <b> Nama Perusahaan </b> </label>
+						<label class="control-label orang_show" style="display:none;"> <b> Nama Pelanggan </b> </label>
+						<label class="control-label usaha_show" > <b> Nama Perusahaan </b> </label>
 						<div class="controls">
 							<select class="span1 usaha_show" name="tipe_perusahaan" id="tipe_perusahaan" onchange="add_tipe_perusahaan(this.value);">
 								<?php foreach ($master_tipe as $key => $value_tipe) {
@@ -257,7 +258,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 						</div>
 					</div>
 
-					<div class="control-group usaha_show" style="display:none;">
+					<div class="control-group usaha_show">
 						<label class="control-label"> <b> Nama Holding </b> </label>
 						<div class="controls">
 							<input type="text" placeholder="Nama Perusahaan / Badan Usaha" class="span12" value="" name="nama_usaha" autocomplete="off">
@@ -287,22 +288,49 @@ input[type=radio]:not(old):checked +  label > span > span{
 						</div>
 					</div>
 
-					<div class="control-group">
-						<label class="control-label"> <b>Discount Beli</b> </label>
+					<!-- <div class="control-group">
+						<label class="control-label"> <b>Harga</b> </label>
 						<div class="controls">
 							
-								<input type="text"  class="span12" value="" name="diskon_beli" autocomplete="off">
+								<table class="stat-table table table-hover" style="width: 100%;">
+						    	<thead>
+						    		<th align="center">Produk</th>
+						    		<th align="center">Harga Beli</th>
+						    		<th align="center">Harga Jual</th>
+						    	</thead>
+						    	<tbody>
+						    		<?php 
+						    			$produk = $this->db->query("SELECT * FROM ak_produk")->result();
+						    			foreach ($produk as $key => $value) {
+						    			
+						    		?>
+						    		<tr>
+						    		<td align="center">
+						    			<label class="control-label"> <b><?=$value->NAMA_PRODUK;?></b> </label>
+						    			<input type="hidden" name="id_produk[]" value="<?=$value->ID;?>">
+						    			<input type="hidden" name="nama_produk[]" value="<?=$value->NAMA_PRODUK;?>">
+						    		</td>
+						    		<td align="center">
+						    			<input type="text" style="width: 80%;" name="harga_beli[]">
+						    		</td>
+						    		<td align="center">
+						    			<input type="text" style="width: 80%;" name="harga_jual[]">
+						    		</td>
+						    	</tr>
+						    <?php } ?>
+						    	</tbody>
+						    </table>
 								
 						
 						</div>
-					</div>
+					</div> -->
 
-					<div class="control-group">
-						<label class="control-label"> <b>Diskon Jual</b> </label>
+					<!-- <div class="control-group">
+						<label class="control-label"> <b>Harga Jual</b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="" name="diskon_jual" autocomplete="off">
 						</div>
-					</div>
+					</div> -->
 
 					<div class="control-group">
 						<label class="control-label"> <b>Kode Costumer</b> </label>
@@ -314,29 +342,27 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b>Alamat Pengiriman Invoice</b> </label>
 						<div class="controls">
-							<input type="text"  class="span12" value="" name="lokasi" autocomplete="off">
+							<textarea name="lokasi" class="span12" rows="4"></textarea>
 						</div>
 					</div>
 
-					
-
-					
 
 					<div class="control-group">
 						<label class="control-label"> <b>NPWP (jika ada)</b> </label>
 						<div class="controls">
+							 <!-- <input id="phone" type="text" name="npwp" class="span12" data-inputmask="'mask': '9999 9999 9999 9999'" /> -->
 							<input type="text"  class="span12" value="" name="npwp" autocomplete="off">
 						</div>
 					</div>
 
-					<div class="control-group usaha_show" style="display:none;">
+					<div class="control-group usaha_show" >
 						<label class="control-label"> <b> No. TDP </b> </label>
 						<div class="controls">
 							<input type="text" class="span12" value="" name="tdp" autocomplete="off">
 						</div>
 					</div>
 
-					<div class="control-group usaha_show" style="display:none;">
+					<div class="control-group usaha_show" >
 						<label class="control-label"> <b> No. SIUP </b> </label>
 						<div class="controls">
 							<input type="text" class="span12" value="" name="siup" autocomplete="off">
@@ -421,15 +447,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b> PPN </b> </label>
 						<div class="controls">
-							<input type="text" class="span12" name="ppn" value="0">
-							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"> <b> PPH 23 </b> </label>
-						<div class="controls">
-							<input type="text"  class="span12" value="0" name="pph_23" autocomplete="off">
+							<input type="text" class="span12" name="ppn" value="10">
 							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
@@ -446,6 +464,30 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label"> <b> PPH 21 </b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="0" name="pph_21" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 22 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_22" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 23 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_23" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> OAT </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="oat" autocomplete="off">
 							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
@@ -538,7 +580,15 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group usaha_show_ed" style="display:none;">
 						<label class="control-label"> <b> Nama Perusahaan </b> </label>
 						<div class="controls">
-							<input type="text" placeholder="Nama Perusahaan / Badan Usaha" class="span12" value="" id="nama_usaha_ed" name="nama_usaha_ed">
+							<select class="span1 usaha_show" name="tipe_perusahaan" id="tipe_perusahaan" onchange="add_tipe_perusahaan(this.value);">
+								<?php foreach ($master_tipe as $key => $value_tipe) {
+									?>
+									<option value="<?=$value_tipe->NAMA;?>"><?=$value_tipe->NAMA;?></option>
+									<?php
+								} ?>
+								<option value="more">.......</option>
+							</select>
+							<input type="text" placeholder="Nama Perusahaan / Badan Usaha" class="span10" value="" id="nama_usaha_ed" name="nama_usaha_ed">
 						</div>
 					</div>
 
@@ -605,6 +655,61 @@ input[type=radio]:not(old):checked +  label > span > span{
 						<label class="control-label"> <b> Email </b> </label>
 						<div class="controls">
 							<input type="text"  class="span12" value="" id="email_ed" name="email_ed">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> Limit Pembelian </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="" name="limit_beli" id="limit_beli_ed" autocomplete="off">
+						</div>
+					</div>
+
+					<!-- <div class="control-group">
+						<label class="control-label"> <b> Pajak PBBKB </b> </label>
+						<div class="controls">
+							<input type="text" class="span12" name="pajak_pbbkb_ed" value="0" id="pajak_pbbkb_val" readonly>
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div> -->
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPN </b> </label>
+						<div class="controls">
+							<input type="text" class="span12" name="ppn_ed" id="ppn_ed" value="10">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 23 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_23_ed" id="pph_23_ed" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 15 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_15_ed" id="pph_15_ed" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> PPH 21 </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="pph_21_ed" id="pph_21_ed" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> OAT </b> </label>
+						<div class="controls">
+							<input type="text"  class="span12" value="0" name="oat_ed" id="pph_21_ed" autocomplete="off">
+							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>
 
@@ -909,6 +1014,13 @@ function ubah_data_pelanggan(id){
 			$('#no_telp_ed').val(result.NO_TELP);
 			$('#no_hp_ed').val(result.NO_HP);
 			$('#email_ed').val(result.EMAIL);
+
+			$('#limit_beli_ed').val(result.LIMIT_BIAYA);
+			$('#pajak_pbbkb_val').val(result.PAJAK_PBBKB);
+			$('#ppn_ed').val(result.PPN);
+			$('#pph_23_ed').val(result.PPH23);
+			$('#pph_15_ed').val(result.PPH15);
+			$('#pph_21_ed').val(result.PPH_21);
 
 			$('#tdp_ed').val(result.TDP);
 			$('#siup_ed').val(result.SIUP);

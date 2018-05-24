@@ -33,9 +33,10 @@ class Gudang_c extends CI_Controller {
 			$nama         = addslashes($this->input->post('nama'));
 			$kapasitas         = addslashes($this->input->post('kapasitas'));
 			$penanggung_jawab    = addslashes($this->input->post('penanggung_jawab'));
+			$kode_supply_point    = addslashes($this->input->post('kode_supply_point'));
 
 
-			$this->model->simpan_gudang($nama,$kapasitas,$penanggung_jawab);
+			$this->model->simpan_gudang($nama,$kapasitas,$penanggung_jawab,$kode_supply_point);
 
 
 		} else if($this->input->post('id_hapus')){
@@ -137,6 +138,62 @@ class Gudang_c extends CI_Controller {
 			'kode_produk' => $kode_produk, 
 			'post_url' => 'gudang_c', 
 			'user' => $user,
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function ubah_gudang($id){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		
+		$dt = $this->model->cari_gudang_by_id($id);
+
+		$data =  array(
+			'page' => "ubah_supply_point_v", 
+			'title' => "Ubah Gudang", 
+			'msg' => "", 
+			'master' => "master_data", 
+			'view' => "gudang", 
+			'msg' => $msg, 
+			'dt' => $dt, 
+			'post_url' => 'gudang_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function ubah_pajak_supply($id){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		
+		$dt = $this->model->cari_pajak_by_id($id);
+
+		$data =  array(
+			'page' => "ubah_pajak_supply_v", 
+			'title' => "Ubah Gudang", 
+			'msg' => "", 
+			'master' => "master_data", 
+			'view' => "gudang", 
+			'msg' => $msg, 
+			'dt' => $dt, 
+			'post_url' => 'gudang_c', 
 		);
 		
 		$this->load->view('beranda_v', $data);

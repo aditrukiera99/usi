@@ -390,7 +390,7 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal)
+    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal,$no_bukti_real)
     {
 
         $sql = "
@@ -413,7 +413,8 @@ class Delivery_order_new_m extends CI_Model
             NO_SO,
             STATUS,
             TGL_TRX,
-            HARGA_SATUAN
+            HARGA_SATUAN,
+            NOMER_DO
 
 
         )
@@ -436,7 +437,8 @@ class Delivery_order_new_m extends CI_Model
            '$no_trx', 
            '0',
            '$tgl',
-           '$harga_modal'
+           '$harga_modal',
+           '$no_bukti_real'
         )
         ";
 

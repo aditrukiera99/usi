@@ -74,12 +74,12 @@
 						<tr >
 							<td align="center" style="text-align: center;background-color: #dff0d8;" > <?=$no;?> </td>
 							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->NAMA;?> </td>
-							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->KAPASITAS;?> L </td>
-							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->ISI;?> L </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?php echo number_format($row->KAPASITAS,2);?> L </td>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?php echo number_format($row->ISI,2);?> L </td>
 							<td align="center" style="text-align: center;background-color: #dff0d8;"> <?=$row->PENANGGUNG_JAWAB;?> </td>
-							<td align="center" style="text-align: center;background-color: #dff0d8;"><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> <i class="icon-edit"></i>
+							<td align="center" style="text-align: center;background-color: #dff0d8;"><a href="<?=base_url();?>gudang_c/ubah_gudang/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn btn-small btn-warning"> <i class="icon-edit"></i>
 								Ubah 
-								</button>
+								</button></a>
 								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> <i class="icon-trash"></i>
 								Hapus
 								</button>
@@ -101,9 +101,12 @@
 									<td align="center" colspan="3" style="text-align: center;background-color: #f2dede;" > <?=$value->NAMA_BPPKB;?> </td>
 									
 									<td align="center" style="text-align: center;background-color: #f2dede;" >PAJAK : <?=$value->PAJAK;?> %</td>
-									<td align="center" style="text-align: center;background-color: #f2dede;"><button style="padding: 2px 10px;"  onclick="ubah_data_pajak(<?=$value->ID;?>);" type="button" class="btn btn-small btn-inverse"> <i class="icon-edit"></i>
+									<td align="center" style="text-align: center;background-color: #f2dede;">
+										<a href="<?=base_url();?>gudang_c/ubah_pajak_supply/<?=$value->ID;?>">
+										<button style="padding: 2px 10px;"  type="button" class="btn btn-small btn-inverse"> <i class="icon-edit"></i>
 										Ubah 
 										</button>
+										</a>
 										<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus_pajak').val('<?=$value->ID;?>');" type="button" class="btn btn-small btn-info"> <i class="icon-trash"></i>
 										Hapus
 										</button>
@@ -129,6 +132,12 @@
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 					<div class="control-group">
+						<label class="control-label"> KODE SUPPLY POINT </label>
+						<div class="controls">
+							<input required type="text" class="span6" value="" name="kode_supply_point" style="font-size: 14px;">
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label"> NAMA </label>
 						<div class="controls">
 							<input required type="text" class="span6" value="" name="nama" style="font-size: 14px;">
@@ -138,7 +147,7 @@
 					<div class="control-group">
 						<label class="control-label"> KAPASITAS </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" name="kapasitas" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="kapasitas" onkeyup="FormatCurrency(this);" style="font-size: 14px;">
 						</div>
 					</div>
 
@@ -335,6 +344,9 @@
 
 
 <script type="text/javascript">
+function acc_format(n, currency) {
+	return currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+}
 function ubah_data_produk(id){
 	$('#popup_load').show();
 	$.ajax({
@@ -346,7 +358,8 @@ function ubah_data_produk(id){
 			$('#popup_load').hide();
 			$('#id_gr').val(result.ID);
 			$('#nama').val(result.NAMA);
-			$('#kapasitas').val(result.KAPASITAS);
+			var kapasitas = parseFloat(result.KAPASITAS)
+			$('#kapasitas').val(acc_format(kapasitas, ""));
 			$('#penanggung_jawab').val(result.PENANGGUNG_JAWAB);
 
 	        $('#view_data').hide();

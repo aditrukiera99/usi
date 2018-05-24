@@ -54,14 +54,15 @@ class Gudang_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_gudang($nama,$kapasitas,$penanggung_jawab){
+    function simpan_gudang($nama,$kapasitas,$penanggung_jawab,$kode){
        
+        $kapasitas    = str_replace(',', '', $kapasitas);
 
         $sql = "
         INSERT INTO ak_gudang
-        (NAMA,KAPASITAS ,PENANGGUNG_JAWAB,ISI)
+        (NAMA,KAPASITAS ,PENANGGUNG_JAWAB,ISI,KODE_SUPPLY_POINT)
         VALUES 
-        ('$nama', '$kapasitas', '$penanggung_jawab','0')
+        ('$nama', '$kapasitas', '$penanggung_jawab','0','$kode')
         ";
 
         $this->db->query($sql);
@@ -84,6 +85,7 @@ class Gudang_m extends CI_Model
 
     function edit_gudang($id_grup,$nama,$kapasitas,$penanggung_jawab){
         
+        $kapasitas    = str_replace(',', '', $kapasitas);
 
         $sql = "
         UPDATE ak_gudang SET 

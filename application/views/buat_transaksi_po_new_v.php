@@ -138,7 +138,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
-				<input type="text" class="span11" value="<?=$no_transaksi;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="text" class="span11" value="<?=$no_transaksi;?>" name="no_trx" id="no_trx" style="font-size: 15px;" readonly>
 				<input type="hidden" class="span8" value="<?=$no_transaksi;?>" name="no_trx2" id="no_trx2">
 				<input type="hidden" class="span8" value="<?=$no_bukti_real2;?>" name="no_do" id="no_trx2">
 			</div>
@@ -193,7 +193,7 @@ input[type=checkbox]
 </div>
 
 
-<div class="row-fluid" style="background: #F5EADA; ">
+<!-- <div class="row-fluid" style="background: #F5EADA; ">
 	<div class="span6" style="margin-left: 10px;">
 		<div class="control-group">
 		    <label class="control-label"> <b style="font-size: 14px;"> Supply Point </b> </label>
@@ -222,6 +222,24 @@ input[type=checkbox]
 		    </table>
 		</div>
 	</div>
+</div> -->
+
+<div class="row-fluid" style="background: #F5EADA; ">
+	<div class="span6" style="margin-left: 10px;">
+		<div class="control-group">
+		    <label class="control-label"> <b style="font-size: 14px;"> Customer </b> </label>
+			<div class="controls">
+				<div class="input-append">
+						<input type="text" id="pelanggan_cust" name="pelanggan_cust" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="alamat_tagih_cust" name="alamat_tagih_cust" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="kode_sh_cust" name="kode_sh_cust" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="aksi_on" name="aksi_on" readonly style="background:#FFF; width: 70%;">
+						
+						<button onclick="show_pop_customer();" type="button" class="btn">Cari</button>
+					</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -240,7 +258,7 @@ input[type=checkbox]
 					<thead>
 						<tr>
 							
-							<th align="center" style="width: 20%;"> Nomor SO </th>
+							<th align="center" style="width: 20%;"> Refrensi SO </th>
 							<th align="center"> No SH </th>
 							<th align="center"> Produk / Item </th>
 							<th align="center"> Qty </th>
@@ -288,7 +306,7 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);disc_txt();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
 								</div>
 							</td>
 
@@ -356,23 +374,124 @@ input[type=checkbox]
 						</div>
 					</div>
 
-					<div class="row-fluid" style="margin-top: 10px;">
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
-							<h3> PBBKB :</h3> 
+							<h3> Discount :</h3> 
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
-							<input type="checkbox" name="pbbkb" value="ada">
-						</div>	
+							<div class="input-append">
+							<input type="text" name="discount" id="discount" onkeyup="disc_txt(this.value);">
+							<span class="add-on">%</span>
+						</div>
+						</div>
+					</div> -->
+
+					
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> <input type="checkbox" name="pbbkb" checked="checked" value="ada" id="pajak_pbbkb_ck" onchange="pajak_pbbkb(this.value);hitung_total_pajak();harga_final();"> PBBKB :</h3> 
+
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pbbkb"></h3>
+							<input type="hidden" name="penampung_pbbkb" id="penampung_pbbkb" value="0">
+							
+							<input type="hidden" name="pajak_pbbkb_validasi" id="pajak_pbbkb_validasi">
+							<input type="hidden" name="total_pbbkb_text" id="total_pbbkb_text">
+						</div>
 					</div>
 
 					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> <input type="checkbox" name="ppn" checked="checked" value="ada" id="pajak_ppn_ck" onchange="pajak_ppn(this.value);hitung_total_pajak();harga_final();"> PPN :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_ppn"></h3>
+							<input type="hidden" name="penampung_ppn" id="penampung_ppn" value="0">
+							<input type="hidden" name="pajak_ppn_validasi" id="pajak_ppn_validasi">
+							<input type="hidden" name="total_ppn_text" id="total_ppn_text">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3><input type="checkbox" name="pph_15" checked="checked" value="ada" id="pajak_pph_15_ck" onchange="pajak_pph_15(this.value);hitung_total_pajak();harga_final();"> PPH 15 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_15"></h3>
+							<input type="hidden" name="penampung_pph_15" id="penampung_pph_15" value="0">
+							<input type="hidden" name="pajak_pph_15_validasi" id="pajak_pph_15_validasi">
+							<input type="hidden" name="total_pph_15_text" id="total_pph_15_text">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3><input type="checkbox" name="pph_21" checked="checked" value="ada" id="pajak_pph_21_ck" onchange="pajak_pph_21(this.value);hitung_total_pajak();harga_final();"> PPH 21 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_21"></h3>
+							<input type="hidden" name="penampung_pph_21" id="penampung_pph_21" value="0">
+							<input type="hidden" name="pajak_pph_21_validasi" id="pajak_pph_21_validasi">
+							<input type="hidden" name="total_pph_21_text" id="total_pph_21_text">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3><input type="checkbox" name="pph_22" checked="checked" value="ada" id="pajak_pph_22_ck" onchange="pajak_pph_22(this.value);hitung_total_pajak();harga_final();"> PPH 22 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_22"></h3>
+							<input type="hidden" name="penampung_pph_22" id="penampung_pph_22" value="0">
+							<input type="hidden" name="pajak_pph_22_validasi" id="pajak_pph_22_validasi">
+							<input type="hidden" name="total_pph_22_text" id="total_pph_22_text">
+						</div>
+					</div>
+
+					
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> <input type="checkbox" name="pph_23" checked="checked" value="ada" style="" id="pajak_pph_23_ck" onchange="pajak_pph_23(this.value);hitung_total_pajak();harga_final();"> PPH 23 :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="total_pph_23"></h3>
+							<input type="hidden" name="penampung_pph_23" id="penampung_pph_23" value="0">
+							<input type="hidden" name="pajak_pph_23_validasi" id="pajak_pph_23_validasi">
+							<input type="hidden" name="total_pph_23_text" id="total_pph_23_text">
+						</div>
+					</div>
+
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
 							<h3> OAT :</h3> 
 						</div>
 
 						<div style="margin-bottom: 15px;" class="span4">
-							<input type="checkbox" name="oat" value="ada">
+							<h3 style="color: green;" id="oat"></h3>
+						</div>
+					</div> -->
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="tot_disc"></h3>
+							<input type="hidden" name="tot_disc" id="tot_disc_txt">
+							<input type="hidden" name="tot_semua_pajak" id="total_semua_pajak">
+							<input type="hidden" name="penampung_total" id="penampung_total">
+							<input type="hidden" name="total_hasil_pajak" id="total_hasil_pajak">
 						</div>
 					</div>
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
@@ -395,6 +514,224 @@ input[type=checkbox]
 
 
 <script type="text/javascript">
+
+function disc_txt(){
+	var sub_total = $('#inp_sub_total').val();
+	var harga_modal = $('#harga_modal_1').val();
+	var qty = $('#qty_1').val();
+
+	harga_modal   = harga_modal.split(',').join('');
+	qty   = qty.split(',').join('');
+
+	var jml_pajak = $('#pajak_pbbkb_validasi').val();
+	var jml_pajak_ppn = $('#pajak_ppn_validasi').val();
+	var jml_pajak_pph_23 = $('#pajak_pph_23_validasi').val();
+	var jml_pajak_pph_15 = $('#pajak_pph_15_validasi').val();
+	var jml_pajak_pph_21 = $('#pajak_pph_21_validasi').val();
+	var jml_pajak_pph_22 = $('#pajak_pph_22_validasi').val();
+
+	// var total = parseFloat(disc/100) * parseFloat(sub_total);
+	// var total_diskon = sub_total - (parseFloat(disc/100) * parseFloat(sub_total));
+	var sub_total_satuan = sub_total / qty;
+
+	var total_pbbkb = (jml_pajak/100) * sub_total_satuan ;
+	var koma_pbbkb = total_pbbkb.toFixed(2);
+	var semua_pbbkb = koma_pbbkb * qty;
+
+
+	var total_ppn = (jml_pajak_ppn/100) * sub_total_satuan ;
+	var semua_ppn = total_ppn * qty;
+
+	var total_pph_23 = (jml_pajak_pph_23/100) * sub_total_satuan ;
+	var koma_pph_23 = total_pph_23.toFixed(2);
+	var semua_pph_23 = koma_pph_23 * qty;
+
+	var total_pph_15 = (jml_pajak_pph_15/100) * sub_total_satuan ;
+	var koma_pph_15 = total_pph_15.toFixed(2);
+	var semua_pph_15 = koma_pph_15 * qty;
+
+	var total_pph_21 = (jml_pajak_pph_21/100) * sub_total_satuan ;
+	var koma_pph_21 = total_pph_21.toFixed(2);
+	var semua_pph_21 = koma_pph_21 * qty;
+
+	var total_pph_22 = (jml_pajak_pph_22/100) * sub_total_satuan ;
+	var koma_pph_22 = total_pph_22.toFixed(2);
+	var semua_pph_22 = koma_pph_22 * qty;
+
+	
+	var total_kabeh = parseFloat(sub_total) + parseFloat(semua_pbbkb) + parseFloat(semua_ppn) + parseFloat(semua_pph_23) + parseFloat(semua_pph_15) + parseFloat(semua_pph_21) + parseFloat(semua_pph_22);
+
+
+	$('#total_pbbkb').html('Rp. '+acc_format(semua_pbbkb, "").split('.00').join('') );
+	$('#total_ppn').html('Rp. '+acc_format(semua_ppn, "").split('.00').join('') );
+	$('#total_pph_23').html('Rp. '+acc_format(semua_pph_23, "").split('.00').join('') );
+	$('#total_pph_15').html('Rp. '+acc_format(semua_pph_15, "").split('.00').join('') );
+	$('#total_pph_21').html('Rp. '+acc_format(semua_pph_21, "").split('.00').join('') );
+	$('#total_pph_22').html('Rp. '+acc_format(semua_pph_22, "").split('.00').join('') );
+	$('#tot_disc').html('Rp. '+acc_format(total_kabeh, "").split('.00').join('') );
+
+
+
+	$('#total_pbbkb_text').val(semua_pbbkb);
+	$('#total_ppn_text').val(semua_ppn);
+	$('#total_pph_23_text').val(semua_pph_23);
+	$('#total_pph_15_text').val(semua_pph_15);
+	$('#total_pph_21_text').val(semua_pph_21);
+	$('#total_pph_22_text').val(semua_pph_22);
+
+	$('#penampung_pbbkb').val(semua_pbbkb);
+	$('#penampung_ppn').val(semua_ppn);
+	$('#penampung_pph_23').val(semua_pph_23);
+	$('#penampung_pph_15').val(semua_pph_15);
+	$('#penampung_pph_21').val(semua_pph_21);
+	$('#penampung_pph_22').val(semua_pph_22);
+
+	$('#tot_disc_txt').val(sub_total);
+	$('#total_semua_pajak').val(sub_total);
+
+
+
+}
+
+function pajak_pbbkb(){
+	var sub_total = $('#total_semua_pajak').val();
+	var pajak_pbbkb = $('#total_pbbkb_text').val();
+	var checkBox = document.getElementById("pajak_pbbkb_ck");
+
+	if(checkBox.checked == true){
+		// var total = parseFloat(sub_total) + parseFloat(pajak_pbbkb);
+		// $('#total_semua_pajak').val(total);
+		$('#total_pbbkb').html('Rp. '+acc_format(parseFloat(pajak_pbbkb), "").split('.00').join('') );
+		$('#penampung_pbbkb').val(pajak_pbbkb);
+	}else if(checkBox.checked == false){
+		$('#penampung_pbbkb').val('0');
+		$('#total_pbbkb').html('Rp. '+acc_format(0, "").split('.00').join('') );
+
+	}
+
+}
+
+
+
+function pajak_ppn(){
+	var sub_total = $('#total_semua_pajak').val();
+	var pajak_ppn = $('#total_ppn_text').val();
+	var checkBox = document.getElementById("pajak_ppn_ck");
+
+	if(checkBox.checked == true){
+		// var total = parseFloat(sub_total) + parseFloat(pajak_ppn);
+		// $('#total_semua_pajak').val(total);
+		$('#total_ppn').html('Rp. '+acc_format(parseFloat(pajak_ppn), "").split('.00').join('') );
+		$('#penampung_ppn').val(pajak_ppn);
+	}else if(checkBox.checked == false){
+		$('#penampung_ppn').val('0');
+		$('#total_ppn').html('Rp. '+acc_format(0, "").split('.00').join('') );
+	}
+
+}
+
+function pajak_pph_21(){
+	var sub_total = $('#total_semua_pajak').val();
+	var pajak_pph_21 = $('#total_pph_21_text').val();
+	var checkBox = document.getElementById("pajak_pph_21_ck");
+
+	if(checkBox.checked == true){
+		// var total = parseFloat(sub_total) + parseFloat(pajak_pph_21);
+		// $('#total_semua_pajak').val(total);
+		$('#total_pph_21').html('Rp. '+acc_format(parseFloat(pajak_pph_21), "").split('.00').join('') );
+		$('#penampung_pph_21').val(pajak_pph_21);
+	}else if(checkBox.checked == false){
+		$('#penampung_pph_21').val('0');
+		$('#total_pph_21').html('Rp. '+acc_format(0, "").split('.00').join('') );
+	}
+
+}
+
+function pajak_pph_15(){
+	var sub_total = $('#total_semua_pajak').val();
+	var pajak_pph_15 = $('#total_pph_15_text').val();
+	var checkBox = document.getElementById("pajak_pph_15_ck");
+
+	if(checkBox.checked == true){
+		// var total = parseFloat(sub_total) + parseFloat(pajak_pph_15);
+		// $('#total_semua_pajak').val(total);
+		$('#total_pph_15').html('Rp. '+acc_format(parseFloat(pajak_pph_15), "").split('.00').join('') );
+		$('#penampung_pph_15').val(pajak_pph_15);
+	}else if(checkBox.checked == false){
+		$('#penampung_pph_15').val('0');
+		$('#total_pph_15').html('Rp. '+acc_format(0, "").split('.00').join('') );
+	}
+
+}
+
+function pajak_pph_23(){
+	var sub_total = $('#total_semua_pajak').val();
+	var pajak_pph_23 = $('#total_pph_23_text').val();
+	var checkBox = document.getElementById("pajak_pph_23_ck");
+
+	if(checkBox.checked == true){
+		// var total = parseFloat(sub_total) + parseFloat(pajak_pph_23);
+		// $('#total_semua_pajak').val(total);
+		$('#total_pph_23').html('Rp. '+acc_format(parseFloat(pajak_pph_23), "").split('.00').join('') );
+		$('#penampung_pph_23').val(pajak_pph_23);
+	}else if(checkBox.checked == false){
+		$('#penampung_pph_23').val('0');
+		$('#total_pph_23').html('Rp. '+acc_format(0, "").split('.00').join('') );
+	}
+
+}
+
+function pajak_pph_22(){
+	var sub_total = $('#total_semua_pajak').val();
+	var pajak_pph_22 = $('#total_pph_22_text').val();
+	var checkBox = document.getElementById("pajak_pph_22_ck");
+
+	if(checkBox.checked == true){
+		// var total = parseFloat(sub_total) + parseFloat(pajak_pph_22);
+		// $('#total_semua_pajak').val(total);
+		$('#total_pph_22').html('Rp. '+acc_format(parseFloat(pajak_pph_22), "").split('.00').join('') );
+		$('#penampung_pph_22').val(pajak_pph_22);
+	}else if(checkBox.checked == false){
+		$('#penampung_pph_22').val('0');
+		$('#total_pph_22').html('Rp. '+acc_format(0, "").split('.00').join('') );
+	}
+
+}
+
+function hitung_total_pajak(){
+	var pajak_pbbkb = $('#penampung_pbbkb').val();
+	var pajak_ppn = $('#penampung_ppn').val();
+	var pajak_pph_21 = $('#penampung_pph_21').val();
+	var pajak_pph_15 = $('#penampung_pph_15').val();
+	var pajak_pph_23 = $('#penampung_pph_23').val();
+	var pajak_pph_22 = $('#penampung_pph_22').val();
+
+	var total = parseFloat(pajak_pbbkb) + parseFloat(pajak_ppn) + parseFloat(pajak_pph_21) + parseFloat(pajak_pph_15) + parseFloat(pajak_pph_23) + parseFloat(pajak_pph_22); 
+
+
+	$('#penampung_total').val(total);
+
+
+	// var sub_total = $('#inp_sub_total').val();
+
+	// var total_semua = parsefloat(sub_total) + parsefloat(total);
+
+	// $('#total_semua_pajak').val(total);
+
+}
+
+function harga_final(){
+	var total_semua_pajak = $('#inp_sub_total').val();
+	var penampung_total = $('#penampung_total').val();
+
+	var martis = parseInt(total_semua_pajak) + parseInt(penampung_total);
+	
+
+	$('#tot_disc').html('Rp. '+acc_format(martis, "").split('.00').join('') );
+	$('#total_hasil_pajak').val(martis);
+
+	
+}
 
 function hapus_row_pertama(){
 	$('#nama_produk_1').val('');
@@ -574,12 +911,14 @@ function ajax_produk(id_form){
 
 function ajax_barang(id_form){
    var keyword = $('#search_koang_pro').val();
+   var kode = $('#kode_sh_1').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_popup',
+        url : '<?php echo base_url(); ?>purchase_order_c/get_produk_popup_po',
         type : "POST",
         dataType : "json",
         data : {
             keyword : keyword,
+            kode : kode,
         },
         success : function(result){
             var isine = '';
@@ -587,18 +926,15 @@ function ajax_barang(id_form){
             var tipe_data = "";
             $.each(result,function(i,res){
                 no++;
-                nama_pel = res.STOK+" "+res.SATUAN;
-                if(res.TIPE == "JASA"){
-                	nama_pel = "UNLIMITED";
-                }
+               
 
 
 
-                isine += '<tr onclick="get_barang_detail(\'' +res.ID+ '\',\'' +id_form+ '\');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_barang_detail(\'' +res.HARGA_BELI+ '\',\'' +res.ID+ '\',\'' +res.NAMA_PRODUK+ '\');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.KODE_PRODUK+'</td>'+
                             '<td align="left">'+res.NAMA_PRODUK+'</td>'+
-                             '<td align="center">Rp '+NumberToMoney(res.HARGA).split('.00').join('')+'</td>'+
+                             '<td align="center">Rp '+NumberToMoney(res.HARGA_BELI).split('.00').join('')+'</td>'+
                         '</tr>';
                         
                 $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
@@ -624,6 +960,12 @@ function show_pop_pelanggan(id){
     ajax_pelanggan();
 }
 
+function show_pop_customer(id){
+	$('#popup_koang').remove();
+    get_popup_customer();
+    ajax_customer();
+}
+
 function get_popup_pelanggan(){
     var base_url = '<?php echo $base_url2; ?>';
     var $isi = '<div id="popup_koang">'+
@@ -638,6 +980,41 @@ function get_popup_pelanggan(){
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;"> NAMA SUPPLIER / PERUSAHAAN </th>'+
                 '                        <th> ALAMAT </th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
+
+function get_popup_customer(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang" id="search_koang" class="form-control" value="" placeholder="Cari Supplier...">'+
+                '    <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO</th>'+
+                '                        <th style="white-space:nowrap;"> NAMA CUSTOMER / PERUSAHAAN </th>'+
+                '                        <th> KODE SH </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -698,6 +1075,45 @@ function ajax_pelanggan(){
     });
 }
 
+function ajax_customer(){
+    var keyword = $('#search_koang').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>purchase_order_c/get_pelanggan_popup',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+                nama_pel = res.NAMA_SUPPLIER;
+                if(res.TIPE == "Perusahaan"){
+                	nama_pel = res.NAMA_SUPPLIER+" <b> ("+res.NAMA_USAHA+")</b>";
+                }
+
+                isine += '<tr onclick="get_customer_detail('+res.ID+');" style="cursor:pointer;">'+
+                            '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.NAMA_PELANGGAN+'</td>'+
+                            '<td align="center">'+res.KODE_PELANGGAN+'</td>'+
+                        '</tr>';
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+            $('#search_koang').off('keyup').keyup(function(){
+                ajax_pelanggan();
+            });
+        }
+    });
+}
+
 function get_supplier_detail(id_pel){
 	$('#popup_load').show();
 	$.ajax({
@@ -708,9 +1124,39 @@ function get_supplier_detail(id_pel){
 		success : function(result){
 			$('#popup_load').hide();
 			// $('#alamat_tagih').val(result.ALAMAT_TAGIH);
-			$('#pelanggan').val(result.NAMA_SUPPLIER);
+			$('#pelanggan').val(result.NAMA_USAHA);
 			$('#kota_tujuan').val(result.KOTA);
 			$('#pelanggan_sel').val(id_pel);
+
+			$('#search_koang').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+		}
+	});
+}
+
+function get_customer_detail(id_pel){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>purchase_order_c/get_supplier_detail',
+		data : {id_pel:id_pel},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+			// $('#alamat_tagih').val(result.ALAMAT_TAGIH);
+			$('#kode_sh_1').val(result.KODE_PELANGGAN);
+			$('#harga_modal_1').val(result.HARGA_CUY);
+			$('#pelanggan_cust').val(result.NAMA_PELANGGAN);
+			$('#alamat_tagih_cust').val(result.ALAMAT_TAGIH);
+			$('#kode_sh_cust').val(result.KODE_PELANGGAN);
+			$('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
+			$('#pajak_ppn_validasi').val(result.PPN);
+			$('#pajak_pph_23_validasi').val(result.PPH23);
+			$('#pajak_pph_15_validasi').val(result.PPH15);
+			$('#pajak_pph_21_validasi').val(result.PPH_21);
+			$('#pajak_pph_22_validasi').val(result.PPH_22);
+			$('#aksi_on').val(result.ID_SUPPLY_POINT);
 
 			$('#search_koang').val("");
 		    $('#popup_koang').css('display','none');
@@ -761,7 +1207,7 @@ function get_produk_detail(id, no_form,nomor_so){
 		dataType : "json",
 		success : function(result){
 			$('#qty_'+no_form).val(result.QTY);
-			$('#harga_modal_'+no_form).val(result.HARGA_SATUAN);
+			$('#harga_modal_'+no_form).val(result.HARGA_BELI);
 			$('#nomor_so_'+no_form).val(nomor_so);
 			$('#harga_invoice_'+no_form).val(result.TOTAL);
 			$('#id_produk_'+no_form).val(id_produk);
@@ -787,28 +1233,15 @@ function get_produk_detail(id, no_form,nomor_so){
 // 	window.location.href = "<?php echo base_url(); ?>purchase_order_c/new_invoice_umum";
 // }
 
-function get_barang_detail(id, no_form,nomor_so){
-    var id_produk = id;
-    $.ajax({
-		url : '<?php echo base_url(); ?>purchase_order_c/get_produk_detail_langsung',
-		data : {id_produk:id_produk},
-		type : "GET",
-		dataType : "json",
-		success : function(result){
-			$('#harga_modal_'+no_form).val(result.HARGA);
-			$('#id_produk_'+no_form).val(id_produk);
-			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
+function get_barang_detail(harga,id,nama_produk){
+    $('#nama_produk_1').val(nama_produk);
+    $('#id_produk_1').val(id);
+    $('#harga_modal_1').val(harga);
 
-
-
-			$('#search_koang_pro').val("");
-		    $('#popup_koang').css('display','none');
-		    $('#popup_koang').hide();
-		    $('#popup_koang').remove();
-
-		    
-		}
-	});
+    $('#search_koang_pro').val("");
+    $('#popup_koang').css('display','none');
+    $('#popup_koang').hide();
+    $('#popup_koang').remove();
 
 }
 
@@ -948,6 +1381,16 @@ function get_pelanggan_det(id_pel){
 
 function hitung_total_semua(){
 	var sum = 0;
+
+	var harga_invoice = $('#harga_modal_1').val();
+	var qty = $('#qty_1').val();
+	var jml_pajak = $('#pajak_pbbkb_validasi').val();
+	var jml_pajak_ppn = $('#pajak_ppn_validasi').val();
+	var jml_pajak_pph_23 = $('#pajak_pph_23_validasi').val();
+	var jml_pajak_pph_15 = $('#pajak_pph_15_validasi').val();
+	var jml_pajak_pph_21 = $('#pajak_pph_21_validasi').val();
+	var jml_pajak_pph_22 = $('#pajak_pph_22_validasi').val();
+
 	$("input[name='jml_harga[]']").each(function(idx, elm) {
 		var tot = elm.value.split(',').join('');
 		if(tot > 0){
@@ -956,9 +1399,18 @@ function hitung_total_semua(){
     });
 
 
-    $('#inp_sub_total').val(sum);
+	harga_invoice           = harga_invoice.split(',').join('');
+	qty   					= qty.split(',').join('');
 
-    $('#subtotal_h').html('Rp. '+acc_format(sum, ""));
+	var jadi = (parseFloat(harga_invoice) / ( 1 + parseFloat(jml_pajak/100) + parseFloat(jml_pajak_ppn/100) + parseFloat(jml_pajak_pph_23/100) + parseFloat(jml_pajak_pph_15/100) + parseFloat(jml_pajak_pph_21/100) + parseFloat(jml_pajak_pph_22/100) ));
+
+	var jadi_total = jadi.toFixed(2);
+
+	var semuanya = jadi_total * qty;
+
+    $('#inp_sub_total').val(semuanya);
+
+    $('#subtotal_h').html('Rp. '+acc_format(semuanya, ""));
 }
 
 function hitung_pajak(id_pajak){
@@ -1015,7 +1467,7 @@ function get_supply_point(id) {
                                     '<td style="text-align:center;">'+res.NAMA_BPPKB+'</td>'+
                                     '<td style="text-align:center;">'+res.PAJAK+' %</td>'+
                                     '<td style="text-align:center;">'+
-                                    	'<input type="radio" value="'+res.ID+'" name="aksi_on">'+
+                                    	'<input type="radio" value="'+res.ID+'" name="aksi_on_1">'+
                                     '</td>'+
                                 '</tr>';
                     });

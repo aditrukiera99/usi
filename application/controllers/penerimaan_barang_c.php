@@ -31,6 +31,36 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$msg = 1;
 
+			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
+
+				if($bulan_kas == "01"){
+			    $var = "I";
+			   } else if($bulan_kas == "02"){
+			    $var = "II";
+			   } else if($bulan_kas == "03"){
+			    $var = "III";
+			   } else if($bulan_kas == "04"){
+			    $var = "IV";
+			   } else if($bulan_kas == "05"){
+			    $var = "V";
+			   } else if($bulan_kas == "06"){
+			    $var = "VI";
+			   } else if($bulan_kas == "07"){
+			    $var = "VII";
+			   } else if($bulan_kas == "08"){
+			    $var = "VIII";
+			   } else if($bulan_kas == "09"){
+			    $var = "IX";
+			   } else if($bulan_kas == "10"){
+			    $var = "X";
+			   } else if($bulan_kas == "11"){
+			    $var = "XI";
+			   } else if($bulan_kas == "12"){
+			    $var = "XII";
+			   }
+
+			   $tahun_kas = date("y",strtotime($this->input->post('tgl_trx')));
+
 			$no_lpbe      = $this->input->post('no_lpbe');
 			$supplier     = $this->input->post('pelanggan');
 			$id_supplier  = $this->input->post('pelanggan_sel');
@@ -44,9 +74,12 @@ class Penerimaan_barang_c extends CI_Controller {
 			$harga_modal  = $this->input->post('harga_modal');
 			$total_id     = $this->input->post('total_id');
 
+			$kode_gudang = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_pembelian p WHERE p.PAJAK_SUPPLY = g.ID AND p.NO_PO = '$no_po' ")->row();
+
+			$no_bukti_real = $no_lpbe."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
 
-			$this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang , $tgl_trx );
+			$this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang , $tgl_trx , $no_bukti_real);
 
 			$id_penerimaan = $this->db->insert_id();
 
@@ -57,6 +90,10 @@ class Penerimaan_barang_c extends CI_Controller {
 			$this->model->update_status_gudang($id_gudang,$qty);
 
 			$this->model->update_status_po_tgl($no_po,$tgl_trx);
+
+
+
+			$this->model->save_next_nomor($id_klien, 'Penerimaan_barang', $no_lpbe);
 
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 
@@ -207,6 +244,7 @@ class Penerimaan_barang_c extends CI_Controller {
 		$get_pel_sup = $this->model->get_pel_sup($id_klien);
 		$get_pajak = $this->model->get_pajak($id_klien);
 		$no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		$no_lpb = $this->model->get_no_lpb($id_klien);
 		$get_broker = $this->model->get_broker();
 
 		$data =  array(
@@ -217,6 +255,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			'view' => "purchase_order", 
 			'msg' => $msg, 
 			'no_trx' => $no_trx, 
+			'no_lpb' => $no_lpb, 
 			'get_broker' => $get_broker, 
 			'post_url' => 'penerimaan_barang_c', 
 		);

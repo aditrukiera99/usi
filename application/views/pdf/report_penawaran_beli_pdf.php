@@ -167,7 +167,7 @@ function tgl_to_bulan($var){
   <table style="width: 100%; font-size: 13px;float: right;border:1px solid black;border-collapse: collapse;margin-top: 10px;">
     <tr>
       <td style="width: 60%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">Nomor Pemesanan</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">: <?=$dt->NO_BUKTI;?>/JKT/VII/17</td>
+      <td style="width: 40%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">: <?=$dt->NOMER_SO;?></td>
     </tr>
   </table>
 </div>
@@ -187,7 +187,7 @@ function tgl_to_bulan($var){
     </tr>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Sold To</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 769-634</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 769-314</td>
     </tr>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">NPWP</td>
@@ -203,40 +203,45 @@ function tgl_to_bulan($var){
     </tr>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Jenis BBM</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; HSD</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$dt_detil->NAMA_PRODUK;?></td>
     </tr>
+    <?php 
+      $id = $dt->ID;
+      $pel = $this->db->query("SELECT g.NAMA , mh.HARGA_BELI FROM ak_gudang g , ak_master_harga mh , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND pl.KODE_PELANGGAN = mh.ID_PELANGGAN AND p.ID = '$id' ")->row();
+
+
+    ?>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Depot Pengambilan</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; TJ.PRIOK, JAKARTA</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$pel->NAMA;?></td>
     </tr>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Tujuan Pengiriman</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$dt->PELANGGAN;?><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$dt->ALAMAT;?></td>
+      <td style="width: 70%;">: <label style="padding-left: 20px;"> <?=$dt->PELANGGAN;?></label><br><p style="padding-left: 30px;"><?=$dt->ALAMAT;?></p></td>
     </tr>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Jumlah Volume</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$dt_detil->QTY;?> Liter</td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?php echo number_format($dt_detil->QTY,0);?> Liter</td>
     </tr>
+
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Harga Satuan (Rp/Ltr)</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($dt_detil->HARGA_SATUAN,2);?></td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($pel->HARGA_BELI,0);?></td>
     </tr>
+
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Harga Total</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($dt_detil->TOTAL,2);?></td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($pel->HARGA_BELI * $dt_detil->QTY ,2);?></td>
     </tr>
     <tr style="padding-top: 5px;">
       <td style="width: 30%;">Jumlah Total</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; Rp. <?php echo number_format($dt_detil->TOTAL,2);?></td>
+      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; Rp. <?php echo number_format($pel->HARGA_BELI * $dt_detil->QTY,2);?></td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Nama Transportir</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; PT. PERTAMINA</td>
+      <td style="width: 30%;">Transportir</td>
+      <td style="width: 70%;">:<label style="padding-left: 20px;">PT. UNITED SHIPPING INDONESIA</label> <br><p style="padding-left: 24px;"> PT.SUMBER HARAPAN JAYA </p></td>
     </tr>
-    <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Nama Kapal</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; MT.HARIANI 99</td>
-    </tr>
+    
     
   </table>
 </div>

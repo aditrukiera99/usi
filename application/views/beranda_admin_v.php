@@ -623,6 +623,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <li><a href="<?=base_url();?>daftar_kode_akun_c"> <i class="icon-caret-right "></i> Daftar Kode Akun </a></li>
                     <?PHP } ?>
 
+                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Supply Point </a></li>
+
                     <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>pelanggan_c"> <i class="icon-caret-right "></i> Customer </a></li>
                     <?PHP } ?>
@@ -642,7 +644,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
                     <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li> -->
                     <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li>
-                    <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Supply Point </a></li>
+
+                    <li><a href="<?=base_url();?>master_harga_c"><i class="icon-caret-right "></i> Master Harga </a></li>
+
+                    <li><a href="<?=base_url();?>master_transportir_c"><i class="icon-caret-right "></i> Master Transportir </a></li>
+                    
                 </ul>
             </div>
             </li>
@@ -658,6 +664,21 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <li><a href="<?=base_url();?>input_aset_harga_c"><i class="icon-minus"></i> Input Harga & Penyusutan </a></li>
                     <li><a href="<?=base_url();?>lap_aset_tetap_c"><i class="icon-minus"></i> Laporan Aset Tetap </a></li>
                 </ul>
+            </div>
+            </li>
+            <?PHP } ?>
+
+            <?php if($this->master_model_m->cek_master($id_user, 'Logistik', $user->LEVEL)){ ?>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-truck"></i>Logistik<b class="icon-angle-down"></b></a>
+            <div class="dropdown-menu">
+              <ul>
+                  
+                  <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Service Kendaraan </a></li>
+                  <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
+                  <li><a href="#"><i class="icon-caret-right "></i> Pajak Kendaraan </a></li>
+                  <li><a href="#"><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                  
+              </ul>
             </div>
             </li>
             <?PHP } ?>
@@ -926,6 +947,10 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li <?PHP if($master == "master_data"){ echo "class='active'"; } ?> ><a href="#features" class="icon-globe" title="Master Data"></a></li>
             <?PHP } ?>
 
+            <?php if($this->master_model_m->cek_master($id_user, 'Logistik', $user->LEVEL)){ ?>
+            <li <?PHP if($master == "logistik"){ echo "class='active'"; } ?> ><a href="#logistik" class="icon-truck" title="Logistik"></a></li>
+            <?PHP } ?>
+
             <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
             <li <?PHP if($master == "persediaan"){ echo "class='active'"; } ?> ><a href="#persediaan" class="icon-signal" title="Persediaan"></a></li>
             <?PHP } ?>
@@ -1045,10 +1070,16 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </li>
                   <?PHP } ?>
 
+                  <li <?PHP if($view == "gudang"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>gudang_c"><i class="icon-briefcase "></i> Supply Point
+                        <span> Data Supply Point</span> 
+                      </a>
+                  </li>
+
                   <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                   <li <?PHP if($view == "daftar_pelanggan"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i> Pelanggan 
-                      <span> Daftar Pelanggan Anda  </span> 
+                      <a href="<?=base_url();?>pelanggan_c"><i class="icon-group"></i> Customer 
+                      <span> Daftar Customer Anda  </span> 
 
                       <?PHP if($user->LEVEL == 'MANAGER'){ ?>
                       <?PHP if(count($dt_pengajuan_pelanggan) > 0){ ?>
@@ -1109,11 +1140,19 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                       </a>
                   </li>
 
-                  <li <?PHP if($view == "gudang"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>gudang_c"><i class="icon-briefcase "></i> Supply Point
-                        <span> Data Supply Point</span> 
+                  <li <?PHP if($view == "master_harga"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>master_harga_c"><i class="icon-caret-right"></i> Master Harga
+                        <span> Data Master Harga</span> 
                       </a>
                   </li>
+
+                  <li <?PHP if($view == "master_transportir"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>master_transportir_c"><i class="icon-truck"></i> Master Transportir
+                        <span> Data Master Transportir</span> 
+                      </a>
+                  </li>
+
+                  
               </ul>
           </div>
 
@@ -1147,6 +1186,35 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <li <?PHP if($view == "lap_aset_tetap"){ echo "class='active'"; } ?> >
                       <a href="<?=base_url();?>lap_aset_tetap_c"><i class="icon-minus"></i> Laporan Aset Tetap
                         <span> Menampilkan Laporan Aset Tetap & Penyusutannya </span> 
+                      </a>
+                  </li>
+              </ul>
+          </div>
+
+          <div class="tab-pane <?PHP if($master == "logistik"){ echo "active"; } ?>" id="logistik">
+              <h4 class="side-head">Logistik</h4>
+              <ul class="accordion-nav">
+                  <li <?PHP if($view == "service_kendaraan"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>stock_c"><i class="icon-minus"></i> Service Kendaraan
+                        <span> Seervice Kendaraan Anda</span> 
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "logistik_order"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-minus"></i> Order Logistik
+                        <span> Order barang logistik</span> 
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "laporan_pajak"){ echo "class='active'"; } ?> >
+                      <a href="#"><i class="icon-minus"></i> Pajak Kendaraan
+                        <span> Laporan Pajak Kendaraan Tahunan</span> 
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "gps_tracking"){ echo "class='active'"; } ?> >
+                      <a href="#"><i class="icon-minus"></i> GPS Tracking
+                        <span> Tracking GPS Kendaraan</span> 
                       </a>
                   </li>
               </ul>

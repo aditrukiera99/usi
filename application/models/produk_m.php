@@ -33,6 +33,23 @@ class Produk_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_produk_detail($id){
+
+         $sql = "
+        SELECT * FROM ak_produk WHERE ID = $id
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_list_akun_all($id_klien){
+        $sql = "
+        SELECT * FROM ak_kode_akuntansi WHERE ID_KLIEN = $id_klien
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
 
     function hapus_produk($id){
         $sess_user = $this->session->userdata('masuk_akuntansi');
@@ -87,7 +104,7 @@ class Produk_m extends CI_Model
         INSERT INTO ak_produk
         (ID_KLIEN, KODE_PRODUK, NAMA_PRODUK, SATUAN, DESKRIPSI, HARGA_JUAL, HARGA, APPROVE, UNIT, PPH, PPN, SERVICE, KODE_AKUN, TIPE, STOK, KATEGORI_PRODUK)
         VALUES 
-        ($id_klien, '$kode_produk', '$nama_produk', '$satuan', '$deskripsi', '$harga_jual', '$harga_beli', '$approve', '$unit', '$pph', '$ppn', '$service', '$kode_akun', '$tipe', '$stok', '$kategori_produk')
+        ($id_klien, '$kode_produk', '$nama_produk', '$satuan', '$deskripsi', '0', '0', '$approve', '$unit', '$pph', '$ppn', '$service', '$kode_akun', '$tipe', '$stok', '$kategori_produk')
         ";
 
         $this->db->query($sql);
@@ -110,6 +127,26 @@ class Produk_m extends CI_Model
         KODE_PRODUK = '$kode_produk_ed', NAMA_PRODUK = '$nama_produk_ed', SATUAN = '$satuan_ed', 
         DESKRIPSI = '$deskripsi_ed', HARGA = '$harga_beli', HARGA_JUAL = '$harga_jual', APPROVE = '$approve',
         PPN = '$ppn_ed', PPH = '$pph_ed', SERVICE = '$service_ed', KODE_AKUN = '$kode_akun', TIPE = '$tipe_barang', KATEGORI_PRODUK = '$kategori_produk'
+        WHERE ID = '$id_produk'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function edit_produk_detail($kode_produk_ed, $id_produk, $nama_produk_ed, $satuan_ed, $deskripsi_ed){
+
+        $sess_user = $this->session->userdata('masuk_akuntansi');
+        $id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+
+        $approve = 3;
+        if($user->LEVEL == 'USER'){
+            $approve = 1;
+        }
+
+        $sql = "
+        UPDATE ak_produk SET 
+        KODE_PRODUK = '$kode_produk_ed', NAMA_PRODUK = '$nama_produk_ed', SATUAN = '$satuan_ed', DESKRIPSI = '$deskripsi_ed'
         WHERE ID = '$id_produk'
         ";
 

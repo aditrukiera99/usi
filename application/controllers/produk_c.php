@@ -113,6 +113,23 @@ class Produk_c extends CI_Controller {
 			$deskripsi_persetujuan = "Pengubahan Produk: <br> <b>Kode Produk : ".$kode_produk_ed."</b> <br> <b> Nama Produk : ".$nama_produk_ed."</b>";
 			$this->master_model_m->simpan_persetujuan('produk', $id_produk, 'EDIT', $id_user, $deskripsi_persetujuan);
 			$this->master_model_m->simpan_log($id_user, "Mengubah Data Produk : <b>(".$kode_produk_ed.") - ".$nama_produk_ed."</b>");
+
+		} else if($this->input->post('ubah_produk')){
+			if($user->LEVEL == "USER"){
+				$msg = 11;
+			} else {
+				$msg = 1;
+			}
+			
+			$kode_produk_ed      = addslashes($this->input->post('kode_produk_ed'));
+			$id_produk   		 = addslashes($this->input->post('id_produk'));
+			$nama_produk_ed      = addslashes($this->input->post('nama_produk_ed'));
+			$satuan_ed           = addslashes($this->input->post('satuan_ed'));
+			$deskripsi_ed        = addslashes($this->input->post('deskripsi_ed'));
+
+
+			$this->model->edit_produk_detail($kode_produk_ed, $id_produk, $nama_produk_ed, $satuan_ed, $deskripsi_ed);
+
 		}
 
 		if($this->input->post('pdf')){
@@ -145,6 +162,40 @@ class Produk_c extends CI_Controller {
 		} else {
 		$this->load->view('beranda_v', $data);			
 		}
+	}
+
+	function ubah_produk($id){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		// $list_akun = $this->model->get_list_akun($id_klien);
+		$get_list_akun_all = $this->model->get_list_akun_all($id_klien);
+		// $get_all_produk    = $this->model->get_all_produk($id_klien);
+		// $get_pel_sup = $this->model->get_pel_sup($id_klien);
+		// $get_pajak = $this->model->get_pajak($id_klien);
+		// $no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		// $get_broker = $this->model->get_broker();
+		$dt = $this->model->get_produk_detail($id);
+
+		$data =  array(
+			'page' => "ubah_produk_v", 
+			'title' => "Ubah Produk", 
+			'msg' => "", 
+			'master' => "master_data", 
+			'view' => "produk", 
+			'msg' => $msg, 
+			'dt' => $dt, 
+			'post_url' => 'produk_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
 	}
 
 	function cari_produk(){

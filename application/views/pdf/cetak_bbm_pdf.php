@@ -65,7 +65,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 
     p{
         margin-top: 1px !important;
-    	margin-bottom: 1px !important;
+      margin-bottom: 1px !important;
     }
   </style>
  <script type="text/javascript">
@@ -108,10 +108,10 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 <font face="helvetica">
 <div class="page">
 <table style="width: 100%">
-	<tr>
-		<td><img style="width: 100%;height: 130px;" src="<?=$base_url2;?>assets/img/header.png"></td>
-	</tr>
-	
+  <tr>
+    <td><img style="width: 100%;height: 130px;" src="<?=$base_url2;?>assets/img/header.png"></td>
+  </tr>
+  
 </table>
 
 
@@ -152,34 +152,32 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       
         
 
-        <?php 
-        if($dt->OAT == '0'){
-
-        }else{
-          $oati = 350 * ($dt_deti->QTY - 3 - $dt->QTY_DITERIMA);
+    <?php
+          $harga_oat = $dt->OAT / $dt_deti->QTY;
+          $harga = (($dt_deti->QTY * $dt_deti->HARGA_SATUAN) / (1 + 0.1) - $dt->OAT) ;
+          $harga_sat = ($dt_deti->HARGA_SATUAN / (1 + 0.1)) - $harga_oat ;
           ?>
           <tr>
           <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"><?=$dt_deti->NAMA_PRODUK;?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;border-bottom: 1px solid black;vertical-align: top;"><?php $loses = $dt_deti->QTY - 3 - $dt->QTY_DITERIMA; echo $loses;?> Ltr</td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format(350, 2);?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($oati, 2);?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;border-bottom: 1px solid black;vertical-align: top;"><?=$dt_deti->QTY;?> Ltr</td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($harga_sat, 2);?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($harga, 2);?></td>
           </tr>
           <?php 
-        }
-        ?>
-        <?php
         
-      $ppn = 0.1 * ($total_loses+$oati);
-      ?>
+
+        $ppn = 0.1 * $harga;
+        ?>
+      
       <tr>
-      <td colspan="2"> Terbilang : <?php echo ucwords(kekata($totali =$total_loses + $oati + $ppn)); ?> Rupiah</td>
+      <td colspan="2"> Terbilang : <?php echo ucwords(kekata($totali = $harga + $ppn)); ?> Rupiah</td>
       <?php 
         
 
       ?>
       
       <td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-      <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($total_loses + $oati, 2);?><br><?=number_format($ppn, 2);?><br><?php $totali = 0; $totali =$total_loses + $oati + $ppn; echo number_format($totali, 2); ?></td>
+      <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($harga, 2);?><br><?=number_format($ppn, 2);?><br><?php $totali = 0; $totali =$harga + $ppn; echo number_format($totali, 2); ?></td>
     </tr>
 
       
