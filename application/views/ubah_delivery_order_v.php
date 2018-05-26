@@ -104,13 +104,13 @@ input[type=checkbox]
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-plus"></i>  Buat Laporan Penerimaan Barang </h3>
+			<h3 class="page-header"> <i class="icon-plus"></i>  Buat Delivery Order </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Penerimaan Barang</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li> Penerimaan Barang <span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Buat Laporan Penerimaan Barang </li>
+			<li><a href="#">Delivery Order</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li> Edit Delivery Order <span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Buat Delivery Order Baru </li>
 		</ul>
 	</div>
 </div>
@@ -121,10 +121,10 @@ input[type=checkbox]
 	<div class="row-fluid">
 		<div class="span5">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Purchase Order </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Sales Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
+						<input type="text" id="pelanggan" name="pelanggan" value="<?=$dt->NO_SO;?>" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
@@ -143,38 +143,58 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
-	
+		<!-- <div class="span3">
+			<div class="control-group">
+				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
+				<div class="controls">
+					<div class="input-append">
+						<input type="text" id="supplier" name="supplier" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="supplier_sel" name="supplier_sel" readonly style="background:#FFF;">
+						
+						<button onclick="show_pop_supplier();" type="button" class="btn">Cari</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
 	</div>
 </div>
 
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
-				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
+				<input type="text" class="span12" value="<?=$dt->NO_SO;?>" readonly name="no_trx" id="no_trx" style="font-size: 15px;">
 			</div>
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 96%;"></textarea>
+					
+					<textarea name="alamat_tagih" class="span12" rows="5" readonly id="alamat_tagih"><?=$dt->ALAMAT;?></textarea>
 				</div>
-		</div>
+	
+			
 
+		</div>
 	</div>
 
 
 	<div class="span4">
-	
+		<!-- <div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="<?=$no_pembeli;?>" name="no_po" id="no_po" style="font-size: 15px;">
+				<input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;">
+			</div>
+		</div> -->
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input readonly style="width: 80%;" value="<?=$dt->TGL_TRX;?>" readonly required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -182,42 +202,134 @@ input[type=checkbox]
 				</div>
 		</div>
 
-		
+		<!-- <div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Depot Pengambilan</b> </label>
+			<div class="controls">
+				<input onkeyup="FormatCurrency(this);" type="text" class="span12" value="" name="depot" id="jatuh_tempo" style="font-size: 15px;">
+			</div>
+		</div> -->
 
 	</div>
 
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. Penerimaan Barang </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_do" style="font-size: 15px;">
+				<input type="text" class="span10" value="<?=$dt->NOMER_DO;?>" readonly name="no_do" id="no_do" style="font-size: 15px;">
+				<input type="hidden" class="span10" value="<?=$dt->ID;?>" readonly name="no_id" id="no_id" style="font-size: 15px;">
 			</div>
 		</div>
 
-		 
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
+				<div class="controls">
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"></textarea>
+				</div>
+		</div> 
 	</div>
-
 
 </div>
-<!-- <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+	
 	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Dikirim Dengan </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="Truck / Kapal" name="dikirim" id="dikirim" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Segel Atas  </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="<?=$dt->SEGEL_ATAS;?>" name="segel_atas" id="segel_atas" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Meter Awal  </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="<?=$dt->METER_AWAL;?>" name="meter_atas" id="meter_atas" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+
 	
 
+</div>
+
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+	
+
+	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Kuantitas Diterima </b> </label>
-				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
-						<input type="text" class="span12" value="" name="qty_diterima" id="no_do" style="font-size: 15px;">
-						
-					</div>
-				</div>
+			<label class="control-label"> <b style="font-size: 14px;"> No Kendaraan </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="<?=$dt->NO_KENDARAAN;?>" name="no_pol" id="no_pol" style="font-size: 15px;" readonly>
+			</div>
 		</div>
-
-		
-
 	</div>
-</div> -->
+	
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Segel Bawah </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="<?=$dt->SEGEL_BAWAH;?>" name="segel_bawah" id="segel_bawah" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Meter Akhir </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="<?=$dt->METER_AKHIR;?>" name="meter_bawah" id="meter_bawah" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+	
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Nama Kapal </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="<?=$dt->NAMA_KAPAL;?>" name="nama_kapal" id="sopir" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+	
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Temperatur </b> </label>
+			<div class="controls">
+				<input type="text" class="span12" value="<?=$dt->TEMPERATUR;?>" name="temperatur" id="dikirim" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> SG Meter </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="<?=$dt->SG_METER;?>" name="sg_meter" id="dikirim" style="font-size: 15px;" readonly>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 <div class="row-fluid" id="view_data">
@@ -227,7 +339,9 @@ input[type=checkbox]
 				<h3> </h3>
 			</div>
 			<div class="widget-container">
-				
+				<!-- <button data-toggle="modal" data-target="#modal_spek" type="button" class="btn btn-warning"> 
+					<i class="icon-plus"></i> Spesifikasi 
+				</button> -->
 				<table class="stat-table table table-hover">
 					<thead>
 						<tr>
@@ -240,16 +354,35 @@ input[type=checkbox]
 					</thead>
 					<tbody id="tes">
 						<tr id="tr_1" class="tr_utama">
-							
+							<!-- <td align="left" style="vertical-align:middle;"> 
+								<div class="control-group">
+										<div class="controls">
+											<select  required data-placeholder="Pilih ..." class="chzn-select" tabindex="2"  name="kode_akun[]" onchange="samakan_4(this.value);">
+												<option value="">Pilih ...</option>
+												<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
+												<?PHP 
+												$sel = "";
+												if('401.01.01' == $akun_all->KODE_AKUN) { 
+													$sel = "selected";
+												} else {
+													$sel = "";
+												}
+												?>
+												<option <?=$sel;?>  value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
+												<?PHP } ?>				
+											</select>
+										</div>								
+								</div>
+							</td> -->
 
 							<td style="vertical-align:middle;"> 
 
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk" readonly style="background:#FFF; width: 60%;" >
-											<input type="hidden" id="id_produk_1" name="produk" readonly style="background:#FFF;">
-											<input type="hidden" id="jenis_produk_1" name="jenis_produk" readonly style="background:#FFF;" value="">
+											<input type="text" readonly id="nama_produk_1" value="<?=$dt->PRODUK;?>" name="nama_produk[]" readonly style="background:#FFF; width: 60%;" >
+											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
+											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
 									</div>
@@ -259,14 +392,14 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$dt->QTY;?>" name="qty[]" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1">
-									<input type="hidden" name="total_id" id="total_id_1">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?php echo number_format($dt->HARGA_SATUAN,2);?>" name="harga_modal[]" id="harga_modal_1" readonly>
+									<input type="hidden" name="total_id[]" id="total_id_1" >
 								</div>
 							</td>
 
@@ -292,15 +425,49 @@ input[type=checkbox]
 			</div>
 			<div class="widget-container">
 
+				
+
+				
+
 				<div class="form-actions">
 					<center>
 
-					
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Sub Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="sub_total"></h3>
+							<input type="hidden" name="sub_total" id="inp_sub_total">
+							<input type="hidden" name="qty_total" id="inp_qty_total">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> PBBKB :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="pbbkb" value="ada">
+						</div>
+					</div>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> OAT :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<input type="checkbox" name="oat" value="ada">
+						</div>
+					</div> -->
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penerimaan Barang" name="simpan" class="btn btn-success">
-					<button class="btn" onclick="window.location='<?=base_url();?>penerimaan_barang_c' " type="button"> Batal dan Kembali </button>
+					<input type="submit" value="Simpan Delivery Order" name="simpan_ubah" class="btn btn-success">
+					<button class="btn" onclick="window.location='<?=base_url();?>delivery_order_new_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
 			</div>
@@ -308,10 +475,77 @@ input[type=checkbox]
 	</div>
 </div>
 
+<!-- Modal Detail -->
+<div class="modal fade" id="modal_spek" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Spesifikasi</h4>
+      </div>
+      <div class="modal-body">
+        
+
+		<div class="row-fluid">
+			<div class="span12" style="font-size: 15px;">
+				<address>
+					<strong> Temperatur </strong><br>
+					<input class="span12" type="text" name="temperatur" value="">
+				</address>
+
+				<address>
+					<strong> Density </strong><br>
+					<input class="span12" type="text" name="density" value="">
+				</address>
+
+				<address>
+					<strong> Flash Point </strong><br>
+					<input class="span12" type="text" name="flash_point" value="">
+				</address>
+
+				<address>
+					<strong> Water Content </strong><br>
+					<input class="span12" type="text" name="water_content" value="">
+				</address>
+			</div>
+		</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 </form>
 
+<!-- COPY ELEMENT -->
+<div style="display:none;" id="copy_ag">
+	<td align="center" style="vertical-align:middle;"> 
+		<div class="control-group">
+			<div class="controls">
+				<select  required data-placeholder="Pilih ..." class="cek_select" tabindex="2"  name="kode_akun[]" onchange="samakan_4(this.value);">
+					<option value="">Pilih ...</option>
+					<?PHP foreach ($get_list_akun_all as $key => $akun_all) { ?>
+					<?PHP 
+					$sel = "";
+					if('401.01.01' == $akun_all->KODE_AKUN) { 
+						$sel = "selected";
+					} else {
+						$sel = "";
+					}
+					?>
+					<option <?=$sel;?>  value="<?=$akun_all->KODE_AKUN;?>"> (<?=$akun_all->KODE_AKUN;?>) - <?=$akun_all->NAMA_AKUN;?></option>
+					<?PHP } ?>				
+				</select>
+			</div>
+		</div>
+		</div>
+	</td>
+</div>
+<!-- END COPY ELEMENT -->
 
 
 <script type="text/javascript">
@@ -541,7 +775,7 @@ function get_popup_supplier(){
 function ajax_pelanggan(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>penerimaan_barang_c/get_po_popup',
+        url : '<?php echo base_url(); ?>delivery_order_new_c/get_so_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -558,7 +792,7 @@ function ajax_pelanggan(){
                 isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
-                            '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.NO_BUKTI+'</td>'+
                         '</tr>';
             });
 
@@ -734,7 +968,7 @@ function tambah_data() {
 function get_pelanggan_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>penerimaan_barang_c/get_so_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_so_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -746,10 +980,10 @@ function get_pelanggan_det(id_pel){
 		    $('#popup_koang').hide();
 		    $('#popup_koang').remove();
 
+			$('#alamat_tagih').val(result.ALAMAT);
 			$('#pelanggan').val(result.PELANGGAN);
-			$('#no_trx').val(result.NO_PO);
+			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(id_pel);
-			$('#id_gudang').val(result.PAJAK_SUPPLY);
 		}
 	});
 }
@@ -757,7 +991,7 @@ function get_pelanggan_det(id_pel){
 function get_sales_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>penerimaan_barang_c/get_sales_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_sales_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",

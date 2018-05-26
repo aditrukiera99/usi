@@ -102,7 +102,7 @@ class Delivery_order_new_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_pembelian_new WHERE ID = $id_hapus
+        DELETE FROM ak_delivery_order WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);

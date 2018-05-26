@@ -241,7 +241,7 @@ input[type=checkbox]
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
 					<input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success">
-					<button class="btn" onclick="window.location='<?=base_url();?>purchase_order_c' " type="button"> Batal dan Kembali </button>
+					<button class="btn" onclick="window.location='<?=base_url();?>order_logistik_c/new_invoice' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
 			</div>

@@ -7,7 +7,7 @@ class Purchase_order_m extends CI_Model
           $this->load->database();
     }
 
-    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22)
+    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo)
     {
 
         $sql = "
@@ -36,7 +36,9 @@ class Purchase_order_m extends CI_Model
             ALAMAT_CUSTOMER,
             TOTAL,
             NOMER_PO,
-            PPH_22
+            PPH_22,
+            PENERIMAAN_STATUS,
+            JATUH_TEMPO
 
         )
         VALUES 
@@ -64,7 +66,9 @@ class Purchase_order_m extends CI_Model
            '$alamat_tagih_cust',
            '$total_hasil_pajak',
            '$no_bukti_real',
-           '$penampung_pph_22'
+           '$penampung_pph_22',
+           '0',
+           '$hari_tempo'
            
         )
         ";
@@ -140,6 +144,17 @@ class Purchase_order_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    
+    function dt_purchase_order($id){
+        $sql = "
+        SELECT * FROM ak_pembelian
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_pembelian
@@ -149,9 +164,27 @@ class Purchase_order_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_data_trans_detail($id){
+        $sql = "
+        SELECT mt.NAMA as NAMAS FROM ak_pembelian_trans pt , ak_master_transportir mt 
+        WHERE pt.ID_TRANSPORTIR = mt.ID AND pt.ID_PO = '$id'
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
+    function trans($id){
+        $sql = "
+        SELECT * FROM ak_master_transportir
+        
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
     function get_supplier_detail($id_pel){
         $sql = "
-        SELECT mh.HARGA_BELI as HARGA_CUY , p.* FROM ak_pelanggan p , ak_master_harga mh WHERE p.KODE_PELANGGAN = mh.ID_PELANGGAN AND p.ID = $id_pel
+        SELECT mh.HARGA_BELI as HARGA_CUY , p.* FROM ak_pelanggan p , ak_master_harga mh WHERE p.KODE_PELANGGAN = mh.ID_PELANGGAN AND mh.STATUS = '0' AND p.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -163,6 +196,15 @@ class Purchase_order_m extends CI_Model
         ";
 
         return $this->db->query($sql)->result();
+    }
+
+    function get_data_trx_detail_trans($id){
+        $sql = "
+        SELECT * FROM ak_pembelian_detail 
+        WHERE ID_PENJUALAN = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
     }
 
     function get_data_trx_detail($id){
@@ -216,7 +258,7 @@ class Purchase_order_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_pembelian_new WHERE ID = $id_hapus
+        DELETE FROM ak_pembelian WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);
@@ -679,6 +721,27 @@ class Purchase_order_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function simpan_detail_transportir($id_penjualan, $val){
+        
+       
+        $sql = "
+        INSERT INTO ak_pembelian_trans
+        (
+            ID_TRANSPORTIR,
+            ID_PO,
+            TGL_TRX
+        )
+        VALUES 
+        (
+        '$val',
+        '$id_penjualan',
+        CURDATE()
+        )
+        ";
+
+        $this->db->query($sql);
+    }
+
     function simpan_detail_pembelian_umum($id_pembelian, $val, $qty, $harga_modal, $harga_invoice, $no_trx){
         
         $qty            = str_replace(',', '', $qty);
@@ -740,7 +803,7 @@ class Purchase_order_m extends CI_Model
 
     function hapus_detail_trx($id){
         $sql = "
-        DELETE FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id'
+        DELETE FROM ak_pembelian_detail WHERE ID_PENJUALAN = '$id'
         ";
 
         $this->db->query($sql);

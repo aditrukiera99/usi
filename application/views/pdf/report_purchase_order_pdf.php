@@ -91,18 +91,21 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 <div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
 	<table style="width: 100%;">
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Tanggal</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <b><?=$dt->TGL_TRX;?></b></td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">Tanggal</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> <b><?=$dt->TGL_TRX;?></b></td>
 			<td style="width: 40%;text-align:left;font-size: 15px;"><b>Kepada Yth :</b></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Nomor</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NOMER_PO;?></td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">Nomor</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> <?=$dt->NOMER_PO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;height: 40px;">Refrensi No</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: SO <?=$dt_det->NO_SO;?></td>
+			<td style="width: 17%;text-align:left;font-size: 15px;height: 40px;">Refrensi No</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> SO <?=$dt_det->NO_SO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 		<?php 
@@ -112,23 +115,27 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		?>
 		
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Client</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NAMA_CUSTOMER;?> </td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">Client</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> <?=$dt->NAMA_CUSTOMER;?> </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">No SH</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->ID_CUSTOMER;?> </td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">No SH</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> <?=$dt->ID_CUSTOMER;?> </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">No SP</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: 769314 </td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">No SP</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> 769314 </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 		<tr>
-			<td style="width: 20%;text-align:left;font-size: 15px;">Alamat</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: <label><?=$dt->ALAMAT_CUSTOMER;?></label></td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">Alamat</td>
+			<td style="width: 3%">:</td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"> <label><?=$dt->ALAMAT_CUSTOMER;?></label></td>
 			
 		</tr>
 	</table>

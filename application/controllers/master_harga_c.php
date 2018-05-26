@@ -11,6 +11,8 @@ class Master_harga_c extends CI_Controller {
 	        redirect(base_url());
 	    }
 	    $this->load->model('master_harga_m','model');
+	    $this->load->helper('url');
+		$this->load->library('fpdf/HTML2PDF');
 	}
 
 	function index()
@@ -34,8 +36,9 @@ class Master_harga_c extends CI_Controller {
 			$nama_produk   = addslashes($this->input->post('nama_produk'));
 			$harga_beli    = $this->input->post('harga_beli');
 			$harga_jual    = $this->input->post('harga_jual');
+			$periode       = $this->input->post('periode');
 
-			$this->model->simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual);
+			$this->model->simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode);
 
 
 		}else if($this->input->post('simpan_update')){
@@ -50,9 +53,28 @@ class Master_harga_c extends CI_Controller {
 			$id_produk     = addslashes($this->input->post('id_produk'));
 			$harga_beli    = addslashes($this->input->post('harga_beli'));
 			$harga_jual    = addslashes($this->input->post('harga_jual'));
+			$periode     = $this->input->post('periode');
 
-			$this->model->simpan_master_harga_update($kode_sh,$id_produk,$harga_beli,$harga_jual);
+			$this->model->simpan_master_harga_update($kode_sh,$id_produk,$harga_beli,$harga_jual,$periode);
 			$this->model->update_status_master($id_master);
+
+
+		}else if($this->input->post('simpan_ganti')){
+			if($user->LEVEL == "USER"){
+				$msg = 33;
+			} else {
+				$msg = 1;
+			}
+			
+			$id_master     = addslashes($this->input->post('id_master'));
+			$kode_sh       = addslashes($this->input->post('kode_sh'));
+			$id_produk     = addslashes($this->input->post('id_produk'));
+			$harga_beli    = addslashes($this->input->post('harga_beli'));
+			$harga_jual    = addslashes($this->input->post('harga_jual'));
+			$periode     = $this->input->post('periode');
+
+			$this->model->simpan_master_harga_ganti($id_master,$harga_beli,$harga_jual);
+			// $this->model->update_status_master($id_master);
 
 
 		}
@@ -113,7 +135,7 @@ class Master_harga_c extends CI_Controller {
 
 		$data =  array(
 			'page' => "master_harga_v", 
-			'title' => "Grup Kode Akun", 
+			'title' => "Master Harga", 
 			'msg' => "", 
 			'master' => "master_data", 
 			'view' => "master_harga", 
@@ -179,6 +201,45 @@ class Master_harga_c extends CI_Controller {
 		);
 		
 		$this->load->view('beranda_v', $data);
+	}
+
+	function ganti_harga($id=""){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		$dt = $this->model->get_pelanggan_detail($id);
+
+		$data =  array(
+			'page' => "ganti_master_harga_v", 
+			'title' => "Buat Harga Baru", 
+			'msg' => "", 
+			'master' => "master_data", 
+			'view' => "master_harga", 
+			'msg' => $msg, 
+			'dt' => $dt,
+			'post_url' => 'master_harga_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function cetak($id="",$id_p=""){
+
+		$dt = $this->model->get_data_master($id,$id_p);
+
+		$data =  array(
+			'page' => "master_harga_c", 
+			'dt' => $dt,
+		);
+		
+		$this->load->view('pdf/report_master_harga_pdf', $data);
 	}
 
 	function cari_kat(){

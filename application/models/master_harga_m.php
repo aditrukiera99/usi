@@ -26,6 +26,13 @@ class Master_harga_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_data_master($id,$id_produk){
+        $sql = "
+        SELECT p.NAMA_PELANGGAN as NAMPEL , pr.NAMA_PRODUK as NAMPROD , mh.* FROM ak_master_harga mh, ak_produk pr , ak_pelanggan p WHERE mh.ID_PELANGGAN = p.KODE_PELANGGAN AND mh.ID_PRODUK = pr.ID AND mh.ID_PELANGGAN = '$id' AND mh.ID_PRODUK = '$id_produk'";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_pelanggan_detail($id){
          $sql = "
         SELECT p.NAMA_PELANGGAN as NAMPEL , pr.NAMA_PRODUK as NAMPROD , mh.* FROM ak_master_harga mh , ak_pelanggan p , ak_produk pr 
@@ -59,23 +66,23 @@ class Master_harga_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual){
+    function simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode){
        
        $harga_beli_a            = str_replace(',','', $harga_beli);
        $harga_jual_a           = str_replace(',','', $harga_jual);
 
         $sql = "
         INSERT INTO ak_master_harga
-        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,CREATED_AT)
+        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,KODE_PERIODE,TAHUN)
         VALUES 
-        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0',CURDATE())
+        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0','$periode',YEAR(CURDATE()))
         ";
 
         $this->db->query($sql);
         return $this->db->insert_id();
     }
 
-    function simpan_master_harga_update($kode_sh,$nama_produk,$harga_beli,$harga_jual){
+    function simpan_master_harga_update($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode){
        
 
        $harga_beli_a            = str_replace(',','', $harga_beli);
@@ -83,9 +90,9 @@ class Master_harga_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_master_harga
-        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,UPDATED_AT)
+        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,UPDATED_AT,KODE_PERIODE)
         VALUES 
-        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0',CURDATE())
+        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0',CURDATE(),'$periode')
         ";
 
         $this->db->query($sql);
@@ -116,6 +123,21 @@ class Master_harga_m extends CI_Model
         $sql = "
         UPDATE ak_master_harga SET 
             STATUS = '1'
+        WHERE ID = '$id_master'
+        ";
+
+        $this->db->query($sql);
+    }
+
+
+    function simpan_master_harga_ganti($id_master,$harga_beli,$harga_jual){
+        
+        $harga_beli_a            = str_replace(',','', $harga_beli);
+        $harga_jual_a           = str_replace(',','', $harga_jual);
+
+        $sql = "
+        UPDATE ak_master_harga SET 
+            HARGA_BELI = '$harga_beli_a' , HARGA_JUAL = '$harga_jual_a'
         WHERE ID = '$id_master'
         ";
 

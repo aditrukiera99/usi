@@ -116,6 +116,15 @@ class Pembelian_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_data_trx_detail_pem($id){
+        $sql = "
+        SELECT SUM(QTY) as KUI , SUM(TOTAL) as TOTAL_SE , HARGA_SATUAN , NAMA_PRODUK , NO_SO FROM ak_pembelian_detail 
+        WHERE ID_PENJUALAN = '$id' AND QTY > 0
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_pembelian

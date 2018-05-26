@@ -449,7 +449,7 @@ class Transaksi_pembelian_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (NAMA_SUPPLIER LIKE '%$keyword%' OR NAMA_USAHA LIKE '%$keyword%')";
+			$where = $where." AND (NAMA_SUPPLIER LIKE '%$keyword%' OR NAMA_USAHA LIKE '%$keyword%' OR ALAMAT_TAGIH LIKE '%$keyword%')";
 		}
 
 		$sql = "

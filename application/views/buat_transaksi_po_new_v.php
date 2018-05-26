@@ -76,6 +76,7 @@ input[type=checkbox]
 
 </style>
 <input id="tr_utama_count" value="1" type="hidden"/>
+<input id="tr_utama_count_trans" value="1" type="hidden"/>
 <input id="tr_utama_count2" value="0" type="hidden"/>
 <div class="row-fluid ">
 	<div class="span12">
@@ -138,18 +139,12 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
-				<input type="text" class="span11" value="<?=$no_transaksi;?>" name="no_trx" id="no_trx" style="font-size: 15px;" readonly>
+				<input type="text" class="span11" value="<?=$no_transaksi;?>" name="no_trx" id="no_trx" style="font-size: 15px;width: 86%;" readonly>
 				<input type="hidden" class="span8" value="<?=$no_transaksi;?>" name="no_trx2" id="no_trx2">
 				<input type="hidden" class="span8" value="<?=$no_bukti_real2;?>" name="no_do" id="no_trx2">
 			</div>
 		</div>
 
-		<!-- <div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Kode SH </b> </label>
-			<div class="controls">
-				<input type="text" class="span11" value="" name="kode_sh" style="font-size: 15px;">
-			</div>
-		</div> -->
 
 		
 
@@ -157,7 +152,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input style="width: 80%;" value="<?=date('m-d-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text" id="tgl_trx_tur">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -190,39 +185,35 @@ input[type=checkbox]
 
 	</div>
 
-</div>
-
-
-<!-- <div class="row-fluid" style="background: #F5EADA; ">
-	<div class="span6" style="margin-left: 10px;">
-		<div class="control-group">
-		    <label class="control-label"> <b style="font-size: 14px;"> Supply Point </b> </label>
-			<div class="controls">
-				<select class="span11" name="supply_point" onchange="get_supply_point(this.value);">
-						<option>--Supply Point--</option>
-						<?php 
-							foreach ($supply as $key => $sp) {
-							
-						?>
-						<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>
-						<?php } ?>
-					</select>
-			</div>
+	<div class="span4">
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Transportir </b> </label>
+				<div class="controls" >
+					<table id="transpor_data">
+						<tr>
+							<td>
+								<select name="transportir[]" id="trans_1" class="span12">
+									<?php 
+										foreach ($trans as $key => $value_t) {
+											?>
+												<option value="<?=$value_t->ID;?>"><?=$value_t->NAMA;?></option>
+											<?php
+										}
+									?>
+								</select>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					
+					<br>
+					<button class="btn btn-info" name="transpor" type="button" id="transpor" onclick="tambah_trans();">TAMBAH DATA</button>
+				</div>
 		</div>
-		<div class="control-group">
-		    <table class="stat-table table table-hover" style="width: 92%;">
-		    	<thead>
-		    		<th align="center">Nama</th>
-		    		<th align="center">Pajak (%)</th>
-		    		<th align="center">Aksi</th>
-		    	</thead>
-		    	<tbody id="data_supply">
-		    		
-		    	</tbody>
-		    </table>
-		</div>
+
 	</div>
-</div> -->
+
+</div>
 
 <div class="row-fluid" style="background: #F5EADA; ">
 	<div class="span6" style="margin-left: 10px;">
@@ -1007,7 +998,7 @@ function get_popup_customer(){
                 '<div class="window_koang">'+
                 '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
                 '    <div class="panel-body">'+
-                '    <input style="width: 95%;" type="text" name="search_koang" id="search_koang" class="form-control" value="" placeholder="Cari Supplier...">'+
+                '    <input style="width: 95%;" type="text" name="search_koang" id="search_koang" class="form-control" value="" placeholder="Cari Customer...">'+
                 '    <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">'+
                 '            <table class="table table-hover2" id="tes5">'+
                 '                <thead>'+
@@ -1015,6 +1006,7 @@ function get_popup_customer(){
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;"> NAMA CUSTOMER / PERUSAHAAN </th>'+
                 '                        <th> KODE SH </th>'+
+                '                        <th> ALAMAT </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -1099,6 +1091,7 @@ function ajax_customer(){
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.NAMA_PELANGGAN+'</td>'+
                             '<td align="center">'+res.KODE_PELANGGAN+'</td>'+
+                            '<td align="center">'+res.ALAMAT_TAGIH+'</td>'+
                         '</tr>';
             });
 
@@ -1253,6 +1246,34 @@ function always_one(id){
 	// 	$('#qty_'+id).val(max);
 	// }
 }
+
+function tambah_trans() {
+	// var value =$('#copy_select').html();
+	var jml_tr = $('#tr_utama_count_trans').val();
+	var i = parseInt(jml_tr) + 1;
+
+	var coa = $('#copy_ag').html();
+
+	$isi_1 = 
+	'<tr id="tr3_'+i+'">'+
+	'<td>'+
+	'<select name="transportir[]" id="trans_'+i+'" class="span12">'+
+	'	<?php foreach ($trans as $key => $value_t) { ?>'+
+	'				<option value="<?=$value_t->ID;?>"><?=$value_t->NAMA;?></option>'+
+	'			<?php } ?>'+
+	'</select>'+
+	'</td>'+
+
+	'<td class="center" style="background:#FFF; text-align:center;">'+
+		'<button style="width: 100%;" onclick="hapus_row_trans('+i+');" type="button" class="btn btn-danger"> Hapus </button>'+
+	'</td>'+
+	'</tr>';
+
+	$('#transpor_data').append($isi_1);
+	$('#tr_utama_count_trans').val(i);
+
+}
+
 
 function tambah_data() {
 	var value =$('#copy_select').html();
@@ -1447,6 +1468,10 @@ function hapus_row1 (id) {
 	$('#tr2_'+id).remove();
 }
 
+function hapus_row_trans (id) {
+	$('#tr3_'+id).remove();
+}
+
 function acc_format(n, currency) {
 	return currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 }
@@ -1482,8 +1507,9 @@ function get_supply_point(id) {
 
    function jam_dinding(id){
    	var dateString = $('#jam_dinding_val').val();
+   	var stri = $('#tgl_trx_tur').val();
 
-	var startDate = new Date(dateString);
+	var startDate = new Date(stri);
 
 	// seconds * minutes * hours * milliseconds = 1 day 
 	var day = (60 * 60 * 24 * 1000) * id;

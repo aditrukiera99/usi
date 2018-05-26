@@ -72,6 +72,17 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_penjualan_inv($id){
+
+        
+
+        $sql = "
+        SELECT * FROM ak_penjualan WHERE ID = $id
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_penjualan
@@ -148,7 +159,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_penjualan_new WHERE ID = $id_hapus
+        DELETE FROM ak_penjualan WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);
@@ -846,6 +857,18 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function edit_status_invoice_br($no_trx){
+
+        // $loses = $qty - 3 - $qty_diterima;
+       
+        $sql = "
+        UPDATE ak_penjualan SET NO_INV = '' , QTY_DITERIMA = '' , STATUS_INV = '0' , NOMER_INV = ''
+        WHERE ID = '$no_trx'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function edit_status_do($no_do){
 
         // $loses = $qty - 3 - $qty_diterima;
@@ -858,6 +881,18 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
+
+    function edit_invoice($no_so,$memo){
+
+        
+       
+        $sql = "
+        UPDATE ak_penjualan SET MEMO = '$memo'
+        WHERE NOMER_SO = '$no_so'
+        ";
+
+        $this->db->query($sql);
+    }
 
     function get_broker(){
         $sql = "

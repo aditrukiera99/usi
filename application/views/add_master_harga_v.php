@@ -63,6 +63,37 @@
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label class="control-label"> Periode </label>
+						<div class="controls">
+							<select name="periode" class="span6">
+								<option value="JAN_1">Januari 1</option>
+								<option value="JAN_2">Januari 2</option>
+								<option value="FEB_1">Februari 1</option>
+								<option value="FEB_2">Februari 2</option>
+								<option value="MAR_1">Maret 1</option>
+								<option value="MAR_2">Maret 2</option>
+								<option value="APR_1">April 1</option>
+								<option value="APR_2">April 2</option>
+								<option value="MEI_1">Mei 1</option>
+								<option value="MEI_2">Mei 2</option>
+								<option value="JUN_1">Juni 1</option>
+								<option value="JUN_2">Juni 2</option>
+								<option value="JUL_1">Juli 1</option>
+								<option value="JUL_2">Juli 2</option>
+								<option value="AUG_1">Agustus 1</option>
+								<option value="AUG_2">Agustus 2</option>
+								<option value="SEP_1">September 1</option>
+								<option value="SEP_2">September 2</option>
+								<option value="OKT_1">Oktober 1</option>
+								<option value="OKT_2">Oktober 2</option>
+								<option value="NOV_1">November 1</option>
+								<option value="NOV_2">November 2</option>
+								<option value="DES_1">Desember 1</option>
+								<option value="DES_2">Desember 2</option>
+							</select>
+						</div>
+					</div>
 					
 					<div class="control-group">
 						<label class="control-label"> Harga Beli </label>
@@ -83,7 +114,7 @@
 						
 						<input type="submit" class="btn btn-info" name="simpan" value="SIMPAN MASTER HARGA">
 						
-						<button type="button" onclick="batal_klik();" class="btn"> BATAL </button>
+						<a href="<?=base_url(); ?>master_harga_c"><button type="button" class="btn"> BATAL </button></a>
 					</div>
 				</form>
 			</div>

@@ -99,6 +99,25 @@ class Penerimaan_barang_c extends CI_Controller {
 
 		}
 
+		if($this->input->post('simpan_update')){
+
+			$msg = 1;
+
+			
+
+			$no_lpbe      = $this->input->post('no_lpbe');
+			$keterangan   = $this->input->post('memo_lunas');
+
+			
+
+
+			$this->model->update_penerimaan_barang($no_lpbe, $keterangan);
+
+
+			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
+
+		}
+
 		if($this->input->post('simpan_ciu')){
 			$msg = 1;
 			$no_trx 	   = $this->input->post('no_trx');
@@ -178,8 +197,13 @@ class Penerimaan_barang_c extends CI_Controller {
 			$msg = 2;
 
 			$id_hapus = $this->input->post('id_hapus');
+			$dt_po = $this->db->query("SELECT * FROM ak_penerimaan_barang WHERE ID = $id_hapus")->row();
+
+			$this->model->update_po_status($dt_po->NO_PO);
 			$this->model->hapus_trx_penjualan($id_hapus);
 			$this->model->hapus_detail_trx($id_hapus);
+
+			
 
 
 			$this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
@@ -200,7 +224,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			'tgl_full' => $tgl_full, 
 			'kode_produk' => $kode_produk, 
 			'get_list_akun_all' => $get_list_akun_all, 
-			'post_url' => 'purchase_order_c', 
+			'post_url' => 'penerimaan_barang_c', 
 			'last_kas_bank' => $this->model->get_last_kas_bank($id_klien), 
 			'last_cc' => $this->model->get_last_cc($id_klien), 
 		);
@@ -252,11 +276,38 @@ class Penerimaan_barang_c extends CI_Controller {
 			'title' => "Buat Penerimaan Barang", 
 			'msg' => "", 
 			'master' => "pembelian", 
-			'view' => "purchase_order", 
+			'view' => "penerimaan_barang", 
 			'msg' => $msg, 
 			'no_trx' => $no_trx, 
 			'no_lpb' => $no_lpb, 
 			'get_broker' => $get_broker, 
+			'post_url' => 'penerimaan_barang_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function ubah_data_penerimaan($id){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		
+		$dt = $this->model->get_data_penerimaan($id);
+
+		$data =  array(
+			'page' => "ubah_data_penerimaan_v", 
+			'title' => "Buat Penerimaan Barang", 
+			'master' => "pembelian", 
+			'view' => "penerimaan_barang", 
+			'msg' => $msg, 
+			'dt' => $dt, 
 			'post_url' => 'penerimaan_barang_c', 
 		);
 		
@@ -283,7 +334,7 @@ class Penerimaan_barang_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS is null AND $where  
+		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS = '0' AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();

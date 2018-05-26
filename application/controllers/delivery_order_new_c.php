@@ -163,6 +163,14 @@ class Delivery_order_new_c extends CI_Controller {
 			$this->master_model_m->simpan_log($id_user, "Mengubah transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 		}
 
+		if($this->input->post('simpan_ubah')){
+			$memo = $this->input->post('memo_lunas');
+			$id = $this->input->post('no_id');
+
+			$dt = $this->model->ubah_do($memo, $id);
+		
+		} 
+
 		if($this->input->post('cari')){
 			$tgl_full = $this->input->post('tgl');
 			$tgl = explode(' sampai ', $tgl_full);
@@ -176,7 +184,7 @@ class Delivery_order_new_c extends CI_Controller {
 
 			$id_hapus = $this->input->post('id_hapus');
 			$this->model->hapus_trx_penjualan($id_hapus);
-			$this->model->hapus_detail_trx($id_hapus);
+			// $this->model->hapus_detail_trx($id_hapus);
 
 
 			$this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
@@ -230,11 +238,39 @@ class Delivery_order_new_c extends CI_Controller {
 			'page' => "buat_delivery_order_new_v", 
 			'title' => "Buat Delivery Order Baru", 
 			'msg' => "", 
-			'master' => "pembelian", 
-			'view' => "purchase_order", 
+			'master' => "penjualan", 
+			'view' => "delivery_order", 
 			'msg' => $msg, 
 			'no_trx' => $no_trx, 
 			'no_do' => $no_do, 
+			'post_url' => 'delivery_order_new_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function ubah_delivery_order($id=""){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		$dt = $this->model->get_do($id);
+		
+
+		$data =  array(
+			'page' => "ubah_delivery_order_v", 
+			'title' => "Buat Delivery Order Baru", 
+			'msg' => "", 
+			'master' => "penjualan", 
+			'view' => "delivery_order", 
+			'msg' => $msg, 
+			'dt' => $dt, 
 			'post_url' => 'delivery_order_new_c', 
 		);
 		

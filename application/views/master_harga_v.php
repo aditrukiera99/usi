@@ -62,14 +62,14 @@
 							<th align="center"> Produk </th>
 							<th align="center"> Harga Beli </th>							
 							<th align="center"> Harga Jual </th>							
-							<th align="center"> Tanggal </th>							
+							<th align="center"> Periode </th>							
 							<th align="center"> Aksi </th>
 						</tr>						
 					</thead>
 					<tbody id="tes">
 						<?php 
 
-							$ibunda = $this->db->query("SELECT mh.ID_PELANGGAN , p.NAMA_PELANGGAN FROM ak_master_harga mh , ak_pelanggan p WHERE mh.ID_PELANGGAN = p.KODE_PELANGGAN GROUP BY mh.ID_PELANGGAN")->result();
+							$ibunda = $this->db->query("SELECT mh.ID_PELANGGAN , p.NAMA_PELANGGAN , mh.ID FROM ak_master_harga mh , ak_pelanggan p WHERE mh.ID_PELANGGAN = p.KODE_PELANGGAN GROUP BY mh.ID_PELANGGAN")->result();
 							foreach ($ibunda as $key => $value) {
 								?>
 								<tr>
@@ -81,6 +81,7 @@
 									<td style="background-color: #dff0d8;" >&nbsp;</td>
 									<td style="background-color: #dff0d8;" >
 										<button class="btn btn-small btn-danger" onclick="$('#dialog-btn-semua').click(); $('#id_hapus_semua').val('<?=$value->ID_PELANGGAN;?>');"> HAPUS SEMUA </button>
+										
 									</td>
 								</tr>
 								<?php 
@@ -94,31 +95,35 @@
 										<tr>
 											<td style="background-color:#f2dede;">&nbsp;</td>
 											<td style="background-color:#f2dede;"><?php echo $nomer; ?></td>
-											<td style="background-color:#f2dede; "><?=$val->NAMPROD?></td>
+											<td style="background-color:#f2dede; "><?=$val->NAMPROD;?></td>
 											<td style="background-color:#f2dede; "><?php echo number_format($val->HARGA_BELI,2);?></td>
 											<td style="background-color:#f2dede; "><?php echo number_format($val->HARGA_JUAL,2);?></td>
-											<?php 
-
-												if($val->CREATED_AT == ''){
-													?>
-													<td style="background-color:#f2dede; "><?=$val->UPDATED_AT;?></td>
-													<?php
-												}else{
-													?>
-													<td style="background-color:#f2dede; "><?=$val->CREATED_AT;?></td>
-													<?php
-												}
-
-											?>
+											<td style="background-color:#f2dede; "><?=$val->KODE_PERIODE;?></td>
+											
 											<td style="background-color: #f2dede;">
 												<a href="<?=base_url();?>master_harga_c/ubah_harga/<?=$val->ID;?>">
-													<button style="padding: 2px 10px;"  type="button" class="btn btn-small btn-warning"> 
+													<button style="padding-top: 6px;padding-bottom: 6px;"  type="button" class="btn btn-small btn-warning"> 
 													UPDATE 
 													</button>
 												</a>
-												<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$val->ID;?>');" type="button" class="btn btn-small btn-danger"> 
+												<a href="<?=base_url();?>master_harga_c/ganti_harga/<?=$val->ID;?>">
+													<button style="padding-top: 6px;padding-bottom: 6px;"  type="button" class="btn btn-small btn-info"> 
+													UBAH 
+													</button>
+												</a>
+												<!-- <button style="padding: 2px 10px;"  onclick=" $('#id_hapus').val('<?=$val->ID;?>');" type="button" class="btn btn-small btn-danger" > 
 												HAPUS
+												</button> -->
+
+												<button type="button" class="btn btn-small btn-primary" data-toggle="modal" onclick=" $('#id_hapus').val('<?=$val->ID;?>');" data-target="#exampleModal">
+												  HAPUS
 												</button>
+
+												<a href="<?=base_url();?>master_harga_c/cetak/<?=$val->ID_PELANGGAN;?>/<?=$val->ID_PRODUK;?>" target="_blank">
+													<button style="padding-top: 6px;padding-bottom: 6px;"  type="button" class="btn btn-small btn-success"> 
+													PRINT 
+													</button>
+												</a>
 											</td>
 										</tr>
 										<?php 
@@ -133,17 +138,38 @@
 	</div>
 </div>
 
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form action="<?=base_url().$post_url;?>" method="post">
+      		<input type="hidden" name="id_hapus" id="id_hapus">
+        <label>Apakah anda yakin menghapus data ini ?</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Hapus</button>
+      </div>
+  </form>
+    </div>
+  </div>
+</div>
 
 
 
 <!-- HAPUS MODAL -->
-<a id="dialog-btn" href="javascript:;" class="cd-popup-trigger" style="display:none;">View Pop-up</a>
+<!-- <a id="dialog-btn" href="javascript:;" class="cd-popup-trigger" style="display:none;">View Pop-up</a>
 <div class="cd-popup" role="alert">
     <div class="cd-popup-container">
 
         <form id="delete" method="post" action="<?=base_url().$post_url;?>">
-            <input type="hidden" name="id_hapus" id="id_hapus" value="" />
+            <input type="text" name="id_hapus" id="id_hapus" value="" />
         </form>   
          
         <p>Apakah anda yakin ingin mengajukan penghapusan data ini? </p>
@@ -152,8 +178,8 @@
             <li><a onclick="$('.cd-popup-close').click(); $('#id_hapus').val('');" href="javascript:;">Tidak</a></li>
         </ul>
         <a href="#0" onclick="$('#id_hapus').val('');" class="cd-popup-close img-replace">Close</a>
-    </div> <!-- cd-popup-container -->
-</div> <!-- cd-popup -->
+    </div>
+</div>  -->
 <!-- END HAPUS MODAL -->
 
 <!-- HAPUS MODAL -->

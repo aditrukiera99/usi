@@ -110,6 +110,14 @@ class Penerimaan_barang_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_data_penerimaan($id_pel){
+        $sql = "
+        SELECT * FROM ak_penerimaan_barang WHERE ID = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_sales_detail($id_pel){
         $sql = "
         SELECT NAMA_PRODUK,SUM(QTY) as QTY , HARGA_SATUAN , SUM(TOTAL) as TOTAL FROM ak_pembelian_detail WHERE ID_PENJUALAN = $id_pel
@@ -186,7 +194,7 @@ class Penerimaan_barang_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_pembelian_new WHERE ID = $id_hapus
+        DELETE FROM ak_penerimaan_barang WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);
@@ -631,7 +639,7 @@ class Penerimaan_barang_m extends CI_Model
 
     function hapus_detail_trx($id){
         $sql = "
-        DELETE FROM ak_pembelian_new_detail WHERE ID_PENJUALAN = '$id'
+        DELETE FROM ak_penerimaan_detail WHERE ID_PENJUALAN = '$id'
         ";
 
         $this->db->query($sql);
@@ -675,6 +683,16 @@ class Penerimaan_barang_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function update_penerimaan_barang($id_po,$keterangan){
+       
+        $sql = "
+        UPDATE ak_penerimaan_barang SET MEMO = '$keterangan'
+        WHERE NOMER_LPB = '$id_po'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function update_tanggal_penerimaan($id){
 
         $tgj = date('d-m-Y'); 
@@ -698,6 +716,17 @@ class Penerimaan_barang_m extends CI_Model
 
         $this->db->query($sql);
     }
+
+    function update_po_status($id){
+
+        $sql = "
+        UPDATE ak_pembelian SET PENERIMAAN_STATUS = '0' 
+        WHERE NO_PO = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
 
     function get_broker(){
         $sql = "

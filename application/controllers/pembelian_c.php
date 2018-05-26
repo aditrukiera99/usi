@@ -194,7 +194,7 @@ class Pembelian_c extends CI_Controller {
 			'title' => "Buat Pembelian", 
 			'msg' => "", 
 			'master' => "pembelian", 
-			'view' => "purchase_order", 
+			'view' => "pembelian", 
 			'msg' => $msg, 
 			'no_trx' => $no_trx, 
 			'get_broker' => $get_broker, 
@@ -350,26 +350,42 @@ class Pembelian_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
+	// function cetak($id=""){
+
+	// 	if($id == ''){
+	// 		echo 'kosong';
+	// 	}else{
+	// 		$this->model->update_tanggal_penerimaan($id);
+	// 	}
+
+	// 	$dt = $this->model->get_data_trx($id);
+	// 	$dt_det = $this->model->get_data_trx_detail($id);
+	// 	$dt_det_cust = $this->model->get_data_cust_detail($id);
+
+	// 	$data =  array(
+	// 		'page' => "transaksi_penjualan_c", 
+	// 		'dt' => $dt,
+	// 		'dt_det' => $dt_det,
+	// 		'dt_det_cust' => $dt_det_cust,
+	// 	);
+		
+	// 	$this->load->view('pdf/report_pembelian_pdf', $data);
+	// }
+
 	function cetak($id=""){
 
-		if($id == ''){
-			echo 'kosong';
-		}else{
-			$this->model->update_tanggal_penerimaan($id);
-		}
-
 		$dt = $this->model->get_data_trx($id);
-		$dt_det = $this->model->get_data_trx_detail($id);
-		$dt_det_cust = $this->model->get_data_cust_detail($id);
+		$dt_det = $this->model->get_data_trx_detail_pem($id);
+		// $dt_det_cust = $this->model->get_data_cust_detail($id);
 
 		$data =  array(
 			'page' => "transaksi_penjualan_c", 
 			'dt' => $dt,
 			'dt_det' => $dt_det,
-			'dt_det_cust' => $dt_det_cust,
+			// 'dt_det_cust' => $dt_det_cust,
 		);
 		
-		$this->load->view('pdf/report_pembelian_pdf', $data);
+		$this->load->view('pdf/report_purchase_order_pdf', $data);
 	}
 
 	

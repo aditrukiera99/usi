@@ -259,8 +259,10 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$msg = 2;
 
 			$id_hapus = $this->input->post('id_hapus');
-			$this->model->hapus_trx_penjualan($id_hapus);
-			$this->model->hapus_detail_trx($id_hapus);
+
+			$this->model->edit_status_invoice_br($id_hapus);
+			// $this->model->edit_status_do_br($no_do);
+			// $this->model->save_next_nomor('13', 'Invoice', $invoice);
 
 
 			$this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
@@ -409,6 +411,22 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$id_user = $sess_user['id'];
 		$user = $this->master_model_m->get_user_info($id_user);
 
+
+		if($this->input->post('edit_inv')){
+			$msg = 1;
+
+			
+
+			$no_so    = $this->input->post('no_solo');
+			$memo  = $this->input->post('memo_lunas');
+
+
+			$this->model->edit_invoice($no_so,$memo);
+
+
+		}
+
+
 		
 
 		$list_akun = $this->model->get_list_akun($id_klien);
@@ -487,7 +505,50 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'no_do' => $no_do,
 			'inv' => $inv,
 			'dt' => $dt,
-			'post_url' => 'transaksi_penjualan_c', 
+			'post_url' => 'transaksi_penjualan_c/buka_invoice', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function ubah_invoice_baru($id=""){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		// $get_all_produk    = $this->model->get_all_produk($id_klien);
+		// $get_pel_sup = $this->model->get_pel_sup($id_klien);
+		// $no_trx = $this->model->get_no_trx_penjualan($id_klien);
+		// $no_pem= $this->model->get_no_trx_pembelian($id_klien);
+		// $no_lpb= $this->model->get_no_trx_lpb($id_klien);
+		// $no_do = $this->model->get_no_trx_do($id_klien);
+		// $inv = $this->model->get_no_trx_inv($id_klien);
+		// $dt_supplier = $this->model->get_supplier();
+		$dt = $this->model->get_penjualan_inv($id);
+
+		$data =  array(
+			'page' => "ubah_invoice_baru_v", 
+			'title' => "Ubah Invoice", 
+			'msg' => "", 
+			'master' => "penjualan", 
+			'view' => "invoice", 
+			'msg' => $msg, 
+			'dt_supplier' => $dt_supplier, 
+			'get_all_produk' => $get_all_produk, 
+			'get_pel_sup' => $get_pel_sup, 
+			'no_trx' => $no_trx, 
+			'no_pem' => $no_pem, 
+			'no_lpb' => $no_lpb,
+			'no_do' => $no_do,
+			'inv' => $inv,
+			'dt' => $dt,
+			'post_url' => 'transaksi_penjualan_c/buka_invoice', 
 		);
 		
 		$this->load->view('beranda_v', $data);

@@ -174,7 +174,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input style="width: 80%;" value="" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -182,10 +182,10 @@ input[type=checkbox]
 				</div>
 		</div>
 
-		<div class="control-group" style="margin-left: 10px;">
+		<div class="control-group" style="margin-left: 10px;display: none;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Invoice </b> </label>
 			<div class="controls">
-				<input type="text" class="span11" value="" name="no_invoice" style="font-size: 15px;">
+				<input type="text" class="span11" value="0" name="no_invoice" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -296,7 +296,7 @@ input[type=checkbox]
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
 					<input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success">
-					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice' " type="button"> Batal dan Kembali </button>
+					<button class="btn" onclick="window.location='<?=base_url();?>pembelian_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
 			</div>
@@ -475,7 +475,7 @@ function get_popup_pelanggan(){
                 '                    <tr>'+
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
-                '                        <th> NO SO </th>'+
+                '                        <th> NO PO </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+

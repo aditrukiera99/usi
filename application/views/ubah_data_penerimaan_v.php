@@ -6,34 +6,7 @@ $("#editor").wysibb();
 </script>
 
 <?PHP 
-$no_transaksi = 1;
-if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
-	$no_transaksi = $no_trx->NEXT+1;
-}
-$no_pembeli = 1;
-if($no_pem->NEXT != "" || $no_pem->NEXT != null ){
-	$no_pembeli = $no_pem->NEXT+1;
-}
 
-$no_lpbe = 1;
-if($no_lpb->NEXT != "" || $no_lpb->NEXT != null ){
-	$no_lpbe = $no_lpb->NEXT+1;
-}
-
-$no_deo = 1;
-if($no_do->NEXT != "" || $no_do->NEXT != null ){
-	$no_deo = $no_do->NEXT+1;
-}
-
-$no_inv = 1;
-if($inv->NEXT != "" || $inv->NEXT != null ){
-	$no_inv = $inv->NEXT+1;
-}
-
-$no_surat_jalan = 1;
-if($sj->NEXT != "" || $sj->NEXT != null ){
-	$no_surat_jalan = $sj->NEXT+1;
-}
 
 $base_url2 =  ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?  "https" : "http");
 $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
@@ -124,7 +97,7 @@ input[type=checkbox]
 				<label class="control-label"> <b style="font-size: 14px;"> Purchase Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
+						<input type="text" id="pelanggan" name="pelanggan" value="<?=$dt->NO_PO;?>" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
@@ -150,7 +123,7 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
@@ -160,7 +133,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 96%;"></textarea>
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 96%;"><?=$dt->MEMO;?></textarea>
 				</div>
 		</div>
 
@@ -174,7 +147,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -191,7 +164,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Penerimaan Barang </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_do" style="font-size: 15px;">
+				<input type="text" readonly class="span10" value="<?=$dt->NOMER_LPB;?>" name="no_lpbe" id="no_do" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -239,6 +212,15 @@ input[type=checkbox]
 						</tr>
 					</thead>
 					<tbody id="tes">
+						
+						<?php 
+
+							$id_pen = $dt->ID;
+							$penerimaan = $this->db->query("SELECT * FROM ak_penerimaan_detail WHERE ID_PENJUALAN = '$id_pen'")->result();
+							foreach ($penerimaan as $key => $value) {
+								# code...
+							
+						?>
 						<tr id="tr_1" class="tr_utama">
 							
 
@@ -247,8 +229,8 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk" readonly style="background:#FFF; width: 60%;" >
-											<input type="hidden" id="id_produk_1" name="produk" readonly style="background:#FFF;">
+											<input type="text" readonly id="nama_produk_1" name="nama_produk" value="<?=$value->NAMA_PRODUK;?>" readonly style="background:#FFF; width: 60%;" >
+											<input type="hidden" id="id_produk_1" name="produk" value="<?=$value->ID_PRODUK;?>" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
@@ -259,13 +241,13 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$value->QTY;?>" name="qty" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$value->HARGA_SATUAN;?>" name="harga_modal" id="harga_modal_1" readonly>
 									<input type="hidden" name="total_id" id="total_id_1">
 								</div>
 							</td>
@@ -274,6 +256,7 @@ input[type=checkbox]
 								<!-- <button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button> -->
 							</td>
 						</tr>
+					<?php } ?>
 					</tbody>
 				</table>
 
@@ -299,7 +282,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penerimaan Barang" name="simpan" class="btn btn-success">
+					<input type="submit" value="Simpan Penerimaan Barang" name="simpan_update" class="btn btn-success">
 					<button class="btn" onclick="window.location='<?=base_url();?>penerimaan_barang_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>

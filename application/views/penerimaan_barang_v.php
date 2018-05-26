@@ -114,15 +114,15 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<a target="blank" href="<?=base_url();?>penerimaan_barang_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
-									<a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
-									<button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button>
+									<a class="btn btn-warning" href="<?=base_url();?>penerimaan_barang_c/ubah_data_penerimaan/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
+									<!-- <button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button> -->
 								</td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NOMER_LPB;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->SUPPLIER;?> </td>
 
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN);?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
 								<!-- <td style="font-size:14px; text-align:center; vertical-align:middle;">
 									<?PHP if($row->NO_TRX_AKUN == "" || $row->NO_TRX_AKUN == null ){ 
 										echo "<b style='color:red;'> Belum Dibukukan </b>"; 

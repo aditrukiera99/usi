@@ -104,13 +104,13 @@ input[type=checkbox]
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-plus"></i>  Buat Laporan Penerimaan Barang </h3>
+			<h3 class="page-header"> <i class="icon-plus"></i>  Buat Invoice Baru </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Penerimaan Barang</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li> Penerimaan Barang <span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Buat Laporan Penerimaan Barang </li>
+			<li><a href="#">Delivery Order</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li> Edit Delivery Order <span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Buat Delivery Order Baru </li>
 		</ul>
 	</div>
 </div>
@@ -121,11 +121,12 @@ input[type=checkbox]
 	<div class="row-fluid">
 		<div class="span5">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Purchase Order </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Delivery Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
+						<input type="text" id="pelanggan" name="pelanggan" value="" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
+						<input type="hidden" name="id_inv" value="<?=$dt->ID;?>">
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 					</div>
@@ -150,20 +151,22 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> PELANGGAN </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
-				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
+				<input type="text" class="span12" value="<?=$dt->PELANGGAN;?>" readonly name="no_trx" id="no_trx" style="font-size: 15px;">
 			</div>
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 96%;"></textarea>
+					
+					<textarea name="alamat_tagih" class="span12" rows="5" readonly id="alamat_tagih"><?=$dt->ALAMAT;?></textarea>
 				</div>
-		</div>
+	
+			
 
+		</div>
 	</div>
 
 
@@ -174,7 +177,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input readonly style="width: 80%;" value="<?=$dt->TGL_TRX;?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -189,18 +192,24 @@ input[type=checkbox]
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. Penerimaan Barang </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_do" style="font-size: 15px;">
+				<input type="text" class="span10" value="<?=$dt->NOMER_SO;?>" name="no_solo" id="no_do" readonly>
+				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;">
 			</div>
 		</div>
 
-		 
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
+				<div class="controls">
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?=$dt->MEMO;?></textarea>
+				</div>
+		</div> 
 	</div>
 
 
 </div>
-<!-- <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 	
 
@@ -208,7 +217,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Kuantitas Diterima </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input type="text" class="span12" value="" name="qty_diterima" id="no_do" style="font-size: 15px;">
+						<input type="text" class="span12" value="<?=$dt->QTY_DITERIMA;?>" name="qty_diterima" id="no_do" style="font-size: 15px;" readonly>
 						
 					</div>
 				</div>
@@ -217,7 +226,7 @@ input[type=checkbox]
 		
 
 	</div>
-</div> -->
+</div>
 
 
 <div class="row-fluid" id="view_data">
@@ -239,6 +248,13 @@ input[type=checkbox]
 						</tr>
 					</thead>
 					<tbody id="tes">
+
+						<?php 
+							$idp = $dt->ID;
+							$cicil = $this->db->query("SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$idp'")->result();
+							foreach ($cicil as $key => $sod) {
+							
+						?>
 						<tr id="tr_1" class="tr_utama">
 							
 
@@ -247,7 +263,7 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk" readonly style="background:#FFF; width: 60%;" >
+											<input type="text" id="nama_produk_1" name="nama_produk" value="<?=$sod->NAMA_PRODUK;?>" readonly style="background:#FFF; width: 60%;" >
 											<input type="hidden" id="id_produk_1" name="produk" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
@@ -259,13 +275,13 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$sod->QTY;?>" name="qty" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?php echo number_format($sod->HARGA_SATUAN,2);?>" name="harga_modal" id="harga_modal_1" readonly>
 									<input type="hidden" name="total_id" id="total_id_1">
 								</div>
 							</td>
@@ -274,6 +290,7 @@ input[type=checkbox]
 								<!-- <button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button> -->
 							</td>
 						</tr>
+					<?php } ?>
 					</tbody>
 				</table>
 
@@ -299,8 +316,8 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penerimaan Barang" name="simpan" class="btn btn-success">
-					<button class="btn" onclick="window.location='<?=base_url();?>penerimaan_barang_c' " type="button"> Batal dan Kembali </button>
+					<input type="submit" value="Simpan Invoice" name="edit_inv" class="btn btn-success">
+					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
 			</div>
@@ -541,7 +558,7 @@ function get_popup_supplier(){
 function ajax_pelanggan(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>penerimaan_barang_c/get_po_popup',
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_do_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -558,7 +575,7 @@ function ajax_pelanggan(){
                 isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
-                            '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.NO_BUKTI+'</td>'+
                         '</tr>';
             });
 
@@ -734,7 +751,7 @@ function tambah_data() {
 function get_pelanggan_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>penerimaan_barang_c/get_so_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_do_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -746,10 +763,11 @@ function get_pelanggan_det(id_pel){
 		    $('#popup_koang').hide();
 		    $('#popup_koang').remove();
 
+			$('#alamat_tagih').val(result.ALAMAT);
 			$('#pelanggan').val(result.PELANGGAN);
-			$('#no_trx').val(result.NO_PO);
+			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(id_pel);
-			$('#id_gudang').val(result.PAJAK_SUPPLY);
+			$('#no_do').val(result.NO_SO);
 		}
 	});
 }
@@ -757,7 +775,7 @@ function get_pelanggan_det(id_pel){
 function get_sales_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>penerimaan_barang_c/get_sales_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_do_tabel',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -769,7 +787,7 @@ function get_sales_det(id_pel){
 		    $('#popup_koang').hide();
 		    $('#popup_koang').remove();
 
-			$('#nama_produk_1').val(result.NAMA_PRODUK);
+			$('#nama_produk_1').val(result.PRODUK);
 			$('#qty_1').val(result.QTY);
 			$('#harga_modal_1').val(result.HARGA_SATUAN);
 		}

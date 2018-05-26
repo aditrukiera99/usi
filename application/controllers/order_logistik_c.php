@@ -162,10 +162,10 @@ class Order_logistik_c extends CI_Controller {
 
 		$data =  array(
 			'page' => "order_logistik_view_v", 
-			'title' => "Buat Pembelian Baru", 
+			'title' => "Buat Order Baru", 
 			'msg' => "", 
-			'master' => "pembelian", 
-			'view' => "purchase_order", 
+			'master' => "logistik", 
+			'view' => "logistik_order", 
 			'msg' => $msg, 
 			'dt' => $dt,
 			'post_url' => 'order_logistik_c', 

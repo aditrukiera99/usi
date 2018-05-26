@@ -97,13 +97,14 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 				<table class="stat-table table table-hover" id="data-table">
 					<thead>
 						<tr>
-							<!-- <th align="center"> Aksi </th> -->
+							<th align="center"> Aksi </th>
 							<th align="center"> No. PO </th>
 							<th align="center"> No. Invoice </th>
 							<th align="center"> Tanggal </th>
 							<th align="center"> Supplier </th>
 							<th align="center"> Volume </th>
 							<th align="center"> Harga Satuan </th>
+							<th align="center"> Total </th>
 						</tr>						
 					</thead>
 					<tbody id="tes">
@@ -111,18 +112,19 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							<?PHP $dt_detaili = $this->model->get_data_trxx_detail($row->ID); ?>
 							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_PO;?>" />
 							<tr>
-								<!-- <td align="center">
+								<td align="center">
 														
-									<a class="btn btn-warning" href="<?=base_url();?>purchase_order_c/ubah_data/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
+									<a target="blank" href="<?=base_url();?>pembelian_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>				
 									
-								</td> -->
+								</td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_PO;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_PO_INVOICE;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_PO_INVOICE;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
 
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN);?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN * $dt_detaili->QTY ,2);?> </td>
 								<!-- <td style="font-size:14px; text-align:center; vertical-align:middle;">
 									<?PHP if($row->NO_TRX_AKUN == "" || $row->NO_TRX_AKUN == null ){ 
 										echo "<b style='color:red;'> Belum Dibukukan </b>"; 

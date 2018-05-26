@@ -43,6 +43,15 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_do($id){
+        $sql = "
+        SELECT * FROM ak_delivery_order
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_data_do($id){
         $sql = "
         SELECT * FROM ak_delivery_order
@@ -103,7 +112,7 @@ class Delivery_order_new_m extends CI_Model
 
     function hapus_trx_penjualan($id_hapus){
         $sql_1 = "
-        DELETE FROM ak_pembelian_new WHERE ID = $id_hapus
+        DELETE FROM ak_delivery_order WHERE ID = $id_hapus
         ";
 
         $this->db->query($sql_1);
@@ -523,6 +532,18 @@ class Delivery_order_new_m extends CI_Model
        
         $sql = "
         UPDATE ak_penerimaan_barang SET TGL_TRX = '$tgj' , STATUS = '1'
+        WHERE ID = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function ubah_do($memo , $id){
+
+        
+       
+        $sql = "
+        UPDATE ak_delivery_order SET KETERANGAN = '$memo'
         WHERE ID = '$id'
         ";
 

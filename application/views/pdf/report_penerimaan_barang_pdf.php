@@ -66,6 +66,8 @@ $bulan_kas = date("m",strtotime($dt->TGL_TRX));
 	   }
 
 $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
+$nmr_po = $dt->NO_PO;
+$nomor_po = $this->db->query("SELECT * FROM ak_pembelian WHERE NO_PO = '$nmr_po'")->row();
 ?>
 
 <br>
@@ -102,7 +104,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 		</tr>
 		<tr>
 			<td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;">: PO </td>
+			<td style="width: 40%;text-align:left;font-size: 15px;">: PO <?=$nomor_po->NOMER_PO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
 	</table>

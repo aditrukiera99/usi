@@ -167,79 +167,106 @@ function tgl_to_bulan($var){
   <table style="width: 100%; font-size: 13px;float: right;border:1px solid black;border-collapse: collapse;margin-top: 10px;">
     <tr>
       <td style="width: 60%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">Nomor Pemesanan</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">: <?=$dt->NOMER_SO;?></td>
+      <td style="width: 40%;text-align:left;font-size: 15px;border:1px solid black;padding: 10px;">: <?=$dt->NOMER_PO;?></td>
     </tr>
   </table>
 </div>
 <div style="float: left;padding-top: 40px;padding-left: 5px;width: 100%;">
   <table style="width: 100%">
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">SUPPLIER</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; PT.PERTAMINA (PERSERO)</td>
+      <td style="width: 27%;">SUPPLIER</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  PT.PERTAMINA (PERSERO)</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Nama Perusahaan</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; PT. UNITED SHIPPING INDONESIA</td>
+      <td style="width: 27%;">Nama Perusahaan</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  PT. UNITED SHIPPING INDONESIA</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Ship To</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 898122</td>
+      <td style="width: 27%;">Ship To</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  898122</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Sold To</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 769-314</td>
+      <td style="width: 27%;">Sold To</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  769-314</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">NPWP</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 02.622.627-4.611.000</td>
+      <td style="width: 27%;">NPWP</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  02.622.627-4.611.000</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Alamat</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; JL. GONDOSULI NO.8 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SURABAYA</td>
+      <td style="width: 27%;">Alamat</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  JL. GONDOSULI NO.8 <br>SURABAYA</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">No. Telp/Fax</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; 031-5471841</td>
+      <td style="width: 27%;">No. Telp/Fax</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  031-5471841</td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Jenis BBM</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$dt_detil->NAMA_PRODUK;?></td>
+      <td style="width: 27%;">Jenis BBM</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  <?=$dt_detil->NAMA_PRODUK;?></td>
     </tr>
     <?php 
       $id = $dt->ID;
-      $pel = $this->db->query("SELECT g.NAMA , mh.HARGA_BELI FROM ak_gudang g , ak_master_harga mh , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND pl.KODE_PELANGGAN = mh.ID_PELANGGAN AND p.ID = '$id' ")->row();
+      $pel = $this->db->query("SELECT g.NAMA , mh.HARGA_BELI FROM ak_gudang g , ak_master_harga mh , ak_pembelian p , ak_pelanggan pl WHERE p.ID_CUSTOMER = pl.KODE_PELANGGAN AND pl.ID_SUPPLY_POINT = g.ID AND pl.KODE_PELANGGAN = mh.ID_PELANGGAN AND p.ID = '$id' ")->row();
 
 
     ?>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Depot Pengambilan</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?=$pel->NAMA;?></td>
+      <td style="width: 27%;">Depot Pengambilan</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  <?=$pel->NAMA;?></td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Tujuan Pengiriman</td>
-      <td style="width: 70%;">: <label style="padding-left: 20px;"> <?=$dt->PELANGGAN;?></label><br><p style="padding-left: 30px;"><?=$dt->ALAMAT;?></p></td>
+      <td style="width: 27%;">Tujuan Pengiriman</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;"> <label style=""> <?=$dt->PELANGGAN;?></label><br><p style="padding-left: 27px;"><?=$dt->ALAMAT;?></p></td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Jumlah Volume</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; <?php echo number_format($dt_detil->QTY,0);?> Liter</td>
-    </tr>
-
-    <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Harga Satuan (Rp/Ltr)</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($pel->HARGA_BELI,0);?></td>
+      <td style="width: 27%;">Jumlah Volume</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;">  <?php echo number_format($dt_detil->QTY,0);?> Liter</td>
     </tr>
 
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Harga Total</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp;&nbsp;Rp. <?php echo number_format($pel->HARGA_BELI * $dt_detil->QTY ,2);?></td>
+      <td style="width: 27%;">Harga Satuan (Rp/Ltr)</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;"> Rp. <?php echo number_format($pel->HARGA_BELI,2);?></td>
+    </tr>
+
+    <tr style="padding-top: 5px;">
+      <td style="width: 27%;">Harga Total</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;"> Rp. <?php echo number_format($pel->HARGA_BELI * $dt_detil->QTY ,2);?></td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Jumlah Total</td>
-      <td style="width: 70%;">: &nbsp;&nbsp;&nbsp; Rp. <?php echo number_format($pel->HARGA_BELI * $dt_detil->QTY,2);?></td>
+      <td style="width: 27%;">Jumlah Total</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;"> Rp. <?php echo number_format($pel->HARGA_BELI * $dt_detil->QTY,2);?></td>
     </tr>
     <tr style="padding-top: 5px;">
-      <td style="width: 30%;">Transportir</td>
-      <td style="width: 70%;">:<label style="padding-left: 20px;">PT. UNITED SHIPPING INDONESIA</label> <br><p style="padding-left: 24px;"> PT.SUMBER HARAPAN JAYA </p></td>
+      <td style="width: 27%;">Transportir</td>
+      <td style="width: 3%;">:</td>
+      <td style="width: 70%;"><label>
+       
+        <?php 
+          foreach ($trans_det as $key => $trn) {
+            echo $trn->NAMAS;
+            echo '<br>';
+          }
+
+
+        ?>
+      </label>
+
+      </td>
     </tr>
     
     
