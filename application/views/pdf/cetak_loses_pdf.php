@@ -127,13 +127,13 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       <td style="width: 40%;text-align:left;font-size: 15px;"><b>Supplier</b></td>
     </tr>
     <tr>
-      <td style="width: 20%;text-align:left;font-size: 15px;">No LPB</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NOMER_INV;?></td>
-      <td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
+      <td style="width: 20%;text-align:left;font-size: 15px;">NO</td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt_deti->NOMER_INV;?></td>
+      <td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt_deti->PELANGGAN;?><br><?=$dt_deti->ALAMAT;?></td>
     </tr>
     <tr>
       <td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: SO <?=$dt->NOMER_SO;?></td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: </td>
       <td  style="width:40%;text-align:left;font-size: 15px;"></td>
     </tr>
   </table>
@@ -152,34 +152,33 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       
         
 
-        <?php 
-        if($dt->OAT == '0'){
-
-        }else{
-          $oati = 350 * ($dt_deti->QTY - 3 - $dt->QTY_DITERIMA);
+        <?php
+          $harga_oat = $dt_deti->OAT / $dt_deti->KUANTITAS;
+          $harga_satuan_bbm = ($dt->HARGA_SATUAN / (1 + 0.1)) - $harga_oat;
+          $loses = $dt->QTY - 3 - $dt->QTY_DITERIMA;
+          $jumlah = $harga_satuan_bbm * $loses;
+          // $oati = 350 * ($dt_deti->QTY - 3 - $dt->QTY_DITERIMA);
           ?>
           <tr>
-          <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"><?=$dt_deti->NAMA_PRODUK;?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;border-bottom: 1px solid black;vertical-align: top;"><?php $loses = $dt_deti->QTY - 3 - $dt->QTY_DITERIMA; echo $loses;?> Ltr</td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format(350, 2);?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($oati, 2);?></td>
+          <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"><?=$dt->NAMA_PRODUK;?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;border-bottom: 1px solid black;vertical-align: top;"><?php  echo number_format($loses,2);?> Ltr</td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($harga_satuan_bbm, 2);?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($jumlah, 2);?></td>
           </tr>
-          <?php 
-        }
-        ?>
+         
         <?php
         
-      $ppn = 0.1 * ($total_loses+$oati);
+      $ppn = 0.1 * $jumlah;
       ?>
       <tr>
-      <td colspan="2"> Terbilang : <?php echo ucwords(kekata($totali =$total_loses + $oati + $ppn)); ?> Rupiah</td>
+      <td colspan="2"> Terbilang : <?php echo ucwords(kekata($totali = $jumlah + $ppn)); ?> Rupiah</td>
       <?php 
         
 
       ?>
       
       <td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-      <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($total_loses + $oati, 2);?><br><?=number_format($ppn, 2);?><br><?php $totali = 0; $totali =$total_loses + $oati + $ppn; echo number_format($totali, 2); ?></td>
+      <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($jumlah, 2);?><br><?=number_format($ppn, 2);?><br><?php $totali = 0; $totali = $jumlah + $ppn; echo number_format($totali, 2); ?></td>
     </tr>
 
       

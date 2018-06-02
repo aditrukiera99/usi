@@ -124,7 +124,7 @@ input[type=checkbox]
 				<label class="control-label"> <b style="font-size: 14px;"> Delivery Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
-						<input type="text" id="pelanggan" name="pelanggan" value="" readonly style="background:#FFF; width: 70%;">
+						<input type="text" id="pelanggan" name="pelanggan" value="<?=$dt->NOMER_DO;?>" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
 						<input type="hidden" name="id_inv" value="<?=$dt->ID;?>">
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
@@ -153,7 +153,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> PELANGGAN </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->PELANGGAN;?>" readonly name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="text" class="span12" value="<?=$dt->ID_CUSTOMER;?>" readonly name="no_trx" id="no_trx" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -202,7 +202,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?=$dt->MEMO;?></textarea>
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?=$dt->KETERANGAN;?></textarea>
 				</div>
 		</div> 
 	</div>
@@ -249,12 +249,7 @@ input[type=checkbox]
 					</thead>
 					<tbody id="tes">
 
-						<?php 
-							$idp = $dt->ID;
-							$cicil = $this->db->query("SELECT * FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$idp'")->result();
-							foreach ($cicil as $key => $sod) {
-							
-						?>
+						
 						<tr id="tr_1" class="tr_utama">
 							
 
@@ -263,7 +258,7 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk" value="<?=$sod->NAMA_PRODUK;?>" readonly style="background:#FFF; width: 60%;" >
+											<input type="text" id="nama_produk_1" name="nama_produk" value="<?=$dt->NAMA_PRODUK;?>" readonly style="background:#FFF; width: 60%;" >
 											<input type="hidden" id="id_produk_1" name="produk" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
@@ -275,13 +270,13 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$sod->QTY;?>" name="qty" readonly>
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$dt->QTY;?>" name="qty" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?php echo number_format($sod->HARGA_SATUAN,2);?>" name="harga_modal" id="harga_modal_1" readonly>
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?php echo number_format($dt->HARGA_SATUAN,2);?>" name="harga_modal" id="harga_modal_1" readonly>
 									<input type="hidden" name="total_id" id="total_id_1">
 								</div>
 							</td>
@@ -290,7 +285,7 @@ input[type=checkbox]
 								<!-- <button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button> -->
 							</td>
 						</tr>
-					<?php } ?>
+					
 					</tbody>
 				</table>
 

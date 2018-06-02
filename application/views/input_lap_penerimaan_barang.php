@@ -150,7 +150,7 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. PO Pertamina</b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
@@ -171,7 +171,7 @@ input[type=checkbox]
 	
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Penerimaan Barang </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
 						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
@@ -558,7 +558,7 @@ function ajax_pelanggan(){
                 isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
-                            '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.NOMER_PO+'</td>'+
                         '</tr>';
             });
 
@@ -750,6 +750,7 @@ function get_pelanggan_det(id_pel){
 			$('#no_trx').val(result.NO_PO);
 			$('#pelanggan_sel').val(id_pel);
 			$('#id_gudang').val(result.PAJAK_SUPPLY);
+			$('#id_produk_1').val(result.IDP);
 		}
 	});
 }
@@ -770,6 +771,7 @@ function get_sales_det(id_pel){
 		    $('#popup_koang').remove();
 
 			$('#nama_produk_1').val(result.NAMA_PRODUK);
+			
 			$('#qty_1').val(result.QTY);
 			$('#harga_modal_1').val(result.HARGA_SATUAN);
 		}

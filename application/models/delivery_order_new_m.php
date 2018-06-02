@@ -118,6 +118,24 @@ class Delivery_order_new_m extends CI_Model
         $this->db->query($sql_1);
     }
 
+
+    function update_stock_so($id,$qty){
+       $sql = "
+        UPDATE ak_penjualan SET SISA = SISA + $qty
+        WHERE NO_BUKTI = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+     function hapus_invoice($id_klien){
+        $sql_1 = "
+        DELETE FROM ak_invoice WHERE NOMER_DO = '$id_klien'
+        ";
+
+        $this->db->query($sql_1);
+    }
+
     function get_penjualan_filter($keyword, $id_klien, $tgl_awal, $tgl_akhir){
 
 
@@ -343,9 +361,17 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_penerimaan_detail($id_pel){
+        $sql = "
+        SELECT * FROM ak_penerimaan_barang WHERE ID = $id_pel
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_do_detail($id_pel){
         $sql = "
-        SELECT * FROM ak_delivery_order WHERE ID = $id_pel
+        SELECT p.PO_PELANGGAN , p.JATUH_TEMPO , STR_TO_DATE(d.TGL_TRX, '%d-%m-%Y') as tgl_cy ,  d.* FROM ak_delivery_order d , ak_penjualan p WHERE p.NO_BUKTI = d.NO_SO AND d.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -399,9 +425,9 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal,$no_bukti_real)
+    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal,$no_bukti_real,$no_po,$no_lpb,$id_produk)
     {
-
+        $qty       = str_replace(',', '', $qty);
         $sql = "
         INSERT INTO ak_delivery_order
         (
@@ -423,7 +449,10 @@ class Delivery_order_new_m extends CI_Model
             STATUS,
             TGL_TRX,
             HARGA_SATUAN,
-            NOMER_DO
+            NOMER_DO,
+            NOMER_PO,
+            NOMER_LPB,
+            ID_PRODUK
 
 
         )
@@ -447,7 +476,10 @@ class Delivery_order_new_m extends CI_Model
            '0',
            '$tgl',
            '$harga_modal',
-           '$no_bukti_real'
+           '$no_bukti_real',
+           '$no_po',
+           '$no_lpb',
+           '$id_produk'
         )
         ";
 
@@ -516,10 +548,10 @@ class Delivery_order_new_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function update_status_so($id_klien){
-        
+    function update_status_so($id_klien,$qty){
+        $qty          = str_replace(',', '', $qty);
         $sql = "
-        UPDATE ak_penjualan SET STATUS_DO = '1'
+        UPDATE ak_penjualan SET STATUS_DO = '1' , SISA = SISA - $qty
         WHERE NO_BUKTI = '$id_klien'
         ";
 
@@ -538,12 +570,21 @@ class Delivery_order_new_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function ubah_do($memo , $id){
+    function ubah_do($memo , $id,$segel_atas ,$meter_atas ,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal ,$temperatur ,$sg_meter ){
 
         
        
         $sql = "
-        UPDATE ak_delivery_order SET KETERANGAN = '$memo'
+        UPDATE ak_delivery_order SET 
+            KETERANGAN = '$memo',
+            SEGEL_ATAS = '$segel_atas' ,
+            METER_AWAL = '$meter_atas',
+            NO_KENDARAAN = '$no_pol',
+            SEGEL_BAWAH = '$segel_bawah', 
+            METER_AKHIR = '$meter_bawah',
+            NAMA_KAPAL = '$nama_kapal',
+            TEMPERATUR = '$temperatur',
+            SG_METER = '$sg_meter'
         WHERE ID = '$id'
         ";
 

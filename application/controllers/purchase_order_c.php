@@ -117,7 +117,7 @@ class Purchase_order_c extends CI_Controller {
 			// } 
 			$operator      = $user->NAMA;
 
-			$this->model->simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo);
+			$this->model->simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo,$qty_total);
 
 			$id_pembelian = $this->db->insert_id();
 

@@ -108,9 +108,9 @@ input[type=checkbox]
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
-			<li><a href="#">Delivery Order</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li> Edit Delivery Order <span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Buat Delivery Order Baru </li>
+			<li><a href="#">Invoice</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li> Invoice <span class="divider"><i class="icon-angle-right"></i></span></li>
+			<li class="active"> Buat Invoice Baru </li>
 		</ul>
 	</div>
 </div>
@@ -176,7 +176,8 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_asdtrx" data-format="dd-MM-yyyy" type="text" id="tgl_trx_tasdur">
+						<input readonly style="width: 80%;" value="<?=date('m-d-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="hidden" id="tgl_trx_tur">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -184,6 +185,23 @@ input[type=checkbox]
 				</div>
 		</div>
 
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> No. PO CLIENT </b> </label>
+			<div class="controls">
+				<input type="text" class="span10" value="" name="no_po_client" id="no_po_client" readonly>
+				<!-- <input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;"> -->
+			</div>
+		</div>
+
+
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Jatuh Tempo </b> </label>
+			<div class="controls">
+
+				<input type="text" class="span10" value="" name="tgl_jt" id="tgl_jt" readonly>
+				<!-- <input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;"> -->
+			</div>
+		</div>
 		
 
 	</div>
@@ -307,7 +325,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Invoice" name="edit_inv" class="btn btn-success">
+					<input type="submit" value="Simpan Invoice" name="buat_inv" class="btn btn-success">
 					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -487,7 +505,7 @@ function get_popup_pelanggan(){
                 '                    <tr>'+
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
-                '                        <th> NO SO </th>'+
+                '                        <th> NO DO </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -566,7 +584,7 @@ function ajax_pelanggan(){
                 isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
-                            '<td align="center">'+res.NO_BUKTI+'</td>'+
+                            '<td align="center">'+res.NOMER_DO+'</td>'+
                         '</tr>';
             });
 
@@ -759,6 +777,21 @@ function get_pelanggan_det(id_pel){
 			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(id_pel);
 			$('#no_do').val(result.NO_SO);
+			$('#no_po_client').val(result.PO_PELANGGAN);
+
+				var stri = $('#tgl_trx_tur').val();
+
+				var startDate = new Date(stri);
+				var id =  result.JATUH_TEMPO;
+
+				// seconds * minutes * hours * milliseconds = 1 day 
+				var day = (60 * 60 * 24 * 1000) * id ;
+				var da = (60 * 60 * 24 * 1000) * 3 ;
+
+				var endDate = new Date(startDate.getTime('dd-MM-yyyy')+ day + da);
+				var tgl = endDate.toString("dd-MM-yyyy");
+
+			$('#tgl_jt').val(tgl);
 		}
 	});
 }

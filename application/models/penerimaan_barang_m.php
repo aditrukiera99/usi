@@ -104,7 +104,7 @@ class Penerimaan_barang_m extends CI_Model
 
     function get_so_detail($id_pel){
         $sql = "
-        SELECT * FROM ak_pembelian WHERE ID = $id_pel
+        SELECT p.* , pd.ID_PRODUK as IDP FROM ak_pembelian p , ak_pembelian_detail pd WHERE p.ID = pd.ID_PENJUALAN AND p.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -705,22 +705,23 @@ class Penerimaan_barang_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function update_status_penerimaan($id){
-
-        $tgj = date('d-m-Y'); 
+    function update_status_penerimaan($id,$sisa){
+        $qty          = str_replace(',', '', $sisa);
+        // $tgj = date('d-m-Y'); 
        
         $sql = "
-        UPDATE ak_pembelian SET PENERIMAAN_STATUS = '1' 
+        UPDATE ak_pembelian SET PENERIMAAN_STATUS = '1' ,
+                                SISA_QTY = SISA_QTY - $qty
         WHERE NO_PO = '$id'
         ";
 
         $this->db->query($sql);
     }
 
-    function update_po_status($id){
-
+    function update_po_status($id,$sisa){
+        $qty          = str_replace(',', '', $sisa);
         $sql = "
-        UPDATE ak_pembelian SET PENERIMAAN_STATUS = '0' 
+        UPDATE ak_pembelian SET PENERIMAAN_STATUS = '0' , SISA_QTY = SISA_QTY + $qty
         WHERE NO_PO = '$id'
         ";
 

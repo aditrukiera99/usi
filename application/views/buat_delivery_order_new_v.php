@@ -125,7 +125,7 @@ input[type=checkbox]
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
-						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
+						
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 					</div>
@@ -137,15 +137,16 @@ input[type=checkbox]
 				<label class="control-label"> <b style="font-size: 14px;"> Divisi </b> </label>
 				<div class="controls">
 					<div class="input-append">
+						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
 						<input type="text" id="unit_txt" name="unit_txt" readonly style="background:#FFF; width: 90%" value="<?=$user->NAMA_UNIT;?>">
 						<input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>">
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="span3">
+		<div class="span3">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Purchase Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="supplier" name="supplier" readonly style="background:#FFF; width: 70%;">
@@ -155,7 +156,7 @@ input[type=checkbox]
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 	</div>
 </div>
 
@@ -182,16 +183,18 @@ input[type=checkbox]
 
 
 	<div class="span4">
-		<!-- <div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label span6"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label span6"> <b style="font-size: 14px;"> No. LPB </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$no_pembeli;?>" name="no_po" id="no_po" style="font-size: 15px;">
-				<input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;">
+				<input type="text" class="span6" value="" name="no_po" id="no_po" style="font-size: 15px;">
+				<input type="text" class="span6" value="" name="no_lpb" id="no_lpb" style="font-size: 15px;">
+				<!-- <input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;"> -->
 			</div>
-		</div> -->
+		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
 						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
@@ -747,8 +750,8 @@ function get_popup_supplier(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
-                '                        <th style="white-space:nowrap;"> NAMA SUPPLIER / PERUSAHAAN </th>'+
-                '                        <th> ALAMAT </th>'+
+                '                        <th style="white-space:nowrap;"> NOMOR PO</th>'+
+                '                        <th> TANGGAL </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -810,7 +813,7 @@ function ajax_pelanggan(){
 function ajax_supplier(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_supplier_popup',
+        url : '<?php echo base_url(); ?>delivery_order_new_c/get_po_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -822,15 +825,11 @@ function ajax_supplier(){
             var tipe_data = "";
             $.each(result,function(i,res){
                 no++;
-                nama_pel = res.NAMA_SUPPLIER;
-                if(res.TIPE == "Perusahaan"){
-                	nama_pel = res.NAMA_SUPPLIER+" <b> ("+res.NAMA_USAHA+")</b>";
-                }
-
+                
                 isine += '<tr onclick="get_supplier_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
-                            '<td align="center">'+nama_pel+'</td>'+
-                            '<td align="center">'+res.ALAMAT_TAGIH+'</td>'+
+                            '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.TGL_TRX+'</td>'+
                         '</tr>';
             });
 
@@ -982,7 +981,7 @@ function get_pelanggan_det(id_pel){
 			$('#alamat_tagih').val(result.ALAMAT);
 			$('#pelanggan').val(result.PELANGGAN);
 			$('#no_trx').val(result.NO_BUKTI);
-			$('#pelanggan_sel').val(id_pel);
+			$('#pelanggan_sel').val(result.ID_PELANGGAN);
 		}
 	});
 }
@@ -1003,7 +1002,8 @@ function get_sales_det(id_pel){
 		    $('#popup_koang').remove();
 
 			$('#nama_produk_1').val(result.NAMA_PRODUK);
-			$('#qty_1').val(result.QTY);
+			$('#id_produk_1').val(result.ID_PRODUK);
+			// $('#qty_1').val(result.QTY);
 			$('#harga_modal_1').val(result.HARGA_SATUAN);
 		}
 	});
@@ -1012,7 +1012,7 @@ function get_sales_det(id_pel){
 function get_supplier_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_supplier_detail',
+		url : '<?php echo base_url(); ?>delivery_order_new_c/get_penerimaan_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -1024,8 +1024,8 @@ function get_supplier_det(id_pel){
 		    $('#popup_koang').hide();
 		    $('#popup_koang').remove();
 
-			$('#supplier').val(result.NAMA_SUPPLIER);
-			$('#supplier_sel').val(id_pel);
+			$('#no_po').val(result.NO_PO);
+			$('#no_lpb').val(result.NO_BUKTI);
 		}
 	});
 }

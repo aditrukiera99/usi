@@ -150,7 +150,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
             <input type="hidden" name="id_hapus" id="id_hapus" value="" />
         </form>   
          
-        <p id="hapus_txt">Apakah anda yakin ingin menghapus data ini?</p>
+        <p id="hapus_txt">Apakah anda yakin ingin menghapus data delivery order dan invoice (jika telah dibuat)?</p>
         <ul class="cd-buttons">            
             <li><a href="javascript:;" onclick="$('#delete').submit();">Ya</a></li>
             <li><a onclick="$('.cd-popup-close').click(); $('#id_hapus').val('');" href="javascript:;">Tidak</a></li>

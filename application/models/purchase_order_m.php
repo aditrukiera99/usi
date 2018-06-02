@@ -7,7 +7,7 @@ class Purchase_order_m extends CI_Model
           $this->load->database();
     }
 
-    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo)
+    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo,$qty_total)
     {
 
         $sql = "
@@ -38,7 +38,9 @@ class Purchase_order_m extends CI_Model
             NOMER_PO,
             PPH_22,
             PENERIMAAN_STATUS,
-            JATUH_TEMPO
+            JATUH_TEMPO,
+            SISA_QTY,
+            KUANTITAS
 
         )
         VALUES 
@@ -68,7 +70,9 @@ class Purchase_order_m extends CI_Model
            '$no_bukti_real',
            '$penampung_pph_22',
            '0',
-           '$hari_tempo'
+           '$hari_tempo',
+           '$qty_total',
+           '$qty_total'
            
         )
         ";

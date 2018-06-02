@@ -162,22 +162,24 @@ input[type=checkbox]
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Hari Ini </b> </label>
 			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
 			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
-						<input style="width: 68%;" value="" id="jam_dinding_jadi" name="jatuh_tempo" type="text">
+						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;float: left;" onkeyup="jam_dinding(this.value);">
+						<h3 style="float: left;">HARI</h3>
+						<!-- <input style="width: 68%;" value="" id="jam_dinding_jadi" name="jatuh_tempo" type="text">
 						<input style="width: 68%;" value="<?=date('Y-m-d');?>" name="jatuh_tempo" type="hidden" id="jam_dinding_val">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
-						</span>
+						</span> -->
 					</div>
 				</div>
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
+			<label class="control-label span12"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
 					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 85%;"></textarea>
 				</div>
@@ -1420,6 +1422,8 @@ function hitung_total_semua(){
     });
 
 
+    
+
 	harga_invoice           = harga_invoice.split(',').join('');
 	qty   					= qty.split(',').join('');
 
@@ -1430,6 +1434,7 @@ function hitung_total_semua(){
 	var semuanya = jadi_total * qty;
 
     $('#inp_sub_total').val(semuanya);
+    $('#inp_qty_total').val(qty);
 
     $('#subtotal_h').html('Rp. '+acc_format(semuanya, ""));
 }

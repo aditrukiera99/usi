@@ -111,11 +111,11 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 						</tr>						
 					</thead>
 					<tbody id="tes">
-						<?PHP  foreach ($dt as $key => $row) { ?>
-							<?PHP $dt_detail = $this->model->get_data_trx_detail($row->ID); ?>
-
-							<?PHP 
-							$sql = "SELECT SUM(QTY) AS QTY FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$row->ID' ";
+						<?PHP  foreach ($dt as $key => $row) { 
+							
+							$nmr_so = $row->NOMER_SO;
+							
+							$sql = "SELECT * FROM ak_penjualan WHERE NO_BUKTI = '$nmr_so' ";
 							$dt_sql = $this->db->query($sql)->row();
 
 							?>
@@ -138,7 +138,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								<td align="center">	
 									<?php 
 
-									if($row->OAT){
+									if($dt_sql->OAT){
 										?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_bbm/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 								<?php
@@ -151,8 +151,8 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								<td align="center">	
 									<?php 
 
-										if($row->OAT){
-											?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_bbm/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+										if($dt_sql->OAT){
+											?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_transport/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 								<?php
 										}else{
@@ -161,11 +161,11 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<?php } ?>
 								</td>
 								
-								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NOMER_INV;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$dt_sql->NOMER_INV;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->ID_CUSTOMER;?> </td>
 
-								<td style="font-size:14px; text-align:right; vertical-align:middle;text-align: center;"> <?=number_format($dt_sql->QTY);?> L </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;text-align: center;"> <?=number_format($row->QTY);?> L </td>
 								<!-- <td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detail->HARGA_JUAL);?> </td> -->
 								<!-- <td style="font-size:14px; text-align:center; vertical-align:middle;">
 									<?PHP if($row->NO_TRX_AKUN == "" || $row->NO_TRX_AKUN == null ){ 

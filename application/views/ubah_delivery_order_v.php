@@ -182,13 +182,15 @@ input[type=checkbox]
 
 
 	<div class="span4">
-		<!-- <div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. PO </b> </label>
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label span6"> <b style="font-size: 14px;"> No. PO </b> </label>
+			<label class="control-label span6"> <b style="font-size: 14px;"> No. LPB </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$no_pembeli;?>" name="no_po" id="no_po" style="font-size: 15px;">
-				<input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;">
+				<input type="text" class="span6" value="<?=$dt->NOMER_PO;?>" name="no_po" id="no_po" style="font-size: 15px;" readonly>
+				<input type="text" class="span6" value="<?=$dt->NOMER_LPB;?>" name="no_lpb" id="no_lpb" style="font-size: 15px;" readonly>
+				<!-- <input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;"> -->
 			</div>
-		</div> -->
+		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
@@ -224,7 +226,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
-					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"></textarea>
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 80%;"><?php echo $dt->KETERANGAN; ?></textarea>
 				</div>
 		</div> 
 	</div>
@@ -246,7 +248,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Segel Atas  </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->SEGEL_ATAS;?>" name="segel_atas" id="segel_atas" style="font-size: 15px;" readonly>
+				<input type="text" class="span12" value="<?=$dt->SEGEL_ATAS;?>" name="segel_atas" id="segel_atas" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -255,7 +257,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Meter Awal  </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$dt->METER_AWAL;?>" name="meter_atas" id="meter_atas" style="font-size: 15px;" readonly>
+				<input type="text" class="span10" value="<?=$dt->METER_AWAL;?>" name="meter_atas" id="meter_atas" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -271,7 +273,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No Kendaraan </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->NO_KENDARAAN;?>" name="no_pol" id="no_pol" style="font-size: 15px;" readonly>
+				<input type="text" class="span12" value="<?=$dt->NO_KENDARAAN;?>" name="no_pol" id="no_pol" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -281,7 +283,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Segel Bawah </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->SEGEL_BAWAH;?>" name="segel_bawah" id="segel_bawah" style="font-size: 15px;" readonly>
+				<input type="text" class="span12" value="<?=$dt->SEGEL_BAWAH;?>" name="segel_bawah" id="segel_bawah" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -290,7 +292,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Meter Akhir </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$dt->METER_AKHIR;?>" name="meter_bawah" id="meter_bawah" style="font-size: 15px;" readonly>
+				<input type="text" class="span10" value="<?=$dt->METER_AKHIR;?>" name="meter_bawah" id="meter_bawah" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -305,7 +307,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Nama Kapal </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->NAMA_KAPAL;?>" name="nama_kapal" id="sopir" style="font-size: 15px;" readonly>
+				<input type="text" class="span12" value="<?=$dt->NAMA_KAPAL;?>" name="nama_kapal" id="sopir" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -314,7 +316,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Temperatur </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="<?=$dt->TEMPERATUR;?>" name="temperatur" id="dikirim" style="font-size: 15px;" readonly>
+				<input type="text" class="span12" value="<?=$dt->TEMPERATUR;?>" name="temperatur" id="dikirim" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -324,7 +326,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> SG Meter </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$dt->SG_METER;?>" name="sg_meter" id="dikirim" style="font-size: 15px;" readonly>
+				<input type="text" class="span10" value="<?=$dt->SG_METER;?>" name="sg_meter" id="dikirim" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>

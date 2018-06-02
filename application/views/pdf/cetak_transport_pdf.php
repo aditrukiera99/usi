@@ -65,7 +65,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 
     p{
         margin-top: 1px !important;
-    	margin-bottom: 1px !important;
+      margin-bottom: 1px !important;
     }
   </style>
  <script type="text/javascript">
@@ -108,10 +108,10 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 <font face="helvetica">
 <div class="page">
 <table style="width: 100%">
-	<tr>
-		<td><img style="width: 100%;height: 130px;" src="<?=$base_url2;?>assets/img/header.png"></td>
-	</tr>
-	
+  <tr>
+    <td><img style="width: 100%;height: 130px;" src="<?=$base_url2;?>assets/header_warna.png"></td>
+  </tr>
+  
 </table>
 
 
@@ -124,16 +124,16 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
     <tr>
       <td style="width: 20%;text-align:left;font-size: 15px;">Tanggal</td>
       <td style="width: 40%;text-align:left;font-size: 15px;">: <b><?=$dt->TGL_TRX;?></b></td>
-      <td style="width: 40%;text-align:left;font-size: 15px;"><b>Supplier</b></td>
+      <td style="width: 40%;text-align:left;font-size: 15px;"><b>Kepada Yth</b></td>
     </tr>
     <tr>
-      <td style="width: 20%;text-align:left;font-size: 15px;">No LPB</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt->NOMER_INV;?></td>
-      <td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
+      <td style="width: 20%;text-align:left;font-size: 15px;">NO </td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: <?=$dt_deti->NOMER_INV; ?></td>
+      <td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt_deti->PELANGGAN;?><br><?=$dt_deti->ALAMAT;?></td>
     </tr>
     <tr>
       <td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: SO <?=$dt->NOMER_SO;?></td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: </td>
       <td  style="width:40%;text-align:left;font-size: 15px;"></td>
     </tr>
   </table>
@@ -143,42 +143,70 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 <table style="border-collapse: collapse;">
   
     <tr>
-      <th style="width: 25%;padding: 5px 5px 5px 5px;text-align: center;border-right: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black; ">KETERANGAN</th>
-      <th style="width: 15%;padding: 5px 5px 5px 5px;text-align: center;border-right: 1px solid black;border-top: 1px solid black; border-bottom: 1px solid black;">QTY</th>
-      <th style="width: 15%;padding: 5px 5px 5px 5px;text-align: center; border-right: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;">Harga (Rp)</th>
-      <th style="width: 15%;padding: 5px 5px 5px 5px;text-align: center;border-right: 1px solid black;border-top: 1px solid black; border-bottom: 1px solid black;">Jumlah (Rp.)</th>
+      <th style="width: 25%;padding: 10px 10px 10px 10px;text-align: center;border-right: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black; ">KETERANGAN</th>
+      <th style="width: 15%;padding: 10px 10px 10px 10px;text-align: center;border-right: 1px solid black;border-top: 1px solid black; border-bottom: 1px solid black;">QTY</th>
+      <th style="width: 15%;padding: 10px 10px 10px 10px;text-align: center; border-right: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;">Harga (Rp.)</th>
+      <th style="width: 15%;padding: 10px 10px 10px 10px;text-align: center;border-right: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black; ">Jumlah (Rp.)</th>
       
     </tr>
-      
-        
-
-        <?php 
-        if($dt->OAT == '0'){
+  
+   <!--  <tr>
+      <?php 
+        if($dt->PBBKB == '0'){
 
         }else{
-          $oati_sat = $dt->OAT / $dt_deti->QTY ;
+          ?>
+          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
+          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">10%</td>
+          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Rp. <?php echo number_format($dt->PBBKB,2); ?></td>
+          <td style="padding: 5px;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Rp. <?php echo number_format($dt->PBBKB,2); ?></td>
+          <?php 
+        }
+        ?>
+      </tr> -->
+      <?php 
+
+        $harga_satuan_oat = $dt_deti->OAT / $dt_deti->KUANTITAS;
+        // $harga_satuan_bbm = ($dt->HARGA_SATUAN / (1 + 0.1)) - $harga_satuan_oat ;
+        // $total_bbm        = $harga_satuan_bbm * $dt->QTY;
+        $total_oat        = $harga_satuan_oat * $dt->QTY;
+        $subtotal         = $total_oat;
+        $total_ppn        = 0.1 * $subtotal;
+        $total_grand      = $subtotal + $total_ppn;
+
+      ?>
+        
+      
+        
+      
+      <?php 
+        if($dt_deti->OAT == '0' || $dt_deti->OAT == ''){
+
+        }else{
+        
           ?>
           <tr>
-          <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;">TRANSPORTASI FEE</td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;border-bottom: 1px solid black;vertical-align: top;"><?=$dt_deti->QTY;?> Ltr</td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($oati_sat, 2);?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;border-bottom: 1px solid black;text-align: right;vertical-align: top;"><?=number_format($dt->OAT, 2);?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;vertical-align: top;">Transportasi FEE</td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;vertical-align: top;"><?php echo number_format($dt->QTY,2);?> Ltr</td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;text-align: right;vertical-align: top;"><?=number_format($harga_satuan_oat, 2);?></td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;text-align: right;vertical-align: top;"><?=number_format($total_oat, 2);?></td>
           </tr>
           <?php 
         }
-
-        $ppn = 0.1 * $dt->OAT;
         ?>
+        <tr>
+          <td style="padding: 10px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: bottom;">JATUH TEMPO : <br><?=$dt->TGL_JATUH_TEMPO;?></td>
+          <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"></td>
+          <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"></td>
+          <td style="padding: 5px;height:300px;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;vertical-align: top;"></td>
+        </tr>
+
       
       <tr>
-      <td colspan="2"> Terbilang : <?php echo ucwords(kekata($totali = $dt->OAT + $ppn)); ?> Rupiah</td>
-      <?php 
-        
-
-      ?>
       
-      <td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-      <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($dt->OAT, 2);?><br><?=number_format($ppn, 2);?><br><?php $totali = 0; $totali =$dt->OAT + $ppn; echo number_format($totali, 2); ?></td>
+      <td style="border-left: none !important;" colspan="2"> Terbilang : <?php echo ucwords(kekata($total_grand)); ?> Rupiah</td>
+      <td style="border-right:1px solid black;padding: 5px;text-align: right;">Sub Total<br>PPN<br>Total</td>
+      <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($subtotal, 2);?><br><?=number_format($total_ppn, 2);?><br><?php echo number_format($total_grand, 2); ?></td>
     </tr>
 
       

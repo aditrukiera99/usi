@@ -25,10 +25,8 @@ class Stock_m extends CI_Model
         }
 
         $sql = "
-        SELECT * FROM ak_produk a 
+        SELECT * FROM ak_produk
         WHERE $where AND TIPE != 'JASA'
-
-        ORDER BY APPROVE ASC, ID DESC
         ";
 
         return $this->db->query($sql)->result();
@@ -117,17 +115,8 @@ class Stock_m extends CI_Model
         $id_user = $sess_user['id'];
         $user = $this->master_model_m->get_user_info($id_user);
 
-        $bulan = date('m');
-        $tahun = date('Y');
-
         $sql = "
-        SELECT ( IFNULL(a.TOTAL_1, 0) + IFNULL(a.TOTAL_2 ,0) ) AS TOTAL FROM (
-        SELECT SUM(a.TOTAL_1) AS TOTAL_1, SUM(a.TOTAL_2) AS TOTAL_2 FROM (
-        SELECT SUM(b.QTY) AS TOTAL_1, 0 AS TOTAL_2 FROM ak_pembelian a 
-        JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN
-        WHERE b.NAMA_PRODUK = '$nama_produk' AND a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a.SUPPLY_POINT = '$id_sp'
-        ) a
-        ) a
+        SELECT SUM(p.QTY) as TOTAL FROm ak_penerimaan_barang pd , ak_penerimaan_detail p WHERE p.ID_PENJUALAN = pd.ID AND pd.GUDANG = '$id_sp' AND p.ID_PRODUK = '$nama_produk'
         ";
 
         return $this->db->query($sql)->row();
@@ -142,11 +131,7 @@ class Stock_m extends CI_Model
         $tahun = date('Y');
 
         $sql = "
-        SELECT IFNULL(TOTAL, 0) AS TOTAL FROM (
-        SELECT SUM(b.QTY) AS TOTAL FROM ak_penjualan a 
-        JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
-        WHERE b.NAMA_PRODUK = '$nama_produk'  AND a.TGL_TRX LIKE '%-$bulan-$tahun%'
-        ) a
+        SELECT SUM(d.QTY) as TOTAL FROM ak_delivery_order d , ak_pelanggan p WHERE d.ID_PELANGGAN = p.ID AND p.ID_SUPPLY_POINT = '$id_sp' AND d.ID_PRODUK = '$nama_produk'
         ";
 
         return $this->db->query($sql)->row();

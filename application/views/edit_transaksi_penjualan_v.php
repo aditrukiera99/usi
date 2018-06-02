@@ -103,7 +103,7 @@ input[type=checkbox]
 						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;" value="<?=$dt->PELANGGAN;?>">
 						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;" value="<?=$dt->ID_PELANGGAN;?>">
 						<input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;" value="<?=$dt->KOTA;?>">
-						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
+						<!-- <button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button> -->
 					</div>
 				</div>
 			</div>
@@ -127,7 +127,8 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
-				<input type="text" class="span6" value="<?=$dt->ID;?>" name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="text" class="span6" value="<?=$dt->NOMER_SO;?>" name="nomer_so" id="no_trx" style="font-size: 15px;" readonly>
+				<input type="hidden" class="span6" value="<?=$dt->ID;?>" name="no_trx" id="no_trx" style="font-size: 15px;" readonly>
 			</div>
 		</div>
 
@@ -135,14 +136,17 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Alamat Tujuan </b> </label>
 				<div class="controls">
 					<!-- <textarea rows="4" id="alamat_tagih" name="alamat_tagih" style="resize:none; height: 87px; width: 90%;"></textarea> -->
-					<textarea name="alamat_tagih" id="alamat_tagih"><?=$dt->ALAMAT;?></textarea>
+					<textarea name="alamat_tagih" class="span12" rows="5" id="alamat_tagih" readonly><?=$dt->ALAMAT;?></textarea>
 				</div>
 	
-				<script>
-					CKEDITOR.replace( 'alamat_tagih', {
-				        height: 100
-				    });
-				</script>
+				
+		</div>
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
+				<div class="controls">
+						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;float: left;" value="<?=$dt->JATUH_TEMPO;?>">
+						<h3 style="float: left;">HARI</h3>
+				</div>
 		</div>
 	</div>
 
@@ -168,21 +172,25 @@ input[type=checkbox]
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo (Hari)</b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> Supply Point</b> </label>
+			<?php $sp = $this->model->get_pelanggan_detail($dt->ID_PELANGGAN);  ?>
 			<div class="controls">
-				<input onkeyup="FormatCurrency(this);" type="text" class="span12" value="<?=$dt->JATUH_TEMPO;?>" name="jatuh_tempo" id="jatuh_tempo" style="font-size: 15px;">
+				<input type="text" name="supply_point_tempat" class="span5" id="supply_point_nama" value="<?=$sp->NAMA_GUDANG;?>" readonly>
+				<input type="text" name="supply_pajak_tempat" class="span5" id="supply_pajak_nama" value="<?=$sp->NAMA_BPPKB;?>" readonly>
+				<input type="text" name="pajak_tempat" class="span2" id="pajak_nama" value="<?=$sp->PAJAK;?>" readonly>
+				<input type="hidden" name="pajak_id" class="span1" id="pajak_id">
 			</div>
 		</div>
 	</div>
 
 
 	<div class="span4">
-		<!-- <div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label"> <b style="font-size: 14px;"> No. PO Pelanggan </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="<?=$dt->NO_DO;?>" name="no_do" id="no_do" style="font-size: 15px;">
+				<input type="text" class="span10" value="<?=$dt->PO_PELANGGAN;?>" name="no_po_pelanggan" id="" style="font-size: 15px;">
 			</div>
-		</div> -->
+		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
@@ -278,13 +286,13 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(<?=$key+1;?>); hitung_total(<?=$key+1;?>);" onchange="" id="qty_<?=$key+1;?>" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$row->QTY;?>" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(<?=$key+1;?>); hitung_total(<?=$key+1;?>);" onchange="" id="qty_<?=$key+1;?>" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="<?=$row->QTY;?>" name="qty[]" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->HARGA_SATUAN;?>" name="harga_modal[]" id="harga_modal_<?=$key+1;?>">
+									<input onkeyup="FormatCurrency(this); hitung_total(<?=$key+1;?>);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="<?=$row->HARGA_SATUAN;?>" name="harga_modal[]" id="harga_modal_<?=$key+1;?>" readonly>
 								</div>
 							</td>
 
@@ -298,7 +306,7 @@ input[type=checkbox]
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
+				<!-- <button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button> -->
 
 			</div>
 		</div>
@@ -331,7 +339,7 @@ input[type=checkbox]
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
 					<input type="submit" value="Simpan Penjualan" name="edit_cui" class="btn btn-success">
-					<button class="btn" onclick="window.history.back();" type="button"> Batal dan Kembali </button>
+					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
 			</div>

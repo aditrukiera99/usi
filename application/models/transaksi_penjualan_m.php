@@ -72,12 +72,38 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function get_penjualan_invoice_baru($keyword, $id_klien){
+
+        $sess_user = $this->session->userdata('masuk_akuntansi');
+        $id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+
+        $where = "1=1";
+        // if($keyword != "" || $keyword != null){
+        //     $where = $where." AND (a.KODE_AKUN LIKE '%$keyword%' OR a.NAMA_AKUN LIKE '%$keyword%' ) ";
+        // }
+
+        $sql = "
+        SELECT * FROM ak_invoice 
+        ORDER BY ID DESC
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
     function get_penjualan_inv($id){
 
         
 
         $sql = "
-        SELECT * FROM ak_penjualan WHERE ID = $id
+        SELECT * FROM ak_invoice WHERE ID = $id
         ";
 
         return $this->db->query($sql)->row();
@@ -86,6 +112,15 @@ class Transaksi_penjualan_m extends CI_Model
     function get_data_trx($id){
         $sql = "
         SELECT * FROM ak_penjualan
+        WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
+    function get_data_trx_inv($id){
+        $sql = "
+        SELECT * FROM ak_invoice
         WHERE ID = '$id'
         ";
 
@@ -440,7 +475,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_produk_detail_mh($id_produk){
         $sql = "
-        SELECT pr.NAMA_PRODUK , mh.HARGA_JUAL , mh.ID_PRODUK FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.ID = '$id_produk'
+        SELECT pr.NAMA_PRODUK , mh.HARGA_JUAL , mh.ID_PRODUK , pr.ID as PRD FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.ID = '$id_produk'
         ";
 
         return $this->db->query($sql)->row();
@@ -462,7 +497,7 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so)
+    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so,$qty_total,$tipe_so)
     {
 
         $sql = "
@@ -485,7 +520,10 @@ class Transaksi_penjualan_m extends CI_Model
             STATUS_DO,
             STATUS_PO,
             PO_PELANGGAN,
-            NOMER_SO
+            NOMER_SO,
+            SISA,
+            KUANTITAS,
+            TIPE_PENJUALAN
 
         )
         VALUES 
@@ -507,7 +545,10 @@ class Transaksi_penjualan_m extends CI_Model
            '0',
            '0',
            '$no_po_pelanggan',
-           '$nomer_so'
+           '$nomer_so',
+           '$qty_total',
+           '$qty_total',
+           '$tipe_so'
         )
         ";
 
@@ -681,6 +722,18 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function ubah_penjualan_so($no_trx,$no_po_pelanggan, $keterangan, $hari_tempo){
+        $sql = "
+            UPDATE ak_penjualan SET
+                PO_PELANGGAN = '$no_po_pelanggan',
+                MEMO = '$keterangan',
+                JATUH_TEMPO = '$hari_tempo'
+            WHERE ID = $no_trx
+        ";
+
+        $this->db->query($sql);
+    }
+
     function get_id_penjualan($id_klien, $no_trx){
         $sql = "
         SELECT * FROM ak_penjualan WHERE ID_KLIEN = $id_klien AND NO_BUKTI = '$no_trx'
@@ -827,9 +880,39 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function insert_tb_invoice($no_do,$no_trx,$no_invoice,$tgl_trx,$qty,$harga_modal,$pelanggan,$pelanggan_sel,$nama_produk,$qty_diterima,$tgl_jt){
+        $qty       = str_replace(',', '', $qty);
+        $sql = "
+        INSERT INTO ak_invoice 
+        (NOMER_DO, NOMER_SO, NOMER_INVOICE, TGL_TRX, QTY,HARGA_SATUAN,ID_CUSTOMER,CUSTOMER,NAMA_PRODUK,QTY_DITERIMA,TGL_JATUH_TEMPO)
+        VALUES 
+        ($no_do, '$no_trx', '$no_invoice', '$tgl_trx', '$qty','$harga_modal','$pelanggan','$pelanggan_sel','$nama_produk','$qty_diterima','$tgl_jt')
+        ";
+
+        $this->db->query($sql);
+    }
+
     function hapus_detail_trx($id){
         $sql = "
         DELETE FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function hapus_invoice($id){
+        $sql = "
+        DELETE FROM ak_invoice WHERE ID = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function edit_status($id_klien){
+        
+        $sql = "
+        UPDATE ak_delivery_order SET STATUS = '0'
+        WHERE NO_BUKTI = $id_klien
         ";
 
         $this->db->query($sql);
@@ -887,8 +970,8 @@ class Transaksi_penjualan_m extends CI_Model
         
        
         $sql = "
-        UPDATE ak_penjualan SET MEMO = '$memo'
-        WHERE NOMER_SO = '$no_so'
+        UPDATE ak_invoice SET KETERANGAN = '$memo'
+        WHERE ID = '$no_so'
         ";
 
         $this->db->query($sql);

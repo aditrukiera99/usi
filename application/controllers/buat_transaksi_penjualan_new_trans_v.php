@@ -142,6 +142,7 @@ input[type=checkbox]
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 						<input type="hidden" name="kode_pelanggan" id="kode_pelanggan">
 						<input type="hidden" name="besar_oat" id="besar_oat">
+						<input type="hidden" name="tipe_so" value="1">
 					</div>
 				</div>
 			</div>

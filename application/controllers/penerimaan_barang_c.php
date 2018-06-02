@@ -85,7 +85,7 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$this->model->simpan_detail_penerimaan($id_penerimaan, $produk, $nama_produk, $qty, $harga_modal, $total_id);
 
-			$this->model->update_status_penerimaan($no_po);
+			$this->model->update_status_penerimaan($no_po,$qty);
 
 			$this->model->update_status_gudang($id_gudang,$qty);
 
@@ -198,8 +198,10 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$id_hapus = $this->input->post('id_hapus');
 			$dt_po = $this->db->query("SELECT * FROM ak_penerimaan_barang WHERE ID = $id_hapus")->row();
+			$iii = $dt_po->ID;
+			$dt_pos = $this->db->query("SELECT * FROM ak_penerimaan_detail WHERE ID_PENJUALAN = $iii")->row();
 
-			$this->model->update_po_status($dt_po->NO_PO);
+			$this->model->update_po_status($dt_po->NO_PO,$dt_pos->QTY);
 			$this->model->hapus_trx_penjualan($id_hapus);
 			$this->model->hapus_detail_trx($id_hapus);
 
@@ -334,7 +336,7 @@ class Penerimaan_barang_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS = '0' AND $where  
+		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS = '0' OR (PENERIMAAN_STATUS = '1' AND SISA_QTY > 0) AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();

@@ -115,67 +115,70 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_PO;?>" />
 							<?php 
 
-								if($row->PENERIMAAN_STATUS == '1'){
+								if($row->SISA_QTY == 0){
 							?>
 
 								<tr>
-									<td align="center" style=" background-color: #dff0d8;">
+									<td align="center" style=" background-color: #bdbdbdd6;">
 										<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
-										<a target="blank" href="<?=base_url();?>purchase_order_c/ubah_new_invoice/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></a>
+										
 
 										<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
 										
 									</td>
-									<td style="font-size:14px; text-align:left; vertical-align:middle; background-color: #dff0d8;">   <?=$row->NOMER_PO;?> </td>
-									<td style="font-size:14px; text-align:center; vertical-align:middle; background-color: #dff0d8;"> <?=$row->TGL_TRX;?> </td>
-									<td style="font-size:14px; text-align:left; vertical-align:middle; background-color: #dff0d8;">   <?=$row->PELANGGAN;?> </td>
+									<td style="font-size:14px; text-align:left; vertical-align:middle; background-color: #bdbdbdd6;">   <?=$row->NOMER_PO;?> </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle; background-color: #bdbdbdd6;"> <?=$row->TGL_TRX;?> </td>
+									<td style="font-size:14px; text-align:left; vertical-align:middle; background-color: #bdbdbdd6;">   <?=$row->PELANGGAN;?> </td>
 
-									<td style="font-size:14px; text-align:right; vertical-align:middle; background-color: #dff0d8;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
-									<td style="font-size:14px; text-align:right; vertical-align:middle; background-color: #dff0d8;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
+									<td style="font-size:14px; text-align:right; vertical-align:middle; background-color: #bdbdbdd6;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
+									<td style="font-size:14px; text-align:right; vertical-align:middle; background-color: #bdbdbdd6;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
 									
 								</tr>
 							<?php
 
-								}else{
+								}else if($row->SISA_QTY == $row->KUANTITAS){
 									?>
 										<tr>
-									<td align="center" style=" ">
-										<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+											<td align="center" style=" ">
+												<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
-										<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
-										
-									</td>
-									<td style="font-size:14px; text-align:left; vertical-align:middle; ">   <?=$row->NOMER_PO;?> </td>
-									<td style="font-size:14px; text-align:center; vertical-align:middle; "> <?=$row->TGL_TRX;?> </td>
-									<td style="font-size:14px; text-align:left; vertical-align:middle; ">   <?=$row->PELANGGAN;?> </td>
+												<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
+												
+											</td>
+											<td style="font-size:14px; text-align:left; vertical-align:middle; ">   <?=$row->NOMER_PO;?> </td>
+											<td style="font-size:14px; text-align:center; vertical-align:middle; "> <?=$row->TGL_TRX;?> </td>
+											<td style="font-size:14px; text-align:left; vertical-align:middle; ">   <?=$row->PELANGGAN;?> </td>
 
-									<td style="font-size:14px; text-align:right; vertical-align:middle; "> <?=number_format($dt_detaili->QTY);?> LITER</td>
-									<td style="font-size:14px; text-align:right; vertical-align:middle; "> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
-									
-								</tr>
+											<td style="font-size:14px; text-align:right; vertical-align:middle; "> <?=number_format($dt_detaili->QTY);?> LITER</td>
+											<td style="font-size:14px; text-align:right; vertical-align:middle; "> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
+											
+										</tr>
 
 									<?php
 
-								}
+								}else if($row->SISA_QTY > 0 && $row->SISA_QTY < $row->KUANTITAS){
 
 							?>
-							<!-- <tr>
-								<td align="center">
-									<a target="blank" href="<?=base_url();?>purchase_order_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+							<tr>
+								<td align="center" style="background-color: #dff0d8; ">
+									<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
 									
 								</td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NOMER_PO;?> </td>
-								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #dff0d8; ">   <?=$row->NOMER_PO;?> </td>
+								<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8; "> <?=$row->TGL_TRX;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #dff0d8; ">   <?=$row->PELANGGAN;?> </td>
 
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
-								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8; "> <?=number_format($dt_detaili->QTY);?> LITER</td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8; "> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
 								
-							</tr> -->
-						<?PHP }	?>
+							</tr>
+						<?PHP 
+					
+					}
+					}	?>
 					</tbody>
 				</table>
 			</div>

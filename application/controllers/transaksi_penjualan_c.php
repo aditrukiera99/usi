@@ -80,6 +80,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$pajak_id  		= $this->input->post('pajak_id');
 
 			$ppn 			= $this->input->post('penampung_ppn');
+			$tipe_so 			= $this->input->post('tipe_so');
 
 			
 			$kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
@@ -96,7 +97,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$harga_beli 	= $this->input->post('harga_beli');
 			$total_id 		= $this->input->post('total_id');
 
-			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real);
+			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real,$qty_total,$tipe_so);
 
 			$id_penjualan = $this->db->insert_id(); 
 
@@ -194,45 +195,44 @@ class Transaksi_penjualan_c extends CI_Controller {
 		if($this->input->post('edit_cui')){
 			$msg = 1;
 
-			$id 	       = $this->input->post('id_pp');
+			// $id 	       = $this->input->post('id_pp');
 			$no_trx 	   = $this->input->post('no_trx');
-			$no_trx2       = $this->input->post('no_trx2');
-			$id_pelanggan  = $this->input->post('pelanggan_sel');
-			$pelanggan     = $this->input->post('pelanggan');
-			$alamat_tagih  = $this->input->post('alamat_tagih');
-			// $kota_tujuan   = $this->input->post('kota_tujuan');
-			$no_po         = $this->input->post('no_po');
-			$no_do         = $this->input->post('no_do');
-			$tgl_trx 	   = $this->input->post('tgl_trx');
-			$keterangan    = $this->input->post('memo_lunas');
+			// $no_trx2       = $this->input->post('no_trx2');
+			// $id_pelanggan  = $this->input->post('pelanggan_sel');
+			// $pelanggan     = $this->input->post('pelanggan');
+			// $alamat_tagih  = $this->input->post('alamat_tagih');
+			
+			$no_po_pelanggan 	 = $this->input->post('no_po_pelanggan');
+			$keterangan   		 = $this->input->post('memo_lunas');
+			$hari_tempo   		 = $this->input->post('hari_tempo');
 			// $jatuh_tempo   = $this->input->post('jatuh_tempo');
-			$dikirim        = $this->input->post('dikirim');
-			$segel_atas 	= $this->input->post('segel_atas');
-			$meter_atas   	= $this->input->post('meter_atas');
-			$no_pol    		= $this->input->post('no_pol');
-			$segel_bawah    = $this->input->post('segel_bawah');
-			$meter_bawah    = $this->input->post('meter_bawah');
-			$nama_kapal     = $this->input->post('nama_kapal');
-			$temperatur     = $this->input->post('temperatur');
-			$sg_meter   	= $this->input->post('sg_meter');
+			// $dikirim        = $this->input->post('dikirim');
+			// $segel_atas 	= $this->input->post('segel_atas');
+			// $meter_atas   	= $this->input->post('meter_atas');
+			// $no_pol    		= $this->input->post('no_pol');
+			// $segel_bawah    = $this->input->post('segel_bawah');
+			// $meter_bawah    = $this->input->post('meter_bawah');
+			// $nama_kapal     = $this->input->post('nama_kapal');
+			// $temperatur     = $this->input->post('temperatur');
+			// $sg_meter   	= $this->input->post('sg_meter');
 
-			$tgl_do        = $this->input->post('tgl_trx');
-			$tgl_sj        = $this->input->post('tgl_trx');
-			$tgl_inv       = $this->input->post('tgl_trx');
-			$tgl_kwi       = $this->input->post('tgl_trx');	
+			// $tgl_do        = $this->input->post('tgl_trx');
+			// $tgl_sj        = $this->input->post('tgl_trx');
+			// $tgl_inv       = $this->input->post('tgl_trx');
+			// $tgl_kwi       = $this->input->post('tgl_trx');	
 			$operator      = $user->NAMA;
 			
 
-			// $this->model->ubah_penjualan_detail($id,$no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $kota_tujuan, $no_po, $no_do, $tgl_trx, $keterangan, $jatuh_tempo, $no_pol, $sopir, $alat_angkut, $segel_atas, $segel_bawah, $broker, $temperatur, $density, $flash_point, $water_content, $tgl_do, $tgl_sj, $tgl_inv, $tgl_kwi, $operator);
+			$this->model->ubah_penjualan_so($no_trx,$no_po_pelanggan, $keterangan, $hari_tempo);
 
-			$id_penjualan   = $this->input->post('id_pnj');
-			$id_produk 	    = $this->input->post('produk');
-			$kode_akun 	 	= $this->input->post('kode_akun');
-			$nama_produk 	= $this->input->post('nama_produk');
-			$qty 	        = $this->input->post('qty');
+			// $id_penjualan   = $this->input->post('id_pnj');
+			// $id_produk 	    = $this->input->post('produk');
+			// $kode_akun 	 	= $this->input->post('kode_akun');
+			// $nama_produk 	= $this->input->post('nama_produk');
+			// $qty 	        = $this->input->post('qty');
 
-			$harga_modal    = $this->input->post('harga_modal');
-			$supplier 	    = $this->input->post('supplier');
+			// $harga_modal    = $this->input->post('harga_modal');
+			// $supplier 	    = $this->input->post('supplier');
 			
 
 			
@@ -412,19 +412,104 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$user = $this->master_model_m->get_user_info($id_user);
 
 
+		if($this->input->post('buat_inv')){
+			$msg = 1;
+
+			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
+
+				if($bulan_kas == "01"){
+			    $var = "I";
+			   } else if($bulan_kas == "02"){
+			    $var = "II";
+			   } else if($bulan_kas == "03"){
+			    $var = "III";
+			   } else if($bulan_kas == "04"){
+			    $var = "IV";
+			   } else if($bulan_kas == "05"){
+			    $var = "V";
+			   } else if($bulan_kas == "06"){
+			    $var = "VI";
+			   } else if($bulan_kas == "07"){
+			    $var = "VII";
+			   } else if($bulan_kas == "08"){
+			    $var = "VIII";
+			   } else if($bulan_kas == "09"){
+			    $var = "IX";
+			   } else if($bulan_kas == "10"){
+			    $var = "X";
+			   } else if($bulan_kas == "11"){
+			    $var = "XI";
+			   } else if($bulan_kas == "12"){
+			    $var = "XII";
+			   }
+
+			$tahun_kas = date("y",strtotime($this->input->post('tgl_trx')));
+
+
+
+			$no_invoice    = $this->input->post('no_invoice');
+			$qty_diterima  = $this->input->post('qty_diterima');
+			$no_trx        = $this->input->post('no_solo');
+			$invoice       = $this->input->post('no_invoice');
+			$no_do         = $this->input->post('no_trx');
+			$tgl_trx       = $this->input->post('tgl_trx');
+			$pelanggan     = $this->input->post('pelanggan');
+			$pelanggan_sel = $this->input->post('pelanggan_sel');
+			$tgl_jt 	   = $this->input->post('tgl_jt');
+
+			
+
+			$kode_gudang = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND p.NO_BUKTI = '$no_trx' ")->row();
+
+			$no_bukti_real = $invoice."/".$kode_gudang->KODE_SUPPLY_POINT."/INV/".$var."/".$tahun_kas;
+			// $qty           = $this->input->post('qty');
+
+			// $kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
+
+			// $no_bukti_real = $no_trx."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
+
+			$nama_produk    = $this->input->post('nama_produk');
+			$qty         	= $this->input->post('qty');
+			$harga_modal    = $this->input->post('harga_modal');
+
+
+			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real);
+			$this->model->edit_status_do($no_do);
+			$this->model->insert_tb_invoice($no_do,$no_trx,$no_invoice,$tgl_trx,$qty,$harga_modal,$pelanggan,$pelanggan_sel,$nama_produk,$qty_diterima,$tgl_jt);
+			$this->model->save_next_nomor('13', 'Invoice', $invoice);
+
+
+		}
+
 		if($this->input->post('edit_inv')){
 			$msg = 1;
 
 			
 
-			$no_so    = $this->input->post('no_solo');
+			$no_so    = $this->input->post('id_inv');
 			$memo  = $this->input->post('memo_lunas');
 
 
 			$this->model->edit_invoice($no_so,$memo);
 
 
+		} else if($this->input->post('id_hapus')){
+			$msg = 2;
+
+			$id_hapus = $this->input->post('id_hapus');
+
+			$d = $this->db->query("SELECT * FROM ak_invoice WHERE ID = $id_hapus")->row();
+
+			$this->model->edit_status($d->NOMER_DO);
+			$this->model->hapus_invoice($id_hapus);
+			
+
+
+			// $this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
+		
 		}
+
+		
 
 
 		
@@ -440,7 +525,8 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$inv = $this->model->get_no_trx_inv($id_klien);
 		$get_broker = $this->model->get_broker();
 		$dt_supplier = $this->model->get_supplier();
-		$dt = $this->model->get_penjualan_invoice($keyword, $id_klien);
+
+		$dt = $this->model->get_penjualan_invoice_baru($keyword, $id_klien);
 
 		$data =  array(
 			'page' => "invoice_new_v", 
@@ -462,7 +548,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'inv' => $inv,
 			'dt' => $dt,
 			'get_broker' => $get_broker, 
-			'post_url' => 'transaksi_penjualan_c', 
+			'post_url' => 'transaksi_penjualan_c/buka_invoice', 
 		);
 		
 		$this->load->view('beranda_v', $data);
@@ -807,8 +893,9 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 	function cetak_inv($id=""){
 
-		$dt = $this->model->get_data_trx($id);
-		$dt_deti = $this->model->get_data_trx_detail($id);
+		$dt = $this->model->get_data_trx_inv($id);
+		$inv = $this->db->query("SELECT ap.ID as ID FROM ak_invoice ai , ak_penjualan ap WHERE ai.NOMER_SO = ap.NO_BUKTI AND ai.ID = '$id'")->row();
+		$dt_deti = $this->model->get_data_trx($inv->ID);
 
 		$data =  array(
 			'page' => "transaksi_penjualan_c", 
@@ -822,8 +909,9 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 	function cetak_loses($id=""){
 
-		$dt = $this->model->get_data_trx_loses($id);
-		$dt_deti = $this->model->get_data_trx_detail_loses($id);
+		$dt = $this->model->get_data_trx_inv($id);
+		$inv = $this->db->query("SELECT ap.ID as ID FROM ak_invoice ai , ak_penjualan ap WHERE ai.NOMER_SO = ap.NO_BUKTI AND ai.ID = '$id'")->row();
+		$dt_deti = $this->model->get_data_trx($inv->ID);
 
 		$data =  array(
 			'page' => "transaksi_penjualan_c", 
@@ -837,8 +925,9 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 	function cetak_bbm($id=""){
 
-		$dt = $this->model->get_data_trx_loses($id);
-		$dt_deti = $this->model->get_data_trx_detail_loses($id);
+		$dt = $this->model->get_data_trx_inv($id);
+		$inv = $this->db->query("SELECT ap.ID as ID FROM ak_invoice ai , ak_penjualan ap WHERE ai.NOMER_SO = ap.NO_BUKTI AND ai.ID = '$id'")->row();
+		$dt_deti = $this->model->get_data_trx($inv->ID);
 
 		$data =  array(
 			'page' => "transaksi_penjualan_c", 
@@ -852,8 +941,9 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 	function cetak_transport($id=""){
 
-		$dt = $this->model->get_data_trx_loses($id);
-		$dt_deti = $this->model->get_data_trx_detail_loses($id);
+		$dt = $this->model->get_data_trx_inv($id);
+		$inv = $this->db->query("SELECT ap.ID as ID FROM ak_invoice ai , ak_penjualan ap WHERE ai.NOMER_SO = ap.NO_BUKTI AND ai.ID = '$id'")->row();
+		$dt_deti = $this->model->get_data_trx($inv->ID);
 
 		$data =  array(
 			'page' => "transaksi_penjualan_c", 

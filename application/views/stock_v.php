@@ -35,10 +35,10 @@
 						<tr>
 							<th align="center"> Nama Item </th>
 							<th align="center"> Satuan </th>
-							<th align="center"> Saldo Awal </th>
+							
 							<th align="center"> Penerimaan </th>
 							<th align="center"> Pengeluaran </th>
-							<th align="center"> Koreksi </th>
+							<!-- <th align="center"> Koreksi </th> -->
 							<th align="center"> Saldo Akhir </th>
 						</tr>						
 					</thead>
@@ -56,19 +56,30 @@
 						foreach ($dt as $key => $row) {
 							$no++;
 
-							$get_penerimaan  = $this->model->get_penerimaan_item($row->ID, $row->NAMA_PRODUK, $row_sp->ID);
-							$get_pengeluaran = $this->model->get_pengeluaran_item($row->ID, $row->NAMA_PRODUK, $row_sp->ID);
-							$get_koreksi = $this->model->get_koreksi_item($row->ID, $row->NAMA_PRODUK);
-							$saldo_akhir = ($get_penerimaan->TOTAL - $get_pengeluaran->TOTAL) + $get_koreksi->TOTAL;
+							$get_penerimaan  = $this->model->get_penerimaan_item($row->ID, $row->ID, $row_sp->ID);
+							$get_pengeluaran = $this->model->get_pengeluaran_item($row->ID, $row->ID, $row_sp->ID);
+							// $get_koreksi = $this->model->get_koreksi_item($row->ID, $row->NAMA_PRODUK);
+							$saldo_akhir = ($get_penerimaan->TOTAL - $get_pengeluaran->TOTAL );
+
+							if ($get_penerimaan->TOTAL == '') {
+								$st = 0;
+							}else{
+								$st = $get_penerimaan->TOTAL;
+							}
+
+							if ($get_pengeluaran->TOTAL == '') {
+								$dy = 0;
+							}else{
+								$dy = $get_pengeluaran->TOTAL;
+							}
 
 						?>
 						<tr style="font-weight: bold;">
 							<td align="left" style="text-align: left;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <?=$row->NAMA_PRODUK;?> </td>							
 							<td align="center" style="text-align: center;"> <?=$row->SATUAN;?> </td>							
-							<td align="right" style="text-align: right;"> 0 </td>							
-							<td align="right" style="text-align: right;"> <?=$get_penerimaan->TOTAL;?> <?=$row->SATUAN;?> </td>							
-							<td align="right" style="text-align: right;"> <?=$get_pengeluaran->TOTAL;?> <?=$row->SATUAN;?> </td>							
-							<td align="right" style="text-align: right;"> <?=$get_koreksi->TOTAL;?> <?=$row->SATUAN;?> </td>							
+														
+							<td align="right" style="text-align: right;"> <?=$st;?> <?=$row->SATUAN;?> </td>
+							<td align="right" style="text-align: right;"> <?=$dy;?> <?=$row->SATUAN;?> </td>
 							<td align="right" style="text-align: right;"> <?=$saldo_akhir;?> <?=$row->SATUAN;?> </td>							
 						</tr>
 						<?PHP } ?>

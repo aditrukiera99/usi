@@ -142,6 +142,7 @@ input[type=checkbox]
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 						<input type="hidden" name="kode_pelanggan" id="kode_pelanggan">
 						<input type="hidden" name="besar_oat" id="besar_oat">
+						<input type="hidden" name="tipe_so" value="0">
 					</div>
 				</div>
 			</div>
@@ -181,17 +182,19 @@ input[type=checkbox]
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Hari Ini </b> </label>
 			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
 			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label>
 				<div class="controls">
-					<div id="" class="input-append date ">
-						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
-						<input style="width: 76%;" value="" id="jam_dinding_jadi" name="jatuh_tempo" type="text">
+						
+						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;float: left;" onkeyup="jam_dinding(this.value);">
+						<h3 style="float: left;">HARI</h3>
+						<!-- <input style="width: 76%;" value="" id="jam_dinding_jadi" name="jatuh_tempo" type="text">
 						<input style="width: 68%;" value="<?=date('Y-m-d');?>" name="jatuh_tempo" type="hidden" id="jam_dinding_val">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
-						</span>
-					</div>
+						</span> -->
+					
 				</div>
 		</div>
 	</div>
@@ -221,9 +224,9 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Supply Point</b> </label>
 			<div class="controls">
-				<input type="text" name="supply_point_tempat" class="span5" id="supply_point_nama">
-				<input type="text" name="supply_pajak_tempat" class="span5" id="supply_pajak_nama">
-				<input type="text" name="pajak_tempat" class="span2" id="pajak_nama">
+				<input type="text" name="supply_point_tempat" class="span5" id="supply_point_nama" readonly>
+				<input type="text" name="supply_pajak_tempat" class="span5" id="supply_pajak_nama" readonly>
+				<input type="text" name="pajak_tempat" class="span2" id="pajak_nama" readonly>
 				<input type="hidden" name="pajak_id" class="span1" id="pajak_id">
 			</div>
 		</div>
@@ -281,7 +284,7 @@ input[type=checkbox]
 									<div class="controls">
 										<div class="input-append">
 											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 60%;" >
-											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
+											
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
@@ -293,6 +296,7 @@ input[type=checkbox]
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
 									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 								</div>
 							</td>
 
@@ -311,7 +315,7 @@ input[type=checkbox]
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
+				<!-- <button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button> -->
 
 			</div>
 		</div>
@@ -441,7 +445,7 @@ input[type=checkbox]
 						<div style="margin-bottom: 15px;" class="span4">
 							<h3 style="color: green;" id="total_oat"></h3>
 
-							<input type="text" name="penampung_oat" id="penampung_oat" value="0">
+							<input type="hidden" name="penampung_oat" id="penampung_oat" value="0">
 
 							<input type="hidden" name="oat_besar" id="oat_besar">
 							<input type="hidden" name="pajak_oat_validasi" id="pajak_oat_validasi">
@@ -1030,7 +1034,7 @@ function get_produk_detail(id, no_form){
 		dataType : "json",
 		success : function(result){
 			$('#qty_'+no_form).focus();
-			$('#id_produk_'+no_form).val(id_produk);
+			$('#id_produk_'+no_form).val(result.PRD);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
 			$('#harga_modal_'+no_form).val(result.HARGA_JUAL);
 
