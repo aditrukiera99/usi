@@ -25,7 +25,8 @@
 						<label class="control-label"> NAMA PELANGGAN </label>
 						<div class="controls">
 							
-								<select required data-placeholder="Pilih main grup..." class="chzn-select" tabindex="2" style="width:300px;" name="kode_sh">
+								<select required data-placeholder="Pilih main grup..." class="chzn-select" tabindex="2" style="width:300px;" name="kode_sh" onchange="stock(this.value);">
+									<option>- Pilih Pelanggan -</option>
 									<?php 
 
 										$pel = $this->db->query("SELECT * FROM ak_pelanggan")->result();
@@ -60,6 +61,31 @@
 								</select>
 								
 							
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b> Stock Point </b> </label>
+						<div class="controls">
+							<select class="span12" name="supply_point" onchange="get_supply_point(this.value);" id="stoki">
+								<option value="">- Pilih Stock Point -</option>
+								</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>  </b> </label>
+						<div class="controls">
+						    <table class="stat-table table table-hover" style="width: 100%;">
+						    	<thead>
+						    		<th align="center">Nama</th>
+						    		<th align="center">Pajak (%)</th>
+						    		<th align="center">Aksi</th>
+						    	</thead>
+						    	<tbody id="data_supply">
+						    		
+						    	</tbody>
+						    </table>
 						</div>
 					</div>
 
@@ -127,5 +153,55 @@
 	    ajax_pelanggan();
 	}
 
-	`
+	function get_supply_point(id) {
+	
+        $.ajax({
+            url : '<?php echo base_url(); ?>purchase_order_c/get_supply_point',
+            data : {id:id},
+            type : "POST",
+            dataType : "json",
+            success : function(result){   
+                var isine = "";
+                if(result.length > 0){
+                    $.each(result,function(i,res){
+
+                        isine += '<tr>'+
+                                    '<td style="text-align:center;">'+res.NAMA_BPPKB+'</td>'+
+                                    '<td style="text-align:center;">'+res.PAJAK+' %</td>'+
+                                    '<td style="text-align:center;">'+
+                                    	'<input type="radio" value="'+res.ID+'" name="aksi_on" onchange="ganti('+res.PAJAK+')">'+
+                                    '</td>'+
+                                '</tr>';
+                    });
+                } else {
+                    isine = "<tr><td colspan='6' style='text-align:center;'> There are no transaction for this data </td></tr>";
+                }
+
+                $('#data_supply').html(isine);
+            }
+        });
+    }
+
+    function stock(id) {
+		$('#stoki').html("");
+        $.ajax({
+            url : '<?php echo base_url(); ?>master_harga_c/get_supply_point',
+            data : {id:id},
+            type : "POST",
+            dataType : "json",
+            success : function(result){   
+                var isine = "";
+                if(result.length > 0){
+                    $.each(result,function(i,res){
+
+                        isine += '<option value = "'+res.ID+'">'+res.NAMA+'</option>';
+                    });
+                } else {
+                    isine = "<tr><td colspan='6' style='text-align:center;'> There are no transaction for this data </td></tr>";
+                }
+
+                $('#stoki').html(isine);
+            }
+        });
+    }
 </script>

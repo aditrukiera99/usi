@@ -216,6 +216,13 @@
 					</div>
 
 					<div class="control-group">
+						<label class="control-label"> <b> Kategori Produk </b> </label>
+						<div class="controls">
+							<input required type="text" class="span12" value="" name="kategori_produk">
+						</div>
+					</div>
+
+					<div class="control-group">
 						<label class="control-label"> <b> Nama Produk </b> </label>
 						<div class="controls">
 							<input required type="text" class="span12" value="" name="nama_produk">

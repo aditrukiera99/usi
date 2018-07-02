@@ -97,20 +97,23 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			<td style="width: 40%;text-align:left;font-size: 15px;"><b>Kepada Yth :</b></td>
 		</tr>
 		<tr>
-			<td style="width: 17%;text-align:left;font-size: 15px;">Nomor</td>
+			<td style="width: 17%;text-align:left;font-size: 15px;height: 40px;">Nomor</td>
 			<td style="width: 3%">:</td>
 			<td style="width: 40%;text-align:left;font-size: 15px;"> <?=$dt->NOMER_PO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"><?=$dt->PELANGGAN;?></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td style="width: 17%;text-align:left;font-size: 15px;height: 40px;">Refrensi No</td>
 			<td style="width: 3%">:</td>
 			<td style="width: 40%;text-align:left;font-size: 15px;"> SO <?=$dt_det->NO_SO;?></td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
-		</tr>
+		</tr> -->
 		<?php 
 			$no_so_det = $dt_det->NO_SO;
 			$data_pelanggan = $this->db->query("SELECT p.KODE_PELANGGAN , p.NAMA_PELANGGAN , p.ALAMAT_TAGIH FROM ak_pelanggan p, ak_penjualan ap WHERE  ap.ID_PELANGGAN = p.ID AND ap.NO_BUKTI = '$no_so_det' ")->row();
+
+			$id_sp = $dt->ID;
+			$dt_supp = $this->db->query("SELECT g.NAMA as NAMAG FROM ak_gudang g , ak_pajak_supply ps , ak_pembelian p WHERE p.PAJAK_SUPPLY = ps.ID AND ps.ID_SUPPLY = g.ID AND p.ID = '$id_sp'")->row();
 
 		?>
 		
@@ -118,13 +121,13 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			<td style="width: 17%;text-align:left;font-size: 15px;">Client</td>
 			<td style="width: 3%">:</td>
 			<td style="width: 40%;text-align:left;font-size: 15px;"> <?=$dt->NAMA_CUSTOMER;?> </td>
-			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+			<td  style="width:40%;text-align:left;font-size: 15px;">Alamat :</td>
 		</tr>
 		<tr>
 			<td style="width: 17%;text-align:left;font-size: 15px;">No SH</td>
 			<td style="width: 3%">:</td>
 			<td style="width: 40%;text-align:left;font-size: 15px;"> <?=$dt->ID_CUSTOMER;?> </td>
-			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
+			<td  style="width:40%;text-align:left;font-size: 15px;" rowspan="3"><label><?=$dt->ALAMAT_CUSTOMER;?></label></td>
 		</tr>
 		<tr>
 			<td style="width: 17%;text-align:left;font-size: 15px;">No SP</td>
@@ -132,10 +135,14 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			<td style="width: 40%;text-align:left;font-size: 15px;"> 769314 </td>
 			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 		</tr>
+		
+	</table>
+	<table style="width: 100%;">
 		<tr>
-			<td style="width: 17%;text-align:left;font-size: 15px;">Alamat</td>
+			<td style="width: 17%;text-align:left;font-size: 15px;">Supply Point</td>
 			<td style="width: 3%">:</td>
-			<td style="width: 40%;text-align:left;font-size: 15px;"> <label><?=$dt->ALAMAT_CUSTOMER;?></label></td>
+			<td style="width: 40%;text-align:left;font-size: 15px;"><?=$dt_supp->NAMAG;?></td>
+			<td  style="width:40%;text-align:left;font-size: 15px;"></td>
 			
 		</tr>
 	</table>
@@ -295,11 +302,23 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 <br>
 <table style="width: 55%;">
 	<tr>
+		<?php 
+			if($dt->TYPE_CETAK == 'SOLAR'){
+
+			}else{
+		?>
 		<td style="width: 45%;text-align: center;height: 80px;">Hormat Kami</td>
-		<td style="width: 45%;text-align: center;">Mengetahui</td>
+		<?php } ?>
+		<td style="width: 45%;text-align: center;height: 80px;">Mengetahui</td>
 	</tr>
 	<tr>
+		<?php 
+			if($dt->TYPE_CETAK == 'SOLAR'){
+
+			}else{
+		?>
 		<td style="width: 35%;text-align: center;">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
+		<?php } ?>
 		<td style="width: 35%;text-align: center;">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
 	</tr>
 </table>

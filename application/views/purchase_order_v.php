@@ -105,6 +105,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							<th align="center"> No. Transaksi </th>
 							<th align="center"> Tanggal </th>
 							<th align="center"> Supplier </th>
+							<th align="center"> Sisa </th>
 							<th align="center"> Volume </th>
 							<th align="center"> Harga Satuan </th>
 						</tr>						
@@ -120,7 +121,9 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 								<tr>
 									<td align="center" style=" background-color: #bdbdbdd6;">
-										<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+										<!-- <a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
+
+										<a target="blank" href="<?=base_url();?>purchase_order_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 										
 
@@ -130,6 +133,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<td style="font-size:14px; text-align:left; vertical-align:middle; background-color: #bdbdbdd6;">   <?=$row->NOMER_PO;?> </td>
 									<td style="font-size:14px; text-align:center; vertical-align:middle; background-color: #bdbdbdd6;"> <?=$row->TGL_TRX;?> </td>
 									<td style="font-size:14px; text-align:left; vertical-align:middle; background-color: #bdbdbdd6;">   <?=$row->PELANGGAN;?> </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle; background-color: #bdbdbdd6;">   <?=number_format($row->SISA_QTY);?> LITER</td>
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle; background-color: #bdbdbdd6;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle; background-color: #bdbdbdd6;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
@@ -141,7 +145,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									?>
 										<tr>
 											<td align="center" style=" ">
-												<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+												<a target="blank" href="<?=base_url();?>purchase_order_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 												<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
 												
@@ -149,6 +153,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 											<td style="font-size:14px; text-align:left; vertical-align:middle; ">   <?=$row->NOMER_PO;?> </td>
 											<td style="font-size:14px; text-align:center; vertical-align:middle; "> <?=$row->TGL_TRX;?> </td>
 											<td style="font-size:14px; text-align:left; vertical-align:middle; ">   <?=$row->PELANGGAN;?> </td>
+											<td style="font-size:14px; text-align:center; vertical-align:middle; ">   <?=number_format($row->SISA_QTY);?> LITER</td>
 
 											<td style="font-size:14px; text-align:right; vertical-align:middle; "> <?=number_format($dt_detaili->QTY);?> LITER</td>
 											<td style="font-size:14px; text-align:right; vertical-align:middle; "> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
@@ -162,7 +167,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							?>
 							<tr>
 								<td align="center" style="background-color: #dff0d8; ">
-									<a target="blank" href="<?=base_url();?>purchase_order_c/cetak_confirm/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<a target="blank" href="<?=base_url();?>purchase_order_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
 									
@@ -170,6 +175,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #dff0d8; ">   <?=$row->NOMER_PO;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8; "> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #dff0d8; ">   <?=$row->PELANGGAN;?> </td>
+								<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8; ">   <?=number_format($row->SISA_QTY);?> LITER</td>
 
 								<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8; "> <?=number_format($dt_detaili->QTY);?> LITER</td>
 								<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8; "> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>

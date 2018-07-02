@@ -616,7 +616,9 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-globe"></i> Master Data <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kategori Akun', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>grup_kode_akun_c"><i class="icon-caret-right "></i> Grup Kode Akun </a></li>
+                    <?PHP } ?>
                     <!-- <li><a href="<?=base_url();?>sub_grup_kode_akun_c"><i class="icon-caret-right "></i> Sub Grup Kode Akun </a></li> -->
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kode Akun', $user->LEVEL)){ ?>
@@ -633,93 +635,155 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <li><a href="<?=base_url();?>supplier_c"><i class="icon-caret-right "></i> Supplier </a></li>
                     <?PHP } ?>
 
-                    <!-- <li><a href="<?=base_url();?>broker_c"> <i class="icon-caret-right "></i> Marketing</a></li> -->
-
                     <?php if($this->master_model_m->cek_anak($id_user, 'Produk', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>produk_c"><i class="icon-caret-right "></i> Produk </a></li>
                     <?PHP } ?>
-
-                    <!-- <li><a href="<?=base_url();?>harga_c"><i class="icon-money"></i> Master Harga </a></li> -->
-                    <!-- <li><a href="<?=base_url();?>minimal_order_c"><i class="icon-caret-right "></i> Master Minimal Order </a></li> -->
-
-                    <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li> -->
+                   
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Kendaraan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li>
+                    <?PHP } ?>
 
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Harga', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>master_harga_c"><i class="icon-caret-right "></i> Master Harga </a></li>
+                    <?PHP } ?>
 
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Transportir', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>master_transportir_c"><i class="icon-caret-right "></i> Master Transportir </a></li>
-                    
+                    <?PHP } ?>
                 </ul>
             </div>
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Aset', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-pushpin"></i> Aset <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Grup Aset', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>grup_aset_c"><i class="icon-minus"></i> Grup Aset </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Sub Grup Aset', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>sub_grup_aset_c"><i class="icon-minus"></i> Sub Grup Aset </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Aset Tetap', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>master_aset_c"><i class="icon-minus"></i> Daftar Aset Tetap </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Harga & Penyusutan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_aset_harga_c"><i class="icon-minus"></i> Input Harga & Penyusutan </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Laporan Aset Tetap', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>lap_aset_tetap_c"><i class="icon-minus"></i> Laporan Aset Tetap </a></li>
+                    <?PHP } ?>
                 </ul>
             </div>
             </li>
             <?PHP } ?>
 
             <?php if($this->master_model_m->cek_master($id_user, 'Logistik', $user->LEVEL)){ ?>
-            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-truck"></i>Logistik<b class="icon-angle-down"></b></a>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-truck"></i>Armada<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
-                  
-                  <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Service Kendaraan </a></li>
-                  <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
-                  <li><a href="#"><i class="icon-caret-right "></i> Pajak Kendaraan </a></li>
-                  <li><a href="#"><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kapal', $user->LEVEL)){ ?>
+                  <li class="dropdown-submenu"><a href="#"><i class="icon-truck"></i> Kapal</a>
+                      <div class="dropdown-menu">
+                        <ul>
+                          <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Docking Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-caret-right "></i> Dokumen Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> Asuransi </a></li>
+                        </ul>
+                      </div>
+                  </li>
+                  <?PHP } ?>
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kendaraan', $user->LEVEL)){ ?>
+                  <li class="dropdown-submenu"><a href="#"><i class="icon-truck"></i> Kendaraan</a>
+                      <div class="dropdown-menu">
+                        <ul>
+                          <!-- <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Docking Kapal </a></li> -->
+                          <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-caret-right "></i> Dokumen Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> Asuransi </a></li>
+                        </ul>
+                      </div>
+                  </li>
+                  <?PHP } ?>
                   
               </ul>
             </div>
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Persediaan', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-signal"></i> Persediaan <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Stock', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>stock_c"><i class="icon-minus"></i> Stock </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Stock Opname', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>stock_opname_c"><i class="icon-minus"></i> Stock Opname </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Persediaan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>koreksi_persediaan_c"><i class="icon-minus"></i> Koreksi Persediaan </a></li>
+                    <?PHP } ?>
+
+
                 </ul>
-            </div>
+            </div>                  
+
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Pembelian', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i>Pembelian<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
                   <!-- <li><a href="<?=base_url();?>transaksi_pembelian_c"><i class="icon-shopping-cart"></i> Transaksi Pembelian </a></li> -->
                   <!-- <li><a href="<?=base_url();?>order_pembelian_barang_c"><i class="icon-caret-right "></i> Order Pembelian Barang (OPB) </a></li> -->
                  <!--  <li><a href="<?=base_url();?>penawaran_barang_beli_c"><i class="icon-caret-right "></i> Penawaran Barang </a></li> -->
-                  <li><a href="<?=base_url();?>purchase_order_c"><i class="icon-caret-right "></i> Purchase Order </a></li>
-                  <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
-                  <li><a href="<?=base_url();?>pembelian_c"><i class="icon-caret-right "></i> Pembelian </a></li>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Purchase Order', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>purchase_order_c"><i class="icon-caret-right "></i> Purchase Order </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Penerimaan Barang', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
+                    <?PHP } ?>
+
+
+                  <!-- <li><a href="<?=base_url();?>pembelian_c"><i class="icon-caret-right "></i> Pembelian </a></li> -->
                   <!-- <li><a href="<?=base_url();?>delivery_order_beli_c"><i class="icon-caret-right "></i> Delivery Order </a></li> -->
               </ul>
             </div>
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Penjualan', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i> Penjualan <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
                 <!--  <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li> -->
-                 <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Penjualan </a></li>
-                 <li><a href="<?=base_url();?>delivery_order_new_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Penjualan', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Penjualan </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Delivery Order', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>delivery_order_new_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
+                    <?PHP } ?>
                  <!-- <li><a href="<?=base_url();?>transaksi_penjualan_c/buka_surat_jalan"><i class="icon-caret-right "></i> Surat Jalan </a></li> -->
-                 <li><a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice"><i class="icon-caret-right "></i> Invoice </a></li>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Invoice', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice"><i class="icon-caret-right "></i> Invoice </a></li>
+                    <?PHP } ?>
                  <!-- <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li> -->
 
               </ul>
@@ -727,13 +791,19 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
-            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user"></i>Kepegawaian<b class="icon-angle-down"></b></a>
+            <?php if($this->master_model_m->cek_master($id_user, 'HRD', $user->LEVEL)){ ?>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user"></i>HRD<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
-                  
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Data Pegawai', $user->LEVEL)){ ?>
                   <li><a href="<?=base_url();?>pegawai_c"><i class="icon-caret-right "></i> Data Pegawai </a></li>
+                  <?PHP } ?>
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Set Gaji Pegawai', $user->LEVEL)){ ?>
                   <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
+                  <?PHP } ?>
+
                  
               </ul>
             </div>
@@ -745,20 +815,27 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <div class="dropdown-menu">
                 <ul>
 
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Input Jurnal Umum', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum</a></li>
                     <?PHP } ?>
                     
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Input Kas Kecil', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>kas_kecil_c"><i class="icon-plus-sign"></i> Input Kas Kecil </a></li>
+                    <?PHP } ?>
 
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Bukti Kas Keluar', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>bukti_kas_keluar_c"><i class="icon-plus-sign"></i> Bukti Kas Keluar </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Bukti Kas Masuk', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>bukti_kas_masuk_c"><i class="icon-plus-sign"></i> Bukti Kas Masuk </a></li>
+                    <?PHP } ?>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
                     <!-- <li><a href="<?=base_url();?>input_transaksi_akuntansi_c"><i class="icon-plus-sign"></i> Transaksi Akuntansi</a></li> -->
                     <?PHP } ?>
 
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Jurnal Bayar Kas Bank', $user->LEVEL)){ ?>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Pelunasan Hutang', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_jurnal_bayar_kas_c"><i class="icon-plus-sign"></i> Pelunasan Hutang </a></li>
                     <?PHP } ?>
 
@@ -783,6 +860,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                         <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-file-alt"></i> Laporan <b class="icon-angle-down"></b></a>
                         <div class="dropdown-menu">
                             <ul>
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Laporan Pembelian', $user->LEVEL)){ ?>
                   <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i> Laporan Pembelian</a>
                   <div class="dropdown-menu">
                     <ul>
@@ -806,7 +885,9 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     </ul>
                   </div>
                   </li>
+                  <?PHP } ?>
 
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Laporan Penjualan', $user->LEVEL)){ ?>
                   <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i> Laporan Penjualan</a>
                   <div class="dropdown-menu">
                     <ul>
@@ -837,7 +918,10 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     </ul>
                   </div>
                   </li>
+                  <?PHP } ?>
 
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Laporan Keuangan', $user->LEVEL)){ ?>
                   <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i> Laporan Keuangan</a>
                   <div class="dropdown-menu">
                     <ul>
@@ -850,7 +934,10 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     </ul>
                   </div>
                   </li>
+                  <?PHP } ?>
 
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Laporan Akuntansi', $user->LEVEL)){ ?>
                   <li class="dropdown-submenu"><a href="#"><i class="icon-book"></i> Laporan Akuntansi</a>
                   <div class="dropdown-menu">
                     <ul>
@@ -882,6 +969,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     </ul>
                   </div>
                   </li>
+                  <?PHP } ?>
+
                   <!-- <li <?PHP if($view == "lap_penjualan"){ echo "class='active'"; } ?>><a href="<?=base_url();?>lap_penjualan_c"><i class=" icon-book"></i> Laporan Penjualan </a></li>
                   <li <?PHP if($view == "lap_pembelian"){ echo "class='active'"; } ?>><a href="<?=base_url();?>lap_pembelian_c"><i class=" icon-book"></i> Laporan Pembelian </a></li> -->
 
@@ -1195,7 +1284,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               <h4 class="side-head">Logistik</h4>
               <ul class="accordion-nav">
                   <li <?PHP if($view == "service_kendaraan"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>stock_c"><i class="icon-minus"></i> Service Kendaraan
+                      <a href="<?=base_url();?>service_kendaraan_c"><i class="icon-minus"></i> Docking Kapal
                         <span> Seervice Kendaraan Anda</span> 
                       </a>
                   </li>
@@ -1207,14 +1296,20 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </li>
 
                   <li <?PHP if($view == "laporan_pajak"){ echo "class='active'"; } ?> >
-                      <a href="#"><i class="icon-minus"></i> Pajak Kendaraan
-                        <span> Laporan Pajak Kendaraan Tahunan</span> 
+                      <a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-minus"></i> Dokumen Kapal
+                        <span> Laporan Dokumen Kapal Tahunan</span> 
                       </a>
                   </li>
 
                   <li <?PHP if($view == "gps_tracking"){ echo "class='active'"; } ?> >
-                      <a href="#"><i class="icon-minus"></i> GPS Tracking
+                      <a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-minus"></i> GPS Tracking
                         <span> Tracking GPS Kendaraan</span> 
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "gps_tracking"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-minus"></i> Asuransi
+                        <span> Asuransi Kendaraan</span> 
                       </a>
                   </li>
               </ul>
@@ -1410,6 +1505,10 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
                 <?php if($this->master_model_m->cek_anak($id_user, 'User Management', $user->LEVEL)){ ?>
                 <li <?PHP if($view == "user_management"){ echo "class='active'"; } ?> > <a href="<?=base_url();?>user_management_c"><i class="icon-group"></i> User Management <span> Pengelolaan user yang masuk ke aplikasi </span></a></li>
+                <?PHP } ?> 
+
+                <?php if($this->master_model_m->cek_anak($id_user, 'Master Perusahaan', $user->LEVEL)){ ?>
+                <li <?PHP if($view == "master_perusahaan"){ echo "class='active'"; } ?> > <a href="<?=base_url();?>master_perusahaan_c"><i class="icon-group"></i> Master Perusahaan <span> Pengelolaan perusahaan </span></a></li>
                 <?PHP } ?>                 
             </ul>
           </div>
@@ -1430,183 +1529,90 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
         <!-- LAPORAN -->
         <div class="row-fluid">
             <div class="span12">
-                <div class="content-widgets light-gray">
+                <div class="content-widgets">
                     <form id="form_laporan" method="post" action="<?=base_url();?>beranda_c" target="_blank">
                     <div class="widget-container">
                         <div class="row-fluid">
-                            <div class="span4">
-                                <div class="control-group">
-                                    <label class="control-label"> <b style="font-size: 14px;"> DIVISI </b> </label>
-                                    <div class="controls">
-                                        <input type="text" id="unit_txt" name="unit_txt" value="<?=$user->NAMA_UNIT;?>" readonly style="background:#FFF; width: 100%;">
-                                        <input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>" readonly style="background:#FFF;">
-                                        <input type="hidden" id="filter" name="filter" value="Bulanan">
-                                        <input type="hidden" id="tipe_laporan" name="tipe_laporan" value="Rinci">
+                            <div class="span3">
+                                <?php 
+                                    $dt_sk = date("d-m-Y");
+                                    $sql_t_pem = $this->db->query("SELECT COUNT(*) as hit FROM ak_pembelian WHERE TGL_TRX LIKE '%$dt_sk%'")->row();
+                                    $sql_t_pen = $this->db->query("SELECT COUNT(*) as hit FROM ak_penjualan WHERE TGL_TRX LIKE '%$dt_sk%'")->row();
+                                    $sql_k_pen = $this->db->query("SELECT SUM(QTY) as hit FROM ak_penjualan p , ak_penjualan_detail pd WHERE pd.ID_PENJUALAN = p.ID AND p.TGL_TRX LIKE '%$dt_sk%'")->row();
+                                    $sql_k_pem = $this->db->query("SELECT SUM(QTY) as hit FROM ak_pembelian p , ak_pembelian_detail pd WHERE pd.ID_PENJUALAN = p.ID AND p.TGL_TRX LIKE '%$dt_sk%'")->row();
+
+                                ?>
+                                <div class="board-widgets green">
+                                    <div class="board-widgets-head clearfix">
+                                        <h4 class="pull-left"><i class="icon-inbox"></i> Transaksi Pembelian </h4>
+                                        <a href="#" class="widget-settings"><i class="icon-cog "></i></a>
+                                    </div>
+                                    <div class="board-widgets-content">
+                                        <span class="n-counter"><?=$sql_t_pem->hit;?></span><span class="n-sources">Transaksi</span>
+                                    </div>
+                                    <div class="board-widgets-botttom">
+                                        <a href="#">Hari ini <i class="icon-double-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="span3">
-                                <div class="control-group">
-                                    <label class="control-label"> <b style="font-size: 14px;"> Pilih Laporan </b> </label>
-                                    <div class="controls">
-                                        <select  required  class="chzn-select" tabindex="2" style="width:100%;" name="laporan" id="laporan">
-                                            <option value="lap_penjualan_c"> Laporan Penjualan </option>          
-                                            <option value="lap_pembelian_c"> Laporan Pembelian </option>          
-                                            <option value="lap_buku_besar_c"> Laporan Buku Besar </option>          
-                                            <option value="lap_laba_rugi_c"> Laporan Laba Rugi </option>          
-                                            <option value="lap_jurnal_umum_c"> Laporan Jurnal Memorial </option>          
-                                            <option value="lap_arus_kas_c"> Laporan Arus Kas </option>          
-                                            <option value="lap_jurnal_penyesuaian_c"> Laporan Jurnal Penyesuaian </option>          
-                                            <option value="lap_neraca_c"> Laporan Neraca </option>    
-                                            <option value="lap_neraca_lajur_c"> Laporan Neraca Lajur </option>       
-                                            <option value="lap_realisasi_pendapatan_biaya_c"> Realisasi Pendapatan dan Biaya </option>          
-                                            <option value="lap_rku_c"> Ringkasan Laporan Keuangan </option>          
-                                            <option value="lap_hutang_c"> Laporan Rincian Hutang </option>          
-                                            <option value="lap_hasil_pendapatan_c"> Laporan Hasil Pendapatan </option>          
-                                            <option value="lap_realisasi_rkp_c"> Realisasi Pelaksanaan RKP </option>          
-                                            <option value="lap_mutasi_hutang_c"> Daftar Mutasi Hutang </option>       
-                                            <option value="lap_mutasi_piutang_c"> Daftar Mutasi Piutang </option>       
-                                        </select>
+                                <div class="board-widgets blue-violate">
+                                    <div class="board-widgets-head clearfix">
+                                        <h4 class="pull-left"><i class="icon-inbox"></i> Transaksi Penjualan </h4>
+                                        <a href="#" class="widget-settings"><i class="icon-cog "></i></a>
+                                    </div>
+                                    <div class="board-widgets-content">
+                                        <span class="n-counter"><?=$sql_t_pen->hit;?></span><span class="n-sources">Transaksi</span>
+                                    </div>
+                                    <div class="board-widgets-botttom">
+                                        <a href="#">Hari ini <i class="icon-double-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="span3">
-                                <div class="control-group">
-                                    <label class="control-label"> <b style="font-size: 14px;"> Bulan </b> </label>
-                                    <div class="controls">
-                                        <select  required  class="chzn-select" tabindex="2" style="width:100%;" name="bulan">
-                                            <option <?PHP if(date('m') == '01' ){ echo "selected"; } ?> value="01"> Januari </option>
-                                            <option <?PHP if(date('m') == '02' ){ echo "selected"; } ?> value="02"> Februari </option>
-                                            <option <?PHP if(date('m') == '03' ){ echo "selected"; } ?> value="03"> Maret </option>
-                                            <option <?PHP if(date('m') == '04' ){ echo "selected"; } ?> value="04"> April </option>
-                                            <option <?PHP if(date('m') == '05' ){ echo "selected"; } ?> value="05"> Mei </option>
-                                            <option <?PHP if(date('m') == '06' ){ echo "selected"; } ?> value="06"> Juni </option>
-                                            <option <?PHP if(date('m') == '07' ){ echo "selected"; } ?> value="07"> Juli </option>
-                                            <option <?PHP if(date('m') == '08' ){ echo "selected"; } ?> value="08"> Agustus </option>
-                                            <option <?PHP if(date('m') == '09' ){ echo "selected"; } ?> value="09"> September </option>
-                                            <option <?PHP if(date('m') == '10' ){ echo "selected"; } ?> value="10"> Oktober </option>
-                                            <option <?PHP if(date('m') == '11' ){ echo "selected"; } ?> value="11"> November </option>
-                                            <option <?PHP if(date('m') == '12' ){ echo "selected"; } ?> value="12"> Desember </option>            
-                                        </select>
+                                <div class="board-widgets dark-yellow">
+                                    <div class="board-widgets-head clearfix">
+                                        <h4 class="pull-left"><i class="icon-inbox"></i> Kuantitas Pembelian </h4>
+                                        <a href="#" class="widget-settings"><i class="icon-cog "></i></a>
+                                    </div>
+                                    <div class="board-widgets-content">
+                                        <span class="n-counter"><?=$sql_k_pem->hit;?></span><span class="n-sources">Liter</span>
+                                    </div>
+                                    <div class="board-widgets-botttom">
+                                        <a href="#">Hari ini <i class="icon-double-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="span2">
-                                <div class="control-group">
-                                    <label class="control-label"> <b style="font-size: 14px;"> Tahun </b> </label>
-                                    <div class="controls">
-                                        <select  required  class="chzn-select" tabindex="2" style="width:100%;" name="tahun">
-                                            <option <?PHP if(date('Y') == '2016' ){ echo "selected"; } ?> value="2016"> 2016 </option>
-                                            <option <?PHP if(date('Y') == '2017' ){ echo "selected"; } ?> value="2017"> 2017 </option>
-                                            <option <?PHP if(date('Y') == '2018' ){ echo "selected"; } ?> value="2018"> 2018 </option>
-                                            <option <?PHP if(date('Y') == '2019' ){ echo "selected"; } ?> value="2019"> 2019 </option>
-                                            <option <?PHP if(date('Y') == '2020' ){ echo "selected"; } ?> value="2020"> 2020 </option>        
-                                        </select>
+                            <div class="span3">
+                                <div class="board-widgets magenta">
+                                    <div class="board-widgets-head clearfix">
+                                        <h4 class="pull-left"><i class="icon-inbox"></i> Kuantitas Penjualan </h4>
+                                        <a href="#" class="widget-settings"><i class="icon-cog "></i></a>
+                                    </div>
+                                    <div class="board-widgets-content">
+                                        <span class="n-counter"><?=$sql_k_pen->hit;?></span><span class="n-sources">Liter</span>
+                                    </div>
+                                    <div class="board-widgets-botttom">
+                                        <a href="#">Hari ini <i class="icon-double-angle-right"></i></a>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
+ 
                         </div>
 
-                        <div class="form-actions">
-                            <center>
-                                <button type="button" <?PHP if($aktif == 1){ ?> onclick="get_laporan_beranda();" <?PHP } else { echo "disabled";} ?> class="btn btn-danger" style="width: 20%;">CETAK LAPORAN PDF</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button type="button" <?PHP if($aktif == 1){ ?> onclick="get_laporan_beranda_xls();" <?PHP } else { echo "disabled";} ?> class="btn btn-success" style="width: 20%;">CETAK LAPORAN EXCEL</button>
-
-                                <input type="submit" name="pdf" value="pdf" id="cetak_pdf_beranda" style="display: none;" />                      
-                                <input type="submit" name="excel" value="excel" id="cetak_xls_beranda" style="display: none;" />                      
-                            </center>
-                        </div>
+                        
                     </div>
                     </form>
                 </div>
             </div>
         </div>
 
+
         <!-- LOGO & BACKGROUND -->
-        <div class="row-fluid">
-            <div class="span6">
-                <h3 class=" page-header"> <i class="icon-camera-retro"></i> LOGO DIVISI <b><?=$user->NAMA_UNIT;?></b> </h3>
-                <form method="post" action="<?=base_url();?>beranda_c" enctype="multipart/form-data">
-                <div style="padding: 10px; margin-bottom: 20px;">
-                    <div class="control-group">
-                        <label class="control-label">  </label>
-                        <div class="controls">
-                            <?PHP if($dt_unit_saya->LOGO == "" || $dt_unit_saya->LOGO == null){ ?>
-                                <img src="<?=$base_url2;?>files/def_pic.png" style="height: 200px; width: 300px;">
-                            <?PHP } else { ?> 
-                                <img src="<?=$base_url2;?>files/def_pic.png" style="max-width: 200px; min-height: 100px; max-height: 100px;">
-                            <?PHP } ?>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label"> </label>
-                        <div class="controls">                          
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="input-append">
-                                    <div class="uneditable-input span3">
-                                        <i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span>
-                                    </div>
-                                    <span class="btn btn-info btn-file"><span class="fileupload-new">Ganti Logo</span><span class="fileupload-exists">Ganti Logo</span>
-                                    <input type="file" name="userfile[]" onchange="$('#panel_simpan_logo').show();" />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="panel_simpan_logo" class="control-group" style="display: none;">
-                        <label class="control-label"> </label>
-                        <div class="controls">                          
-                           <input type="submit" name="ganti_logo" value="SIMPAN LOGO" class="btn btn-success" />
-                        </div>
-                    </div>
-                </div>
-                </form>
-            </div>
-
-            <div class="span6">
-                <h3 class=" page-header"> <i class="icon-picture"></i> BACKGROUND DIVISI <b><?=$user->NAMA_UNIT;?></b> </h3>
-                <form method="post" action="<?=base_url();?>beranda_c" enctype="multipart/form-data">
-                <div style="padding: 10px; margin-bottom: 20px;">
-                    <div class="control-group">
-                        <label class="control-label">  </label>
-                        <div class="controls">
-                            <?PHP if($dt_unit_saya->LOGO == "" || $dt_unit_saya->LOGO == null){ ?>
-                                <img src="<?=$base_url2;?>files/def_pic.png" style="height: 200px; width: 300px;">
-                            <?PHP } else { ?> 
-                                <img src="<?=$base_url2;?>files/def_pic.png" style="max-width: 200px; min-height: 100px; max-height: 100px;">
-                            <?PHP } ?>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label"> </label>
-                        <div class="controls">                          
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="input-append">
-                                    <div class="uneditable-input span3">
-                                        <i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span>
-                                    </div>
-                                    <span class="btn btn-info btn-file"><span class="fileupload-new">Ganti Background</span><span class="fileupload-exists">Ganti Background</span>
-                                    <input type="file" name="userfile[]" onchange="$('#panel_simpan_background').show();" />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="panel_simpan_background" class="control-group" style="display: none;">
-                        <label class="control-label"> </label>
-                        <div class="controls">                          
-                           <input type="submit" name="ganti_background" value="SIMPAN BACKGROUND" class="btn btn-success" />
-                        </div>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
-
+        
 
 
         <!-- PENGAJUAN -->

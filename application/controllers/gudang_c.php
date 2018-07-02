@@ -37,6 +37,13 @@ class Gudang_c extends CI_Controller {
 
 
 			$this->model->simpan_gudang($nama,$kapasitas,$penanggung_jawab,$kode_supply_point);
+			$insert_id = $this->db->insert_id();
+
+			$a = $this->db->query("SELECT * FROM ak_produk")->result();
+
+			foreach ($a as $key => $value) {
+				$this->model->tambah_master_stock($insert_id,$value->ID,$value->NAMA_PRODUK);
+			}
 
 
 		} else if($this->input->post('id_hapus')){

@@ -116,8 +116,9 @@ class Purchase_order_c extends CI_Controller {
 			//  	$ppn_oat = 0.1 * $nilai_qty_total;
 			// } 
 			$operator      = $user->NAMA;
+			$type_cetak      = 'SOLAR';
 
-			$this->model->simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo,$qty_total);
+			$this->model->simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo,$qty_total,$type_cetak);
 
 			$id_pembelian = $this->db->insert_id();
 
@@ -135,7 +136,7 @@ class Purchase_order_c extends CI_Controller {
 			foreach ($id_produk as $key => $val) {
 				$this->model->simpan_detail_pembelian($id_pembelian, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key], $harga_invoice[$key],$no_trx,$nomor_so[$key]);	
 				$this->model->update_status_so($nomor_so[$key]);
-				// $this->model->update_stok($id_klien, $id_produk[$key], $qty[$key]);
+				// $this->model->update_stok($pajak_supply, $id_produk[$key], $qty[$key]);
 			}
 
 			$transportir 	 	= $this->input->post('transportir');
@@ -750,12 +751,73 @@ class Purchase_order_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		$kode = $this->input->post('kode');
+		$kode_id = $this->input->post('kode_id');
 		if($keyword != "" || $keyword != null){
 			$where = $where." AND (KODE_PRODUK LIKE '%$keyword%' OR NAMA_PRODUK LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT mh.HARGA_BELI , p.NAMA_PRODUK , p.KODE_PRODUK , p.ID FROM ak_produk p , ak_master_harga mh WHERE ID_KLIEN = $id_klien AND mh.ID_PRODUK = p.ID AND ID_PELANGGAN = '$kode' AND STATUS = '0' AND $where AND $where_unit AND APPROVE = 3
+		SELECT mh.HARGA_BELI , p.NAMA_PRODUK , p.KODE_PRODUK , p.ID FROM ak_produk p , ak_master_harga mh WHERE ID_KLIEN = $id_klien AND mh.ID_PRODUK = p.ID AND mh.SUPPLY_POINT = '$kode' AND mh.ID_PELANGGAN = '$kode_id' AND STATUS = '0' AND $where AND $where_unit AND APPROVE = 3
+		LIMIT 10
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function get_supply_popup_po(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$where = "1=1";
+
+		$keyword = $this->input->post('keyword');
+		$kode = $this->input->post('kode');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (g.NAMA LIKE '%$keyword%' OR ps.NAMA_BPPKB LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT g.NAMA as NAMA_SUPPLY , ps.NAMA_BPPKB as PAJAK_BPPKB , ps.PAJAK as PERSEN , mh.SUPPLY_POINT , g.ID , ps.ID as NAMID FROM ak_gudang g , ak_pajak_supply ps , ak_master_harga mh WHERE mh.SUPPLY_POINT = ps.ID AND ps.ID_SUPPLY = g.ID AND mh.ID_PELANGGAN = '$kode' AND STATUS = '0' AND $where GROUP BY mh.SUPPLY_POINT
+		LIMIT 10
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function get_supply_popup_so(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        if($user->LEVEL == "ADMIN"){
+            $where_unit = "1=1";
+        } else {
+            $where_unit = "UNIT = ".$user->UNIT;
+        }
+
+		$where = "1=1";
+
+		$keyword = $this->input->post('keyword');
+		$kode = $this->input->post('kode');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (g.NAMA LIKE '%$keyword%' OR ps.NAMA_BPPKB LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT g.NAMA as NAMA_SUPPLY , ps.NAMA_BPPKB as PAJAK_BPPKB , ps.PAJAK as PERSEN , mh.SUPPLY_POINT , g.ID , ps.ID as NAMID FROM ak_gudang g , ak_pajak_supply ps , ak_master_harga mh WHERE mh.SUPPLY_POINT = ps.ID AND ps.ID_SUPPLY = g.ID AND mh.ID_PELANGGAN = '$kode' AND STATUS = '0' AND $where GROUP BY mh.SUPPLY_POINT
 		LIMIT 10
 		";
 

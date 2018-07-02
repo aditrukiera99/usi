@@ -152,7 +152,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input style="width: 80%;" value="<?=date('m-d-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text" id="tgl_trx_tur">
+						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text" id="tgl_trx_tur">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -213,6 +213,14 @@ input[type=checkbox]
 				</div>
 		</div>
 
+		<div class="control-group" style="margin-left: 10px;">
+			<label class="control-label span12"> <b style="font-size: 14px;"> Refrensi SO </b> </label>
+				<div class="controls">
+					<input type="text" id="nomor_so_1" name="nomor_so" readonly style="background:#FFF; width: 60%;margin-top: 10px;">
+					<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
+				</div>
+		</div> 
+
 	</div>
 
 </div>
@@ -251,8 +259,9 @@ input[type=checkbox]
 					<thead>
 						<tr>
 							
-							<th align="center" style="width: 20%;"> Refrensi SO </th>
+							<!-- <th align="center" style="width: 20%;"> Refrensi SO </th> -->
 							<th align="center"> No SH </th>
+							<th align="center"> Supply Point </th>
 							<th align="center"> Produk / Item </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Satuan </th>
@@ -264,7 +273,7 @@ input[type=checkbox]
 						<tr id="tr_1" class="tr_utama">
 							
 
-							<td style="vertical-align:middle;"> 
+							<!-- <td style="vertical-align:middle;"> 
 
 								<div class="control-group">
 									<div class="controls">
@@ -274,7 +283,7 @@ input[type=checkbox]
 										</div>
 									</div>
 								</div>
-							</td>
+							</td> -->
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
@@ -287,9 +296,23 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
+											<input type="text" id="supply_point_1" name="supply_point[]" readonly style="background:#FFF; width: 60%;">
+											<button style="width: 30%;" onclick="show_pop_supply(1);" type="button" class="btn">Cari</button>
+										</div>
+									</div>
+								</div>
+							</td>
+
+							<td style="vertical-align:middle;"> 
+
+								<div class="control-group">
+									<div class="controls">
+										<div class="input-append">
 											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 60%;">
 											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
+											<input type="hidden" id="id_supply_1" name="id_supply_a[]" readonly style="background:#FFF;" value="">
+
 											<button style="width: 30%;" onclick="show_pop_barang(1);" type="button" class="btn">Cari</button>
 											
 										</div>
@@ -305,7 +328,7 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
+									<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1" readonly>
 								</div>
 							</td>
 
@@ -489,7 +512,7 @@ input[type=checkbox]
 					</div>
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success">
+					<input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
 					<button class="btn" onclick="window.location='<?=base_url();?>purchase_order_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -516,20 +539,25 @@ function disc_txt(){
 	harga_modal   = harga_modal.split(',').join('');
 	qty   = qty.split(',').join('');
 
-	var jml_pajak = $('#pajak_pbbkb_validasi').val();
-	var jml_pajak_ppn = $('#pajak_ppn_validasi').val();
-	var jml_pajak_pph_23 = $('#pajak_pph_23_validasi').val();
-	var jml_pajak_pph_15 = $('#pajak_pph_15_validasi').val();
-	var jml_pajak_pph_21 = $('#pajak_pph_21_validasi').val();
-	var jml_pajak_pph_22 = $('#pajak_pph_22_validasi').val();
+	
+
+	var jml_pajak = parseFloat($('#pajak_pbbkb_validasi').val());
+	var jml_pajak_ppn = parseFloat($('#pajak_ppn_validasi').val());
+	var jml_pajak_pph_23 = parseFloat($('#pajak_pph_23_validasi').val());
+	var jml_pajak_pph_15 = parseFloat($('#pajak_pph_15_validasi').val());
+	var jml_pajak_pph_21 = parseFloat($('#pajak_pph_21_validasi').val());
+	var jml_pajak_pph_22 = parseFloat($('#pajak_pph_22_validasi').val());
 
 	// var total = parseFloat(disc/100) * parseFloat(sub_total);
 	// var total_diskon = sub_total - (parseFloat(disc/100) * parseFloat(sub_total));
+	if(qty           == "" || qty 	        == null){ qty           = 0; 
+	var sub_total_satuan = sub_total;
+	}else{
 	var sub_total_satuan = sub_total / qty;
-
+	}
 	var total_pbbkb = (jml_pajak/100) * sub_total_satuan ;
-	var koma_pbbkb = total_pbbkb.toFixed(2);
-	var semua_pbbkb = koma_pbbkb * qty;
+	var koma_pbbkb = total_pbbkb;
+	var semua_pbbkb = parseFloat(koma_pbbkb) * parseFloat(qty);
 
 
 	var total_ppn = (jml_pajak_ppn/100) * sub_total_satuan ;
@@ -786,6 +814,12 @@ function show_pop_barang(no){
     ajax_barang(no);
 }
 
+function show_pop_supply(no){
+	$('#popup_koang').remove();
+	get_popup_supply();
+    ajax_supply(no);
+}
+
 function get_popup_barang(){
     var base_url = '<?php echo $base_url2; ?>';
     var $isi = '<div id="popup_koang">'+
@@ -801,6 +835,43 @@ function get_popup_barang(){
                 '                        <th> KODE PRODUK </th>'+
                 '                        <th style="white-space:nowrap;"> NAMA PRODUK </th>'+
                 '                        <th> HARGA </th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+        $('#popup_koang').remove();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
+
+function get_popup_supply(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang_pro" id="search_koang_pro" class="form-control" value="" placeholder="Cari Produk...">'+
+                '    <div class="table-responsive">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO</th>'+
+                '                        <th> NAMA SUPPLY POINT </th>'+
+                '                        <th style="white-space:nowrap;"> PBBKB </th>'+
+                '                        <th> % </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -904,9 +975,56 @@ function ajax_produk(id_form){
 
 function ajax_barang(id_form){
    var keyword = $('#search_koang_pro').val();
-   var kode = $('#kode_sh_1').val();
+   var kode = $('#id_supply_1').val();
+   var kode_id = $('#kode_sh_1').val();
     $.ajax({
         url : '<?php echo base_url(); ?>purchase_order_c/get_produk_popup_po',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+            kode : kode,
+            kode_id : kode_id,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+               
+
+
+
+                isine += '<tr onclick="get_barang_detail_produk(\'' +res.HARGA_BELI+ '\',\'' +res.ID+ '\',\'' +res.NAMA_PRODUK+ '\');" style="cursor:pointer;">'+
+                            '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.KODE_PRODUK+'</td>'+
+                            '<td align="left">'+res.NAMA_PRODUK+'</td>'+
+                             '<td align="center">Rp '+NumberToMoney(res.HARGA_BELI).split('.00').join('')+'</td>'+
+                        '</tr>';
+                        
+                // $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+
+            $('#search_koang_pro').off('keyup').keyup(function(){
+                ajax_produk(id_form);
+            });
+
+        }
+    });
+}
+
+function ajax_supply(id_form){
+   var keyword = $('#search_koang_pro').val();
+   var kode = $('#kode_sh_1').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>purchase_order_c/get_supply_popup_po',
         type : "POST",
         dataType : "json",
         data : {
@@ -923,14 +1041,15 @@ function ajax_barang(id_form){
 
 
 
-                isine += '<tr onclick="get_barang_detail(\'' +res.HARGA_BELI+ '\',\'' +res.ID+ '\',\'' +res.NAMA_PRODUK+ '\');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_barang_detail(\'' +res.SUPPLY_POINT+ '\',\'' +res.NAMA_SUPPLY+ '\',\'' +res.ID+ '\',\'' +res.PERSEN+ '\');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
-                            '<td align="center">'+res.KODE_PRODUK+'</td>'+
-                            '<td align="left">'+res.NAMA_PRODUK+'</td>'+
-                             '<td align="center">Rp '+NumberToMoney(res.HARGA_BELI).split('.00').join('')+'</td>'+
+                            '<td align="center">'+res.NAMA_SUPPLY+'</td>'+
+                            '<td align="left">'+res.PAJAK_BPPKB+'</td>'+
+                            '<td align="left">'+res.PERSEN+'</td>'+
+                             
                         '</tr>';
                         
-                $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
+                // $('input[name="supply_point[]"]').val(res.NAMA_SUPPLY);
             });
 
             if(result.length == 0){
@@ -1071,6 +1190,8 @@ function ajax_pelanggan(){
 
 function ajax_customer(){
     var keyword = $('#search_koang').val();
+    
+
     $.ajax({
         url : '<?php echo base_url(); ?>purchase_order_c/get_pelanggan_popup',
         type : "POST",
@@ -1141,17 +1262,31 @@ function get_customer_detail(id_pel){
 			$('#popup_load').hide();
 			// $('#alamat_tagih').val(result.ALAMAT_TAGIH);
 			$('#kode_sh_1').val(result.KODE_PELANGGAN);
-			$('#harga_modal_1').val(result.HARGA_CUY);
+			// $('#harga_modal_1').val(result.HARGA_CUY);
 			$('#pelanggan_cust').val(result.NAMA_PELANGGAN);
 			$('#alamat_tagih_cust').val(result.ALAMAT_TAGIH);
 			$('#kode_sh_cust').val(result.KODE_PELANGGAN);
-			$('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
+			// $('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
 			$('#pajak_ppn_validasi').val(result.PPN);
 			$('#pajak_pph_23_validasi').val(result.PPH23);
 			$('#pajak_pph_15_validasi').val(result.PPH15);
 			$('#pajak_pph_21_validasi').val(result.PPH_21);
 			$('#pajak_pph_22_validasi').val(result.PPH_22);
 			$('#aksi_on').val(result.ID_SUPPLY_POINT);
+
+			$('#supply_point_1').val("");
+			$('#nama_produk_1').val("");
+		    $('#harga_modal_1').val("");
+		    $('#harga_invoice_1').val("");
+		    $('#subtotal_h').html("");
+		    $('#total_pbbkb').html("");
+		    $('#total_ppn').html("");
+		    $('#total_pph_15').html("");
+		    $('#total_pph_21').html("");
+		    $('#total_pph_22').html("");
+		    $('#pajak_pph_23_ck').html("");
+		    $('#total_pph_23').html("");
+		    $('#tot_disc').html("");
 
 			$('#search_koang').val("");
 		    $('#popup_koang').css('display','none');
@@ -1228,10 +1363,48 @@ function get_produk_detail(id, no_form,nomor_so){
 // 	window.location.href = "<?php echo base_url(); ?>purchase_order_c/new_invoice_umum";
 // }
 
-function get_barang_detail(harga,id,nama_produk){
+function get_barang_detail(id,nama,id_supply,persen){
+    // $('#nama_produk_1').val(nama_produk);
+    // $('#id_produk_1').val(id);
+    // $('#harga_modal_1').val(harga);
+    $('#id_supply_1').val(id);
+    $('#supply_point_1').val(nama);
+    $('#aksi_on').val(id_supply);
+    $('#pajak_pbbkb_validasi').val(persen);
+    $('#nama_produk_1').val("");
+    $('#harga_modal_1').val("");
+    $('#harga_invoice_1').val("");
+    $('#subtotal_h').html("");
+    $('#total_pbbkb').html("");
+    $('#total_ppn').html("");
+    $('#total_pph_15').html("");
+    $('#total_pph_21').html("");
+    $('#total_pph_22').html("");
+    $('#pajak_pph_23_ck').html("");
+    $('#total_pph_23').html("");
+    $('#tot_disc').html("");
+
+
+
+
+    $('#search_koang_pro').val("");
+    $('#popup_koang').css('display','none');
+    $('#popup_koang').hide();
+    $('#popup_koang').remove();
+
+}
+
+function get_barang_detail_produk(harga,id,nama_produk){
     $('#nama_produk_1').val(nama_produk);
     $('#id_produk_1').val(id);
     $('#harga_modal_1').val(harga);
+
+    hitung_total(1);
+    disc_txt();
+
+
+    // $('#id_supply_1').val(id);
+    // $('#supply_point_1').val(nama);
 
     $('#search_koang_pro').val("");
     $('#popup_koang').css('display','none');

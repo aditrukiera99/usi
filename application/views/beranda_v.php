@@ -84,6 +84,7 @@ $(document).ready(function() {
   // var id_pel = $('#pelanggan_sel').val();
   // get_pelanggan_det(id_pel);
 
+
 });
 <?PHP } ?>
 
@@ -194,6 +195,32 @@ $(function() {
         });
     });
 
+    $(function () {
+        $('#datetimepicker3').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        }).on('changeDate',function(event){
+          var a = formatDate_adit($('#tgl_po').val());
+          var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+          if(a > b){
+            alert("Tanggal tidak boleh kurang dari tanggal purchase order");
+          }
+        });
+    });
+
+    function formatDate_adit(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [year, month, day].join('-');
+  }
+
     /*DATE RANGE PICKER*/
 
     $(function () {
@@ -225,6 +252,10 @@ ONLOAD NOTIFICATION
 
     <?PHP if($msg == 2){ ?>
         pesan_hapus();
+    <?PHP } ?>
+
+    <?PHP if($msg == 3){ ?>
+        pesan_tanggal();
     <?PHP } ?>
 });
 /**=========================
@@ -321,24 +352,20 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                    
 				<div class="nav-collapse desktop-only">
 					<ul class="nav">
-            <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
+           <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-globe"></i> Master Data <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kategori Akun', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>grup_kode_akun_c"><i class="icon-caret-right "></i> Grup Kode Akun </a></li>
+                    <?PHP } ?>
                     <!-- <li><a href="<?=base_url();?>sub_grup_kode_akun_c"><i class="icon-caret-right "></i> Sub Grup Kode Akun </a></li> -->
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kode Akun', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>daftar_kode_akun_c"> <i class="icon-caret-right "></i> Daftar Kode Akun </a></li>
                     <?PHP } ?>
 
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
-                    <li><a href="<?=base_url();?>divisi_c"> <i class="icon-caret-right "></i> Divisi </a></li>
-                    <?PHP } ?>
-
                     <li><a href="<?=base_url();?>gudang_c"><i class="icon-caret-right "></i> Supply Point </a></li>
-
-                   
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Pelanggan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>pelanggan_c"> <i class="icon-caret-right "></i> Customer </a></li>
@@ -348,97 +375,172 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <li><a href="<?=base_url();?>supplier_c"><i class="icon-caret-right "></i> Supplier </a></li>
                     <?PHP } ?>
 
-                    <!-- <li><a href="<?=base_url();?>broker_c"> <i class="icon-caret-right "></i> Marketing</a></li> -->
-
                     <?php if($this->master_model_m->cek_anak($id_user, 'Produk', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>produk_c"><i class="icon-caret-right "></i> Produk </a></li>
                     <?PHP } ?>
-
-                    <!-- <li><a href="<?=base_url();?>harga_c"><i class="icon-money"></i> Master Harga </a></li> -->
-                    <!-- <li><a href="<?=base_url();?>minimal_order_c"><i class="icon-caret-right "></i> Master Minimal Order </a></li> -->
-
-                    <!-- <li><a href="<?=base_url();?>kategori_produk_c"><i class="icon-caret-right "></i> Master Kategori Produk </a></li> -->
+                   
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Kendaraan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>kendaraan_c"><i class="icon-caret-right "></i> Master Kendaraan </a></li>
+                    <?PHP } ?>
 
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Harga', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>master_harga_c"><i class="icon-caret-right "></i> Master Harga </a></li>
+                    <?PHP } ?>
 
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Transportir', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>master_transportir_c"><i class="icon-caret-right "></i> Master Transportir </a></li>
-                    
+                    <?PHP } ?>
                 </ul>
             </div>
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Aset', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-pushpin"></i> Aset <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Grup Aset', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>grup_aset_c"><i class="icon-minus"></i> Grup Aset </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Sub Grup Aset', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>sub_grup_aset_c"><i class="icon-minus"></i> Sub Grup Aset </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Aset Tetap', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>master_aset_c"><i class="icon-minus"></i> Daftar Aset Tetap </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Harga & Penyusutan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_aset_harga_c"><i class="icon-minus"></i> Input Harga & Penyusutan </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Laporan Aset Tetap', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>lap_aset_tetap_c"><i class="icon-minus"></i> Laporan Aset Tetap </a></li>
+                    <?PHP } ?>
                 </ul>
             </div>
             </li>
             <?PHP } ?>
 
             <?php if($this->master_model_m->cek_master($id_user, 'Logistik', $user->LEVEL)){ ?>
-            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-truck"></i>Logistik<b class="icon-angle-down"></b></a>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-truck"></i>Armada<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
-                  
-                  <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Service Kendaraan </a></li>
-                  <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order Logistik </a></li>
-                  <li><a href="<?=base_url();?>laporan_pajak_c"><i class="icon-caret-right "></i> Laporan Pajak </a></li>
-                  <li><a href=""><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kapal', $user->LEVEL)){ ?>
+                  <li class="dropdown-submenu"><a href="#"><i class="icon-truck"></i> Kapal</a>
+                      <div class="dropdown-menu">
+                        <ul>
+                          <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Docking Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-caret-right "></i> Dokumen Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> Asuransi </a></li>
+                        </ul>
+                      </div>
+                  </li>
+                  <?PHP } ?>
+
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Kendaraan', $user->LEVEL)){ ?>
+                  <li class="dropdown-submenu"><a href="#"><i class="icon-truck"></i> Kendaraan</a>
+                      <div class="dropdown-menu">
+                        <ul>
+                          <!-- <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Docking Kapal </a></li> -->
+                          <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-caret-right "></i> Dokumen Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> GPS Tracking </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> Asuransi </a></li>
+                        </ul>
+                      </div>
+                  </li>
+                  <?PHP } ?>
                   
               </ul>
             </div>
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Master Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Persediaan', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-signal"></i> Persediaan <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Stock', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>stock_c"><i class="icon-minus"></i> Stock </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Stock Opname', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>stock_opname_c"><i class="icon-minus"></i> Stock Opname </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Daftar Master Persediaan', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>koreksi_persediaan_c"><i class="icon-minus"></i> Koreksi Persediaan </a></li>
+                    <?PHP } ?>
+
+
                 </ul>
-            </div>
+            </div>                  
+
             </li>
             <?PHP } ?>
 
             
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Pembelian', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i>Pembelian<b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
                   <!-- <li><a href="<?=base_url();?>transaksi_pembelian_c"><i class="icon-shopping-cart"></i> Transaksi Pembelian </a></li> -->
                   <!-- <li><a href="<?=base_url();?>order_pembelian_barang_c"><i class="icon-caret-right "></i> Order Pembelian Barang (OPB) </a></li> -->
                  <!--  <li><a href="<?=base_url();?>penawaran_barang_beli_c"><i class="icon-caret-right "></i> Penawaran Barang </a></li> -->
-                  <li><a href="<?=base_url();?>purchase_order_c"><i class="icon-caret-right "></i> Purchase Order </a></li>
-                  <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
-                  <li><a href="<?=base_url();?>pembelian_c"><i class="icon-caret-right "></i> Pembelian </a></li>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Purchase Order', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>purchase_order_c"><i class="icon-caret-right "></i> Purchase Order </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Penerimaan Barang', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Penerimaan Barang </a></li>
+                    <?PHP } ?>
+
+
+                  <!-- <li><a href="<?=base_url();?>pembelian_c"><i class="icon-caret-right "></i> Pembelian </a></li> -->
                   <!-- <li><a href="<?=base_url();?>delivery_order_beli_c"><i class="icon-caret-right "></i> Delivery Order </a></li> -->
               </ul>
             </div>
             </li>
             <?PHP } ?>
 
-            <?php if($this->master_model_m->cek_master($id_user, 'Input Data', $user->LEVEL)){ ?>
+            <?php if($this->master_model_m->cek_master($id_user, 'Penjualan', $user->LEVEL)){ ?>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large"></i> Penjualan <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
               <ul>
                 <!--  <li><a href="<?=base_url();?>penawaran_barang_c"><i class="icon-caret-right "></i> Penawaran Barang  </a></li> -->
-                 <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Penjualan </a></li>
-                 <li><a href="<?=base_url();?>delivery_order_new_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Penjualan', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>transaksi_penjualan_c"><i class="icon-caret-right "></i> Penjualan </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Delivery Order', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>delivery_order_new_c"><i class="icon-caret-right "></i> Delivery Order </a></li>
+                    <?PHP } ?>
                  <!-- <li><a href="<?=base_url();?>transaksi_penjualan_c/buka_surat_jalan"><i class="icon-caret-right "></i> Surat Jalan </a></li> -->
-                 <li><a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice"><i class="icon-caret-right "></i> Invoice </a></li>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Invoice', $user->LEVEL)){ ?>
+                    <li><a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice"><i class="icon-caret-right "></i> Invoice </a></li>
+                    <?PHP } ?>
                  <!-- <li><a href="<?=base_url();?>kwitansi_c"><i class="icon-caret-right "></i> Kwitansi </a></li> -->
 
+              </ul>
+            </div>
+            </li>
+            <?PHP } ?>
+
+            <?php if($this->master_model_m->cek_master($id_user, 'HRD', $user->LEVEL)){ ?>
+            <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user"></i>HRD<b class="icon-angle-down"></b></a>
+            <div class="dropdown-menu">
+              <ul>
+                  
+                  <li><a href="<?=base_url();?>pegawai_c"><i class="icon-caret-right "></i> Data Pegawai </a></li>
+                  <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
+                 
               </ul>
             </div>
             </li>
@@ -460,22 +562,28 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-briefcase"></i> Input Akuntansi  <b class="icon-angle-down"></b></a>
             <div class="dropdown-menu">
                 <ul>
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Input Jurnal Umum', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_jurnal_umum_c"><i class="icon-plus-sign"></i> Input Jurnal Umum</a></li>
                     <?PHP } ?>
-
+                    
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Input Kas Kecil', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>kas_kecil_c"><i class="icon-plus-sign"></i> Input Kas Kecil </a></li>
+                    <?PHP } ?>
 
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Bukti Kas Keluar', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>bukti_kas_keluar_c"><i class="icon-plus-sign"></i> Bukti Kas Keluar </a></li>
+                    <?PHP } ?>
+
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Bukti Kas Masuk', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>bukti_kas_masuk_c"><i class="icon-plus-sign"></i> Bukti Kas Masuk </a></li>
+                    <?PHP } ?>
 
                     <?php if($this->master_model_m->cek_anak($id_user, 'Transaksi Akuntansi', $user->LEVEL)){ ?>
                     <!-- <li><a href="<?=base_url();?>input_transaksi_akuntansi_c"><i class="icon-plus-sign"></i> Transaksi Akuntansi</a></li> -->
                     <?PHP } ?>
 
-                    
-
-                    <?php if($this->master_model_m->cek_anak($id_user, 'Jurnal Bayar Kas Bank', $user->LEVEL)){ ?>
+                    <?php if($this->master_model_m->cek_anak($id_user, 'Pelunasan Hutang', $user->LEVEL)){ ?>
                     <li><a href="<?=base_url();?>input_jurnal_bayar_kas_c"><i class="icon-plus-sign"></i> Pelunasan Hutang </a></li>
                     <?PHP } ?>
 
@@ -949,8 +1057,8 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               <h4 class="side-head">Logistik</h4>
               <ul class="accordion-nav">
                   <li <?PHP if($view == "service_kendaraan"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>stock_c"><i class="icon-minus"></i> Service Kendaraan
-                        <span> Seervice Kendaraan Anda</span> 
+                      <a href="<?=base_url();?>stock_c"><i class="icon-minus"></i> Docking Kapal
+                        <span> Docking Kapal Anda</span> 
                       </a>
                   </li>
 
@@ -961,14 +1069,20 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </li>
 
                   <li <?PHP if($view == "laporan_pajak"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>laporan_pajak_c"><i class="icon-minus"></i> Laporan Pajak
-                        <span> Laporan Pajak Kendaraan Tahunan</span> 
+                      <a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-minus"></i> Laporan Dokumen
+                        <span> Laporan Dokumen Kapal Tahunan</span> 
                       </a>
                   </li>
 
                   <li <?PHP if($view == "gps_tracking"){ echo "class='active'"; } ?> >
-                      <a href="<?=base_url();?>koreksi_persediaan_c"><i class="icon-minus"></i> GPS Tracking
+                      <a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-minus"></i> GPS Tracking
                         <span> Tracking GPS Kendaraan</span> 
+                      </a>
+                  </li>
+
+                  <li <?PHP if($view == "asuransi"){ echo "class='active'"; } ?> >
+                      <a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-minus"></i> Asuransi
+                        <span> Asuransi Kendaraan</span> 
                       </a>
                   </li>
               </ul>
@@ -1019,11 +1133,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </a>
                 </li>
 
-                <li <?PHP if($view == "pembelian"){ echo "class='active'"; } ?>>
+                <!-- <li <?PHP if($view == "pembelian"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>pembelian_c">
                     <i class="icon-caret-right "></i> Pembelian <span> Membuat pembelian</span>
                   </a>
-                </li>
+                </li> -->
             </ul>
   				</div>
 
@@ -1420,7 +1534,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
                 <?php if($this->master_model_m->cek_anak($id_user, 'User Management', $user->LEVEL)){ ?>
                 <li <?PHP if($view == "user_management"){ echo "class='active'"; } ?> > <a href="<?=base_url();?>user_management_c"><i class="icon-group"></i> User Management <span> Pengelolaan user yang masuk ke aplikasi </span></a></li>
-                <?PHP } ?>                 
+                <?PHP } ?> 
+
+                <?php if($this->master_model_m->cek_anak($id_user, 'User Management', $user->LEVEL)){ ?>
+                <li <?PHP if($view == "master_perusahaan"){ echo "class='active'"; } ?> > <a href="<?=base_url();?>master_perusahaan_c"><i class="icon-group"></i> Master Perusahaan <span> Pengelolaan perusahaan </span></a></li>
+                <?PHP } ?>                
             </ul>
           </div>
 			</div>

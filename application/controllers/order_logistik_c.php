@@ -174,6 +174,56 @@ class Order_logistik_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
+	function pajak_laporan(){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+	
+		$dt = $this->model->get_data_service_kendaraan();
+
+		$data =  array(
+			'page' => "laporan_pajak_logistik_v", 
+			'title' => "Laporan Pajak", 
+			'msg' => "", 
+			'master' => "logistik", 
+			'view' => "laporan_pajak", 
+			'msg' => $msg, 
+			'dt' => $dt,
+			'post_url' => 'order_logistik_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
+	function gps_tracking(){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+	
+		$dt = $this->model->get_data_service_kendaraan();
+
+		$data =  array(
+			'page' => "gps_tracking_v", 
+			'title' => "GPS Tracking", 
+			'msg' => "", 
+			'master' => "logistik", 
+			'view' => "gps_tracking", 
+			'msg' => $msg, 
+			'dt' => $dt,
+			'post_url' => 'order_logistik_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
 	function get_supplier_detail(){
 		$id_pel = $this->input->get('id_pel');
 		$dt = $this->model->get_supplier_detail($id_pel);

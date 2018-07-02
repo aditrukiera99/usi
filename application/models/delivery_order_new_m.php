@@ -33,6 +33,26 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function update_stok_master($id_sp, $id_produk, $qty){
+        $qty          = str_replace(',', '', $qty);
+        $sql = "
+        UPDATE ak_master_stock SET ISI = ISI - $qty
+        WHERE ID_PRODUK = '$id_produk' AND KODE_SUPPLY_POINT = '$id_sp'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_stok_master_kurang($id_sp, $id_produk, $qty){
+        $qty          = str_replace(',', '', $qty);
+        $sql = "
+        UPDATE ak_master_stock SET ISI = ISI + $qty
+        WHERE ID_PRODUK = '$id_produk' AND KODE_SUPPLY_POINT = '$id_sp'
+        ";
+
+        $this->db->query($sql);
+    }
+
 
     function get_data_trx($id){
         $sql = "
@@ -425,7 +445,7 @@ class Delivery_order_new_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal,$no_bukti_real,$no_po,$no_lpb,$id_produk)
+    function simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk , $qty , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl,$harga_modal,$no_bukti_real,$no_po,$no_lpb,$id_produk,$alamat)
     {
         $qty       = str_replace(',', '', $qty);
         $sql = "
@@ -452,7 +472,8 @@ class Delivery_order_new_m extends CI_Model
             NOMER_DO,
             NOMER_PO,
             NOMER_LPB,
-            ID_PRODUK
+            ID_PRODUK,
+            ALAMAT
 
 
         )
@@ -479,7 +500,8 @@ class Delivery_order_new_m extends CI_Model
            '$no_bukti_real',
            '$no_po',
            '$no_lpb',
-           '$id_produk'
+           '$id_produk',
+           '$alamat'
         )
         ";
 

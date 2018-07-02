@@ -211,7 +211,7 @@ $nomor_po = $this->db->query("SELECT * FROM ak_pembelian WHERE NO_PO = '$nmr_po'
     $width_in_mm = $width_in_inches * 21.4;
     $height_in_mm = $height_in_inches * 19.8;
     $html2pdf = new HTML2PDF('P','A4','en');
-    $html2pdf->pdf->SetTitle('Cetak Sales Order');
+    $html2pdf->pdf->SetTitle('Cetak Penerimaan Barang');
     $html2pdf->WriteHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output('cetak_sales_order.pdf');
+    $html2pdf->Output('cetak_penerimaan_barang.pdf');
 ?>

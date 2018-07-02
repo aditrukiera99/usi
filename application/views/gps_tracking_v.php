@@ -21,12 +21,12 @@
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
-			<h3 class="page-header"> <i class="icon-random"></i> Order Logistik </h3>
+			<h3 class="page-header"> <i class="icon-random"></i> GPS Tracking </h3>
 		</div>
 		<ul class="breadcrumb">
 			<li><a href="#" class="icon-home"></a><span class="divider "><i class="icon-angle-right"></i></span></li>
 			<li><a href="#">Order</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-			<li class="active"> Order Logistik </li>
+			<li class="active"> GPS Tracking </li>
 		</ul>
 	</div>
 </div>
@@ -59,35 +59,7 @@
 	<div class="span12">
 		<div class="content-widgets light-gray">
 			<div class="widget-container">
-				<table class="stat-table table table-hover" id="data-table">
-					<thead>
-						<tr>
-							<th align="center"> Aksi </th>
-							<th align="center"> No. Transaksi </th>
-							<th align="center"> Supplier </th>
-							<th align="center"> Tanggal </th>
-						</tr>						
-					</thead>
-					<tbody id="tes">
-						<?php  foreach ($dt as $key => $row) { ?>
-							
-							
-							<tr>
-								<td align="center">
-									<a target="blank" href="<?=base_url();?>order_logistik_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
-
-									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
-									
-								</td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NO_ORDER;?> </td>
-								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->NAMA_POINT;?> </td>
-								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->TGL_TRX;?> </td>
-
-								
-							</tr>
-						<?php }	?>
-					</tbody>
-				</table>
+				<h1>ON PROGRESS</h1>
 			</div>
 		</div>
 	</div>

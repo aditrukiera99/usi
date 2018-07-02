@@ -197,7 +197,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input readonly style="width: 80%;" id="tgl_trx_barang" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -233,13 +233,13 @@ input[type=checkbox]
 
 </div>
 
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+<div class="row-fluid" style="background: #E0F7FF; padding-top: 15px; padding-bottom: 15px;">
 	
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Dikirim Dengan </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="Truck / Kapal" name="dikirim" id="dikirim" style="font-size: 15px;">
+				<input type="text" class="span12" value="Truck / Kapal" name="dikirim" id="dikirim" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -248,7 +248,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Segel Atas  </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="segel_atas" id="segel_atas" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="segel_atas" id="segel_atas" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -257,7 +257,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Meter Awal  </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="" name="meter_atas" id="meter_atas" style="font-size: 15px;">
+				<input type="text" class="span10" value="" name="meter_atas" id="meter_atas" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -266,14 +266,14 @@ input[type=checkbox]
 
 </div>
 
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+<div class="row-fluid" style="background:  #E0F7FF; padding-top: 15px; padding-bottom: 15px;">
 	
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> No Kendaraan </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="no_pol" id="no_pol" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="no_pol" id="no_pol" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -283,7 +283,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Segel Bawah </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="segel_bawah" id="segel_bawah" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="segel_bawah" id="segel_bawah" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -292,7 +292,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Meter Akhir </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="" name="meter_bawah" id="meter_bawah" style="font-size: 15px;">
+				<input type="text" class="span10" value="" name="meter_bawah" id="meter_bawah" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -300,14 +300,14 @@ input[type=checkbox]
 	
 </div>
 
-<div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
+<div class="row-fluid" style="background:  #E0F7FF; padding-top: 15px; padding-bottom: 15px;">
 	
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Nama Kapal </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="nama_kapal" id="sopir" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="nama_kapal" id="sopir" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -316,7 +316,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Temperatur </b> </label>
 			<div class="controls">
-				<input type="text" class="span12" value="" name="temperatur" id="dikirim" style="font-size: 15px;">
+				<input type="text" class="span12" value="" name="temperatur" id="dikirim" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -326,7 +326,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> SG Meter </b> </label>
 			<div class="controls">
-				<input type="text" class="span10" value="" name="sg_meter" id="dikirim" style="font-size: 15px;">
+				<input type="text" class="span10" value="" name="sg_meter" id="dikirim" style="font-size: 15px;" >
 			</div>
 		</div>
 	</div>
@@ -349,6 +349,7 @@ input[type=checkbox]
 						<tr>
 							<!-- <th align="center" style="width: 25%;"> Kode Akun </th> -->
 							<th align="center" style="width: 20%;"> Produk / Item </th>
+							<th align="center" style="width: 15%;"> Sisa SO </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Jual </th>
 							<th align="center"> # </th>
@@ -394,14 +395,21 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input id="sisa_awal" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="sisa[]" readonly>
+									<input id="sisa_awala" style="font-size: 18px; text-align:center; width: 80%;" type="hidden"  value="" name="sisa[]" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
-									<input type="hidden" name="total_id[]" id="total_id_1">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+								</div>
+							</td>
+
+							<td align="center" style="vertical-align:middle;"> 
+								<div class="controls">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1" readonly>
+									<input type="hidden" name="total_id[]" id="total_id_1" >
 								</div>
 							</td>
 
@@ -468,7 +476,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Delivery Order" name="simpan" class="btn btn-success">
+					<input type="submit" value="Simpan dan Kirim ke Driver" id="simpan_cuy" name="simpan" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
 					<button class="btn" onclick="window.location='<?=base_url();?>delivery_order_new_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -982,8 +990,29 @@ function get_pelanggan_det(id_pel){
 			$('#pelanggan').val(result.PELANGGAN);
 			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(result.ID_PELANGGAN);
+			$('#sisa_awal').val(result.SISA);
+			$('#sisa_awala').val(result.SISA);
 		}
 	});
+}
+
+function semoga(jml){
+	
+	var sisa_qty      = $('#sisa_awala').val();
+
+	jml           = jml.split(',').join('');
+	sisa_qty  	  = sisa_qty.split(',').join('');
+
+	var sisa_semua = parseFloat(sisa_qty) - parseFloat(jml) ;
+
+	$('#sisa_awal').val(sisa_semua);
+
+	if(sisa_semua < 0){
+		alert("Sisa tidak boleh kurang dari 0");
+		document.getElementById("simpan_cuy").disabled = true;
+	}else{
+		document.getElementById("simpan_cuy").disabled = false;
+	}
 }
 
 function get_sales_det(id_pel){
@@ -1025,7 +1054,9 @@ function get_supplier_det(id_pel){
 		    $('#popup_koang').remove();
 
 			$('#no_po').val(result.NO_PO);
+			$('#supplier').val(result.NO_PO);
 			$('#no_lpb').val(result.NO_BUKTI);
+			$('#tgl_trx_barang').val(result.TGL_TRX);
 		}
 	});
 }

@@ -224,7 +224,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 	</div>
 </div>
 
-
+<input id="tr_utama_count" value="1" type="hidden"/>
 <div class="row-fluid" id="add_data" style="display:none;">
 	<div class="span12">
 		<div class="content-widgets light-gray">
@@ -380,7 +380,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b> Stock Point </b> </label>
 						<div class="controls">
-							<select class="span12" name="supply_point" onchange="get_supply_point(this.value);">
+							<select class="span6" name="supply_point" onchange="get_supply_point(this.value);">
 									<option>--Supply Point--</option>
 									<?php 
 										foreach ($supply as $key => $sp) {
@@ -389,22 +389,27 @@ input[type=radio]:not(old):checked +  label > span > span{
 									<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>
 									<?php } ?>
 								</select>
+							<select class="span6" style="margin-left: 10px;" name="aksi_bd[]" id="setyadi">
+								
+							</select>
 						</div>
 					</div>
 
 					<div class="control-group">
 						<label class="control-label"> <b>  </b> </label>
 						<div class="controls">
-						    <table class="stat-table table table-hover" style="width: 100%;">
-						    	<thead>
-						    		<th align="center">Nama</th>
-						    		<th align="center">Pajak (%)</th>
-						    		<th align="center">Aksi</th>
-						    	</thead>
-						    	<tbody id="data_supply">
-						    		
-						    	</tbody>
-						    </table>
+							<table  style="width: 100%;" >
+								<tbody id="tuambahin">
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> <b>  </b> </label>
+						<div class="controls">
+							<button class="btn btn-success" type="button" onclick="tuambah();"><span class="icon-plus"></span> Tambah Data</button>
 						</div>
 					</div>
 
@@ -494,53 +499,25 @@ input[type=radio]:not(old):checked +  label > span > span{
 
 					<hr style="background: #ccc; height: 1px;">
 
-					<div style="display: none;">
-					<center>
-					<h4>DATA BROKER</h4>						
-					</center>
-					<br>
 					<div class="control-group">
-						<label class="control-label"> <b> Nama Broker </b> </label>
+						<label class="control-label"> <b> Rekening Bank </b> </label>
 						<div class="controls">
-							<input type="text"  class="span12" value="" name="broker_nama">
-						</div>
-					</div>
+							<?php 
+								$sql_rek = $this->db->query("SELECT * FROM tb_rekening_bank")->result();
 
-					<div class="control-group">
-						<label class="control-label"> <b> Alamat Broker </b> </label>
-						<div class="controls">
-							<input type="text"  class="span12" value="" name="broker_alamat">
+							?>
+							<select name="rek_bank" class="span12">
+								<option> - Pilih Rekening Tujuan - </option>
+								<?php 
+									foreach ($sql_rek as $key => $val_rek) {
+										# code...
+									
+								?>
+								<option value="<?=$val_rek->ID;?>"><?=$val_rek->NAMA_BANK;?> - <?=$val_rek->NOMOR_REKENING;?></option>
+							<?php } ?>
+							</select>
 						</div>
-					</div>
 
-					<div class="control-group">
-						<label class="control-label"> <b> No. Telp (optional) </b> </label>
-						<div class="controls">
-							<input type="text"  class="span12" value="" name="broker_telp">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"> <b> No. KTP (optional) </b> </label>
-						<div class="controls">
-							<input type="text"  class="span12" value="" name="broker_ktp">
-						</div>
-					</div>
-
-
-					<div class="control-group">
-						<label class="control-label"> <b> No. NPWP (optional) </b> </label>
-						<div class="controls">
-							<input type="text"  class="span12" value="" name="broker_npwp">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"> <b> Komisi (%) </b> </label>
-						<div class="controls">
-							<input type="text" onkeyup="FormatCurrency(this);"  class="span3" value="" name="broker_komisi">
-						</div>
-					</div>
 					</div>
 
 
@@ -1218,19 +1195,13 @@ function get_supply_point(id) {
                 if(result.length > 0){
                     $.each(result,function(i,res){
 
-                        isine += '<tr>'+
-                                    '<td style="text-align:center;">'+res.NAMA_BPPKB+'</td>'+
-                                    '<td style="text-align:center;">'+res.PAJAK+' %</td>'+
-                                    '<td style="text-align:center;">'+
-                                    	'<input type="radio" value="'+res.ID+'" name="aksi_on" onchange="ganti('+res.PAJAK+')">'+
-                                    '</td>'+
-                                '</tr>';
+                        isine += '<option value="'+res.ID+'">'+res.NAMA_BPPKB+' - '+res.PAJAK+' %<option>';
                     });
                 } else {
-                    isine = "<tr><td colspan='6' style='text-align:center;'> There are no transaction for this data </td></tr>";
+                    isine = '<option value=""> Data tidak ada <option>';
                 }
 
-                $('#data_supply').html(isine);
+                $('#setyadi').html(isine);
             }
         });
     }
@@ -1238,5 +1209,62 @@ function get_supply_point(id) {
     function ganti(id){
 		$('#pajak_pbbkb_val').val(id);
 	}
+
+	function tuambah() {
+	// var value =$('#copy_select').html();
+	var jml_tr = $('#tr_utama_count').val();
+	var i = parseInt(jml_tr) + 1;
+
+
+	$isi_1 = 
+	'<tr id="selamat_'+i+'">'+
+	'<td style="width:50%;">'+
+	'<select class="span12" style="margin-top:5px;" name="supply_point" onchange="get_supply_point_a(this.value,\'' +i+ '\');">'+
+	'								<option>--Supply Point--</option>'+
+	'								<?php foreach ($supply as $key => $sp) { ?>'+
+	'								<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>'+
+	'								<?php } ?>'+
+	'							</select>'+
+	'</td>'+
+	'<td style="width:40%;">'+
+	'<select class="span12" style="margin-top:5px;margin-left:2px;" name="aksi_bd[]" id="soal_'+i+'">'+
+	'</select>'+
+	'</td>'+
+	'<td style="width:10%;">'+
+	'<button style="width: 100%;margin-left:3px;" onclick="hapus_row('+i+');" type="button" class="btn-small btn-danger"> Hapus </button>'+
+	'</td>'+
+	'</tr>';
+
+	$('#tuambahin').append($isi_1);
+	$('#tr_utama_count').val(i);
+
+}
+
+function hapus_row (id) {
+	$('#selamat_'+id).remove();
+}
+
+function get_supply_point_a(id,jml) {
+	
+        $.ajax({
+            url : '<?php echo base_url(); ?>purchase_order_c/get_supply_point',
+            data : {id:id},
+            type : "POST",
+            dataType : "json",
+            success : function(result){   
+                var isine = "";
+                if(result.length > 0){
+                    $.each(result,function(i,res){
+
+                        isine += '<option value="'+res.ID+'">'+res.NAMA_BPPKB+' - '+res.PAJAK+' %<option>';
+                    });
+                } else {
+                     isine = '<option value=""> Data tidak ada <option>';
+                }
+
+                $('#soal_'+jml).html(isine);
+            }
+        });
+    }
 
 </script>

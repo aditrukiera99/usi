@@ -10,30 +10,26 @@ $no_transaksi = 1;
 if($no_trx->NEXT != "" || $no_trx->NEXT != null ){
 	$no_transaksi = $no_trx->NEXT+1;
 }
-$no_pembeli = 1;
-if($no_pem->NEXT != "" || $no_pem->NEXT != null ){
-	$no_pembeli = $no_pem->NEXT+1;
-}
 
 $no_lpbe = 1;
 if($no_lpb->NEXT != "" || $no_lpb->NEXT != null ){
 	$no_lpbe = $no_lpb->NEXT+1;
 }
 
-$no_deo = 1;
-if($no_do->NEXT != "" || $no_do->NEXT != null ){
-	$no_deo = $no_do->NEXT+1;
-}
+// $no_deo = 1;
+// if($no_do->NEXT != "" || $no_do->NEXT != null ){
+// 	$no_deo = $no_do->NEXT+1;
+// }
 
-$no_inv = 1;
-if($inv->NEXT != "" || $inv->NEXT != null ){
-	$no_inv = $inv->NEXT+1;
-}
+// $no_inv = 1;
+// if($inv->NEXT != "" || $inv->NEXT != null ){
+// 	$no_inv = $inv->NEXT+1;
+// }
 
-$no_surat_jalan = 1;
-if($sj->NEXT != "" || $sj->NEXT != null ){
-	$no_surat_jalan = $sj->NEXT+1;
-}
+// $no_surat_jalan = 1;
+// if($sj->NEXT != "" || $sj->NEXT != null ){
+// 	$no_surat_jalan = $sj->NEXT+1;
+// }
 
 $base_url2 =  ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?  "https" : "http");
 $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
@@ -115,7 +111,7 @@ input[type=checkbox]
 	</div>
 </div>
 
-<form action="<?=base_url().$post_url;?>" method="post">
+<form action="<?=base_url().$post_url;?>" method="post" onsubmit="return cek_tanggal_pb();">
 
 <div class="breadcrumb" style="background:#E0F7FF;">
 	<div class="row-fluid">
@@ -154,6 +150,7 @@ input[type=checkbox]
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
+				<input type="hidden" class="span12" value="" name="tgl_po" id="tgl_po" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -173,8 +170,8 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Penerimaan Barang </b> </label>
 				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
-						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+					<div id="datetimepicker3" class="input-append date ">
+						<input style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text"  >
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -233,6 +230,7 @@ input[type=checkbox]
 						<tr>
 							<!-- <th align="center" style="width: 25%;"> Kode Akun </th> -->
 							<th align="center" style="width: 20%;"> Produk / Item </th>
+							<th align="center" style="width: 15%;"> Sisa QTY </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Jual </th>
 							<th align="center"> # </th>
@@ -259,14 +257,21 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+									<input id="sisa_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="sisa" readonly>
+									<input id="sisa_2" style="font-size: 18px; text-align:center; width: 80%;" type="hidden"  value="" name="sisa" readonly>
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1">
-									<input type="hidden" name="total_id" id="total_id_1">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+								</div>
+							</td>
+
+							<td align="center" style="vertical-align:middle;"> 
+								<div class="controls">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1" readonly>
+									<input type="hidden" name="total_id" id="total_id_1" >
 								</div>
 							</td>
 
@@ -299,7 +304,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penerimaan Barang" name="simpan" class="btn btn-success">
+					<input type="submit" value="Simpan Penerimaan Barang" id="simpan_cuy" name="simpan" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
 					<button class="btn" onclick="window.location='<?=base_url();?>penerimaan_barang_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -315,6 +320,10 @@ input[type=checkbox]
 
 
 <script type="text/javascript">
+
+function set(){
+	alert();
+}
 
 function hapus_row_pertama(){
 	$('#nama_produk_1').val('');
@@ -624,20 +633,43 @@ function cek_islunas(){
 	}
 }
 
+function semoga(jml){
+	
+	var sisa_qty      = $('#sisa_2').val();
+
+	jml           = jml.split(',').join('');
+	sisa_qty  	  = sisa_qty.split(',').join('');
+
+	var sisa_semua = parseFloat(sisa_qty) - parseFloat(jml) ;
+
+	$('#sisa_1').val(sisa_semua);
+
+	if(sisa_semua < 0){
+		alert("Sisa tidak boleh kurang dari 0");
+		document.getElementById("simpan_cuy").disabled = true;
+	}else{
+		document.getElementById("simpan_cuy").disabled = false;
+	}
+}
+
 function hitung_total(id){
 
 
 	var qty           = $('#qty_'+id).val();
 	var harga_modal   = $('#harga_modal_'+id).val();
+	// var sisa_qty      = $('#sisa_'+id).val();
 
 	qty           = qty.split(',').join('');
 	harga_modal   = harga_modal.split(',').join('');
+	// sisa_qty  	  = sisa_qty.split(',').join('');
 
 	if(qty           == "" || qty 	        == null){ qty           = 0; }
 	if(harga_modal   == "" || harga_modal   == null){ harga_modal   = 0; }
 
 
 	var profit = parseFloat(harga_modal) * parseFloat(qty) ;
+	
+
 	$('#total_id_'+id).val(profit);
 	$('#inp_sub_total').val(profit);
 	$('#inp_qty_total').val(qty);
@@ -730,6 +762,30 @@ function tambah_data() {
 
 }
 
+function formatDate_adit(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [year, month, day].join('-');
+  }
+
+  function cek_tanggal_pb(){
+  	var a = formatDate_adit($('#tgl_po').val());
+  	var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+    if(a > b){
+    	alert("Tanggal tidak boleh kurang dari tanggal purchase order");
+    	// document.getElementById("simpan_cuy").disabled = true;
+
+    	return false;
+  	}
+  } 
+
 
 function get_pelanggan_det(id_pel){
 	$('#popup_load').show();
@@ -751,6 +807,11 @@ function get_pelanggan_det(id_pel){
 			$('#pelanggan_sel').val(id_pel);
 			$('#id_gudang').val(result.PAJAK_SUPPLY);
 			$('#id_produk_1').val(result.IDP);
+			$('#tgl_po').val(result.TGL_TRX);
+			$('#sisa_1').val(result.SISA_QTY);
+			$('#sisa_2').val(result.SISA_QTY);
+
+			
 		}
 	});
 }
@@ -772,7 +833,7 @@ function get_sales_det(id_pel){
 
 			$('#nama_produk_1').val(result.NAMA_PRODUK);
 			
-			$('#qty_1').val(result.QTY);
+			// $('#qty_1').val(result.QTY);
 			$('#harga_modal_1').val(result.HARGA_SATUAN);
 		}
 	});

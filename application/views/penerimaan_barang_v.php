@@ -19,40 +19,40 @@
 </style>
 
 <?PHP 
-$kode_kas_full = "";
-if($last_kas_bank->KODE_AKUN != "" || $last_kas_bank->KODE_AKUN != null ){
-	$kode_kas_last = $last_kas_bank->KODE_AKUN;
-	$kode_kas = explode("-", $kode_kas_last);
-	$kode_kas1 = $kode_kas[0];
-	$kode_kas2 = $kode_kas[1];
-	$kode_kas_res = intval($kode_kas2) + 1;
+// $kode_kas_full = "";
+// if($last_kas_bank->KODE_AKUN != "" || $last_kas_bank->KODE_AKUN != null ){
+// 	$kode_kas_last = $last_kas_bank->KODE_AKUN;
+// 	$kode_kas = explode("-", $kode_kas_last);
+// 	$kode_kas1 = $kode_kas[0];
+// 	$kode_kas2 = $kode_kas[1];
+// 	$kode_kas_res = intval($kode_kas2) + 1;
 
-	$kode_kas_full = $kode_kas1."-".$kode_kas_res;
-} else {
-	$kode_kas_full = "1-1000";
-}
+// 	$kode_kas_full = $kode_kas1."-".$kode_kas_res;
+// } else {
+// 	$kode_kas_full = "1-1000";
+// }
 
 
-$kode_cc_full = "";
+// $kode_cc_full = "";
 
-if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
-	$kode_cc_last = $last_cc->KODE_AKUN;
-	$kode_cc = explode("-", $kode_cc_last);
-	$kode_cc1 = $kode_cc[0];
-	$kode_cc2 = $kode_cc[1];
-	$kode_cc_res = intval($kode_cc2) + 1;
+// if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
+// 	$kode_cc_last = $last_cc->KODE_AKUN;
+// 	$kode_cc = explode("-", $kode_cc_last);
+// 	$kode_cc1 = $kode_cc[0];
+// 	$kode_cc2 = $kode_cc[1];
+// 	$kode_cc_res = intval($kode_cc2) + 1;
 
-	$kode_cc_full = $kode_cc1."-".$kode_cc_res;
-} else {
-	$kode_cc_full = "2-2101";
-}
+// 	$kode_cc_full = $kode_cc1."-".$kode_cc_res;
+// } else {
+// 	$kode_cc_full = "2-2101";
+// }
 
 
 ?>
 
 
-<input type="hidden" class="span12" value="<?=$kode_kas_full;?>" id="last_kode_kas">
-<input type="hidden" class="span12" value="<?=$kode_cc_full;?>" id="last_kode_cc">
+<!-- <input type="hidden" class="span12" value="<?=$kode_kas_full;?>" id="last_kode_kas"> -->
+<!-- <input type="hidden" class="span12" value="<?=$kode_cc_full;?>" id="last_kode_cc"> -->
 
 <div class="row-fluid ">
 	<div class="span12">
@@ -263,17 +263,17 @@ function hapus_trx(id){
 	$('#dialog-btn').click(); 
 }
 
-function get_kode_akun(val){
+// function get_kode_akun(val){
 
-	var last_kode_kas = $('#last_kode_kas').val(); 
-	var last_kode_cc = $('#last_kode_cc').val();
+// 	var last_kode_kas = $('#last_kode_kas').val(); 
+// 	var last_kode_cc = $('#last_kode_cc').val();
 
-	if(val == "Kas & Bank"){
-		$('#kode_akun').val(last_kode_kas);
-	} else if(val == "Credit Card"){
-		$('#kode_akun').val(last_kode_cc);
-	}
-} 
+// 	if(val == "Kas & Bank"){
+// 		$('#kode_akun').val(last_kode_kas);
+// 	} else if(val == "Credit Card"){
+// 		$('#kode_akun').val(last_kode_cc);
+// 	}
+// } 
 
 function cari_kas_bank(keyword) {
 	$.ajax({

@@ -69,6 +69,21 @@ class Gudang_m extends CI_Model
         return $this->db->insert_id();
     }
 
+    function tambah_master_stock($id_sp,$id_produk,$nama_produk){
+       
+      
+
+        $sql = "
+        INSERT INTO ak_master_stock
+        (ID_PRODUK,NAMA_PRODUK ,ISI,KODE_SUPPLY_POINT)
+        VALUES 
+        ('$id_produk', '$nama_produk','0','$id_sp')
+        ";
+
+        $this->db->query($sql);
+        return $this->db->insert_id();
+    }
+
     function simpan_pajak($id_supply,$nama_bppkb,$prosentase){
        
 

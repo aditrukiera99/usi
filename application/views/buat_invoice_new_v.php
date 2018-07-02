@@ -115,7 +115,7 @@ input[type=checkbox]
 	</div>
 </div>
 
-<form action="<?=base_url().$post_url;?>" method="post">
+<form action="<?=base_url().$post_url;?>" method="post" onsubmit="return cek_tanggal_pb();">
 
 <div class="breadcrumb" style="background:#E0F7FF;">
 	<div class="row-fluid">
@@ -153,6 +153,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
+				<input type="hidden" class="span12" value="" name="tgl_po" id="tgl_po" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -177,7 +178,7 @@ input[type=checkbox]
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
 						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_asdtrx" data-format="dd-MM-yyyy" type="text" id="tgl_trx_tasdur">
-						<input readonly style="width: 80%;" value="<?=date('m-d-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="hidden" id="tgl_trx_tur">
+						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="hidden" id="tgl_trx_tur">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -230,7 +231,7 @@ input[type=checkbox]
 	<div class="span4">
 	
 
-		<div class="control-group" style="margin-left: 10px;">
+		<!-- <div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Kuantitas Diterima </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
@@ -238,7 +239,7 @@ input[type=checkbox]
 						
 					</div>
 				</div>
-		</div>
+		</div> -->
 
 		
 
@@ -291,8 +292,8 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1">
-									<input type="hidden" name="total_id" id="total_id_1">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1" readonly>
+									<input type="hidden" name="total_id" id="total_id_1" >
 								</div>
 							</td>
 
@@ -325,7 +326,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Invoice" name="buat_inv" class="btn btn-success">
+					<input type="submit" value="Simpan Invoice" name="buat_inv" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
 					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -775,7 +776,7 @@ function get_pelanggan_det(id_pel){
 			$('#alamat_tagih').val(result.ALAMAT);
 			$('#pelanggan').val(result.PELANGGAN);
 			$('#no_trx').val(result.NO_BUKTI);
-			$('#pelanggan_sel').val(id_pel);
+			$('#pelanggan_sel').val(result.ID_PELANGGAN);
 			$('#no_do').val(result.NO_SO);
 			$('#no_po_client').val(result.PO_PELANGGAN);
 
@@ -792,6 +793,7 @@ function get_pelanggan_det(id_pel){
 				var tgl = endDate.toString("dd-MM-yyyy");
 
 			$('#tgl_jt').val(tgl);
+			$('#tgl_po').val(result.TGL_TRX);
 		}
 	});
 }
@@ -908,5 +910,29 @@ function samakan_5(){
 	var vail = $('#nama_produk_1').val();
 	$('input[name="nama_produk[]"]').val(vail);
 }
+
+function cek_tanggal_pb(){
+  	var a = formatDate_adit($('#tgl_po').val());
+  	var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+    if(a > b){
+    	alert("Tanggal tidak boleh kurang dari tanggal sales order");
+    	// document.getElementById("simpan_cuy").disabled = true;
+
+    	return false;
+  	}
+  } 
+
+  function formatDate_adit(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [year, month, day].join('-');
+  }
 // modal jual Invoice
 </script>

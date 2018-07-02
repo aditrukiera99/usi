@@ -103,6 +103,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							<th align="center"> Tanggal </th>
 							<th align="center"> Customer </th>
 							<th align="center"> Volume </th>
+							<th align="center"> Sisa </th>
 							<!-- <th align="center"> Harga </th> -->
 						</tr>						
 					</thead>
@@ -133,6 +134,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #bdbdbdd6;">   <?=$row->PELANGGAN;?> </td>
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($dt_sql->QTY);?> L </td>
+									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($row->SISA);?> L </td>
 								</tr>
 
 							<?php } else if($row->SISA == $row->KUANTITAS){ ?>
@@ -150,6 +152,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->PELANGGAN;?> </td>
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_sql->QTY);?> L </td>
+									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($row->SISA);?> L </td>
 								</tr>
 
 							<?php }else if ($row->SISA < $row->KUANTITAS && $row->SISA > 0 ) { ?>
@@ -166,6 +169,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #dff0d8;">   <?=$row->PELANGGAN;?> </td>
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($dt_sql->QTY);?> L </td>
+									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($row->SISA);?> L </td>
 								</tr>
 							<?php } ?>
 
@@ -184,7 +188,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
     <div class="cd-popup-container">
 
         <form id="delete" method="post" action="<?=base_url().$post_url;?>">
-            <input type="hidden" name="id_hapus" id="id_hapus" value="" />
+            <input type="hidden" name="id_hapus_an" id="id_hapus" value="" />
         </form>   
          
         <p id="hapus_txt">Apakah anda yakin ingin menghapus data ini?</p>

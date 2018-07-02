@@ -121,9 +121,15 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 
 <div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
   <table style="width: 100%;">
+    <?php 
+
+      $dater = "2010-03-21";
+
+
+    ?>
     <tr>
       <td style="width: 20%;text-align:left;font-size: 15px;">Tanggal</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: <b><?=$dt->TGL_TRX;?></b></td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: <b><?=$dt->TGL_TRX?></b></td>
       <td style="width: 40%;text-align:left;font-size: 15px;"><b>Kepada Yth</b></td>
     </tr>
     <tr>
@@ -226,12 +232,17 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 <div style="width: 100%;">
   <table style="width: 100%;">
     <tr>
+      <?php 
+        $id_rek = $dt->CUSTOMER;
+        $sql_rek = $this->db->query("SELECT rk.* FROM tb_rekening_bank rk , ak_pelanggan ap WHERE rk.ID = ap.REKENING AND ap.ID = '$id_rek'")->row();
+
+      ?>
       <td>
         1.Pembayaran harap ditransfer ke : <br>
         <strong>Bank Standart Chartered</strong><br>
         <strong>Cabang Basuki rahmad Surabaya</strong><br>
-        <strong>No Rekening :</strong><br>
-        <strong>Atas Nama : PT.UNITED SHIPPING INDONESIA</strong><br><br>
+        <strong>No Rekening : <?php echo $sql_rek->NOMOR_REKENING;?> </strong> <br>
+        <strong>Atas Nama : <?php echo $sql_rek->ATAS_NAMA;?></strong><br><br>
         2.Pembayaran dengan uang kontan hanya sah <br>
         apabilai ada kwitansi resmi dair Perusahaan<br>
         3.Pembayaran dengan Bilyet Giro/Cheque <br>dianggap sah apablia sudah masuk di Bank Kami

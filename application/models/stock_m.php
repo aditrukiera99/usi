@@ -131,7 +131,7 @@ class Stock_m extends CI_Model
         $tahun = date('Y');
 
         $sql = "
-        SELECT SUM(d.QTY) as TOTAL FROM ak_delivery_order d , ak_pelanggan p WHERE d.ID_PELANGGAN = p.ID AND p.ID_SUPPLY_POINT = '$id_sp' AND d.ID_PRODUK = '$nama_produk'
+        SELECT SUM(d.QTY) as TOTAL FROM ak_delivery_order d , ak_penjualan p , ak_penjualan_detail pd WHERE d.NO_SO = p.NO_BUKTI AND p.ID = pd.ID_PENJUALAN AND p.SUPPLY_POINT = '$id_sp' AND pd.ID_PRODUK = '$nama_produk'
         ";
 
         return $this->db->query($sql)->row();

@@ -29,6 +29,13 @@ class Penerimaan_barang_c extends CI_Controller {
 
 		if($this->input->post('simpan')){
 
+			$tgl_trx_a      = strtotime($this->input->post('tgl_trx'));
+			$tgl_po      	= strtotime($this->input->post('tgl_po'));
+
+			if( $tgl_trx_a < $tgl_po  ){
+			$msg = 3;
+			}else{
+
 			$msg = 1;
 
 			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
@@ -74,7 +81,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			$harga_modal  = $this->input->post('harga_modal');
 			$total_id     = $this->input->post('total_id');
 
-			$kode_gudang = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_pembelian p WHERE p.PAJAK_SUPPLY = g.ID AND p.NO_PO = '$no_po' ")->row();
+			$kode_gudang = $this->db->query("SELECT g.KODE_SUPPLY_POINT , g.ID FROM ak_gudang g , ak_pembelian p WHERE p.PAJAK_SUPPLY = g.ID AND p.NO_PO = '$no_po' ")->row();
 
 			$no_bukti_real = $no_lpbe."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
@@ -89,6 +96,8 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$this->model->update_status_gudang($id_gudang,$qty);
 
+			$this->model->update_stok_master($kode_gudang->ID,$produk,$qty);
+
 			$this->model->update_status_po_tgl($no_po,$tgl_trx);
 
 
@@ -96,7 +105,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			$this->model->save_next_nomor($id_klien, 'Penerimaan_barang', $no_lpbe);
 
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
-
+			}
 		}
 
 		if($this->input->post('simpan_update')){
@@ -204,6 +213,8 @@ class Penerimaan_barang_c extends CI_Controller {
 			$this->model->update_po_status($dt_po->NO_PO,$dt_pos->QTY);
 			$this->model->hapus_trx_penjualan($id_hapus);
 			$this->model->hapus_detail_trx($id_hapus);
+			$this->model->update_stok_master_kurang($dt_po->GUDANG,$dt_pos->ID_PRODUK,$dt_pos->QTY);
+
 
 			
 
@@ -464,11 +475,11 @@ class Penerimaan_barang_c extends CI_Controller {
 
 	function cetak($id=""){
 
-		if($id == ''){
-			echo 'kosong';
-		}else{
-			$this->model->update_tanggal_penerimaan($id);
-		}
+		// if($id == ''){
+		// 	echo 'kosong';
+		// }else{
+		// 	$this->model->update_tanggal_penerimaan($id);
+		// }
 
 		$dt = $this->model->get_data_trx($id);
 		$dt_det = $this->model->get_data_trx_detail($id);

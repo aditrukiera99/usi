@@ -7,7 +7,7 @@ class Purchase_order_m extends CI_Model
           $this->load->database();
     }
 
-    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo,$qty_total)
+    function simpan_pembelian_po($no_trx, $id_pelanggan, $pelanggan, $tgl_trx, $sub_total, $keterangan, $penampung_ppn , $penampung_pph_21 ,$penampung_pbbkb ,$penampung_pph_15 ,$penampung_pph_23 , $no_trx, $supply_point,$jatuh_tempo,$pajak_supply,$total_hasil_pajak,$pelanggan_cust,$alamat_tagih_cust,$kode_sh_cust,$no_bukti_real,$penampung_pph_22,$hari_tempo,$qty_total,$type_cetak)
     {
 
         $sql = "
@@ -40,7 +40,8 @@ class Purchase_order_m extends CI_Model
             PENERIMAAN_STATUS,
             JATUH_TEMPO,
             SISA_QTY,
-            KUANTITAS
+            KUANTITAS,
+            TYPE_CETAK
 
         )
         VALUES 
@@ -72,7 +73,8 @@ class Purchase_order_m extends CI_Model
            '0',
            '$hari_tempo',
            '$qty_total',
-           '$qty_total'
+           '$qty_total',
+           '$type_cetak'
            
         )
         ";
@@ -821,11 +823,11 @@ class Purchase_order_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function update_stok($id_klien, $id_produk, $qty){
+    function update_stok($id_sp, $id_produk, $qty){
         $qty          = str_replace(',', '', $qty);
         $sql = "
-        UPDATE ak_produk SET STOK = STOK - $qty
-        WHERE ID = $id_produk
+        UPDATE ak_master_stock SET ISI = ISI + $qty
+        WHERE ID_PRODUK = $id_produk AND KODE_SUPPLY_POINT = $id_sp
         ";
 
         $this->db->query($sql);

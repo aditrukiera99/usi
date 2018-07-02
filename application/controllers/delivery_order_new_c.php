@@ -82,17 +82,20 @@ class Delivery_order_new_c extends CI_Controller {
 			$harga_modal 	= $this->input->post('harga_modal');
 			$no_po 			= $this->input->post('no_po');
 			$no_lpb 		= $this->input->post('no_lpb');
+			$alamat_tagih 	= $this->input->post('alamat_tagih');
 			$operator       = $user->NAMA;
 
-			$pjk = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND p.NO_BUKTI = '$no_trx' ")->row();
+			$pjk = $this->db->query("SELECT g.KODE_SUPPLY_POINT , p.SUPPLY_POINT FROM ak_gudang g , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND p.NO_BUKTI = '$no_trx' ")->row();
 
 			$no_bukti_real = $no_deo."/".$pjk->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
-			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0],$no_bukti_real,$no_po,$no_lpb,$id_produk[0]);
+			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0],$no_bukti_real,$no_po,$no_lpb,$id_produk[0],$alamat_tagih);
 
 			$this->model->update_status_so($no_trx, $qty[0]);
 
 			$id_penjualan = $this->db->insert_id(); 
+
+			$this->model->update_stok_master($pjk->SUPPLY_POINT,$id_produk[0],$qty[0]);
 
 			$this->model->save_next_nomor($id_klien, 'Delivery_order', $no_deo);
 
@@ -197,11 +200,17 @@ class Delivery_order_new_c extends CI_Controller {
 			$id_hapus = $this->input->post('id_hapus');
 			
 
-			$s = $this->db->query("SELECT NO_SO,QTY,NO_BUKTI FROM ak_delivery_order WHERE ID = $id_hapus ")->row();
+			$s = $this->db->query("SELECT NO_SO,QTY,NO_BUKTI,ID_PRODUK FROM ak_delivery_order WHERE ID = $id_hapus ")->row();
 		
 			$this->model->update_stock_so($s->NO_SO,$s->QTY);
 			$this->model->hapus_invoice($s->NO_BUKTI);
 			$this->model->hapus_trx_penjualan($id_hapus);
+
+			$nos = $s->NO_SO;
+
+			$do = $this->db->query("SELECT * FROM ak_penjualan WHERE NO_BUKTI = $nos")->row();
+
+			$this->model->update_stok_master_kurang($do->SUPPLY_POINT,$s->ID_PRODUK,$s->QTY);
 
 
 			$this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");

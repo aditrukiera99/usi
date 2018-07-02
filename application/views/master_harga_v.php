@@ -71,6 +71,7 @@
 
 							$ibunda = $this->db->query("SELECT mh.ID_PELANGGAN , p.NAMA_PELANGGAN , mh.ID FROM ak_master_harga mh , ak_pelanggan p WHERE mh.ID_PELANGGAN = p.KODE_PELANGGAN GROUP BY mh.ID_PELANGGAN")->result();
 							foreach ($ibunda as $key => $value) {
+								$batas = $value->ID_PELANGGAN;
 								?>
 								<tr>
 									<td style="background-color: #dff0d8;" ><?=$value->ID_PELANGGAN;?></td>
@@ -86,9 +87,27 @@
 								</tr>
 								<?php 
 
-									$batas = $value->ID_PELANGGAN;
+									$ananda = $this->db->query("SELECT g.NAMA as NAMAG , p.NAMA_BPPKB , mh.SUPPLY_POINT , mh.ID_PELANGGAN FROM ak_master_harga mh , ak_pajak_supply p , ak_gudang g WHERE mh.SUPPLY_POINT = p.ID AND p.ID_SUPPLY = g.ID AND mh.ID_PELANGGAN = '$batas' GROUP BY mh.SUPPLY_POINT")->result();
+									foreach ($ananda as $key => $value_a) {
+										?>
+										<tr>
+											<td style="background-color: #cafdfb;" ></td>
+											<td style="background-color: #cafdfb;" ><?=$value_a->NAMAG;?></td>
+											<td style="background-color: #cafdfb;" ><?=$value_a->NAMA_BPPKB;?></td>
+											<td style="background-color: #cafdfb;" >&nbsp;</td>
+											<td style="background-color: #cafdfb;" >&nbsp;</td>
+											<td style="background-color: #cafdfb;" >&nbsp;</td>
+											<td style="background-color: #cafdfb;" >
+												<button class="btn btn-small btn-danger" onclick="$('#dialog-btn-semua').click(); $('#id_hapus_semua').val('<?=$value_a->SUPPLY_POINT;?>');"> HAPUS SEMUA </button>
+												
+											</td>
+										</tr>
+								<?php 
+
+									$bitis = $value_a->SUPPLY_POINT;
+									$bitisan = $value_a->ID_PELANGGAN;
 									$nomer = 0;
-									$anak = $this->db->query("SELECT mh.* , pr.NAMA_PRODUK as NAMPROD FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.ID_PELANGGAN = '$batas' AND mh.status = '0'")->result();
+									$anak = $this->db->query("SELECT mh.* , pr.NAMA_PRODUK as NAMPROD FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.SUPPLY_POINT = '$bitis' AND mh.ID_PELANGGAN = '$bitisan' AND  mh.status = '0' GROUP BY mh.ID_PRODUK")->result();
 									foreach ($anak as $key => $val) {
 										$nomer++;
 										?>
@@ -128,6 +147,7 @@
 										</tr>
 										<?php 
 									}
+								}
 							}
 						?>
 						<tr></tr>

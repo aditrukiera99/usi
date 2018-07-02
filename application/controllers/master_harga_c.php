@@ -37,8 +37,9 @@ class Master_harga_c extends CI_Controller {
 			$harga_beli    = $this->input->post('harga_beli');
 			$harga_jual    = $this->input->post('harga_jual');
 			$periode       = $this->input->post('periode');
+			$aksi_on       = $this->input->post('aksi_on');
 
-			$this->model->simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode);
+			$this->model->simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode,$aksi_on);
 
 
 		}else if($this->input->post('simpan_update')){
@@ -53,9 +54,10 @@ class Master_harga_c extends CI_Controller {
 			$id_produk     = addslashes($this->input->post('id_produk'));
 			$harga_beli    = addslashes($this->input->post('harga_beli'));
 			$harga_jual    = addslashes($this->input->post('harga_jual'));
-			$periode     = $this->input->post('periode');
+			$periode       = $this->input->post('periode');
+			$sp_point       = $this->input->post('sp_point');
 
-			$this->model->simpan_master_harga_update($kode_sh,$id_produk,$harga_beli,$harga_jual,$periode);
+			$this->model->simpan_master_harga_update($kode_sh,$id_produk,$harga_beli,$harga_jual,$periode,$sp_point);
 			$this->model->update_status_master($id_master);
 
 
@@ -149,6 +151,13 @@ class Master_harga_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
+	function get_supply_point(){
+		$id = $this->input->post('id');
+		$dt = $this->model->get_supply_point($id);
+
+		echo json_encode($dt);
+	}
+
 	function add_harga(){
 		$keyword = "";
 		$msg = "";
@@ -161,6 +170,7 @@ class Master_harga_c extends CI_Controller {
 		
 
 		$dt_pel = $this->model->get_pelanggan($id_klien);
+		$supply = $this->model->supply_kenter();
 
 		$data =  array(
 			'page' => "add_master_harga_v", 
@@ -170,6 +180,7 @@ class Master_harga_c extends CI_Controller {
 			'view' => "master_harga", 
 			'msg' => $msg, 
 			'dt_pel' => $dt_pel,
+			'supply' => $supply,
 			'post_url' => 'master_harga_c', 
 		);
 		

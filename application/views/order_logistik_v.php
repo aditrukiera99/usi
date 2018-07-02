@@ -97,7 +97,7 @@ input[type=checkbox]
 	<div class="row-fluid">
 		<div class="span4">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Supply Point </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Supplier </b> </label>
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="supply_point" name="supply_point" readonly style="background:#FFF; width: 70%;">

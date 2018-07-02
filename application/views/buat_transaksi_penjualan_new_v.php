@@ -119,13 +119,16 @@ input[type=checkbox]
 
 <div class="breadcrumb" style="background:#E0F7FF;">
 	<div class="row-fluid">
-		<div class="span3">
+		<div class="span4">
 			<div class="control-group">
 				
 				<div class="controls">
-					
+
+					<!-- <a href="<?=base_url();?>transaksi_penjualan_c/new_invoice"><button type="button" name="dengan_oat" class="btn btn-default" style="float: right;margin-right: 10px;margin-bottom: 20px;">SO UMUM</button></a> -->
 					<a href="<?=base_url();?>transaksi_penjualan_c/new_invoice_trans"><button type="button" name="dengan_oat" class="btn btn-default" style="float: right;margin-right: 10px;margin-bottom: 20px;">SO TRANSPORTASI</button></a>
 					<a href="<?=base_url();?>transaksi_penjualan_c/new_invoice"><button type="button" name="dengan_oat" class="btn btn-success" style="float: right;margin-right: 10px;margin-bottom: 20px;">SO BAHAN BAKAR</button></a>
+
+					
 				</div>
 			</div>
 		</div>
@@ -147,7 +150,21 @@ input[type=checkbox]
 				</div>
 			</div>
 		</div>
-		<div class="span3">
+		<div class="span4">
+			<div class="control-group">
+				<label class="control-label"> <b style="font-size: 14px;"> Supply Point </b> </label>
+				<div class="controls">
+					<div class="input-append">
+						<input type="text" id="supply_point_1" name="supply_point_1" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="id_supply_1" name="id_supply_1" readonly style="background:#FFF; width: 70%;">
+						<input type="hidden" id="ps_1" name="ps_1" readonly style="background:#FFF; width: 70%;">
+						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
+						<button onclick="show_pop_supply();" type="button" class="btn">Cari</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="span3">
 			<div class="control-group">
 				<label class="control-label"> <b style="font-size: 14px;"> Divisi </b> </label>
 				<div class="controls">
@@ -157,7 +174,9 @@ input[type=checkbox]
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
+
+
 	</div>
 </div>
 
@@ -222,7 +241,12 @@ input[type=checkbox]
 		</div>
 
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> Supply Point</b> </label>
+			<div class="control-label">
+				<label class="control-label span5"> <b style="font-size: 14px;"> Supply Point</b> </label>
+				<label class="control-label span5"> <b style="font-size: 14px;">PBBKB</b> </label>
+			</div>
+			
+			
 			<div class="controls">
 				<input type="text" name="supply_point_tempat" class="span5" id="supply_point_nama" readonly>
 				<input type="text" name="supply_pajak_tempat" class="span5" id="supply_pajak_nama" readonly>
@@ -286,6 +310,7 @@ input[type=checkbox]
 											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 60%;" >
 											
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
+											<input type="hidden" id="besar_qty_1" name="besar_qty[]" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
 										</div>
 									</div>
@@ -295,14 +320,14 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="cek_qty(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
 									<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 								</div>
 							</td>
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1" readonly>
 									<input type="hidden" name="harga_beli[]" id="harga_beli_1">
 									<input type="hidden" name="total_id[]" id="total_id_1">
 								</div>
@@ -471,7 +496,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penjualan" name="simpan" class="btn btn-success">
+					<input type="submit" value="Simpan Penjualan" name="simpan" class="btn btn-success" id="simpan_form" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
 					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -675,6 +700,21 @@ function simpan_add_produk(){
 
 }
 
+function cek_qty(besar){
+	var isi = $('#besar_qty_1').val();
+
+	besar           = besar.split(',').join('');
+	var besar_lah	= parseInt(besar);
+	var isi_lah		= parseInt(isi);	
+
+	if(besar_lah > isi_lah){
+		alert('Kuantitas anda melebihi dari stok , anda tidak bisa memproses data ini');
+		document.getElementById("simpan_form").disabled = true;
+	}else{
+		document.getElementById("simpan_form").disabled = false;
+	}
+}
+
 function show_pop_produk(no){
 	get_popup_produk();
     ajax_produk(no);
@@ -683,6 +723,12 @@ function show_pop_produk(no){
 function show_pop_pelanggan(id){
     get_popup_pelanggan();
     ajax_pelanggan();
+}
+
+function show_pop_supply(id){
+	$('#popup_koang').remove();
+    get_popup_supply();
+    ajax_supply();
 }
 
 function show_pop_supplier(id){
@@ -705,6 +751,7 @@ function get_popup_produk(){
                 '                        <th> KODE PRODUK </th>'+
                 '                        <th style="white-space:nowrap;"> NAMA PRODUK </th>'+
                 '                        <th> HARGA </th>'+
+                '                        <th> STOCK </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -730,6 +777,8 @@ function get_popup_produk(){
 function ajax_produk(id_form){
     var keyword = $('#search_koang_pro').val();
     var kode_pelanggan = $('#kode_pelanggan').val();
+    var kode_sp = $('#id_supply_1').val();
+    var sp = $('#ps_1').val();
     $.ajax({
         url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_popup',
         type : "POST",
@@ -737,6 +786,8 @@ function ajax_produk(id_form){
         data : {
             keyword : keyword,
             kode_pelanggan : kode_pelanggan,
+            kode_sp : kode_sp,
+            sp : sp,
         },
         success : function(result){
             var isine = '';
@@ -751,11 +802,12 @@ function ajax_produk(id_form){
 
 
 
-                isine += '<tr onclick="get_produk_detail(\'' +res.ID+ '\',\'' +id_form+ '\');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_produk_detail(\'' +res.ID+ '\',\'' +id_form+ '\',\'' +res.ISI+ '\',\'' +res.mhid+ '\');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.KODE_PRODUK+'</td>'+
                             '<td align="left">'+res.NAMA_PRODUK+'</td>'+
-                             '<td align="center">Rp '+NumberToMoney(res.HARGA_BELI).split('.00').join('')+'</td>'+
+                             '<td align="center">Rp '+NumberToMoney(res.HARGA_JUAL).split('.00').join('')+'</td>'+
+                             '<td align="center">'+NumberToMoney(res.ISI).split('.00').join('')+'</td>'+
                         '</tr>';
                         
                 $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
@@ -789,6 +841,43 @@ function get_popup_pelanggan(){
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;"> NAMA PELANGGAN / PERUSAHAAN </th>'+
                 '                        <th> ALAMAT </th>'+
+                '                    </tr>'+
+                '                </thead>'+
+                '                <tbody>'+
+            
+                '                </tbody>'+
+                '            </table>'+
+                '        </div>'+
+                '    </div>'+
+                '</div>'+
+            '</div>';
+    $('body').append($isi);
+
+    $('#pojok_koang').click(function(){
+        $('#popup_koang').css('display','none');
+        $('#popup_koang').hide();
+        $('#popup_koang').remove();
+    });
+
+    $('#popup_koang').css('display','block');
+    $('#popup_koang').show();
+}
+
+function get_popup_supply(){
+    var base_url = '<?php echo $base_url2; ?>';
+    var $isi = '<div id="popup_koang">'+
+                '<div class="window_koang">'+
+                '    <a href="javascript:void(0);"><img src="'+base_url+'ico/cancel.gif" id="pojok_koang"></a>'+
+                '    <div class="panel-body">'+
+                '    <input style="width: 95%;" type="text" name="search_koang_pro" id="search_koang_pro" class="form-control" value="" placeholder="Cari Produk...">'+
+                '    <div class="table-responsive">'+
+                '            <table class="table table-hover2" id="tes5">'+
+                '                <thead>'+
+                '                    <tr>'+
+                '                        <th>NO</th>'+
+                '                        <th> NAMA SUPPLY POINT </th>'+
+                '                        <th style="white-space:nowrap;"> PBBKB </th>'+
+                '                        <th> % </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -882,6 +971,52 @@ function ajax_pelanggan(){
             $('#search_koang').off('keyup').keyup(function(){
                 ajax_pelanggan();
             });
+        }
+    });
+}
+
+function ajax_supply(id_form){
+   var keyword = $('#search_koang_pro').val();
+   var kode = $('#kode_pelanggan').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>purchase_order_c/get_supply_popup_so',
+        type : "POST",
+        dataType : "json",
+        data : {
+            keyword : keyword,
+            kode : kode,
+        },
+        success : function(result){
+            var isine = '';
+            var no = 0;
+            var tipe_data = "";
+            $.each(result,function(i,res){
+                no++;
+               
+
+
+
+                isine += '<tr onclick="get_barang_detail(\'' +res.SUPPLY_POINT+ '\',\'' +res.NAMA_SUPPLY+ '\',\'' +res.ID+ '\',\'' +res.PERSEN+ '\',\'' +res.NAMID+ '\',\'' +res.PAJAK_BPPKB+ '\');" style="cursor:pointer;">'+
+                            '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.NAMA_SUPPLY+'</td>'+
+                            '<td align="left">'+res.PAJAK_BPPKB+'</td>'+
+                            '<td align="left">'+res.PERSEN+'</td>'+
+                             
+                        '</tr>';
+                        
+                // $('input[name="supply_point[]"]').val(res.NAMA_SUPPLY);
+            });
+
+            if(result.length == 0){
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            }
+
+            $('#tes5 tbody').html(isine); 
+
+            $('#search_koang_pro').off('keyup').keyup(function(){
+                ajax_produk(id_form);
+            });
+
         }
     });
 }
@@ -1025,11 +1160,12 @@ function disc_txt(disc){
 }
 
 
-function get_produk_detail(id, no_form){
+function get_produk_detail(id, no_form,isi,mhid){
     var id_produk = id;
+    var mhid_a = mhid;
     $.ajax({
 		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_detail_mh',
-		data : {id_produk:id_produk},
+		data : {mhid_a:mhid_a},
 		type : "GET",
 		dataType : "json",
 		success : function(result){
@@ -1037,6 +1173,7 @@ function get_produk_detail(id, no_form){
 			$('#id_produk_'+no_form).val(result.PRD);
 			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
 			$('#harga_modal_'+no_form).val(result.HARGA_JUAL);
+			$('#besar_qty_1').val(isi);
 
 
 			$('#search_koang_pro').val("");
@@ -1045,6 +1182,38 @@ function get_produk_detail(id, no_form){
 		    $('#popup_koang').remove();
 		}
 	});
+}
+
+function get_barang_detail(id,nama,id_supply,persen,namid,pajak_pbbkb){
+    // $('#nama_produk_1').val(nama_produk);
+    // $('#id_produk_1').val(id);
+    // $('#harga_modal_1').val(harga);
+    $('#id_supply_1').val(id);
+    $('#supply_point_1').val(nama);
+    $('#ps_1').val(namid);
+    $('#supply_point_nama').val(nama);
+	$('#supply_pajak_nama').val(pajak_pbbkb);
+	$('#pajak_nama').val(persen);
+	$('#pajak_id').val(id);
+    // $('#aksi_on').val(id_supply);
+    // $('#pajak_pbbkb_validasi').val(persen);
+
+
+    $('#nama_produk_1').val("");
+    $('#qty_1').val("");
+    $('#harga_modal_1').val("");
+    $('#sub_total').html("");
+    $('#total_ppn').html("");
+    $('#total_ppn').html("");
+    $('#total_oat').html("");
+    $('#tot_disc').html("");
+
+
+    $('#search_koang_pro').val("");
+    $('#popup_koang').css('display','none');
+    $('#popup_koang').hide();
+    $('#popup_koang').remove();
+
 }
 
 function always_one(id){
@@ -1131,7 +1300,7 @@ function get_pelanggan_det(id_pel){
 			$('#pelanggan').val(result.NAMA_PELANGGAN);
 			$('#kota_tujuan').val(result.ALAMAT_KIRIM);
 			$('#pelanggan_sel').val(id_pel);
-			$('#harga_modal_1').val(result.HARGA_CUY);
+			// $('#harga_modal_1').val(result.HARGA_CUY);
 			// $('#ppn_val').val(result.PPN);
 
 			// $('#pajak_pbbkb_validasi').val(result.PAJAK_PBBKB);
@@ -1139,13 +1308,28 @@ function get_pelanggan_det(id_pel){
 			// $('#pajak_pph_23_validasi').val(result.PPH23);
 			// $('#pajak_pph_15_validasi').val(result.PPH15);
 			// $('#pajak_pph_21_validasi').val(result.PPH_21);
-			$('#supply_point_nama').val(result.NAMA_GUDANG);
-			$('#supply_pajak_nama').val(result.NAMA_BPPKB);
-			$('#pajak_nama').val(result.PAJAK);
+			// $('#supply_point_nama').val(result.NAMA_GUDANG);
+			// $('#supply_pajak_nama').val(result.NAMA_BPPKB);
+			// $('#pajak_nama').val(result.PAJAK);
 			$('#pajak_id').val(result.GUDANG_ID);
 			$('#kode_pelanggan').val(result.KODE_PELANGGAN);
 			$('#besar_oat').val(result.OAT);
 			$('#update_oat').val(result.OAT);
+
+
+
+			$('#nama_produk_1').val("");
+		    $('#qty_1').val("");
+		    $('#harga_modal_1').val("");
+		    $('#sub_total').html("");
+		    $('#total_ppn').html("");
+		    $('#total_ppn').html("");
+		    $('#total_oat').html("");
+		    $('#tot_disc').html("");
+		    $('#supply_point_1').val("");
+			$('#supply_point_nama').val("");
+			$('#supply_pajak_nama').val("");
+			$('#pajak_nama').val("");
 
 		}
 	});

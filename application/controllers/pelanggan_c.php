@@ -55,8 +55,10 @@ class Pelanggan_c extends CI_Controller {
 			$siup   	     = addslashes($this->input->post('siup'));
 			$kode_customer   = addslashes($this->input->post('kode_customer'));
 			$lokasi   	     = addslashes($this->input->post('lokasi'));
-			$supply_point   	     = addslashes($this->input->post('supply_point'));
+			$supply_point    = addslashes($this->input->post('supply_point'));
 			$aksi_on   	     = addslashes($this->input->post('aksi_on'));
+			$rek_bank   	 = addslashes($this->input->post('rek_bank'));
+			$aksi_bd   	 	 = $this->input->post('aksi_bd');
 			// $diskon_beli   	     = addslashes($this->input->post('diskon_beli'));
 			// $diskon_jual   	     = addslashes($this->input->post('diskon_jual'));
 
@@ -66,9 +68,12 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$oat,$tipe_perusahaan,$pph_22);
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$oat,$tipe_perusahaan,$pph_22,$rek_bank);
 
 
+			foreach ($aksi_bd as $key => $value) {
+				$this->model->simpan_supply($kode_pelanggan,$value);
+			}
 
 			$deskripsi_persetujuan = "Penambahan Pelanggan : <br> <b>Nama Pelanggan : ".$nama_pelanggan."</b> <br> <b> NPWP : ".$npwp."</b> <br> <b> Alamat Tagih : ".$alamat_tagih."</b> <br> <b> Alamat Kirim : ".$alamat_kirim."</b>";
 			$this->master_model_m->simpan_persetujuan('pelanggan', $id_pelanggan, 'ADD', $id_user, $deskripsi_persetujuan);

@@ -443,7 +443,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_pelanggan_detail($id_pel){
         $sql = "
-        SELECT g.NAMA as NAMA_GUDANG , g.ID as GUDANG_ID , ms.NAMA_BPPKB , ms.PAJAK , p.* , mh.HARGA_JUAL as HARGA_CUY , p.PPN as PPN_COY FROM ak_pelanggan p , ak_gudang g , ak_pajak_supply ms , ak_master_harga mh  WHERE p.ID_SUPPLY_POINT = g.ID AND p.ID_PAJAK_PBBKB = ms.ID AND p.KODE_PELANGGAN = mh.ID_PELANGGAN AND mh.status = '0' AND p.ID = $id_pel
+        SELECT g.NAMA as NAMA_GUDANG , g.ID as GUDANG_ID , ms.NAMA_BPPKB , ms.PAJAK , p.* , mh.HARGA_JUAL as HARGA_CUY , p.PPN as PPN_COY FROM ak_pelanggan p , ak_gudang g , ak_pajak_supply ms , ak_master_harga mh  WHERE p.ID_SUPPLY_POINT = g.ID AND p.KODE_PELANGGAN = mh.ID_PELANGGAN AND mh.status = '0' AND p.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -475,7 +475,7 @@ class Transaksi_penjualan_m extends CI_Model
 
     function get_produk_detail_mh($id_produk){
         $sql = "
-        SELECT pr.NAMA_PRODUK , mh.HARGA_JUAL , mh.ID_PRODUK , pr.ID as PRD FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.ID = '$id_produk'
+        SELECT pr.NAMA_PRODUK , mh.HARGA_JUAL , mh.ID_PRODUK , pr.ID as PRD FROM ak_master_harga mh , ak_produk pr WHERE mh.ID_PRODUK = pr.ID AND mh.ID = '$id_produk' 
         ";
 
         return $this->db->query($sql)->row();
@@ -497,7 +497,7 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so,$qty_total,$tipe_so)
+    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so,$qty_total,$tipe_so,$supply_point)
     {
 
         $sql = "
@@ -523,7 +523,8 @@ class Transaksi_penjualan_m extends CI_Model
             NOMER_SO,
             SISA,
             KUANTITAS,
-            TIPE_PENJUALAN
+            TIPE_PENJUALAN,
+            SUPPLY_POINT
 
         )
         VALUES 
@@ -548,7 +549,8 @@ class Transaksi_penjualan_m extends CI_Model
            '$nomer_so',
            '$qty_total',
            '$qty_total',
-           '$tipe_so'
+           '$tipe_so',
+           '$supply_point'
         )
         ";
 

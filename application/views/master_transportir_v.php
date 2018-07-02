@@ -47,9 +47,7 @@
 
 <div class="row-fluid" id="view_data">
 	<div class="span12">
-		<!-- <button type="button" class="btn btn-block btn-info" onclick="tambah_klik();"> 
-			<i class="icon-plus" style="color: #FFF; font-size: 16px;"></i> TAMBAH KENDARAAN
-		</button> -->
+		
 		<br>
 		<div class="content-widgets light-gray">
 			<div class="widget-container">
@@ -81,7 +79,7 @@
 							</td>
 							
 
-							</td>
+						
 						</tr>
 						<?PHP } ?>
 					</tbody>

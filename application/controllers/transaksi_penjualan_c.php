@@ -85,6 +85,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			
 			$kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
 
+
 			$no_bukti_real = $no_trx."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
 			$operator      = $user->NAMA;
@@ -97,7 +98,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$harga_beli 	= $this->input->post('harga_beli');
 			$total_id 		= $this->input->post('total_id');
 
-			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real,$qty_total,$tipe_so);
+			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real,$qty_total,$tipe_so,$pajak_id);
 
 			$id_penjualan = $this->db->insert_id(); 
 
@@ -269,7 +270,20 @@ class Transaksi_penjualan_c extends CI_Controller {
 		
 		} else if($this->input->post('edit')){
 			$msg = 1;
-		} 
+		} else if($this->input->post('id_hapus_an')){
+			$msg = 2;
+
+			$id_hapus = $this->input->post('id_hapus_an');
+
+			$this->model->hapus_trx_penjualan($id_hapus);
+			$this->model->hapus_detail_trx($id_hapus);
+			// $this->model->edit_status_do_br($no_do);
+			// $this->model->save_next_nomor('13', 'Invoice', $invoice);
+
+
+			$this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
+		
+		}
 
 		$get_list_akun_all = $this->master_model_m->get_list_akun_all();
 		$dt = $this->model->get_penjualan($keyword, $id_klien);
@@ -1018,7 +1032,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 	}
 
 	function get_produk_detail_mh(){
-		$id_produk = $this->input->get('id_produk');
+		$id_produk = $this->input->get('mhid_a');
 		$dt = $this->model->get_produk_detail_mh($id_produk);
 
 		echo json_encode($dt);
@@ -1068,7 +1082,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_pelanggan WHERE ID_KLIEN = $id_klien AND $where AND APPROVE = 3 AND $where_unit
+		SELECT * FROM ak_pelanggan WHERE ID_KLIEN = $id_klien AND $where
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -1120,12 +1134,15 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		$kode_pelanggan = $this->input->post('kode_pelanggan');
+		$kode = $this->input->post('kode_sp');
+		$sp = $this->input->post('sp');
 		if($keyword != "" || $keyword != null){
 			$where = $where." AND (KODE_PRODUK LIKE '%$keyword%' OR NAMA_PRODUK LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT mh.HARGA_BELI , p.NAMA_PRODUK , p.KODE_PRODUK , mh.ID FROM ak_produk p , ak_master_harga mh WHERE  mh.ID_PRODUK = p.ID AND mh.ID_PELANGGAN = '$kode_pelanggan' AND mh.STATUS = '0'
+		SELECT mh.HARGA_BELI , p.NAMA_PRODUK , p.KODE_PRODUK , p.ID , mh.HARGA_JUAL , ms.ISI , mh.ID as mhid FROM ak_produk p , ak_master_harga mh , ak_master_stock ms , ak_gudang g WHERE mh.ID_PRODUK = p.ID AND mh.SUPPLY_POINT = '$kode' AND mh.ID_PELANGGAN = '$kode_pelanggan' AND STATUS = '0' AND ms.ID_PRODUK = mh.ID_PRODUK AND ms.KODE_SUPPLY_POINT = '$sp' AND $where AND $where_unit GROUP BY p.ID
+	
 		";
 
 		$dt = $this->db->query($sql)->result();

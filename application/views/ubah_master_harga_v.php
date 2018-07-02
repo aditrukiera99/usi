@@ -27,6 +27,7 @@
 							
 								<input type="hidden" name="id_master" style="font-size: 14px;" class="span6" value="<?=$dt->ID;?>">
 								<input type="text" name="kode_sh" style="font-size: 14px;" class="span6" value="<?=$dt->ID_PELANGGAN;?>">
+								<input type="hidden" name="sp_point" style="font-size: 14px;" class="span6" value="<?=$dt->SUPPLY_POINT;?>">
 								
 							
 						</div>

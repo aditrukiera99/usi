@@ -17,6 +17,22 @@ class Master_harga_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function supply_kenter(){
+        $sql = "
+        SELECT * FROM ak_gudang
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
+    function get_supply_point($id_barang){
+        $sql = "
+        SELECT g.* FROM ak_gudang g, ak_pajak_supply sp , tb_pelanggan_supply ts WHERE ts.ID_SUPPLY_POINT = sp.ID AND sp.ID_SUPPLY = g.ID AND ts.ID_PELANGGAN = '$id_barang'
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
     function get_pelanggan(){
         $sql = "
         SELECT * FROM ak_pelanggan
@@ -66,23 +82,23 @@ class Master_harga_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode){
+    function simpan_master_harga($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode,$aksi_on){
        
        $harga_beli_a            = str_replace(',','', $harga_beli);
        $harga_jual_a           = str_replace(',','', $harga_jual);
 
         $sql = "
         INSERT INTO ak_master_harga
-        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,KODE_PERIODE,TAHUN)
+        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,KODE_PERIODE,TAHUN,SUPPLY_POINT)
         VALUES 
-        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0','$periode',YEAR(CURDATE()))
+        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0','$periode',YEAR(CURDATE()),'$aksi_on')
         ";
 
         $this->db->query($sql);
         return $this->db->insert_id();
     }
 
-    function simpan_master_harga_update($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode){
+    function simpan_master_harga_update($kode_sh,$nama_produk,$harga_beli,$harga_jual,$periode,$sp_point){
        
 
        $harga_beli_a            = str_replace(',','', $harga_beli);
@@ -90,9 +106,9 @@ class Master_harga_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_master_harga
-        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,UPDATED_AT,KODE_PERIODE)
+        (ID_PELANGGAN,ID_PRODUK,HARGA_BELI,HARGA_JUAL,STATUS,UPDATED_AT,KODE_PERIODE,SUPPLY_POINT)
         VALUES 
-        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0',CURDATE(),'$periode')
+        ('$kode_sh', '$nama_produk', '$harga_beli_a', '$harga_jual_a', '0',CURDATE(),'$periode','$sp_point')
         ";
 
         $this->db->query($sql);

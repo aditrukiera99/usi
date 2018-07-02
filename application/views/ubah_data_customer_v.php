@@ -12,6 +12,12 @@
 	</div>
 </div>
 
+<?php 
+	$id_pln = $dt->KODE_PELANGGAN;
+	$bona = $this->db->query("SELECT COUNT(*) as JML FROM tb_pelanggan_supply WHERE ID_PELANGGAN = '$id_pln'")->row();
+	
+?>
+<input type="hidden" name="" id="tr_utama_count" value="<?=$bona->JML;?>">
 <div class="row-fluid" id="edit_data">
 	<div class="span12">
 		<div class="content-widgets light-gray">
@@ -107,31 +113,68 @@
 					<div class="control-group">
 						<label class="control-label"> <b> Stock Point </b> </label>
 						<div class="controls">
-							<select class="span12" name="supply_point" onchange="get_supply_point(this.value);">
-									<option>--Supply Point--</option>
+							<table  style="width: 100%;" >
+								<tbody id="tuambahin">
 									<?php 
-										foreach ($supply as $key => $sp) {
 										
+										$kui = $this->db->query("SELECT g.NAMA as NAMA_GUDANG , g.ID as ID_GUDANG , ps.ID_SUPPLY_POINT FROM tb_pelanggan_supply ps, ak_pajak_supply ap , ak_gudang g WHERE ps.ID_SUPPLY_POINT = ap.ID AND ap.ID_SUPPLY = g.ID AND ps.ID_PELANGGAN = '$id_pln'")->result();
+
+
 									?>
-									<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>
-									<?php } ?>
-								</select>
+									<?php $i = 0; foreach ($kui as $key => $sp) { $i++; ?>
+									<tr id="selamat_<?php echo $i; ?>">
+										<td style="width:50%;">
+											<select class="span12" style="margin-top:5px;" name="supply_point" onchange="get_supply_point_a(this.value,<?php echo $i; ?>);">
+												<option value="<?=$sp->ID_GUDANG;?>"><?=$sp->NAMA_GUDANG;?></option>
+												<option>------------</option>
+												<?php 
+
+												$sql_pl = $this->db->query("SELECT * FROM ak_gudang")->result();
+
+												 foreach ($sql_pl as $key => $spa) { 
+
+													if($sp->ID_GUDANG == $spa->ID){
+														?>
+
+														<?php
+													}else{
+														?>
+														<option value="<?=$spa->ID;?>"><?=$spa->NAMA;?></option>
+														<?php
+													}
+
+													?>
+
+												
+												<?php } ?>
+											</select>
+										</td>
+										<td style="width:40%;">
+
+											<?php 
+												$id_paj = $sp->ID_SUPPLY_POINT;
+												$pg = $this->db->query("SELECT * FROM ak_pajak_supply WHERE ID = '$id_paj'")->row();
+
+											?>
+
+											<select class="span12" style="margin-top:5px;margin-left:2px;" name="aksi_bd[]" id="soal_<?php echo $i; ?>">
+												<option value="<?=$pg->ID;?>"><?=$pg->NAMA_BPPKB;?> - <?=$pg->PAJAK;?> %</option>
+											</select>
+										</td>
+										<td style="width:10%;">
+											<button style="width: 100%;margin-left:3px;" onclick="hapus_row('');" type="button" class="btn-small btn-danger"> Hapus </button>
+										</td>
+									</tr>
+								<?php } ?>
+								</tbody>
+							</table>
 						</div>
 					</div>
 
 					<div class="control-group">
 						<label class="control-label"> <b>  </b> </label>
 						<div class="controls">
-						    <table class="stat-table table table-hover" style="width: 100%;">
-						    	<thead>
-						    		<th align="center">Nama</th>
-						    		<th align="center">Pajak (%)</th>
-						    		<th align="center">Aksi</th>
-						    	</thead>
-						    	<tbody id="data_supply">
-						    		
-						    	</tbody>
-						    </table>
+							<button class="btn btn-success" type="button" onclick="tuambah();"><span class="icon-plus"></span> Tambah Data</button>
 						</div>
 					</div>
 
@@ -212,13 +255,15 @@
 					</div>
 
 
+
+
 					<div class="form-actions">
                        
                         
                        
                         <input type="submit" class="btn btn-info" name="edit" value="UBAH CUSTOMER">
                         
-                        <button type="button" onclick="batal_edit_klik();" class="btn"> BATAL </button>
+                        <a href="<?=base_url();?>pelanggan_c"><button type="button" class="btn"> BATAL </button></a>
 					</div>
 				</form>
 			</div>
@@ -251,6 +296,63 @@
                 }
 
                 $('#data_supply').html(isine);
+            }
+        });
+    }
+
+    function tuambah() {
+	// var value =$('#copy_select').html();
+	var jml_tr = $('#tr_utama_count').val();
+	var i = parseInt(jml_tr) + 1;
+
+
+	$isi_1 = 
+	'<tr id="selamat_'+i+'">'+
+	'<td style="width:50%;">'+
+	'<select class="span12" style="margin-top:5px;" name="supply_point" onchange="get_supply_point_a(this.value,\'' +i+ '\');">'+
+	'								<option>--Supply Point--</option>'+
+	'								<?php foreach ($supply as $key => $sp) { ?>'+
+	'								<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>'+
+	'								<?php } ?>'+
+	'							</select>'+
+	'</td>'+
+	'<td style="width:40%;">'+
+	'<select class="span12" style="margin-top:5px;margin-left:2px;" name="aksi_bd[]" id="soal_'+i+'">'+
+	'</select>'+
+	'</td>'+
+	'<td style="width:10%;">'+
+	'<button style="width: 100%;margin-left:3px;" onclick="hapus_row('+i+');" type="button" class="btn-small btn-danger"> Hapus </button>'+
+	'</td>'+
+	'</tr>';
+
+	$('#tuambahin').append($isi_1);
+	$('#tr_utama_count').val(i);
+
+}
+
+function hapus_row (id) {
+	$('#selamat_'+id).remove();
+}
+
+function get_supply_point_a(id,jml) {
+	
+        $.ajax({
+            url : '<?php echo base_url(); ?>purchase_order_c/get_supply_point',
+            data : {id:id},
+            type : "POST",
+            dataType : "json",
+            success : function(result){   
+                var isine = "";
+                if(result.length > 0){
+                    $.each(result,function(i,res){
+
+                        isine += '<option value="'+res.ID+'">'+res.NAMA_BPPKB+' - '+res.PAJAK+' %<option>';
+                    });
+                } else {
+                     isine = '<option value=""> Data tidak ada <option>';
+                }
+
+                $('#soal_'+jml).html(isine);
             }
         });
     }

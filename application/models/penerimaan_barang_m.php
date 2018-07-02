@@ -7,6 +7,26 @@ class Penerimaan_barang_m extends CI_Model
           $this->load->database();
     }
 
+    function update_stok_master($id_sp, $id_produk, $qty){
+        $qty          = str_replace(',', '', $qty);
+        $sql = "
+        UPDATE ak_master_stock SET ISI = ISI + $qty
+        WHERE ID_PRODUK = '$id_produk' AND KODE_SUPPLY_POINT = '$id_sp'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_stok_master_kurang($id_sp, $id_produk, $qty){
+        $qty          = str_replace(',', '', $qty);
+        $sql = "
+        UPDATE ak_master_stock SET ISI = ISI - $qty
+        WHERE ID_PRODUK = '$id_produk' AND KODE_SUPPLY_POINT = '$id_sp'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang ,$tgl_trx , $nomer_lpb)
     {
 
@@ -18,7 +38,6 @@ class Penerimaan_barang_m extends CI_Model
             SUPPLIER,
             MEMO,
             NO_PO,
-            PBBKB,
             STATUS,
             GUDANG,
             TGL_TRX,
@@ -32,7 +51,6 @@ class Penerimaan_barang_m extends CI_Model
            '$supplier', 
            '$keterangan',
            '$no_po',
-           '$nilai_pbbkb', 
            '0',
            '$id_gudang',
            '$tgl_trx',
