@@ -239,8 +239,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       ?>
       <td>
         1.Pembayaran harap ditransfer ke : <br>
-        <strong>Bank Standart Chartered</strong><br>
-        <strong>Cabang Basuki rahmad Surabaya</strong><br>
+        <strong><?php echo $sql_rek->NAMA_BANK;?></strong><br>
+        <strong><?php echo $sql_rek->CABANG;?></strong><br>
         <strong>No Rekening : <?php echo $sql_rek->NOMOR_REKENING;?> </strong> <br>
         <strong>Atas Nama : <?php echo $sql_rek->ATAS_NAMA;?></strong><br><br>
         2.Pembayaran dengan uang kontan hanya sah <br>

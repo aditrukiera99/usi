@@ -84,13 +84,32 @@
           <td><?=number_format($row_det->HARGA_SATUAN);?></td>
           <td>0.00</td>
           <td></td>
-          <td style="text-align:right;"><?=number_format($row_det->TOTAL);?></td>
+          <td style="text-align:right;"><?=number_format($row->SUB_TOTAL);?></td>
         </tr>
         <?PHP } ?>
+        <?php 
+
+        if($row->PBBKB > 0){
+          ?>
+            <tr style="text-align:center;">
+            <td>001 - PBBKB</td>
+            <td>PBBKB</td>
+            <td><?=$row_det->QTY;?></td>
+            <td><?=$row_det->SATUAN;?></td>
+            <td><?=number_format($row->PBBKB / $row_det->QTY);?></td>
+            <td>0.00</td>
+            <td></td>
+            <td style="text-align:right;"><?=number_format($row->PBBKB);?></td>
+          </tr>
+          <?php
+        }
+
+
+         ?>         
         <tr>
           <td colspan="6" style="border-top: 1px solid black;"></td>
           <td style="border-top: 1px solid black;"><strong>TOTAL</strong></td>
-          <td style="border-top: 1px solid black; text-align: right;"><?=number_format($total_all);?></td>
+          <td style="border-top: 1px solid black; text-align: right;"><?=number_format($row->SUB_TOTAL + $row->PBBKB);?></td>
         </tr>
         <tr>
           <td colspan="6"></td>
@@ -100,7 +119,7 @@
         <tr>
           <td colspan="6"></td>
           <td><strong>TOTAL NET</strong></td>
-          <td style="text-align: right;"><strong><?=number_format($total_all);?></strong></td>
+          <td style="text-align: right;"><strong><?=number_format(round($row->SUB_TOTAL + $row->PBBKB + $row->PPN , 2));?></strong></td>
         </tr>
         <tr>
           <td colspan="6"></td>
@@ -110,7 +129,7 @@
         <tr>
           <td colspan="6"></td>
           <td><strong>TOTAL IDR</strong></td>
-          <td style="text-align: right;"><strong><?=number_format($total_all);?></strong></td>
+          <td style="text-align: right;"><strong><?=number_format(round($row->SUB_TOTAL + $row->PBBKB + $row->PPN , 2));?></strong></td>
         </tr>
       </tbody>
   </table>

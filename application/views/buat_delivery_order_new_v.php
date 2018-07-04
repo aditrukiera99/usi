@@ -760,6 +760,7 @@ function get_popup_supplier(){
                 '                        <th>NO</th>'+
                 '                        <th style="white-space:nowrap;"> NOMOR PO</th>'+
                 '                        <th> TANGGAL </th>'+
+                '                        <th> KUANTITAS </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -838,6 +839,7 @@ function ajax_supplier(){
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.NO_PO+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
+                            '<td align="center">'+res.SISA_ORDER+'</td>'+
                         '</tr>';
             });
 

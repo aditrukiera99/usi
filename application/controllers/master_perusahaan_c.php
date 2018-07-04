@@ -88,8 +88,19 @@ class Master_perusahaan_c extends CI_Controller {
 			$nama_bank     		 = $this->input->post('nama_bank');
 			$rekening_bank       = $this->input->post('rekening_bank');
 			$atas_nama       	 = $this->input->post('atas_nama');
+			$cabang       	     = $this->input->post('cabang');
 
-			$this->model->simpan_bank($nama_bank, $rekening_bank, $atas_nama);
+			$this->model->simpan_bank($nama_bank, $rekening_bank, $atas_nama , $cabang);
+		}
+
+		if($this->input->post('update_bank')){
+			$id_bank     		 = $this->input->post('id_bank');
+			$nama_bank     		 = $this->input->post('nama_bank');
+			$rekening_bank       = $this->input->post('rekening_bank');
+			$atas_nama       	 = $this->input->post('atas_nama');
+			$cabang       	     = $this->input->post('cabang');
+
+			$this->model->update_bank($id_bank,$nama_bank, $rekening_bank, $atas_nama , $cabang);
 		}
 
 		$dt = $this->model->get_data_rekening();
@@ -130,6 +141,13 @@ class Master_perusahaan_c extends CI_Controller {
 	function cari_produk_by_id(){
 		$id = $this->input->get('id');
 		$dt = $this->model->cari_produk_by_id($id);
+
+		echo json_encode($dt);
+	}
+
+	function get_master(){
+		$id = $this->input->get('id_pel');
+		$dt = $this->model->get_master($id);
 
 		echo json_encode($dt);
 	}

@@ -7,6 +7,7 @@ class Pelanggan_c extends CI_Controller {
 		parent::__construct();
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_user = $sess_user['id'];
+		error_reporting(0);
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
@@ -120,6 +121,11 @@ class Pelanggan_c extends CI_Controller {
 			$pph_15   		 	  = $this->input->post('pph_15_ed');
 			$pph_21   		 	  = $this->input->post('pph_21_ed');
 			$oat   		 	 	  = $this->input->post('oat_ed');
+			$supply_point   	  = $this->input->post('supply_point');
+			$aksi_bd   		 	  = $this->input->post('aksi_bd');
+			$id_sp   		 	  = $this->input->post('id_sp');
+			$kode_sh   		 	  = $this->input->post('kode_sh');
+			$rekening_bank   	  = $this->input->post('rekening_bank');
 
 			if($tipe_ed == "Perorangan"){
 				$nama_usaha_ed = "";
@@ -129,11 +135,21 @@ class Pelanggan_c extends CI_Controller {
 
 			$nama_pelanggan       = addslashes($this->input->post('nama_pelanggan_ed'));
 
+
+
 			if($user->LEVEL == "USER"){
 				$this->db->query('INSERT INTO ak_pelanggan_edit SELECT * FROM ak_pelanggan WHERE ID = '.$id_pelanggan);		
 			}			
 			
-			$this->model->edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat);
+			$this->model->edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat,$rekening_bank);
+
+			foreach ($supply_point as $key => $vl) {
+				if($id_sp[$key] == ''){
+					$this->model->insert_pelanggan_supply($aksi_bd[$key],$kode_sh);
+				}else{
+					$this->model->update_pelanggan_supply($aksi_bd[$key],$id_sp);
+				}
+			}
 			
 			$deskripsi_persetujuan = "Pengubahan Pelanggan : <br> <b>Nama Pelanggan : ".$nama_pelanggan_ed."</b> <br> <b> NPWP : ".$npwp_ed."</b> <br> <b> Alamat Tagih : ".$alamat_tagih_ed."</b> <br> <b> Alamat Kirim : ".$alamat_kirim_ed."</b>";
 			$this->master_model_m->simpan_persetujuan('pelanggan', $id_pelanggan, 'EDIT', $id_user, $deskripsi_persetujuan);

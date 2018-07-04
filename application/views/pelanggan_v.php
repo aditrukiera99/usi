@@ -409,7 +409,7 @@ input[type=radio]:not(old):checked +  label > span > span{
 					<div class="control-group">
 						<label class="control-label"> <b>  </b> </label>
 						<div class="controls">
-							<button class="btn btn-success" type="button" onclick="tuambah();"><span class="icon-plus"></span> Tambah Data</button>
+							<button class="btn btn-success" type="button" onclick="tuambah();"><span class="icon-plus"></span> Tambah Supply Point</button>
 						</div>
 					</div>
 

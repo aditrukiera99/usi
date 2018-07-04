@@ -804,6 +804,16 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
                   <?PHP } ?>
 
+                  <?php if($this->master_model_m->cek_anak($id_user, 'Master Data Pegawai', $user->LEVEL)){ ?>
+                  <li class="dropdown-submenu"><a href="#"><i class="icon-caret-right"></i> Master Data</a>
+                  <div class="dropdown-menu">
+                    <ul>
+                      <li><a href="<?=base_url();?>data_lowongan_c"><i class=" icon-book"></i> Data Lowongan</a></li>
+                      <li><a href="<?=base_url();?>data_sertifikat_c"><i class=" icon-briefcase"></i> Data Sertifikat</a></li>
+                    </ul>
+                  </div>
+                  </li>
+                  <?php } ?>
                  
               </ul>
             </div>
@@ -1058,6 +1068,10 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 
             <?php if($this->master_model_m->cek_master($id_user, '', $user->LEVEL)){ ?>
             <li <?PHP if($master == "penjualan"){ echo "class='active'"; } ?> ><a href="#forms_penerimaan_jual" class="icon-th-large" title="Penjualan "></a></li>
+            <?PHP } ?>
+
+            <?php if($this->master_model_m->cek_master($id_user, '', $user->LEVEL)){ ?>
+            <li <?PHP if($master == "hrd"){ echo "class='active'"; } ?> ><a href="#forms_hrd" class="icon-user" title="HRD "></a></li>
             <?PHP } ?>
 
             <?php if($this->master_model_m->cek_master($id_user, 'Input Akuntansi', $user->LEVEL)){ ?>
@@ -1400,6 +1414,38 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                     <i class="icon-caret-right"></i> Kwitansi <span> Mencetak kwitansi </span>
                   </a>
                 </li> -->
+
+            </ul>
+          </div>
+
+          <div class="tab-pane <?PHP if($master == "hrd"){ echo "active"; } ?>" id="forms_hrd">
+            <h4 class="side-head">Penjualan</h4>
+            <ul id="nav" class="accordion-nav">
+                
+
+                <li <?PHP if($view == "data_pegawai"){ echo "class='active'"; } ?>>
+                  <a href="<?=base_url();?>transaksi_penjualan_c">
+                    <i class="icon-caret-right"></i> Pegawai <span> Membuat daftar pegawai </span>
+                  </a>
+                </li>
+
+                <li <?PHP if($view == "set_gaji"){ echo "class='active'"; } ?>>
+                  <a href="<?=base_url();?>delivery_order_new_c">
+                    <i class="icon-caret-right"></i> Set Gaji <span> Membuat set gaji </span>
+                  </a>
+                </li>
+
+                <li <?PHP if($view == "lowongan"){ echo "class='active'"; } ?>>
+                  <a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice">
+                    <i class="icon-caret-right"></i> Lowongan <span> Master Lowongan </span>
+                  </a>
+                </li>
+
+                <li <?PHP if($view == "data_sertifikat"){ echo "class='active'"; } ?>>
+                  <a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice">
+                    <i class="icon-caret-right"></i> Sertifikat <span> Master Data Sertifikat </span>
+                  </a>
+                </li>
 
             </ul>
           </div>

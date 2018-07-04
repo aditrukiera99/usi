@@ -78,12 +78,15 @@ class Lap_summary_pembelian_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("
-				SELECT a.*, b.NAMA AS GUDANG FROM ak_pembelian a
-				LEFT JOIN ak_gudang b ON a.SUPPLY_POINT = b.ID
-				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
-				ORDER BY a.ID
-			")->result();
+			// $dt = $this->db->query("
+			// 	SELECT a.*, b.NAMA AS GUDANG FROM ak_penerimaan_barang a
+			// 	LEFT JOIN ak_gudang b ON a.GUDANG = b.ID
+			// 	WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+			// 	ORDER BY a.ID
+			// ")->result();
+
+			$dt = $this->db->query("SELECT sp.KOTA , g.NAMA as NAMAG , pb.* , pbd.TOTAL , ap.NOMER_PO FROM ak_pembelian ap, ak_supplier sp , ak_gudang g , ak_penerimaan_barang pb , ak_penerimaan_detail pbd WHERE pb.ID_SUPPLIER = sp.ID AND pb.GUDANG = g.ID AND pb.ID = pbd.ID_PENJUALAN AND ap.NO_PO = pb.NO_PO 
+				AND STR_TO_DATE(pb.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(pb.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') ORDER BY pb.ID  ")->result();
 		} else {
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
@@ -98,10 +101,9 @@ class Lap_summary_pembelian_c extends CI_Controller {
 			$judul =  $this->datetostr($bulan)." ".$tahun;
 
 			$dt = $this->db->query("
-				SELECT a.*, b.NAMA AS GUDANG FROM ak_pembelian a
-				LEFT JOIN ak_gudang b ON a.SUPPLY_POINT = b.ID
-				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
-				ORDER BY a.ID
+				SELECT sp.KOTA , g.NAMA as NAMAG , pb.* , pbd.TOTAL , ap.NOMER_PO FROM ak_pembelian ap, ak_supplier sp , ak_gudang g , ak_penerimaan_barang pb , ak_penerimaan_detail pbd WHERE pb.ID_SUPPLIER = sp.ID AND pb.GUDANG = g.ID AND pb.ID = pbd.ID_PENJUALAN AND ap.NO_PO = pb.NO_PO 
+				AND pb.TGL_TRX LIKE '%-$bulan-$tahun%'
+				ORDER BY pb.ID
 			")->result();
 		}
 

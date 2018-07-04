@@ -16,7 +16,7 @@ class Master_perusahaan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_bank($nama_bank,$rekening_bank, $atas_nama)
+    function simpan_bank($nama_bank,$rekening_bank, $atas_nama, $cabang)
     {
 
         $sql = "
@@ -24,14 +24,16 @@ class Master_perusahaan_m extends CI_Model
         (
             NAMA_BANK,
             NOMOR_REKENING,
-            ATAS_NAMA
+            ATAS_NAMA,
+            CABANG
 
         )
         VALUES 
         (
            '$nama_bank', 
            '$rekening_bank', 
-           '$atas_nama'
+           '$atas_nama',
+           '$cabang'
         )
         ";
 
@@ -45,6 +47,15 @@ class Master_perusahaan_m extends CI_Model
         ";
 
         return $this->db->query($sql)->result();
+    }
+
+    function get_master($id){
+
+        $sql = "
+        SELECT * FROM tb_rekening_bank WHERE ID = '$id'
+        ";
+
+        return $this->db->query($sql)->row();
     }
 
     function ubah_nama($id_klien, $nama_lengkap, $username){
@@ -71,6 +82,22 @@ class Master_perusahaan_m extends CI_Model
 
         $sql = "
         UPDATE ak_user SET PASSWORD = '$password' WHERE ID = $id_klien
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_bank($id_bank, $nama_bank,$rekening_bank, $atas_nama, $cabang){
+
+        
+
+        $sql = "
+        UPDATE tb_rekening_bank SET 
+        NAMA_BANK = '$nama_bank',
+        NOMOR_REKENING = '$rekening_bank',
+        ATAS_NAMA = '$atas_nama',
+        CABANG = '$cabang' 
+        WHERE ID = $id_bank
         ";
 
         $this->db->query($sql);

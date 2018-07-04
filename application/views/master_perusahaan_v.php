@@ -155,7 +155,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
                         <td> <?=$row->NAMA_BANK;?> </td>
                         <td> <?=$row->NOMOR_REKENING;?> </td>
                         <td> <?=$row->ATAS_NAMA;?> </td>
-                        <td><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
+                        <td><button style="padding: 2px 10px;"  onclick="update_klik(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
                           Ubah 
                           </button>
                           <button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
@@ -219,11 +219,67 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
             </div>
           </div>
 
+          <div class="control-group">
+            <label class="control-label"> Cabang </label>
+            <div class="controls">
+              <input required type="text" class="span6" value="" name="cabang" style="font-size: 14px;">
+            </div>
+          </div>
+
           <div class="form-actions">
             
             <input type="submit" class="btn btn-info" name="simpan_bank" value="SIMPAN REKENING">
             
             <button type="button" onclick="batal_klik();" class="btn"> BATAL </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid" id="ubah_data" style="display:none;">
+  <div class="span12">
+    <div class="content-widgets light-gray">
+      <div class="widget-head blue">
+        <h3> <i class="icon-plus"></i> Ubah Rekening Bank </h3>
+      </div>
+      <div class="widget-container">
+        <form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
+          <div class="control-group">
+            <label class="control-label"> Nama Bank </label>
+            <div class="controls">
+              <input required type="text" class="span6" value="" name="nama_bank" id="nama_bank_ed" style="font-size: 14px;">
+              <input type="hidden" class="span6" value="" name="id_bank" id="id_ed" style="font-size: 14px;">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label"> Rekening Bank </label>
+            <div class="controls">
+              <input required type="text" class="span6" value="" name="rekening_bank" id="rekening_bank_ed" style="font-size: 14px;">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label"> Atas Nama </label>
+            <div class="controls">
+              <input required type="text" class="span6" value="" name="atas_nama" id="atas_nama_ed" style="font-size: 14px;">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label"> Cabang </label>
+            <div class="controls">
+              <input required type="text" class="span6" value="" name="cabang" id="cabang_ed" style="font-size: 14px;">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            
+            <input type="submit" class="btn btn-info" name="update_bank" value="SIMPAN REKENING">
+            
+            <button type="button" onclick="batal_klik_update();" class="btn"> BATAL </button>
           </div>
         </form>
       </div>
@@ -490,8 +546,37 @@ function tambah_klik(){
   $('#add_data').fadeIn('slow');
 }
 
+function update_klik(id_pel){
+  $('#view_data').hide();
+  $('#ubah_data').fadeIn('slow');
+
+  $.ajax({
+    url : '<?php echo base_url(); ?>master_perusahaan_c/get_master',
+    data : {id_pel:id_pel},
+    type : "GET",
+    dataType : "json",
+    success : function(result){
+      
+
+      $('#nama_bank_ed').val(result.NAMA_BANK);
+      $('#rekening_bank_ed').val(result.NOMOR_REKENING);
+      $('#atas_nama_ed').val(result.ATAS_NAMA);
+      $('#cabang_ed').val(result.CABANG);
+      $('#id_ed').val(result.ID);
+
+      
+      
+    }
+  });
+}
+
 function batal_klik(){
   $('#add_data').hide();
+  $('#view_data').fadeIn('slow');
+}
+
+function batal_klik_update(){
+  $('#ubah_data').hide();
   $('#view_data').fadeIn('slow');
 }
 

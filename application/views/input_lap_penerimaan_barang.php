@@ -121,7 +121,7 @@ input[type=checkbox]
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
-						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
+						
 						<!-- <input type="hidden" id="kota_tujuan" name="kota_tujuan" readonly style="background:#FFF;"> -->
 						<button onclick="show_pop_pelanggan();" type="button" class="btn">Cari</button>
 					</div>
@@ -135,6 +135,7 @@ input[type=checkbox]
 					<div class="input-append">
 						<input type="text" id="unit_txt" name="unit_txt" readonly style="background:#FFF; width: 90%" value="<?=$user->NAMA_UNIT;?>">
 						<input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>">
+						<input type="hidden" id="pelanggan_sel" name="pelanggan_sel" readonly style="background:#FFF;">
 					</div>
 				</div>
 			</div>
@@ -804,7 +805,7 @@ function get_pelanggan_det(id_pel){
 
 			$('#pelanggan').val(result.PELANGGAN);
 			$('#no_trx').val(result.NO_PO);
-			$('#pelanggan_sel').val(id_pel);
+			$('#pelanggan_sel').val(result.ID_PELANGGAN);
 			$('#id_gudang').val(result.PAJAK_SUPPLY);
 			$('#id_produk_1').val(result.IDP);
 			$('#tgl_po').val(result.TGL_TRX);

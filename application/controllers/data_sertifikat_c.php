@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pegawai_c extends CI_Controller {
+class Data_sertifikat_c extends CI_Controller {
 
 	function __construct()
 	{
@@ -10,7 +10,7 @@ class Pegawai_c extends CI_Controller {
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
-	    $this->load->model('pegawai_m','model');
+	    $this->load->model('data_sertifikat_m','model');
 	}
 
 	function index()
@@ -30,13 +30,9 @@ class Pegawai_c extends CI_Controller {
 				$msg = 1;
 			}
 			
-			$nik         = addslashes($this->input->post('nik'));
-			$nama    = addslashes($this->input->post('nama'));
-			$alamat    = addslashes($this->input->post('alamat'));
-			$jabatan    = addslashes($this->input->post('jabatan'));
-			$departemen    = addslashes($this->input->post('departemen'));
+			$nama  = $this->input->post('nama');
 
-			$this->model->simpan_pegawai($nik,$nama,$alamat,$jabatan,$departemen);
+			$this->model->simpan_sertifikat($nama);
 
 
 		} else if($this->input->post('id_hapus')){
@@ -58,37 +54,26 @@ class Pegawai_c extends CI_Controller {
 			} else {
 				$msg = 1;
 			}			
-
-
-			$id_grup   = $this->input->post('id');
-
 		
-			$id_gr         = addslashes($this->input->post('id_gr'));
-			$no_polisi         = addslashes($this->input->post('no_polisi'));
-			$merk    = addslashes($this->input->post('merk'));
-			$tahun    = addslashes($this->input->post('tahun'));
-			$no_rangka    = addslashes($this->input->post('no_rangka'));
-			$no_mesin    = addslashes($this->input->post('no_mesin'));
-			$kapasitas    = addslashes($this->input->post('kapasitas'));
-			$sopir    = addslashes($this->input->post('sopir'));
+			$id_gr          = $this->input->post('id_gr');
+			$nama 			= $this->input->post('nama');
 
-			$this->model->edit_pegawai($id_gr,$no_polisi,$merk,$tahun,$no_rangka,$no_mesin,$kapasitas,$sopir);
+			$this->model->edit_sertifikat($id_gr,$nama);
 
 			
 		}
 
-		$dt = $this->model->get_data_pegawai();
+		$dt = $this->model->get_data_sertifikat();
 
 		$data =  array(
-			'page' => "pegawai_v", 
-			'title' => "Data Pegawai", 
+			'page' => "data_sertifikat_v", 
+			'title' => "Master Sertifikat", 
 			'msg' => "", 
 			'master' => "hrd", 
-			'view' => "pegawai", 
+			'view' => "data_sertifikat", 
 			'dt' => $dt, 
 			'msg' => $msg, 
-			'kode_produk' => $kode_produk, 
-			'post_url' => 'pegawai_c', 
+			'post_url' => 'data_sertifikat_c', 
 			'user' => $user,
 		);
 		
@@ -105,9 +90,9 @@ class Pegawai_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
-	function cari_pegawai_by_id(){
+	function cari_sertifikat_by_id(){
 		$id = $this->input->get('id');
-		$dt = $this->model->cari_pegawai_by_id($id);
+		$dt = $this->model->cari_sertifikat_by_id($id);
 
 		echo json_encode($dt);
 	}

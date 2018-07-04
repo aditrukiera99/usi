@@ -43,6 +43,16 @@ class Delivery_order_new_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function update_sisa_lpb($qty , $no_lpb){
+        $qty          = str_replace(',', '', $qty);
+        $sql = "
+        UPDATE ak_penerimaan_barang SET SISA_ORDER = SISA_ORDER - $qty
+        WHERE NO_BUKTI = '$no_lpb'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function update_stok_master_kurang($id_sp, $id_produk, $qty){
         $qty          = str_replace(',', '', $qty);
         $sql = "

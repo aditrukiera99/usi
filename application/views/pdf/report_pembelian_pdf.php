@@ -88,8 +88,8 @@ ob_start();
 
         <?PHP 
         $dt_detail = $this->db->query(
-            "SELECT a.*, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_pembelian a
-             LEFT JOIN ak_pembelian_detail b ON a.ID = b.ID_PENJUALAN 
+            "SELECT a.*, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_penerimaan_barang a
+             LEFT JOIN ak_penerimaan_detail b ON a.ID = b.ID_PENJUALAN 
              WHERE b.ID_PRODUK = '".$row->ID."'
         ")->result();
 
@@ -100,11 +100,11 @@ ob_start();
 
             echo "<tr>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'></td>" ;
-                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->PELANGGAN."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->SUPPLIER."</td>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'></td>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->TGL_TRX."</td>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->NO_PO."</td>" ;
-                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->NO_SO."</td>" ;
+                echo "<td class='gridtd' style='border: 1px solid black; text-align:left;'>".$row_det->NOMER_LPB."</td>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".$row_det->QTY."</td>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".$row_det->SATUAN."</td>" ;
                 echo "<td class='gridtd' style='border: 1px solid black; text-align:right;'>".number_format($row_det->HARGA_SATUAN)."</td>" ;

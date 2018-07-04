@@ -50,7 +50,7 @@ class Pelanggan_m extends CI_Model
 
     function cari_pelanggan_by_id($id){
         $sql = "
-        SELECT * FROM ak_pelanggan WHERE ID = $id
+        SELECT p.* , tb.NAMA_BANK , tb.NOMOR_REKENING FROM ak_pelanggan p , tb_rekening_bank tb WHERE p.REKENING = tb.ID AND p.ID = $id
         ";
 
         return $this->db->query($sql)->row();
@@ -193,6 +193,28 @@ class Pelanggan_m extends CI_Model
         (ID_SUPPLY_POINT, ID_PELANGGAN)
         VALUES 
         ('$nama', '$kode_pelanggan')
+        ";
+
+        $this->db->query($sql);
+
+    }
+
+    function insert_pelanggan_supply($id_sp,$kode_sh){
+        $sql = "
+        INSERT INTO tb_pelanggan_supply 
+        (ID_SUPPLY_POINT, ID_PELANGGAN)
+        VALUES 
+        ('$id_sp', '$kode_sh')
+        ";
+
+        $this->db->query($sql);
+
+    }
+
+    function update_pelanggan_supply($id_sp,$id){
+        $sql = "
+        UPDATE tb_pelanggan_supply SET  
+        ID_SUPPLY_POINT = '$id_sp' WHERE ID = '$id'
         ";
 
         $this->db->query($sql);

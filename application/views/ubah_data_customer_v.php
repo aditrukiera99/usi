@@ -63,7 +63,7 @@
 					<div class="control-group">
 						<label class="control-label"> <b>Kode SH</b> </label>
 						<div class="controls">
-							<input type="text"  class="span12" value="<?=$dt->KODE_PELANGGAN;?>" id="npwp_ed" name="npwp_ed">
+							<input type="text"  class="span12" value="<?=$dt->KODE_PELANGGAN;?>" id="npwp_ed" name="kode_sh">
 						</div>
 					</div>
 
@@ -117,14 +117,14 @@
 								<tbody id="tuambahin">
 									<?php 
 										
-										$kui = $this->db->query("SELECT g.NAMA as NAMA_GUDANG , g.ID as ID_GUDANG , ps.ID_SUPPLY_POINT FROM tb_pelanggan_supply ps, ak_pajak_supply ap , ak_gudang g WHERE ps.ID_SUPPLY_POINT = ap.ID AND ap.ID_SUPPLY = g.ID AND ps.ID_PELANGGAN = '$id_pln'")->result();
+										$kui = $this->db->query("SELECT g.NAMA as NAMA_GUDANG , g.ID as ID_GUDANG , ps.ID_SUPPLY_POINT , ps.ID as PSID FROM tb_pelanggan_supply ps, ak_pajak_supply ap , ak_gudang g WHERE ps.ID_SUPPLY_POINT = ap.ID AND ap.ID_SUPPLY = g.ID AND ps.ID_PELANGGAN = '$id_pln'")->result();
 
 
 									?>
 									<?php $i = 0; foreach ($kui as $key => $sp) { $i++; ?>
 									<tr id="selamat_<?php echo $i; ?>">
 										<td style="width:50%;">
-											<select class="span12" style="margin-top:5px;" name="supply_point" onchange="get_supply_point_a(this.value,<?php echo $i; ?>);">
+											<select class="span12" style="margin-top:5px;" name="supply_point[]" onchange="get_supply_point_a(this.value,<?php echo $i; ?>);">
 												<option value="<?=$sp->ID_GUDANG;?>"><?=$sp->NAMA_GUDANG;?></option>
 												<option>------------</option>
 												<?php 
@@ -160,6 +160,7 @@
 											<select class="span12" style="margin-top:5px;margin-left:2px;" name="aksi_bd[]" id="soal_<?php echo $i; ?>">
 												<option value="<?=$pg->ID;?>"><?=$pg->NAMA_BPPKB;?> - <?=$pg->PAJAK;?> %</option>
 											</select>
+											<input type="hidden" name="id_sp[]" value="<?=$sp->PSID;?>">
 										</td>
 										<td style="width:10%;">
 											<button style="width: 100%;margin-left:3px;" onclick="hapus_row('');" type="button" class="btn-small btn-danger"> Hapus </button>
@@ -174,7 +175,7 @@
 					<div class="control-group">
 						<label class="control-label"> <b>  </b> </label>
 						<div class="controls">
-							<button class="btn btn-success" type="button" onclick="tuambah();"><span class="icon-plus"></span> Tambah Data</button>
+							<button class="btn btn-success" type="button" onclick="tuambah();"><span class="icon-plus"></span> Tambah Supply Point</button>
 						</div>
 					</div>
 
@@ -254,6 +255,33 @@
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label class="control-label"> <b> REKENING BANK </b> </label>
+						<div class="controls">
+							<select name="rekening_bank" class="span4">
+								<option value="<?=$dt->REKENING;?>"><?=$dt->NAMA_BANK;?> - <?=$dt->NOMOR_REKENING;?></option>
+								<option>----------------</option>
+							<?php 
+
+								$sql_bank = $this->db->query("SELECT * FROM tb_rekening_bank")->result();
+
+								foreach ($sql_bank as $key => $rb) {
+									if($rb->ID == $dt->REKENING){
+
+									}else{
+							?>
+									<option value="<?=$rb->ID;?>"><?=$rb->NAMA_BANK;?> - <?=$rb->NOMOR_REKENING;?></option>
+							<?php
+								}
+							}
+							?>
+
+							</select>
+
+
+						</div>
+					</div>
+
 
 
 
@@ -309,7 +337,7 @@
 	$isi_1 = 
 	'<tr id="selamat_'+i+'">'+
 	'<td style="width:50%;">'+
-	'<select class="span12" style="margin-top:5px;" name="supply_point" onchange="get_supply_point_a(this.value,\'' +i+ '\');">'+
+	'<select class="span12" style="margin-top:5px;" name="supply_point[]" onchange="get_supply_point_a(this.value,\'' +i+ '\');">'+
 	'								<option>--Supply Point--</option>'+
 	'								<?php foreach ($supply as $key => $sp) { ?>'+
 	'								<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>'+
@@ -319,6 +347,7 @@
 	'<td style="width:40%;">'+
 	'<select class="span12" style="margin-top:5px;margin-left:2px;" name="aksi_bd[]" id="soal_'+i+'">'+
 	'</select>'+
+	'<input type="hidden" name="id_sp[]" value="">'+
 	'</td>'+
 	'<td style="width:10%;">'+
 	'<button style="width: 100%;margin-left:3px;" onclick="hapus_row('+i+');" type="button" class="btn-small btn-danger"> Hapus </button>'+

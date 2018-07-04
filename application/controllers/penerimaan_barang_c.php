@@ -86,7 +86,7 @@ class Penerimaan_barang_c extends CI_Controller {
 			$no_bukti_real = $no_lpbe."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
 
-			$this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang , $tgl_trx , $no_bukti_real);
+			$this->model->simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang , $tgl_trx , $no_bukti_real,$qty);
 
 			$id_penerimaan = $this->db->insert_id();
 

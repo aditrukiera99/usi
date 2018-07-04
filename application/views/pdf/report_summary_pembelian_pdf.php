@@ -60,20 +60,20 @@
         ?>
         <tr>
           <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
-          <td style="border: 1px solid black;"><?=$row->NO_PO;?></td>
-          <td style="border: 1px solid black;"><?=$row->PELANGGAN;?></td>
-          <td style="border: 1px solid black;">-</td>
-          <td style="border: 1px solid black;"><?=$row->NO_SO;?></td>
-          <td style="border: 1px solid black;"><?=$row->TGL_JATUH_TEMPO;?></td>
-          <td style="border: 1px solid black;"><?=$row->GUDANG;?></td>
+          <td style="border: 1px solid black;"><?=$row->NOMER_LPB;?></td>
+          <td style="border: 1px solid black;"><?=$row->SUPPLIER;?></td>
+          <td style="border: 1px solid black;"><?=$row->KOTA;?></td>
+          <td style="border: 1px solid black;"><?=$row->NOMER_PO;?></td>
+          <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
+          <td style="border: 1px solid black;"><?=$row->NAMAG;?></td>
           <td style="border: 1px solid black;"><?=$row->MEMO;?></td>
-          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL,2);?></td>
           <td style="border: 1px solid black; ">NEW</td>
         </tr>
         <?PHP } ?>
         <tr>
           <td colspan="8" style="border: 1px solid black; font-weight: bold;">TOTAL</td>
-          <td colspan="2" style="border: 1px solid black; font-weight: bold;"><?=number_format($total);?></td>
+          <td colspan="2" style="border: 1px solid black; font-weight: bold;"><?=number_format($total,2);?></td>
         </tr>
       </tbody>
     </table>

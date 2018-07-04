@@ -27,9 +27,10 @@ class Penerimaan_barang_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang ,$tgl_trx , $nomer_lpb)
+    function simpan_penerimaan_barang($no_lpbe, $id_supplier, $supplier, $keterangan, $no_po , $id_gudang ,$tgl_trx , $nomer_lpb,$qty)
     {
-
+        $qty            = str_replace(',', '', $qty);
+        
         $sql = "
         INSERT INTO ak_penerimaan_barang
         (
@@ -41,7 +42,8 @@ class Penerimaan_barang_m extends CI_Model
             STATUS,
             GUDANG,
             TGL_TRX,
-            NOMER_LPB
+            NOMER_LPB,
+            SISA_ORDER
 
         )
         VALUES 
@@ -54,7 +56,8 @@ class Penerimaan_barang_m extends CI_Model
            '0',
            '$id_gudang',
            '$tgl_trx',
-           '$nomer_lpb'
+           '$nomer_lpb',
+           '$qty'
         )
         ";
 

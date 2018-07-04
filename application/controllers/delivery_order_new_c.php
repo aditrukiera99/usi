@@ -97,6 +97,8 @@ class Delivery_order_new_c extends CI_Controller {
 
 			$this->model->update_stok_master($pjk->SUPPLY_POINT,$id_produk[0],$qty[0]);
 
+			$this->model->update_sisa_lpb($qty[0],$no_lpb);
+
 			$this->model->save_next_nomor($id_klien, 'Delivery_order', $no_deo);
 
 			
@@ -351,7 +353,7 @@ class Delivery_order_new_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_penerimaan_barang WHERE NO_PO <> '' AND $where  
+		SELECT * FROM ak_penerimaan_barang WHERE NO_PO <> '' AND SISA_ORDER > 0 AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();
