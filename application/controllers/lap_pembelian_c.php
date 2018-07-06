@@ -3,7 +3,7 @@
 class Lap_pembelian_c extends CI_Controller {
 
 	function __construct()
-	{
+	{ 
 		parent::__construct();
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_user = $sess_user['id'];
