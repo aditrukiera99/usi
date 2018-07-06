@@ -12,7 +12,6 @@
 <br><b>BULAN : <?=$judul;?></font></b></p></font>
 <br>
 
-
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
@@ -55,57 +54,107 @@
   $total_all = 0;
   foreach ($data as $key => $row) {
     $no++;
-    $total_all += $row->JML * $row->HARGA;
+    // $total_all += $row->JML * $row->HARGA;
   ?>
   <tr>
     <td class="tg-yw4l" style="color:blue;"><?=$no;?></td>
     <td class="tg-yw4l" style="color:blue;"><?=$row->NAMA_PRODUK;?></td>
     <td class="tg-yw4l" style="color:blue;"><?=$row->KODE_PRODUK;?></td>
-    <td class="tg-yw4l" style="color:blue;"></td>
-    <td class="tg-yw4l" style="color:blue;"></td>
-    <td class="tg-yw4l" style="color:blue;"></td>
-    <td class="tg-yw4l" style="color:blue;"></td>
-    <td class="tg-yw4l" style="color:blue;"></td>
-    <td class="tg-yw4l" style="color:blue;"></td>
+    <td class="tg-yw4l" style="color:blue;"><?php echo number_format($row->JML_BLN_LALU); ?></td>
+    <td class="tg-yw4l" style="color:blue;"><?php echo number_format($row->NILAI_BLN_LALU); ?></td>
+    <td class="tg-yw4l" style="color:blue;"><?php echo number_format($row->JML_BLN_SKG); ?></td>
+    <td class="tg-yw4l" style="color:blue;"><?php echo number_format($row->NILAI_BLN_SKG); ?></td>
+    <td class="tg-yw4l" style="color:blue;"><?php echo number_format($row->JML_BLN_SKG); ?></td>
+    <td class="tg-yw4l" style="color:blue;"><?php echo number_format($row->NILAI_BLN_SKG); ?></td>
   </tr>
 
   <?PHP 
+  // $sql_det = "
+  // SELECT c.NAMA_PELANGGAN, c.KODE_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
+  // JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
+  // JOIN ak_pelanggan c ON c.ID = a.ID_PELANGGAN
+  // WHERE b.ID_PRODUK = '$row->ID_PRODUK'
+  // ";
   $sql_det = "
-  SELECT c.NAMA_PELANGGAN, c.KODE_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
-  JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
-  JOIN ak_pelanggan c ON c.ID = a.ID_PELANGGAN
-  WHERE b.ID_PRODUK = '$row->ID'
+    SELECT
+      a.ID,
+      a.NO_BUKTI,
+      a.KODE_PELANGGAN,
+      a.PELANGGAN AS NAMA_PELANGGAN,
+      a.TGL_TRX,
+      SUM(a.JML_BLN_LALU) AS JML_BLN_LALU,
+      SUM(a.NILAI_BLN_LALU) AS NILAI_BLN_LALU,
+      SUM(a.JML_BLN_SKG) AS JML_BLN_SKG,
+      SUM(a.NILAI_BLN_SKG) AS NILAI_BLN_SKG
+    FROM(
+      SELECT
+        a.ID,
+        a.NO_BUKTI,
+        b.KODE_PELANGGAN,
+        a.PELANGGAN,
+        a.TGL_TRX,
+        a.QTY AS JML_BLN_LALU,
+        (a.QTY * a.HARGA_SATUAN) AS NILAI_BLN_LALU,
+        '0' AS JML_BLN_SKG,
+        '0' AS NILAI_BLN_SKG
+      FROM ak_delivery_order a
+      LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+      WHERE a.ID_PRODUK = '2'
+      AND a.TGL_TRX LIKE '%-$bulan_lalu-$tahun%'
+
+      UNION
+
+      SELECT
+        a.ID,
+        a.NO_BUKTI,
+        b.KODE_PELANGGAN,
+        a.PELANGGAN,
+        a.TGL_TRX,
+        '0' AS JML_BLN_LALU,
+        '0' AS NILAI_BLN_LALU,
+        a.QTY AS JML_BLN_SKG,
+        (a.QTY * a.HARGA_SATUAN) AS NILAI_BLN_SKG
+      FROM ak_delivery_order a
+      LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+      WHERE a.ID_PRODUK = '2'
+      AND a.TGL_TRX LIKE '%-$bulan_skg-$tahun%'
+    ) a
+    GROUP BY a.TGL_TRX
   ";
 
   $total_1 = 0;
   $total_2 = 0;
+  $total_3 = 0;
+  $total_4 = 0;
   $dt_det = $this->db->query($sql_det)->result();
   foreach ($dt_det as $key => $row_det) {
-      $total_1 += $row_det->QTY;
-      $total_2 += $row_det->TOTAL;
+      $total_1 += $row_det->JML_BLN_LALU;
+      $total_2 += $row_det->NILAI_BLN_LALU;
+      $total_3 += $row_det->JML_BLN_SKG;
+      $total_4 += $row_det->NILAI_BLN_SKG;
   ?>
   <tr>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"><?=$row_det->NAMA_PELANGGAN;?></td>
     <td class="tg-yw4l"><?=$row_det->KODE_PELANGGAN;?></td>
-    <td class="tg-yw4l" style="text-align: right;"></td>
-    <td class="tg-yw4l" style="text-align: right;"></td>
-    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
-    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
-    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->QTY);?></td>
-    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->TOTAL);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->JML_BLN_LALU);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->NILAI_BLN_LALU);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->JML_BLN_SKG);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->NILAI_BLN_SKG);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->JML_BLN_SKG);?></td>
+    <td class="tg-yw4l" style="text-align: right;"><?=number_format($row_det->NILAI_BLN_SKG);?></td>
   </tr>  
   <?PHP } ?>
 
   <?PHP } ?>
   <tr>
     <td class="tg-yw4l" style="font-weight: bold;" colspan="3">TOTAL</td>
-    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"></td>
-    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"></td>
     <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_1);?></td>
     <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_2);?></td>
-    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_1);?></td>
-    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_2);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_3);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_4);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_3);?></td>
+    <td class="tg-yw4l" style="text-align: right; font-weight: bold;"><?=number_format($total_4);?></td>
   </tr>
 </table>
 

@@ -97,7 +97,20 @@ class Lap_summary_penjualan_c extends CI_Controller {
 
 			$judul = $this->datetostr($bulan)." ".$tahun;
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$dt = $this->db->query("
+				SELECT JUAL.* FROM ak_penjualan JUAL 
+				JOIN ak_penjualan_detail DETAIL ON DETAIL.ID_PENJUALAN = JUAL.ID
+				WHERE JUAL.TGL_TRX LIKE '%-$bulan-$tahun%'
+				ORDER BY JUAL.ID
+			")->result();
+
+			// $dt = $this->db->query("
+			// 	SELECT
+			// 		a.*
+			// 	FROM ak_delivery_order a
+			// 	WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+			//  	ORDER BY a.ID
+			// ")->result();
 		}
 
 		$data = array(
