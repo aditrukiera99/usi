@@ -58,7 +58,7 @@ class Lap_penjualan_produk_detail_cust_c extends CI_Controller {
 
 		//$tgl   = $this->input->post('tgl');
 		
-		$filter = $this->input->post('filter');
+		$filter = $this->input->post('filter'); 
 		$unit = $this->input->post('unit');
 		$bulan = $this->input->post('bulan');
 		$tahun = $this->input->post('tahun');

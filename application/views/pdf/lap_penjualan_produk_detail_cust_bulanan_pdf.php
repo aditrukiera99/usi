@@ -73,7 +73,7 @@
   // SELECT c.NAMA_PELANGGAN, c.KODE_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
   // JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
   // JOIN ak_pelanggan c ON c.ID = a.ID_PELANGGAN
-  // WHERE b.ID_PRODUK = '$row->ID_PRODUK'
+  // WHERE b.ID_PRODUK = '$row->ID_PRODUK' 
   // ";
   $sql_det = "
     SELECT

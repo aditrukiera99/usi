@@ -84,7 +84,7 @@ class Lap_summary_penjualan_c extends CI_Controller {
 			")->result();
 
 		} else {
-			$view = "pdf/lap_summary_penjualan_pdf";
+			$view = "pdf/lap_summary_penjualan_pdf"; 
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 

@@ -18,7 +18,7 @@
       width: 28%;
       float: left;
       margin: 2% 0 3% 4%;
-      text-align: center;
+      text-align: center; 
     }
 </style>
   <body class="body" onload="window.print()">

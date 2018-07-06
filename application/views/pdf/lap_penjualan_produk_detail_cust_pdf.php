@@ -49,7 +49,7 @@
     <td class="tg-amwm">QTY</td>
     <td class="tg-amwm">Nilai</td>
   </tr>
-  <?PHP 
+  <?PHP  
   $no = 0;
   $total_all = 0;
   foreach ($data as $key => $row) {
