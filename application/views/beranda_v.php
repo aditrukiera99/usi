@@ -1214,13 +1214,13 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                 </li>
 
                 <li <?PHP if($view == "lowongan"){ echo "class='active'"; } ?>>
-                  <a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice">
+                  <a href="<?=base_url();?>data_lowongan_c">
                     <i class="icon-caret-right"></i> Lowongan <span> Master Lowongan </span>
                   </a>
                 </li>
 
                 <li <?PHP if($view == "data_sertifikat"){ echo "class='active'"; } ?>>
-                  <a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice">
+                  <a href="<?=base_url();?>data_sertifikat_c">
                     <i class="icon-caret-right"></i> Sertifikat <span> Master Data Sertifikat </span>
                   </a>
                 </li>
