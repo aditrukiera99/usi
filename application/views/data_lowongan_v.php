@@ -7,7 +7,7 @@
 	vertical-align: middle;
 }
 </style>
-
+<input type="hidden" name="tr_utama_count" id="tr_utama_count" value="1">
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
@@ -124,23 +124,53 @@
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> TANGGAL SELESAI </label>
+						<label class="control-label"> TANGGAL AKHIR </label>
 						<div class="controls">
 							<div class="input-append date ">
-								<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_selesai" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text">
+								<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_mulai" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text">
 								<span class="add-on "><i class="icon-calendar"></i></span>
 							</div>
 						</div>
 					</div>
 
+
 					<div class="control-group">
 						<label class="control-label"> MAKSIMAL USIA </label>
 						<div class="controls">
-							<textarea required type="text" class="span6" value="" name="usia" style="font-size: 14px;" rows="5"></textarea>
+							<input type="number" class="usia" class="span6"  name="">
 						</div>
 					</div>
 
-					
+					<div class="control-group">
+						<label class="control-label"> KEBUTUHAN SERTIFIKAT </label>
+						<div class="controls" id="sertifikat_id" class="span6">
+							<select name="sertifikat[]" id="sertifikat" class="span6">
+								<?php 
+
+									$ser = $this->db->query("SELECT * FROM ak_sertifikat")->result();
+									foreach ($ser as $key => $value) {
+										?>
+											<option value="<?=$value->ID;?>"><?=$value->NAMA;?></option>
+										<?php
+									}
+								?>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">  </label>
+						<div class="controls">
+							<button type="button" id="tmbh_sertifikat_btn" onclick="tmbh_sertifikat();" class="btn btn-success">Tambah Sertifikat</button>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> KETERANGAN </label>
+						<div class="controls">
+							<textarea required type="text" class="span6" value="" name="kerjaan" style="font-size: 14px;" rows="5"></textarea>
+						</div>
+					</div>
 
 					<div class="form-actions">
 						
@@ -152,6 +182,21 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div style="display:none;" id="copy_ag">
+	<td align="center" style="vertical-align:middle;"> 
+		<div class="control-group">
+			<div class="controls">
+				<select  required data-placeholder="Pilih ..." class="cek_select" tabindex="2"  name="kode_akun_det[]" style="width: 100%;">
+					<option value="">Pilih ...</option>
+					
+					<option value=""> </option>
+					
+				</select>
+			</div>
+		</div>
+	</td>
 </div>
 
 <div class="row-fluid" id="edit_data" style="display:none;">
@@ -231,6 +276,25 @@ function ubah_data_produk(id){
 	        $('#edit_data').fadeIn('slow');
 		}
 	});
+}
+
+function tmbh_sertifikat() {
+	
+	var jml_tr = $('#tr_utama_count').val();
+	var i = parseInt(jml_tr) + 1;
+
+
+	$isi_1 = 
+	'<select class="span7" style="margin-top:5px;" name="supply_point" >'+
+	'								<option>--Supply Point--</option>'+
+	'								<?php foreach ($sertifikat as $key => $sp) { ?>'+
+	'								<option value="<?=$sp->ID;?>"><?=$sp->NAMA;?></option>'+
+	'								<?php } ?>'+
+	'							</select>';
+
+	$('#sertifikat_id').append($isi_1);
+	$('#tr_utama_count').val(i);
+
 }
 
 function tambah_klik(){

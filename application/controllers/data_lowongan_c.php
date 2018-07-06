@@ -66,6 +66,7 @@ class Data_lowongan_c extends CI_Controller {
 		}
 
 		$dt = $this->model->get_data_transportir();
+		$sertifikat = $this->db->query("SELECT * FROM ak_sertifikat")->result();
 
 		$data =  array(
 			'page' => "data_lowongan_v", 
@@ -74,8 +75,9 @@ class Data_lowongan_c extends CI_Controller {
 			'master' => "hrd", 
 			'view' => "lowongan", 
 			'dt' => $dt, 
+			'sertifikat' => $sertifikat, 
 			'msg' => $msg, 
-			'post_url' => 'master_transportir_c', 
+			'post_url' => 'data_lowongan_c', 
 			'user' => $user,
 		);
 		
