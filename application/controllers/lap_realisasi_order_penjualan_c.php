@@ -60,10 +60,11 @@ class Lap_realisasi_order_penjualan_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
+		$dt = "";
+		$dt_pemasok = "";
 
 		if($filter == "Harian"){
 			$view = "pdf/lap_realisasi_order_penjualan_pdf";
-			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
 			$tgl_full = $this->input->post('tgl');
@@ -76,12 +77,23 @@ class Lap_realisasi_order_penjualan_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("
-				SELECT a.*, b.NAMA_PRODUK, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_penjualan a 
-				JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
-				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') AND a.NO_SJ IS NOT NULL
-				ORDER BY a.ID
+			$dt_pemasok = $this->db->query("
+				SELECT 
+	              a.*,
+	              b.NO_TELP
+	            FROM ak_delivery_order a
+	            LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+	            WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	            AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+	            ORDER BY a.ID
 			")->result();
+
+			// $dt = $this->db->query("
+			// 	SELECT a.*, b.NAMA_PRODUK, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_penjualan a 
+			// 	JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
+			// 	WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') AND a.NO_SJ IS NOT NULL
+			// 	ORDER BY a.ID
+			// ")->result();
 		} else {
 			$view = "pdf/lap_realisasi_order_penjualan_pdf";
 			$dt = "";
@@ -96,16 +108,23 @@ class Lap_realisasi_order_penjualan_c extends CI_Controller {
 
 			$judul =  $this->datetostr($bulan)." ".$tahun;
 
-			$dt = $this->db->query("
-				SELECT a.*, b.NAMA_PRODUK, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_penjualan a 
-				JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
-				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a.NO_SJ IS NOT NULL
-				ORDER BY a.ID
+			$dt_pemasok = $this->db->query("
+				SELECT 
+	              a.*,
+	              b.NO_TELP
+	            FROM ak_delivery_order a
+	            LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+	            WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+	            ORDER BY a.ID
 			")->result();
+
+			// $dt = $this->db->query("
+			// 	SELECT a.*, b.NAMA_PRODUK, b.QTY, b.SATUAN, b.HARGA_SATUAN, b.TOTAL FROM ak_penjualan a 
+			// 	JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
+			// 	WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a.NO_SJ IS NOT NULL
+			// 	ORDER BY a.ID
+			// ")->result();
 		}
-
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',
@@ -114,6 +133,7 @@ class Lap_realisasi_order_penjualan_c extends CI_Controller {
 			'judul'			=> $judul,
 			'dt_unit'		=> $dt_unit,
 			'data_usaha'    => $this->master_model_m->data_usaha($id_klien),
+			'data_pemasok'	=> $dt_pemasok
 		);
 		$this->load->view($view,$data);
 	}

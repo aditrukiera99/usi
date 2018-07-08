@@ -77,9 +77,14 @@ class Lap_detail_penjualan_c extends CI_Controller {
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
 			$dt = $this->db->query("
-				SELECT a.* FROM ak_penjualan a 
-				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
-				ORDER BY a.ID
+				SELECT 
+	              a.*,
+	              b.NO_TELP
+	            FROM ak_delivery_order a
+	            LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+	            WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	            AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+	            ORDER BY a.ID
 			")->result();
 		} else {
 			$view = "pdf/lap_detail_penjualan_pdf";
@@ -95,9 +100,13 @@ class Lap_detail_penjualan_c extends CI_Controller {
 
 			$judul =  $this->datetostr($bulan)." ".$tahun;
 			$dt = $this->db->query("
-				SELECT a.* FROM ak_penjualan a 
-				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
-				ORDER BY a.ID
+				SELECT 
+	              a.*,
+	              b.NO_TELP
+	            FROM ak_delivery_order a
+	            LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+	            WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+	            ORDER BY a.ID
 			")->result();
 		}
 

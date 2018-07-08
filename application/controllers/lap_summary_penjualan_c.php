@@ -76,11 +76,41 @@ class Lap_summary_penjualan_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul = date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
+			// $dt = $this->db->query("
+			// 	SELECT JUAL.* FROM ak_penjualan JUAL 
+			// 	JOIN ak_penjualan_detail DETAIL ON DETAIL.ID_PENJUALAN = JUAL.ID
+			// 	WHERE STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+			// 	ORDER BY JUAL.ID
+			// ")->result();
+
 			$dt = $this->db->query("
-				SELECT JUAL.* FROM ak_penjualan JUAL 
-				JOIN ak_penjualan_detail DETAIL ON DETAIL.ID_PENJUALAN = JUAL.ID
-				WHERE STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
-				ORDER BY JUAL.ID
+				SELECT
+					a.ID,
+					a.NO_BUKTI,
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					a.PRODUK,
+					a.QTY,
+					a.HARGA_SATUAN,
+					a.NO_SO,
+					a.STATUS,
+					a.NOMER_DO,
+					a.NOMER_PO,
+					a.NOMER_LPB,
+					a.ID_PRODUK,
+					b.SUB_TOTAL,
+					b.TOTAL,
+					b.PPN,
+					b.MEMO,
+					b.STATUS_PO,
+					c.SATUAN
+				FROM ak_delivery_order a
+				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+				LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
+				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+				AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+				ORDER BY a.ID
 			")->result();
 
 		} else {
@@ -97,20 +127,41 @@ class Lap_summary_penjualan_c extends CI_Controller {
 
 			$judul = $this->datetostr($bulan)." ".$tahun;
 
-			$dt = $this->db->query("
-				SELECT JUAL.* FROM ak_penjualan JUAL 
-				JOIN ak_penjualan_detail DETAIL ON DETAIL.ID_PENJUALAN = JUAL.ID
-				WHERE JUAL.TGL_TRX LIKE '%-$bulan-$tahun%'
-				ORDER BY JUAL.ID
-			")->result();
-
 			// $dt = $this->db->query("
-			// 	SELECT
-			// 		a.*
-			// 	FROM ak_delivery_order a
-			// 	WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
-			//  	ORDER BY a.ID
+			// 	SELECT JUAL.* FROM ak_penjualan JUAL 
+			// 	JOIN ak_penjualan_detail DETAIL ON DETAIL.ID_PENJUALAN = JUAL.ID
+			// 	WHERE JUAL.TGL_TRX LIKE '%-$bulan-$tahun%'
+			// 	ORDER BY JUAL.ID
 			// ")->result();
+
+			$dt = $this->db->query("
+				SELECT
+					a.ID,
+					a.NO_BUKTI,
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					a.PRODUK,
+					a.QTY,
+					a.HARGA_SATUAN,
+					a.NO_SO,
+					a.STATUS,
+					a.NOMER_DO,
+					a.NOMER_PO,
+					a.NOMER_LPB,
+					a.ID_PRODUK,
+					b.SUB_TOTAL,
+					b.TOTAL,
+					b.PPN,
+					b.MEMO,
+					b.STATUS_PO,
+					c.SATUAN
+				FROM ak_delivery_order a
+				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+				LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
+				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+				ORDER BY a.ID
+			")->result();
 		}
 
 		$data = array(
