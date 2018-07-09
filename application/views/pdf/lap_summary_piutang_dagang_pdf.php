@@ -31,68 +31,136 @@
     <center>
     <div>
       <span><strong>Summary Piutang Dagang</strong></span><br>
-      <span style="font-size: 100%;">MARET 2018</span>
+      <span style="font-size: 100%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
   <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-      <tbody>
+    <thead>
         <tr>
-          
           <td style="border: 1px solid black; text-align:left;">Mata Uang :</td>
           <td style="border: 1px solid black; text-align:left;">IDR</td>
           <td colspan="9" style="border-top: 0px solid black;"></td>
         </tr>
        
-       <tr>
+        <tr>
           <td rowspan="2" style="border: 1px solid black;">NAMA CUSTOMER</td>
           <td colspan="5" style="border: 1px solid black;"> &nbsp </td>
         </tr>
 
-      <tr>
-          <td  style="border: 1px solid black;">SALDO AWAL</td>
-          <td  style="border: 1px solid black;">PENJUALAN</td>
-          <td  style="border: 1px solid black;">PELUNASAN</td>
-          <td  style="border: 1px solid black;">TUNAI</td>
-          <td  style="border: 1px solid black;">SALDO AKHIR</td>
-      </tr>
+        <tr>
+            <td style="border: 1px solid black;">SALDO AWAL</td>
+            <td style="border: 1px solid black;">PENJUALAN</td>
+            <td style="border: 1px solid black;">PELUNASAN</td>
+            <td style="border: 1px solid black;">TUNAI</td>
+            <td style="border: 1px solid black;">SALDO AKHIR</td>
+        </tr>
+    </thead>
+      <tbody>
+        <tr>
+          <td style="border: 1px solid black;">&nbsp</td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+        </tr>
+        <?php
+          $tot_saldo_awal = 0;
+          $tot_penjualan = 0;
+          $tot_pelunasan = 0;
+          $tot_tunai = 0;
+          $tot_saldo_akhir = 0;
 
-      <tr>
-      <td  style="border: 1px solid black;">&nbsp</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      </tr>
+          foreach ($data as $key => $value) {
+            $id_pelanggan = $value->ID_PELANGGAN;
+            $where = "1 = 1";
+            $where2 = "1 = 1";
 
-<!-- ------------ISI--------------- -->
+            if($filter == "Harian"){
+              if($value->ID_PELANGGAN != null){
+                $where = $where." AND STR_TO_DATE(TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+                                  AND STR_TO_DATE(TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') 
+                                  AND ID_PELANGGAN = '$id_pelanggan'";
 
-      <tr>
-      <td  style="border: 1px solid black;">PT</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      </tr>
+                $where2 = $where2." AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+                                    AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') 
+                                    AND a.ID_PELANGGAN = '$id_pelanggan'";
+              }else{
+                $where = $where." AND STR_TO_DATE(TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+                                  AND STR_TO_DATE(TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') ";
 
-      <tr style="font-weight: bold;">
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;">xxx</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;">xxx</td>
-      </tr>
+                $where2 = $where2." AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+                                    AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y') ";
+              }
+            }else{
+              if($value->ID_PELANGGAN != null){
+                $where = $where." AND TGL_TRX LIKE '%-$bulan-$tahun%' AND ID_PELANGGAN = '$id_pelanggan'";
+                $where2 = $where2." AND a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a.ID_PELANGGAN = '$id_pelanggan'";
+              }else{
+                $where = $where." AND TGL_TRX LIKE '%-$bulan-$tahun%'";
+                $where2 = $where2." AND a.TGL_TRX LIKE '%-$bulan-$tahun%'";
+              }
+            }
 
-<!-- --------------------------- -->
+            $sql = "
+              SELECT
+                a.ID_PELANGGAN,
+                a.PELANGGAN,
+                a.TGL_TRX,
+                SUM(a.SUB_TOTAL) AS PENJUALAN,
+                SUM(a.TOTAL_DO) AS PELUNASAN
+              FROM(
+                SELECT
+                  a.ID_PELANGGAN,
+                  a.PELANGGAN,
+                  a.TGL_TRX,
+                  (b.QTY * b.HARGA_SATUAN) AS TOTAL_DO,
+                  a.SUB_TOTAL
+                FROM ak_penjualan a
+                LEFT JOIN (
+                  SELECT * FROM ak_delivery_order
+                  WHERE $where
+                ) b ON b.NO_SO = a.NO_BUKTI
+                WHERE $where2
+              ) a
+              GROUP BY a.ID_PELANGGAN
+            ";
 
+            $query = $this->db->query($sql);
+            $row = $query->row();
+            $saldo_awal = $value->SALDO_BLN_LALU - ($row->PENJUALAN - $row->PELUNASAN);
+            $penjualan = $row->PENJUALAN;
+            $pelunasan = $row->PELUNASAN;
+            $saldo_akhir = $saldo_awal - $pelunasan;
 
+            $tot_saldo_awal += $saldo_awal;
+            $tot_penjualan += $penjualan;
+            $tot_pelunasan += $pelunasan;
+            $tot_saldo_akhir += $saldo_akhir;
+        ?>
+        <tr>
+          <td style="border: 1px solid black;"><?php echo $row->PELANGGAN; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_awal); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($row->PENJUALAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($pelunasan); ?></td>
+          <td style="border: 1px solid black; text-align: right;">0.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_akhir); ?></td>
+        </tr>
+        <?php
+          }
+        ?>
 
-
-
+        <tr style="font-weight: bold;">
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_saldo_awal); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_penjualan); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_pelunasan); ?></td>
+          <td style="border: 1px solid black; text-align: right;">0.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_saldo_akhir); ?></td>
+        </tr>
+      </tbody>
     </table>
     <div style="clear:both"></div>
     <br>

@@ -31,20 +31,20 @@
     <center>
     <div>
       <span><strong>Laporan Sisa Piutang Dagang</strong></span><br>
-      <span style="font-size: 100%;">19-Mar-2018</span>
+      <span style="font-size: 100%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
   <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-      <tbody>
+    <thead>
         <tr>
           <td style="border: 1px solid black; text-align:left;"></td>
           <td style="border: 1px solid black; text-align:left;">Mata Uang :</td>
           <td style="border: 1px solid black; text-align:left;">IDR</td>
           <td colspan="9" style="border-top: 0px solid black;"></td>
         </tr>
-       <tr>
+        <tr>
           <td style="border: 1px solid black;">NO</td>
           <td style="border: 1px solid black;">NO TRANSAKSI</td>
           <td style="border: 1px solid black;">CUSTOMER</td>
@@ -55,39 +55,48 @@
           <td style="border: 1px solid black;">TERBAYAR</td>
           <td style="border: 1px solid black;">SISA</td>
         </tr>
+    </thead>
+    <tbody>
+      <?php
+        $no = 0;
+        $total = 0;
+        $tot_retur = 0;
+        $tot_bayar = 0;
+        $tot_sisa = 0;
 
-      
-
-<!-- ------------ISI--------------- -->
-
+        foreach ($data as $key => $value) {
+          $no++;
+          $sisa = $value->TOTAL_DO - $value->SUB_TOTAL;
+          $total += $value->TOTAL_DO;
+          $tot_retur += 0;
+          $tot_bayar += $value->SUB_TOTAL;
+          $tot_sisa += $sisa;
+      ?>
       <tr>
-      <td  style="border: 1px solid black;">1</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
+        <td style="border: 1px solid black;"><?php echo $no; ?></td>
+        <td style="border: 1px solid black;"><?php echo $value->NO_BUKTI; ?></td>
+        <td style="border: 1px solid black;"><?php echo $value->PELANGGAN; ?></td>
+        <td style="border: 1px solid black;"><?php echo $value->TGL_TRX; ?></td>
+        <td style="border: 1px solid black;"><?php echo $value->TGL_TRX; ?></td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->TOTAL_DO); ?></td>
+        <td style="border: 1px solid black; text-align: right;">0.00</td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->SUB_TOTAL); ?></td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($sisa); ?></td>
       </tr>
+      <?php
+        }
+      ?>
 
       <tr style="font-weight: bold;">
-        <td  style="border: 1px solid black;"></td>
-      <td colspan="4" style="border: 1px solid black;">TOTAL</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;">xxx</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;">xxx</td>
+        <td style="border: 1px solid black;"></td>
+        <td colspan="4" style="border: 1px solid black;">TOTAL</td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($total); ?></td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_retur); ?></td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_bayar); ?></td>
+        <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot_sisa); ?></td>
       </tr>
-
-<!-- --------------------------- -->
-
-
-
-
-
-    </table>
+    </tbody>
+  </table>
     <div style="clear:both"></div>
     <br>
    
