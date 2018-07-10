@@ -31,7 +31,9 @@
       <span style="font-size: 80%;">Periode <?=$judul;?></span>
     </div>
   </center>
-  <?PHP foreach ($data as $key => $row) { ?>
+  <?PHP foreach ($data as $key => $row) { 
+    $total_all = 0;
+  ?>
   <table style="font-size: 80%;">
         <thead>
           <th></th>
@@ -68,11 +70,11 @@
         </tr>
         <?PHP 
         $dt_det = $this->db->query("
-          SELECT a.*, b.KODE_PRODUK FROM ak_pembelian_detail a
+          SELECT a.*, b.KODE_PRODUK, c.PBBKB FROM ak_penerimaan_detail a
+          JOIN ak_penerimaan_barang c ON a.ID_PENJUALAN = c.ID
           LEFT JOIN ak_produk b ON a.ID_PRODUK = b.ID
-          WHERE a.ID_PENJUALAN = '".$row->ID."' 
+          WHERE c.NO_PO = '".$row->NO_PO."' 
           ")->result();
-        $total_all = 0;
         foreach ($dt_det as $key => $row_det) {
           $total_all += $row_det->TOTAL;
         ?>
@@ -84,14 +86,14 @@
           <td><?=number_format($row_det->HARGA_SATUAN);?></td>
           <td>0.00</td>
           <td></td>
-          <td style="text-align:right;"><?=number_format($row->SUB_TOTAL);?></td>
+          <td style="text-align:right;"><?=number_format($row_det->TOTAL);?></td>
         </tr>
         <?PHP } ?>
         <?php 
 
         if($row->PBBKB > 0){
           ?>
-            <tr style="text-align:center;">
+            <!-- <tr style="text-align:center;">
             <td>001 - PBBKB</td>
             <td>PBBKB</td>
             <td><?=$row_det->QTY;?></td>
@@ -100,7 +102,7 @@
             <td>0.00</td>
             <td></td>
             <td style="text-align:right;"><?=number_format($row->PBBKB);?></td>
-          </tr>
+          </tr> -->
           <?php
         }
 
@@ -109,7 +111,7 @@
         <tr>
           <td colspan="6" style="border-top: 1px solid black;"></td>
           <td style="border-top: 1px solid black;"><strong>TOTAL</strong></td>
-          <td style="border-top: 1px solid black; text-align: right;"><?=number_format($row->SUB_TOTAL + $row->PBBKB);?></td>
+          <td style="border-top: 1px solid black; text-align: right;"><?=number_format($total_all);?></td>
         </tr>
         <tr>
           <td colspan="6"></td>
@@ -119,7 +121,7 @@
         <tr>
           <td colspan="6"></td>
           <td><strong>TOTAL NET</strong></td>
-          <td style="text-align: right;"><strong><?=number_format(round($row->SUB_TOTAL + $row->PBBKB + $row->PPN , 2));?></strong></td>
+          <td style="text-align: right;"><strong><?=number_format(round($total_all, 2));?></strong></td>
         </tr>
         <tr>
           <td colspan="6"></td>
@@ -129,7 +131,7 @@
         <tr>
           <td colspan="6"></td>
           <td><strong>TOTAL IDR</strong></td>
-          <td style="text-align: right;"><strong><?=number_format(round($row->SUB_TOTAL + $row->PBBKB + $row->PPN , 2));?></strong></td>
+          <td style="text-align: right;"><strong><?=number_format(round($total_all , 2));?></strong></td>
         </tr>
       </tbody>
   </table>

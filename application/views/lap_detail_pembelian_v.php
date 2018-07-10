@@ -39,7 +39,7 @@
 							<input onclick="isfilter();" type="radio" value="Bulanan" id="bulanan" name="filter">
 							Bulanan </label>
 						</div>
-					</div> -->
+					</div>
 
 					<div class="control-group harian">
 						<label class="control-label"> <b style="font-size: 14px;"> Tanggal </b> </label>
