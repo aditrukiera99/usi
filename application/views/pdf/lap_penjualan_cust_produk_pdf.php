@@ -30,7 +30,7 @@
     <div style="clear: both;"></div>
     <center>
     <div>
-      <span><strong>Laporan Penjualan Produk Detail Customer</strong></span><br>
+      <span><strong>Laporan Penjualan Customer Per Produk</strong></span><br>
       <span style="font-size: 100%;"><?=$judul;?></span>
     </div>
   </center>
@@ -52,26 +52,76 @@
         $total_all = 0;
         foreach ($data as $key => $row) {
           $no++;
-          $total_all += $row->JML * $row->HARGA;
+          $total_all += $row->NILAI;
         ?>
         <tr>
-          <td class="tg-yw4l" rowspan="2"><?=$no;?></td>
-          <td class="tg-yw4l" rowspan="2"><?=$row->KODE_PRODUK;?></td>
-          <td class="tg-yw4l" rowspan="2"><?=$row->NAMA_PRODUK;?></td>
-          <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML);?></td>
-          <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
-          <td class="tg-yw4l" rowspan="2">1.00</td>
-          <td class="tg-yw4l" rowspan="2" style="text-align: right;"><?=number_format($row->JML*$row->HARGA);?></td>
+          <td class="tg-yw4l"><?=$no;?></td>
+          <td class="tg-yw4l"><?=$row->KODE_PRODUK;?></td>
+          <td class="tg-yw4l"><?=$row->NAMA_PRODUK;?></td>
+          <td class="tg-yw4l" style="text-align: right;"><?=number_format($row->JML);?></td>
+          <td class="tg-yw4l" style="text-align: right;"><?=number_format($row->NILAI);?></td>
+          <td class="tg-yw4l" style="text-align: right;">1.00</td>
+          <td class="tg-yw4l" style="text-align: right;"><?=number_format($row->NILAI);?></td>
         </tr>
 
         <?PHP 
-        $sql_det = "
-        SELECT c.NAMA_PELANGGAN, b.QTY, b.TOTAL FROM ak_penjualan a 
-        JOIN ak_penjualan_detail b ON a.ID = b.ID_PENJUALAN
-        JOIN ak_pelanggan c ON a.ID_PELANGGAN = b.ID
-        ";
-        $dt_det = $this->db->query($sql_det)->result();
-        foreach ($dt_det as $key => $row_det) {
+        $sql_det = '';
+          if($filter == "Harian"){
+            $sql_det = "
+              SELECT
+                a.ID,
+                a.NO_BUKTI,
+                a.KODE_PELANGGAN,
+                a.PELANGGAN AS NAMA_PELANGGAN,
+                a.TGL_TRX,
+                SUM(a.JML_BLN_SKG) AS QTY,
+                SUM(a.NILAI_BLN_SKG) AS TOTAL
+              FROM(
+                SELECT
+                  a.ID,
+                  a.NO_BUKTI,
+                  b.KODE_PELANGGAN,
+                  a.PELANGGAN,
+                  a.TGL_TRX,
+                  a.QTY AS JML_BLN_SKG,
+                  (a.QTY * a.HARGA_SATUAN) AS NILAI_BLN_SKG
+                FROM ak_delivery_order a
+                LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+                WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+                AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+              ) a
+              GROUP BY a.TGL_TRX
+            ";
+          }else{
+            $sql_det = "
+              SELECT
+                a.ID,
+                a.NO_BUKTI,
+                a.KODE_PELANGGAN,
+                a.PELANGGAN AS NAMA_PELANGGAN,
+                a.TGL_TRX,
+                SUM(a.JML_BLN_SKG) AS QTY,
+                SUM(a.NILAI_BLN_SKG) AS TOTAL
+              FROM(
+                SELECT
+                  a.ID,
+                  a.NO_BUKTI,
+                  b.KODE_PELANGGAN,
+                  a.PELANGGAN,
+                  a.TGL_TRX,
+                  a.QTY AS JML_BLN_SKG,
+                  (a.QTY * a.HARGA_SATUAN) AS NILAI_BLN_SKG
+                FROM ak_delivery_order a
+                LEFT JOIN ak_pelanggan b ON b.ID = a.ID_PELANGGAN
+                WHERE a.TGL_TRX LIKE '%-$bulan_skg-$tahun%'
+              ) a
+              GROUP BY a.TGL_TRX
+            ";
+          }
+
+          $dt_det = $this->db->query($sql_det)->result();
+
+          foreach ($dt_det as $key => $row_det) {
         ?>
         <tr>
           <td class="tg-yw4l"></td>
@@ -88,9 +138,9 @@
         <tr>
           <td colspan="3" style="border: 1px solid black;">TOTAL</td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"><?=number_format($total_all);?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($total_all);?></td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"><?=number_format($total_all);?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($total_all);?></td>
         </tr>
       </tbody>
     </table>

@@ -44,83 +44,109 @@
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
+  <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
       <tbody>
-      
-        <tr>
-          <td  style="border: 1px solid black;">No</td>
-          <td colspan="2" style="border: 1px solid black;">No. dan Tanggal SO</td>       
-          <td  style="border: 1px solid black;">Nama Barang</td>
-          <td  style="border: 1px solid black;">Kuantitas</td>
-          <td  style="border: 1px solid black;">Satuan</td>
-          <td  style="border: 1px solid black;">Harga Satuan<br>(Rp)</td>
-          <td  style="border: 1px solid black;">Jumlah Harga<br>(RP)</td>
-          <td  colspan="2" style="border: 1px solid black;">No.& Tanggal S.JALAN</td>
-          <td  style="border: 1px solid black;">Kuantitas</td>
-          <td  style="border: 1px solid black;">Sisa</td>
-        </tr>
+        <?php
+          foreach ($data_pemasok as $key => $val) {
+        ?>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>Pemasok</td>
+            <td>:</td>
+            <td><?php echo $val->PELANGGAN; ?></td>
+          </tr>
+          <tr>
+            <td>Alamat</td>
+            <td>:</td>
+            <td><?php echo $val->ALAMAT; ?></td>
+          </tr>
+          <tr>
+            <td>Telepon</td>
+            <td>:</td>
+            <td><?php echo $val->NO_TELP; ?></td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">No</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;" colspan="2">No. dan Tanggal SO</td>       
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Nama Barang</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Kuantitas</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Satuan</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Harga Satuan<br>(Rp)</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Jumlah Harga<br>(RP)</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;" colspan="2">No.& Tanggal S.JALAN</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Kuantitas</td>
+            <td style="border: 1px solid black; border-top: 1px solid black; text-align: center;">Sisa</td>
+          </tr>
 
+          <?PHP 
+          $no = 0;
+          $total = 0;
 
+          $s = "
+            SELECT
+              a.ID,
+              a.NO_BUKTI,
+              a.ID_PELANGGAN,
+              a.PELANGGAN,
+              a.TGL_TRX,
+              a.PRODUK AS NAMA_PRODUK,
+              a.QTY,
+              a.HARGA_SATUAN,
+              a.NO_SO,
+              a.STATUS,
+              a.NOMER_DO,
+              a.NOMER_PO,
+              a.NOMER_LPB,
+              a.ID_PRODUK,
+              b.SUB_TOTAL,
+              b.TOTAL,
+              b.PPN,
+              b.MEMO,
+              b.STATUS_PO,
+              b.NO_SJ,
+              b.TGL_SJ,
+              c.SATUAN
+            FROM ak_delivery_order a
+            LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+            LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
+            WHERE a.ID = '".$val->ID."'
+            ORDER BY a.ID
+          ";
+          $q = $this->db->query($s)->result();
 
-<!-- ---------------------------------------------------------------- -->
-       <?PHP 
-       $no = 0;
-       $total = 0;
-       foreach ($data as $key => $row) { 
-        $no++;
-        $total += $row->TOTAL;
-       ?>
-       <tr>
-          <td  style="border: 0px solid black;"><?=$no;?></td>
-          <td  style="
-          border-left:1px solid black;
-          border-right:0px solid black;
-          border-bottom:0px solid black;
-          border-top:0px solid black;
-          "><?=$row->NO_BUKTI;?></td>
-          <td  style="
-          border-left:0px solid black;
-          border-right:1px solid black;
-          border-bottom:0px solid black;
-          border-top:0px solid black;
-          "><?=$row->TGL_TRX  ;?></td>
-          <td  style="border-right: 1px solid black;"><?=$row->NAMA_PRODUK;?></td>
-          <td  style="border-right: 1px solid black; text-align: right;"><?=$row->QTY;?></td>
-          <td  style="border-right: 1px solid black;"><?=$row->SATUAN;?></td>
-          <td  style="border-right: 1px solid black; text-align: right;"><?=number_format($row->HARGA_SATUAN);?></td>
-          <td  style="border-right: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
-          <td  style="
-          border-left:0px solid black;
-          border-right:0px solid black;
-          border-bottom:0px solid black;
-          border-top:0px solid black;
-          "><?=$row->NO_SJ;?></td>
-          <td  style="
-          border-left:0px solid black;
-          border-right:1px solid black;
-          border-bottom:0px solid black;
-          border-top:0px solid black;
-          "><?=$row->TGL_SJ;?></td>
-          <td  style="border-right: 1px solid black; text-align: right;"><?=$row->QTY;?></td>
-          <td  style="border-right: 1px solid black; text-align: right;">0.00</td>
-        </tr>
-        <?PHP } ?>
-<!-- ---------------------------------------------------------------- -->
-
-
-
-
-
-		<tr>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
+          foreach ($q as $key => $row) { 
+            $no++;
+            $total += $row->TOTAL;
+          ?>
+          <tr>
+            <td style="border: 1px solid black;"><?=$no;?></td>
+            <td style="border-bottom: 1px solid black;"><?=$row->NO_BUKTI;?></td>
+            <td style="border-bottom: 1px solid black;"><?=$row->TGL_TRX  ;?></td>
+            <td style="border: 1px solid black;"><?=$row->NAMA_PRODUK;?></td>
+            <td style="border: 1px solid black; text-align: right;"><?=$row->QTY;?></td>
+            <td style="border: 1px solid black;"><?=$row->SATUAN;?></td>
+            <td style="border: 1px solid black; text-align: right;"><?=number_format($row->HARGA_SATUAN);?></td>
+            <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
+            <td style="border-bottom: 1px solid black;"><?=$row->NO_SJ;?></td>
+            <td style="border-bottom: 1px solid black;"><?=$row->TGL_SJ;?></td>
+            <td style="border: 1px solid black; text-align: right;"><?=$row->QTY;?></td>
+            <td style="border: 1px solid black; text-align: right;">0.00</td>
+          </tr>
+        <?PHP 
+          }
+        }
+        ?>
+		    <tr>
+          <td style="border-top: 1px solid black;"></td>
+          <td style="border-top: 1px solid black;"></td>
+          <td style="border-top: 1px solid black;"></td>
           <td colspan="4" style="border: 1px solid black;">GRAND TOTAL</td>
-          <td  style="border: 1px solid black; text-align: right;"><?=number_format($total);?></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($total);?></td>
+          <td style="border-top: 1px solid black;"></td>
+          <td style="border-top: 1px solid black;"></td>
+          <td style="border-top: 1px solid black;"></td>
+          <td style="border-top: 1px solid black;"></td>
       	</tr>
 
       </tbody>

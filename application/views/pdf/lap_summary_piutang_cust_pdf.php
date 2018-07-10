@@ -31,21 +31,20 @@
     <center>
     <div>
       <span><strong>Summary Piutang Customer</strong></span><br>
-      <span style="font-size: 100%;">MARET 2018</span>
+      <span style="font-size: 100%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
   <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-      <tbody>
-        <tr>
-          
+      <thead>
+        <tr>   
           <td style="border-top: 0px solid black; text-align:left;">Mata Uang :</td>
           <td style="border: 1px solid black; text-align:left;">IDR</td>
           <td colspan="9" style="border-top: 0px solid black;"></td>
         </tr>
        
-       <tr>
+        <tr>
           <td rowspan="2" style="border: 1px solid black;">NAMA CUSTOMER</td>
           <td colspan="4" style="border: 1px solid black;">MASING - MASING MATA UANG</td>
           <td style="border: 1px solid black;"></td>
@@ -53,43 +52,80 @@
           
         </tr>
 
-      <tr>
-          <td  style="border: 1px solid black;">SALDO AWAL</td>
-          <td  style="border: 1px solid black;">PENJUALAN</td>
-          <td  style="border: 1px solid black;">PELUNASAN</td>
-          <td  style="border: 1px solid black;">SALDO AKHIR</td>
+        <tr>
+            <td style="border: 1px solid black;">SALDO AWAL</td>
+            <td style="border: 1px solid black;">PENJUALAN</td>
+            <td style="border: 1px solid black;">PELUNASAN</td>
+            <td style="border: 1px solid black;">SALDO AKHIR</td>
 
-          <td  style="border: 1px solid black;"></td>
+            <td style="border: 1px solid black;"></td>
 
-          <td  style="border: 1px solid black;">SALDO AWAL</td>
-          <td  style="border: 1px solid black;">PENJUALAN</td>
-          <td  style="border: 1px solid black;">PELUNASAN</td>
-          <td  style="border: 1px solid black;">SALISIH KURS</td>
-          <td  style="border: 1px solid black;">SALDO AKHIR</td>
-      </tr>
+            <td style="border: 1px solid black;">SALDO AWAL</td>
+            <td style="border: 1px solid black;">PENJUALAN</td>
+            <td style="border: 1px solid black;">PELUNASAN</td>
+            <td style="border: 1px solid black;">SELISIH KURS</td>
+            <td style="border: 1px solid black;">SALDO AKHIR</td>
+        </tr>
+      </thead>
+      <tbody>
+      <?php
+        foreach ($data as $key => $value) {
+          $id_pelanggan = $value->ID_PELANGGAN;
+          $where = "1 = 1";
+          $where2 = "1 = 1";
 
-<!-- --------------------------- -->
+          if($value->ID_PELANGGAN != null){
+            $where = $where." AND TGL_TRX LIKE '%-$bulan-$tahun%' AND ID_PELANGGAN = '$id_pelanggan'";
+            $where2 = $where2." AND a.TGL_TRX LIKE '%-$bulan-$tahun%' AND a.ID_PELANGGAN = '$id_pelanggan'";
+          }else{
+            $where = $where." AND TGL_TRX LIKE '%-$bulan-$tahun%'";
+            $where2 = $where2." AND a.TGL_TRX LIKE '%-$bulan-$tahun%'";
+          }
 
-      <tr>
-      <td  style="border: 1px solid black;">PT</td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      <td  style="border: 1px solid black;"></td>
-      </tr>
+          $sql = "
+            SELECT
+              a.ID_PELANGGAN,
+              a.PELANGGAN,
+              a.TGL_TRX,
+              SUM(a.SUB_TOTAL) AS PENJUALAN,
+              SUM(a.TOTAL_DO) AS PELUNASAN
+            FROM(
+              SELECT
+                a.ID_PELANGGAN,
+                a.PELANGGAN,
+                a.TGL_TRX,
+                (b.QTY * b.HARGA_SATUAN) AS TOTAL_DO,
+                a.SUB_TOTAL
+              FROM ak_penjualan a
+              LEFT JOIN (
+                SELECT * FROM ak_delivery_order
+                WHERE $where
+              ) b ON b.NO_SO = a.NO_BUKTI
+              WHERE $where2
+            ) a
+            GROUP BY a.ID_PELANGGAN
+          ";
 
-<!-- --------------------------- -->
-
-
-
-
-
+          $query = $this->db->query($sql);
+          $row = $query->row();
+          $saldo_akhir = $value->SALDO_BLN_LALU - ($row->PENJUALAN - $row->PELUNASAN);
+      ?>
+        <tr>
+          <td style="border: 1px solid black;"><?php echo $row->PELANGGAN; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->SALDO_BLN_LALU); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($row->PENJUALAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($row->PELUNASAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_akhir); ?></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->SALDO_BLN_LALU); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($row->PENJUALAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($row->PELUNASAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;">0.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_akhir); ?></td>
+        </tr>
+      <?php
+        }
+      ?>
     </table>
     <div style="clear:both"></div>
     <br>

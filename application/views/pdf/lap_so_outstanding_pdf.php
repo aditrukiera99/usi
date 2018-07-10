@@ -4,21 +4,19 @@
     <meta charset="utf-8">
     <title></title>
   </head>
-  <style type="text/css" media="print">
+  <style type="text/css">
   @page {
       size: landscape;
   }
-    .body {
+    /*.body {
       margin:.5in 13.6pt 0in 13.6pt;
       mso-header-margin:.5in;
       mso-footer-margin:.5in;
       mso-paper-source:4;
-    }
-    .one-third{
-      width: 28%;
-      float: left;
-      margin: 2% 0 3% 4%;
-      text-align: center;
+    }*/
+    
+    #tabel{
+      border-collapse: collapse;
     }
 </style>
   <body class="body" onload="window.print()">
@@ -31,12 +29,28 @@
     <center>
     <div>
       <span><strong>Laporan SO OUTSTANDING</strong></span><br>
-      <span style="font-size: 100%;">10-Mar-2018 - 1-Mar-2018</span>
+      <span style="font-size: 100%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
+  <table id="tabel" style="width: 100%; font-size: 80%;">
+      <thead>
+          <tr>
+            <th rowspan="2" style="border: 1px solid black;">No</th>
+            <th rowspan="2" style="border: 1px solid black;">No. SO</th>
+            <th rowspan="2" style="border: 1px solid black;">TANGGAL</th>
+            <th rowspan="2" style="border: 1px solid black;">TANGGAL BUTUH</th>
+            <th rowspan="2" style="border: 1px solid black;">NAMA CUSTOMER</th>
+            <th rowspan="2" style="border: 1px solid black;">ITEM</th>
+            <th colspan="2" style="border: 1px solid black;">QTY</th>
+            <th rowspan="2" style="border: 1px solid black;">SISA</th>
+          </tr>
+          <tr>
+              <th style="border: 1px solid black;">SO</th>
+              <th style="border: 1px solid black;">REALISASI</th>
+          </tr>
+      </thead>
       <tbody>
         <!-- <tr>
           <td style="border-top: 0px solid black;"></td>
@@ -44,51 +58,35 @@
           <td style="border: 0px solid black; text-align:left;">IDR</td>
           <td colspan="9" style="border-top: 0px solid black;"></td>
         </tr> -->
-       
-       <tr>
-          <td rowspan="2" style="border: 1px solid black;">No</td>
-          <td rowspan="2" style="border: 1px solid black;">No. SO</td>
-          <td rowspan="2" style="border: 1px solid black;">TANGGAL</td>
-          <td rowspan="2" style="border: 1px solid black;">TANGGAL BUTUH</td>
-          <td rowspan="2" style="border: 1px solid black;">NAMA CUSTOMER</td>
-          <td rowspan="2" style="border: 1px solid black;">ITEM</td>
-          <td colspan="2" style="border: 1px solid black;">QTY</td>
-          <td rowspan="2" style="border: 1px solid black;">SISA</td>
+      <?php
+          $no = 0;
+          $total = 0;
+          foreach ($data as $key => $value) {
+            $no++;
+            $total += $value->QTY;
+      ?>
+        <tr>
+            <td style="text-align: center;"><?php echo $no; ?></td>
+            <td><?php echo $value->NO_SO; ?></td>
+            <td style="text-align: right;"><?php echo $value->TGL_TRX; ?></td>
+            <td style="text-align: right;"><?php echo $value->TGL_TRX; ?></td>
+            <td><?php echo $value->PELANGGAN; ?></td>
+            <td><?php echo $value->PRODUK; ?></td>
+            <td style="text-align: right;"><?php echo number_format($value->QTY); ?></td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;"><?php echo number_format($value->QTY); ?></td>
         </tr>
+      <?php
+          }
+      ?>
 
       <tr>
-          <td  style="border: 1px solid black;">SO</td>
-          <td  style="border: 1px solid black;">REALISASI</td>
+          <td colspan="5" style="border-top: 1px solid black;">TOTAL</td>
+          <td style="border-top: 1px solid black;">TOTAL</td>
+          <td style="border: 1px solid black; border-bottom: 1px solid black; text-align: right;"><?php echo number_format($total); ?></td>
+          <td style="border: 1px solid black; border-bottom: 1px solid black; text-align: right;">-</td>
+          <td style="border: 1px solid black; border-bottom: 1px solid black; text-align: right;"><?php echo number_format($total); ?></td>
       </tr>
-
-      <!-- ----------------------------------- -->
-      <tr>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;">1</td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-          <td  style="border-style: solid; border-width: 0px 1px 0px 1px;"></td>
-      </tr>
-      <!-- ----------------------------------- -->
-      
-
-      <tr>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border-top: 1px solid black;"></td>
-          <td  style="border: 1px solid black;">TOTAL</td>
-          <td  style="border: 1px solid black;"></td>
-          <td  style="border: 1px solid black;"></td>
-          <td  style="border: 1px solid black;"></td>
-      </tr>
-
-
 
     </table>
     <div style="clear:both"></div>

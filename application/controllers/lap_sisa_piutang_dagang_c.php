@@ -60,6 +60,10 @@ class Lap_sisa_piutang_dagang_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		$tgl_awal = '';
+		$tgl_akhir = '';
 
 		if($filter == "Harian"){
 			$view = "pdf/lap_sisa_piutang_dagang_pdf";
@@ -76,27 +80,59 @@ class Lap_sisa_piutang_dagang_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$sql = "
+				SELECT
+					a.ID,
+					a.NO_BUKTI,
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					(b.QTY * b.HARGA_SATUAN) AS TOTAL_DO,
+					a.SUB_TOTAL
+				FROM ak_penjualan a
+				LEFT JOIN(
+					SELECT * FROM ak_delivery_order
+				) b ON b.NO_SO = a.NO_BUKTI
+				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	            AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+			";
+
+			$dt = $this->db->query($sql)->result();
 		} else {
 			$view = "pdf/lap_sisa_piutang_dagang_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-			$tgl_full = $this->input->post('tgl');
-			if($tgl_full == ""){
-				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
+			$bulan_lalu = $bulan - 1;
+			if($bulan_lalu == 0){
+				$bulan_lalu = 12;
 			}
-			
-			$tgl = explode(' sampai ', $tgl_full);
-			$tgl_awal = $tgl[0];
-			$tgl_akhir = $tgl[1];
-			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$bulan_txt = '';
+			if($bulan_lalu < 10){
+				$bulan_txt = '0'.$bulan_lalu;
+			}
+
+			$judul =  $this->datetostr($bulan)." ".$tahun;
+
+			$sql = "
+				SELECT
+					a.ID,
+					a.NO_BUKTI,
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					(b.QTY * b.HARGA_SATUAN) AS TOTAL_DO,
+					a.SUB_TOTAL
+				FROM ak_penjualan a
+				LEFT JOIN(
+					SELECT * FROM ak_delivery_order
+				) b ON b.NO_SO = a.NO_BUKTI
+				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+			";
+
+			$dt = $this->db->query($sql)->result();
 		}
-
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',

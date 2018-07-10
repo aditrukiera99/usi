@@ -71,7 +71,13 @@
         <?PHP 
         $total = 0;
         foreach ($data as $key => $row) { 
-          $total += $row->TOTAL;
+          $total += $row->SUB_TOTAL;
+          $status = '';
+          if($row->STATUS == '0'){
+            $status = 'NEW';
+          }else{
+            $status = 'COMPLETE';
+          }
         ?>
         <tr>
           <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
@@ -81,10 +87,10 @@
           <td style="border: 1px solid black;"><?=$row->STATUS_PO;?></td>
           <td style="border: 1px solid black;"><?=$row->TGL_TRX;?></td>
           <td style="border: 1px solid black;"><?=$row->MEMO;?></td>
-          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->SUB_TOTAL);?></td>
           <td style="border: 1px solid black;">1.00</td>
-          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->TOTAL);?></td>
-          <td style="border: 1px solid black;">NEW</td>
+          <td style="border: 1px solid black; text-align: right;"><?=number_format($row->SUB_TOTAL);?></td>
+          <td style="border: 1px solid black;"><?=$status;?></td>
         </tr>
         <?PHP } ?>
 

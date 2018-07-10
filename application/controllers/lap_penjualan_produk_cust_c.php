@@ -60,6 +60,11 @@ class Lap_penjualan_produk_cust_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		$bulan_txt2 = '';
+		$tgl_awal = '';
+		$tgl_akhir = '';
 
 		if($filter == "Harian"){
 			$view = "pdf/lap_penjualan_produk_cust_pdf";
@@ -76,40 +81,97 @@ class Lap_penjualan_produk_cust_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  "TANGGAL : ".date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
+			// $dt = $this->db->query("
+			// 	SELECT a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA, SUM(DETAIL.QTY) AS JML FROM ak_produk a 
+			// 	JOIN ak_penjualan_detail DETAIL ON a.ID = DETAIL.ID_PRODUK
+			// 	JOIN ak_penjualan JUAL ON DETAIL.ID_PENJUALAN = JUAL.ID
+			// 	WHERE STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+			// 	GROUP BY a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA
+			// 	ORDER BY a.ID
+			// ")->result();
+
 			$dt = $this->db->query("
-				SELECT a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA, SUM(DETAIL.QTY) AS JML FROM ak_produk a 
-				JOIN ak_penjualan_detail DETAIL ON a.ID = DETAIL.ID_PRODUK
-				JOIN ak_penjualan JUAL ON DETAIL.ID_PENJUALAN = JUAL.ID
-				WHERE STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(JUAL.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
-				GROUP BY a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA
-				ORDER BY a.ID
+				SELECT
+					a.ID,
+					a.TGL_TRX,
+					a.ID_PRODUK,
+					a.PRODUK AS NAMA_PRODUK,
+					a.KODE_PRODUK,
+					a.SATUAN,
+					a.HARGA_SATUAN,
+					a.HARGA,
+					SUM(a.JML) AS JML,
+					SUM(a.NILAI) AS NILAI
+				FROM(
+					SELECT
+						a.ID,
+						a.TGL_TRX,
+						a.ID_PRODUK,
+						a.PRODUK,
+						b.KODE_PRODUK,
+						b.SATUAN,
+						a.HARGA_SATUAN,
+						b.HARGA,
+						a.QTY AS JML,
+						(a.QTY * a.HARGA_SATUAN) AS NILAI,
+						SUBSTR(a.TGL_TRX,4,2) AS BLN,
+						SUBSTR(a.TGL_TRX,7) AS THN
+					FROM ak_delivery_order a
+					LEFT JOIN ak_produk b ON b.ID = a.ID_PRODUK
+					WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+					AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+				) a
+				GROUP BY a.PRODUK, a.KODE_PRODUK
 			")->result();
 		} else {
 			$view = "pdf/lap_penjualan_produk_cust_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-			$bulan = $this->input->post('bulan');
-			$tahun = $this->input->post('tahun');
 			$bulan_lalu = $bulan - 1;
 			if($bulan_lalu == 0){
 				$bulan_lalu = 12;
 			}
 
+			if($bulan_lalu < 10){
+				$bulan_txt2 = '0'.$bulan_lalu;
+			}
+
 			$judul =  "BULAN : ".$this->datetostr($bulan)." ".$tahun;
 
 			$dt = $this->db->query("
-				SELECT a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA, SUM(DETAIL.QTY) AS JML FROM ak_produk a 
-				JOIN ak_penjualan_detail DETAIL ON a.ID = DETAIL.ID_PRODUK
-				JOIN ak_penjualan JUAL ON DETAIL.ID_PENJUALAN = JUAL.ID
-				WHERE JUAL.TGL_TRX LIKE '%-$bulan-$tahun%'
-				GROUP BY a.NAMA_PRODUK, a.KODE_PRODUK, a.SATUAN, a.HARGA
-				ORDER BY a.ID
+				SELECT
+					a.ID,
+					a.TGL_TRX,
+					a.ID_PRODUK,
+					a.PRODUK AS NAMA_PRODUK,
+					a.KODE_PRODUK,
+					a.SATUAN,
+					a.HARGA_SATUAN,
+					a.HARGA,
+					SUM(a.JML) AS JML,
+					SUM(a.NILAI) AS NILAI
+				FROM(
+					SELECT
+						a.ID,
+						a.TGL_TRX,
+						a.ID_PRODUK,
+						a.PRODUK,
+						b.KODE_PRODUK,
+						b.SATUAN,
+						a.HARGA_SATUAN,
+						b.HARGA,
+						a.QTY AS JML,
+						(a.QTY * a.HARGA_SATUAN) AS NILAI,
+						SUBSTR(a.TGL_TRX,4,2) AS BLN,
+						SUBSTR(a.TGL_TRX,7) AS THN
+					FROM ak_delivery_order a
+					LEFT JOIN ak_produk b ON b.ID = a.ID_PRODUK
+					WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+				) a
+				GROUP BY a.PRODUK, a.KODE_PRODUK
 			")->result();
 		}
-
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',
@@ -118,6 +180,11 @@ class Lap_penjualan_produk_cust_c extends CI_Controller {
 			'judul'			=> $judul,
 			'dt_unit'		=> $dt_unit,
 			'data_usaha'    => $this->master_model_m->data_usaha($id_klien),
+			'tgl_awal'	 => $tgl_awal,
+			'tgl_akhir'	 => $tgl_akhir,
+			'bulan_skg'	 => $bulan,
+			'tahun'		 => $tahun,
+			'filter'	 => $filter
 		);
 		$this->load->view($view,$data);
 	}

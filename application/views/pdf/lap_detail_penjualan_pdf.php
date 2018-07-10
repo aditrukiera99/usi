@@ -70,9 +70,33 @@
       </tr>
       <?PHP 
       $dt_det = $this->db->query("
-        SELECT a.*, b.KODE_PRODUK FROM ak_penjualan_detail a
-        LEFT JOIN ak_produk b ON a.ID_PRODUK = b.ID
-        WHERE a.ID_PENJUALAN = '".$row->ID."' 
+        SELECT
+          a.ID,
+          a.NO_BUKTI,
+          a.ID_PELANGGAN,
+          a.PELANGGAN,
+          a.TGL_TRX,
+          d.KODE_PRODUK,
+          a.PRODUK AS NAMA_PRODUK,
+          a.QTY,
+          a.HARGA_SATUAN,
+          a.NO_SO,
+          a.STATUS,
+          a.NOMER_DO,
+          a.NOMER_PO,
+          a.NOMER_LPB,
+          a.ID_PRODUK,
+          b.SUB_TOTAL AS TOTAL,
+          b.PPN,
+          b.MEMO,
+          b.STATUS_PO,
+          c.SATUAN
+        FROM ak_delivery_order a
+        LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+        LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
+        LEFT JOIN ak_produk d ON d.ID = a.ID_PRODUK
+        WHERE a.ID = '".$row->ID."'
+        ORDER BY a.ID 
         ")->result();
       $total_all = 0;
       foreach ($dt_det as $key => $row_det) {
@@ -109,6 +133,10 @@
         <td><strong>TOTAL NET</strong></td>
         <td style="text-align: right;"><strong><?=number_format($total_all);?></strong></td>
       </tr>
+      <!-- <tr>
+        <td colspan="5">&nbsp;</td>
+        <td>GRAND TOTAL FAKTUR</td>
+      </tr> -->
     </tbody>
   </table>
   <?PHP } ?>

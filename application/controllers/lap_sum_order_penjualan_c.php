@@ -76,9 +76,37 @@ class Lap_sum_order_penjualan_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
+			// $dt = $this->db->query("
+			// 	SELECT a.* FROM ak_penjualan a 
+			// 	WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+			// 	ORDER BY a.ID
+			// ")->result();
+
 			$dt = $this->db->query("
-				SELECT a.* FROM ak_penjualan a 
-				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+				SELECT
+					a.ID,
+					a.NO_BUKTI,
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					a.PRODUK,
+					a.QTY,
+					a.HARGA_SATUAN,
+					a.NO_SO,
+					a.STATUS,
+					a.NOMER_DO,
+					a.NOMER_PO,
+					a.NOMER_LPB,
+					a.ID_PRODUK,
+					b.SUB_TOTAL,
+					b.TOTAL,
+					b.PPN,
+					b.MEMO,
+					b.STATUS_PO
+				FROM ak_delivery_order a
+				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+				AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
 				ORDER BY a.ID
 			")->result();
 		} else {
@@ -96,7 +124,28 @@ class Lap_sum_order_penjualan_c extends CI_Controller {
 			$judul =  $this->datetostr($bulan)." ".$tahun;
 
 			$dt = $this->db->query("
-				SELECT a.* FROM ak_penjualan a 
+				SELECT
+					a.ID,
+					a.NO_BUKTI,
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					a.PRODUK,
+					a.QTY,
+					a.HARGA_SATUAN,
+					a.NO_SO,
+					a.STATUS,
+					a.NOMER_DO,
+					a.NOMER_PO,
+					a.NOMER_LPB,
+					a.ID_PRODUK,
+					b.SUB_TOTAL,
+					b.TOTAL,
+					b.PPN,
+					b.MEMO,
+					b.STATUS_PO
+				FROM ak_delivery_order a
+				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
 				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
 				ORDER BY a.ID
 			")->result();
