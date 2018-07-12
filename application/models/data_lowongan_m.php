@@ -23,9 +23,9 @@ class Data_lowongan_m extends CI_Model
         
     }
 
-    function cari_kendaraan_by_id($id){
+    function cari_lowongan_by_id($id){
         $sql = "
-        SELECT * FROM ak_master_transportir WHERE ID = $id
+        SELECT * FROM ak_lowongan WHERE ID = $id
         ";
 
         return $this->db->query($sql)->row();

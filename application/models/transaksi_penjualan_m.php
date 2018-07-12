@@ -497,7 +497,7 @@ class Transaksi_penjualan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so,$qty_total,$tipe_so,$supply_point)
+    function simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat ,$no_po_pelanggan,$penampung_oat,$nomer_so,$qty_total,$tipe_so,$supply_point,$jatuh_tempo)
     {
 
         $sql = "
@@ -524,7 +524,8 @@ class Transaksi_penjualan_m extends CI_Model
             SISA,
             KUANTITAS,
             TIPE_PENJUALAN,
-            SUPPLY_POINT
+            SUPPLY_POINT,
+            JATUH_TEMPO
 
         )
         VALUES 
@@ -550,7 +551,8 @@ class Transaksi_penjualan_m extends CI_Model
            '$qty_total',
            '$qty_total',
            '$tipe_so',
-           '$supply_point'
+           '$supply_point',
+           '$jatuh_tempo'
         )
         ";
 

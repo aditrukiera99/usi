@@ -30,9 +30,17 @@ class Data_lowongan_c extends CI_Controller {
 				$tgl_akhir = $this->input->post('tgl_akhir');
 				$keterangan = $this->input->post('keterangan');
 				$maksimal_umur = $this->input->post('maksimal_umur');
+				$sertifikat = $this->input->post('sertifikat');
 			
 
 			$this->model->simpan_lowongan($nama,$tgl_awal,$tgl_akhir,$keterangan,$maksimal_umur);
+
+			$id_lowongan = $this->insert_id();
+
+
+			foreach ($sertifikat as $key => $value) {
+				
+			}
 
 
 		} else if($this->input->post('id_hapus')){
@@ -93,9 +101,9 @@ class Data_lowongan_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
-	function cari_kendaraan_by_id(){
+	function cari_lowongan_by_id(){
 		$id = $this->input->get('id');
-		$dt = $this->model->cari_kendaraan_by_id($id);
+		$dt = $this->model->cari_lowongan_by_id($id);
 
 		echo json_encode($dt);
 	}

@@ -196,6 +196,20 @@ $(function() {
     });
 
     $(function () {
+        $('#datetimepicker4').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker5').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        });
+    });
+
+    $(function () {
         $('#datetimepicker3').datetimepicker({
             language: 'pt-BR',
             pickTime: false
