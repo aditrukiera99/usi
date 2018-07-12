@@ -781,15 +781,21 @@ function get_pelanggan_det(id_pel){
 			$('#no_po_client').val(result.PO_PELANGGAN);
 
 				var stri = $('#tgl_trx_tur').val();
+				var exp = stri.split("-");
+				var hari = exp[0];
+				var bln = exp[1];
+				var thn = exp[2];
 
-				var startDate = new Date(stri);
-				var id =  result.JATUH_TEMPO;
+				var tgl_baru = thn+"-"+bln+"-"+hari;
+
+				var startDate = new Date(tgl_baru);
+				var id =  parseFloat(result.JATUH_TEMPO);
 
 				// seconds * minutes * hours * milliseconds = 1 day 
-				var day = (60 * 60 * 24 * 1000) * id ;
+				var day = parseFloat((60 * 60 * 24 * 1000)) * id ;
 				var da = (60 * 60 * 24 * 1000) * 3 ;
 
-				var endDate = new Date(startDate.getTime('dd-MM-yyyy')+ day + da);
+				var endDate = new Date(startDate.getTime('MM-dd-yyyy') + day);
 				var tgl = endDate.toString("dd-MM-yyyy");
 
 			$('#tgl_jt').val(tgl);

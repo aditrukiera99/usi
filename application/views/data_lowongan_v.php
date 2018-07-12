@@ -72,9 +72,10 @@
 							<td> <?=$row->NAMA;?> </td>
 							<td> <?=$row->TGL_AWAL;?> </td>
 							<td> <?=$row->TGL_AKHIR;?> </td>
-							<td><!-- <button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
+							<td><a href="<?=base_url();?>data_lowongan_c/edit_lowongan_kerja/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn btn-small btn-warning"> 
 								Ubah 
-								</button> -->
+								</button>
+							</a>
 								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
 								Hapus
 								</button>
@@ -107,17 +108,10 @@
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> LOWONGAN PEKERJAAN </label>
-						<div class="controls">
-							<textarea required type="text" class="span6" value="" name="kerjaan" style="font-size: 14px;" rows="5"></textarea>
-						</div>
-					</div>
-
-					<div class="control-group">
 						<label class="control-label"> TANGGAL MULAI </label>
 						<div class="controls">
-							<div class="input-append date ">
-								<input  style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_awal" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="date">
+							<div id="datetimepicker4" class="input-append date ">
+								<input  style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_awal" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text">
 								<span class="add-on "><i class="icon-calendar"></i></span>
 							</div>
 						</div>
@@ -126,8 +120,8 @@
 					<div class="control-group">
 						<label class="control-label"> TANGGAL AKHIR </label>
 						<div class="controls">
-							<div class="input-append date ">
-								<input  style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_akhir" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="date">
+						<div id="datetimepicker5" class="input-append date ">
+								<input  style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_akhir" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text">
 								<span class="add-on "><i class="icon-calendar"></i></span>
 							</div>
 						</div>
@@ -174,7 +168,7 @@
 
 					<div class="form-actions">
 						
-						<input type="submit" class="btn btn-info" name="simpan" value="SIMPAN TRANSPORTIR">
+						<input type="submit" class="btn btn-info" name="simpan" value="SIMPAN LOWONGAN">
 						
 						<button type="button" onclick="batal_klik();" class="btn"> BATAL </button>
 					</div>
@@ -208,18 +202,68 @@
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 					<div class="control-group">
-						<label class="control-label"> NAMA TRANSPORTIR </label>
+						<label class="control-label"> NAMA LOWONGANAN </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="nama_transportir_ed" name="nama_transportir_ed" style="font-size: 14px;">
-							<input required type="hidden" class="span6" value="" id="id_gr" name="id_gr" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="nama" id="edit_nama" style="font-size: 14px;">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> ALAMAT TRANSPORTIR </label>
+						<label class="control-label"> TANGGAL MULAI </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="alamat_transportir_ed" name="alamat_transportir_ed" style="font-size: 14px;">
-							
+							<div id="datetimepicker1" class="input-append date ">
+								<input  style="width: 80%;" value="" required name="tgl_awal" data-format="dd-MM-yyyy" onclick="$('#add_on_pick').click();" type="text" id="edit_tgl_mulai">
+								<span class="add-on "><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> TANGGAL AKHIR </label>
+						<div class="controls">
+							<div id="datetimepicker2" class="input-append date ">
+								<input  style="width: 80%;" value="" required name="tgl_akhir" data-format="dd-MM-yyyy" onclick="$('#add_on_pick').click();" type="text" id="edit_tgl_akhir">
+								<span class="add-on "><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="control-group">
+						<label class="control-label"> MAKSIMAL USIA </label>
+						<div class="controls">
+							<input type="number" class="usia" class="span6"  name="maksimal_umur" id="edit_usia">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> KEBUTUHAN SERTIFIKAT </label>
+						<div class="controls" id="sertifikat_id" class="span6">
+							<select name="sertifikat[]" id="sertifikat" class="span6">
+								<?php 
+
+									$ser = $this->db->query("SELECT * FROM ak_sertifikat")->result();
+									foreach ($ser as $key => $value) {
+										?>
+											<option value="<?=$value->ID;?>"><?=$value->NAMA;?></option>
+										<?php
+									}
+								?>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">  </label>
+						<div class="controls">
+							<button type="button" id="tmbh_sertifikat_btn" onclick="tmbh_sertifikat();" class="btn btn-success">Tambah Sertifikat</button>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"> KETERANGAN </label>
+						<div class="controls">
+							<textarea required type="text" class="span6" value="" id="edit_keterangan" name="keterangan" style="font-size: 14px;" rows="5"></textarea>
 						</div>
 					</div>
 
@@ -262,15 +306,17 @@
 function ubah_data_produk(id){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>master_transportir_c/cari_kendaraan_by_id',
+		url : '<?php echo base_url(); ?>data_lowongan_c/cari_lowongan_by_id',
 		data : {id:id},
 		type : "GET",
 		dataType : "json",
 		success : function(result){
 			$('#popup_load').hide();
-			$('#id_gr').val(result.ID);
-			$('#nama_transportir_ed').val(result.NAMA);
-			$('#alamat_transportir_ed').val(result.ALAMAT);
+			$('#edit_nama').val(result.NAMA);
+			$('#edit_tgl_mulai').val(result.TGL_AWAL);
+			$('#edit_tgl_akhir').val(result.TGL_AKHIR);
+			$('#edit_usia').val(result.MAKSIMAL_UMUR);
+			$('#edit_keterangan').val(result.KETERANGAN);
 
 	        $('#view_data').hide();
 	        $('#edit_data').fadeIn('slow');
@@ -300,6 +346,11 @@ function tmbh_sertifikat() {
 function tambah_klik(){
 	$('#view_data').hide();
 	$('#add_data').fadeIn('slow');
+}
+
+function edit_klik(){
+	$('#view_data').hide();
+	$('#edit_data').fadeIn('slow');
 }
 
 function batal_klik(){

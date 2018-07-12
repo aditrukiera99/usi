@@ -319,11 +319,11 @@ class Bukti_kas_masuk_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (NO_PO LIKE '%$keyword%' OR PELANGGAN LIKE '%$keyword%')";
+			$where = $where." AND (NOMER_DO LIKE '%$keyword%' OR PELANGGAN LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_penjualan WHERE NO_BUKTI NOT IN (SELECT NO_BUKTI FROM ak_input_voucher WHERE TIPE = 'BKM' ) AND $where
+		SELECT * FROM ak_delivery_order WHERE NOMER_DO NOT IN (SELECT NO_BUKTI FROM ak_input_voucher WHERE TIPE = 'BKM' ) AND $where
 		";
 
 		$dt = $this->db->query($sql)->result();

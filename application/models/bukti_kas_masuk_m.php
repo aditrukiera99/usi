@@ -74,7 +74,7 @@ class Bukti_kas_masuk_m extends CI_Model
 
     function get_PO_detail($id){
         $sql = "
-        SELECT * FROM ak_penjualan 
+        SELECT * FROM ak_delivery_order 
         WHERE ID = '$id'
         ";
 
@@ -83,8 +83,8 @@ class Bukti_kas_masuk_m extends CI_Model
 
     function get_PO_detail2($id){
         $sql = "
-        SELECT * FROM ak_penjualan_detail 
-        WHERE ID_PENJUALAN = '$id'
+        SELECT * FROM ak_delivery_order 
+        WHERE ID = '$id'
         ";
 
         return $this->db->query($sql)->result();

@@ -309,7 +309,7 @@ function get_popup_PO(){
                 '            <table class="table table-hover2" id="tes5">'+
                 '                <thead>'+
                 '                    <tr>'+
-                '                        <th>NO. ORDER</th>'+
+                '                        <th>NO SO / DO</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL</th>'+
                 '                        <th> NAMA PELANGGAN </th>'+
                 '                    </tr>'+
@@ -349,7 +349,7 @@ function ajax_PO(){
             $.each(result,function(i,res){
                 no++;
                 isine += '<tr onclick="get_PO_detail('+res.ID+');" style="cursor:pointer;">'+
-                            '<td align="center">'+res.NO_BUKTI+'</td>'+
+                            '<td align="center">'+res.NOMER_DO+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
                             '<td align="center">'+res.PELANGGAN+'</td>'+
                         '</tr>';
@@ -379,7 +379,7 @@ function get_PO_detail(id){
 			// $('#alamat_tagih').val(result.ALAMAT_TAGIH);
 			$('#id_pelanggan').val(result.ID_PELANGGAN);
 			$('#pelanggan').val(result.PELANGGAN);
-			$('#no_reff').val(result.NO_BUKTI);
+			$('#no_reff').val(result.NOMER_DO);
 			$('#search_koang').val("");
 		    $('#popup_koang').css('display','none');
 		    $('#popup_koang').hide();
@@ -406,13 +406,13 @@ function get_PO_detail2(id){
 					'<td>'+coa+'</td>'+
 					'<td style="vertical-align:middle;">'+
 						'<div class="controls">'+
-							'<input style="font-size: 14px; text-align:left; width: 90%;" type="text"  value="'+res.NAMA_PRODUK+'" name="ket[]" id="ket_'+i+'">'+
+							'<input style="font-size: 14px; text-align:left; width: 90%;" type="text"  value="'+res.PRODUK+'" name="ket[]" id="ket_'+i+'">'+
 						'</div>'+
 					'</td>'+
 
 					'<td align="center" style="vertical-align:middle;"> '+
 						'<div class="controls">'+
-							'<input onkeyup="FormatCurrency(this);" style="font-size: 14px; text-align:right; width: 80%;" type="text" readonly value="'+NumberToMoney(res.TOTAL)+'" name="nilai[]" id="nilai_'+i+'">'+
+							'<input onkeyup="FormatCurrency(this);" style="font-size: 14px; text-align:right; width: 80%;" type="text" readonly value="'+NumberToMoney(parseFloat(res.QTY) * parseFloat(res.HARGA_SATUAN))+'" name="nilai[]" id="nilai_'+i+'">'+
 						'</div>'+
 					'</td>'+
 

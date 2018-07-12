@@ -196,6 +196,20 @@ $(function() {
     });
 
     $(function () {
+        $('#datetimepicker4').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker5').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        });
+    });
+
+    $(function () {
         $('#datetimepicker3').datetimepicker({
             language: 'pt-BR',
             pickTime: false
@@ -1202,13 +1216,13 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                 
 
                 <li <?PHP if($view == "data_pegawai"){ echo "class='active'"; } ?>>
-                  <a href="<?=base_url();?>transaksi_penjualan_c">
+                  <a href="<?=base_url();?>pegawai_c">
                     <i class="icon-caret-right"></i> Pegawai <span> Membuat daftar pegawai </span>
                   </a>
                 </li>
 
                 <li <?PHP if($view == "set_gaji"){ echo "class='active'"; } ?>>
-                  <a href="<?=base_url();?>delivery_order_new_c">
+                  <a href="">
                     <i class="icon-caret-right"></i> Set Gaji <span> Membuat set gaji </span>
                   </a>
                 </li>

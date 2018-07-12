@@ -157,52 +157,38 @@
 			<div class="widget-container">
 				<form class="form-horizontal" method="post" action="<?=base_url().$post_url;?>">
 					<div class="control-group">
-						<label class="control-label"> No Polisi </label>
+						<label class="control-label"> NIK </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="no_polisi" name="no_polisi" style="font-size: 14px;">
-							<input required type="hidden" class="span6" value="" id="id_gr" name="id_gr" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="nik" id="edit_nik" style="font-size: 14px;">
+							<input required type="hidden" class="span6" value="" name="id" id="edit_id" style="font-size: 14px;">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> Merk </label>
+						<label class="control-label"> Nama </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="merk" name="merk" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="nama" id="edit_nama" style="font-size: 14px;">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> Tahun </label>
+						<label class="control-label"> Alamat </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="tahun" name="tahun" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="alamat" id="edit_alamat" style="font-size: 14px;">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> No Rangka </label>
+						<label class="control-label"> Jabatan </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="no_rangka" name="no_rangka" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="jabatan" id="edit_jabatan" style="font-size: 14px;">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label"> No Mesin </label>
+						<label class="control-label"> Departemen </label>
 						<div class="controls">
-							<input required type="text" class="span6" value="" id="no_mesin" name="no_mesin" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"> Kapasitas </label>
-						<div class="controls">
-							<input required type="text" class="span6" value="" id="kapasitas" name="kapasitas" style="font-size: 14px;">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"> Sopir </label>
-						<div class="controls">
-							<input required type="text" class="span6" value="" id="sopir" name="sopir" style="font-size: 14px;">
+							<input required type="text" class="span6" value="" name="departemen" id="edit_departemen" style="font-size: 14px;">
 						</div>
 					</div>
 
@@ -282,20 +268,18 @@
 function ubah_data_produk(id){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>kendaraan_c/cari_kendaraan_by_id',
+		url : '<?php echo base_url(); ?>pegawai_c/cari_pegawai_by_id',
 		data : {id:id},
 		type : "GET",
 		dataType : "json",
 		success : function(result){
 			$('#popup_load').hide();
-			$('#id_gr').val(result.ID);
-			$('#no_polisi').val(result.NOPOL);
-			$('#merk').val(result.MERK);
-			$('#tahun').val(result.TAHUN);
-			$('#no_rangka').val(result.NORANGKA);
-			$('#no_mesin').val(result.NOMESIN);
-			$('#kapasitas').val(result.KAPASITAS);
-			$('#sopir').val(result.SOPIR);
+			$('#edit_nik').val(result.NIK);
+			$('#edit_id').val(result.ID);
+			$('#edit_nama').val(result.NAMA_PEGAWAI);
+			$('#edit_alamat').val(result.ALAMAT);
+			$('#edit_jabatan').val(result.JABATAN);
+			$('#edit_departemen').val(result.DEPARTEMEN);
 
 	        $('#view_data').hide();
 	        $('#edit_data').fadeIn('slow');

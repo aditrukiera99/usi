@@ -81,6 +81,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			$ppn 			= $this->input->post('penampung_ppn');
 			$tipe_so 			= $this->input->post('tipe_so');
+			$hari_tempo 			= $this->input->post('hari_tempo');
 
 			
 			$kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
@@ -98,7 +99,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$harga_beli 	= $this->input->post('harga_beli');
 			$total_id 		= $this->input->post('total_id');
 
-			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real,$qty_total,$tipe_so,$pajak_id);
+			$this->model->simpan_penjualan_so($no_trx, $id_pelanggan, $pelanggan, $alamat_tagih, $tgl_trx, $sub_total, $keterangan, $ppn , $nilai_pph ,$nilai_pbbkb , $nilai_qty_total , $ppn_oat,$no_po_pelanggan,$penampung_oat,$no_bukti_real,$qty_total,$tipe_so,$pajak_id,$hari_tempo);
 
 			$id_penjualan = $this->db->insert_id(); 
 

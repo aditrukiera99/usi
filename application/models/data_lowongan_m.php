@@ -16,16 +16,23 @@ class Data_lowongan_m extends CI_Model
     }
 
 
-    function hapus_kategori($id){
+    function hapus_lowongan_sertifikat($id){
         
-            $sql = " DELETE FROM ak_master_transportir WHERE ID = $id"; 
+            $sql = " DELETE FROM ak_lowongan_sertifikat WHERE ID_LOWONGAN = $id"; 
             $this->db->query($sql);
         
     }
 
-    function cari_kendaraan_by_id($id){
+    function hapus_lowongan($id){
+        
+            $sql = " DELETE FROM ak_lowongan WHERE ID = $id"; 
+            $this->db->query($sql);
+        
+    }
+
+    function cari_lowongan_by_id($id){
         $sql = "
-        SELECT * FROM ak_master_transportir WHERE ID = $id
+        SELECT * FROM ak_lowongan WHERE ID = $id
         ";
 
         return $this->db->query($sql)->row();
@@ -45,12 +52,29 @@ class Data_lowongan_m extends CI_Model
         return $this->db->insert_id();
     }
 
-    function edit_master_transportir($id_grup, $nama_master_transportir_ed,$alamat_master_transportir_ed){
+    function simpan_lowongan_sertifikat($id_lowongan,$id_lowongan_sertifikat){
+       
+
+        $sql = "
+        INSERT INTO ak_lowongan_sertifikat
+        (ID_LOWONGAN,ID_SERTIFIKAT)
+        VALUES 
+        ('$id_lowongan','$id_lowongan_sertifikat')
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function edit_data_lowongan($id_grup,$nama,$tgl_awal,$tgl_akhir,$keterangan,$maksimal){
         
 
         $sql = "
-        UPDATE ak_master_transportir SET 
-            NAMA = '$nama_master_transportir_ed' , ALAMAT = '$alamat_master_transportir_ed'
+        UPDATE ak_lowongan SET 
+            NAMA = '$nama' , 
+            TGL_AWAL = '$tgl_awal' ,
+            TGL_AKHIR = '$tgl_akhir' ,
+            KETERANGAN = '$keterangan' ,
+            MAKSIMAL_UMUR = '$maksimal' 
         WHERE ID = '$id_grup'
         ";
 

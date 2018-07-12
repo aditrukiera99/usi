@@ -61,18 +61,13 @@ class Pegawai_c extends CI_Controller {
 
 
 			$id_grup   = $this->input->post('id');
+			$nik         = $this->input->post('nik');
+			$nama    = $this->input->post('nama');
+			$alamat    = $this->input->post('alamat');
+			$jabatan    = $this->input->post('jabatan');
+			$departemen    = $this->input->post('departemen');
 
-		
-			$id_gr         = addslashes($this->input->post('id_gr'));
-			$no_polisi         = addslashes($this->input->post('no_polisi'));
-			$merk    = addslashes($this->input->post('merk'));
-			$tahun    = addslashes($this->input->post('tahun'));
-			$no_rangka    = addslashes($this->input->post('no_rangka'));
-			$no_mesin    = addslashes($this->input->post('no_mesin'));
-			$kapasitas    = addslashes($this->input->post('kapasitas'));
-			$sopir    = addslashes($this->input->post('sopir'));
-
-			$this->model->edit_pegawai($id_gr,$no_polisi,$merk,$tahun,$no_rangka,$no_mesin,$kapasitas,$sopir);
+			$this->model->edit_pegawai($id_grup,$nik,$nama,$alamat,$jabatan,$departemen);
 
 			
 		}
@@ -84,7 +79,7 @@ class Pegawai_c extends CI_Controller {
 			'title' => "Data Pegawai", 
 			'msg' => "", 
 			'master' => "hrd", 
-			'view' => "pegawai", 
+			'view' => "data_pegawai", 
 			'dt' => $dt, 
 			'msg' => $msg, 
 			'kode_produk' => $kode_produk, 

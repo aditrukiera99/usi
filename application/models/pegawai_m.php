@@ -46,18 +46,16 @@ class Pegawai_m extends CI_Model
         return $this->db->insert_id();
     }
 
-    function edit_pegawai($id_grup, $no_polisi, $merk, $tahun, $no_rangka, $no_mesin, $kapasitas, $sopir){
+    function edit_pegawai($id_grup, $nik, $nama, $alamat, $jabatan, $departemen){
         
 
         $sql = "
         UPDATE ak_pegawai SET 
-            NOPOL = '$no_polisi', 
-            MERK = '$merk',
-            TAHUN = '$tahun',
-            NORANGKA = '$no_rangka',
-            NOMESIN = '$no_mesin',
-            KAPASITAS = '$kapasitas',
-            SOPIR = '$sopir'
+            NIK = '$nik', 
+            NAMA_PEGAWAI = '$nama',
+            ALAMAT = '$alamat',
+            JABATAN = '$jabatan',
+            DEPARTEMEN = '$departemen'
         WHERE ID = '$id_grup'
         ";
 

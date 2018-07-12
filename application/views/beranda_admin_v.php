@@ -1424,7 +1424,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                 
 
                 <li <?PHP if($view == "data_pegawai"){ echo "class='active'"; } ?>>
-                  <a href="<?=base_url();?>transaksi_penjualan_c">
+                  <a href="<?=base_url();?>pegawai_c">
                     <i class="icon-caret-right"></i> Pegawai <span> Membuat daftar pegawai </span>
                   </a>
                 </li>
