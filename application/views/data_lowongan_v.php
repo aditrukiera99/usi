@@ -72,9 +72,10 @@
 							<td> <?=$row->NAMA;?> </td>
 							<td> <?=$row->TGL_AWAL;?> </td>
 							<td> <?=$row->TGL_AKHIR;?> </td>
-							<td><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
+							<td><a href="<?=base_url();?>data_lowongan_c/edit_lowongan_kerja/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn btn-small btn-warning"> 
 								Ubah 
 								</button>
+							</a>
 								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
 								Hapus
 								</button>
