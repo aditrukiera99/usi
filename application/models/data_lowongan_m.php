@@ -9,8 +9,7 @@ class Data_lowongan_m extends CI_Model
 
     function get_data_transportir(){
         $sql = "
-        SELECT * FROM ak_master_transportir
-        ORDER BY ID DESC
+        SELECT * FROM ak_lowongan
         ";
 
         return $this->db->query($sql)->result();
@@ -32,14 +31,14 @@ class Data_lowongan_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function simpan_master_transportir($nama_master_transportir,$alamat_master_transportir){
+    function simpan_lowongan($nama,$tgl_awal,$tgl_akhir,$keterangan,$maksimal){
        
 
         $sql = "
-        INSERT INTO ak_master_transportir
-        (NAMA,ALAMAT)
+        INSERT INTO ak_lowongan
+        (NAMA,TGL_AWAL,TGL_AKHIR,KETERANGAN,MAKSIMAL_UMUR)
         VALUES 
-        ('$nama_master_transportir','$alamat_master_transportir')
+        ('$nama','$tgl_awal','$tgl_akhir','$keterangan','$maksimal')
         ";
 
         $this->db->query($sql);

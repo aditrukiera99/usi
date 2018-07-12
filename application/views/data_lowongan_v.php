@@ -55,7 +55,7 @@
 					<thead>
 						<tr>
 							<th align="center"> NO </th>
-							<th align="center"> JUDUL</th>						
+							<th align="center"> NAMA</th>						
 							<th align="center"> TANGGAL </th>						
 							<th align="center"> EXPIRED </th>						
 							<th align="center"> AKSI </th>
@@ -70,11 +70,11 @@
 						<tr>
 							<td align="center" style="text-align: center;"> <?=$no;?> </td>
 							<td> <?=$row->NAMA;?> </td>
-							<td> <?=$row->ALAMAT;?> </td>
-							<td> <?=$row->ALAMAT;?> </td>
-							<td><button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
+							<td> <?=$row->TGL_AWAL;?> </td>
+							<td> <?=$row->TGL_AKHIR;?> </td>
+							<td><!-- <button style="padding: 2px 10px;"  onclick="ubah_data_produk(<?=$row->ID;?>);" type="button" class="btn btn-small btn-warning"> 
 								Ubah 
-								</button>
+								</button> -->
 								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
 								Hapus
 								</button>
@@ -117,7 +117,7 @@
 						<label class="control-label"> TANGGAL MULAI </label>
 						<div class="controls">
 							<div class="input-append date ">
-								<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_mulai" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text">
+								<input  style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_awal" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="date">
 								<span class="add-on "><i class="icon-calendar"></i></span>
 							</div>
 						</div>
@@ -127,7 +127,7 @@
 						<label class="control-label"> TANGGAL AKHIR </label>
 						<div class="controls">
 							<div class="input-append date ">
-								<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_mulai" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="text">
+								<input  style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_akhir" onclick="$('#add_on_pick').click();" data-format="dd-MM-yyyy" type="date">
 								<span class="add-on "><i class="icon-calendar"></i></span>
 							</div>
 						</div>
@@ -137,7 +137,7 @@
 					<div class="control-group">
 						<label class="control-label"> MAKSIMAL USIA </label>
 						<div class="controls">
-							<input type="number" class="usia" class="span6"  name="">
+							<input type="number" class="usia" class="span6"  name="maksimal_umur">
 						</div>
 					</div>
 
@@ -168,7 +168,7 @@
 					<div class="control-group">
 						<label class="control-label"> KETERANGAN </label>
 						<div class="controls">
-							<textarea required type="text" class="span6" value="" name="kerjaan" style="font-size: 14px;" rows="5"></textarea>
+							<textarea required type="text" class="span6" value="" name="keterangan" style="font-size: 14px;" rows="5"></textarea>
 						</div>
 					</div>
 

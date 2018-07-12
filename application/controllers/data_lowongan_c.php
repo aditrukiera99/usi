@@ -10,7 +10,7 @@ class Data_lowongan_c extends CI_Controller {
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
-	    $this->load->model('master_transportir_m','model');
+	    $this->load->model('data_lowongan_m','model');
 	}
 
 	function index()
@@ -24,16 +24,15 @@ class Data_lowongan_c extends CI_Controller {
 		$user = $this->master_model_m->get_user_info($id_user);
 
 		if($this->input->post('simpan')){
-			if($user->LEVEL == "USER"){
-				$msg = 33;
-			} else {
-				$msg = 1;
-			}
 			
-			$nama_master_transportir  = addslashes($this->input->post('nama_master_transportir'));
-			$alamat_master_transportir  = addslashes($this->input->post('alamat_master_transportir'));
+				$nama = $this->input->post('nama');
+				$tgl_awal = $this->input->post('tgl_awal');
+				$tgl_akhir = $this->input->post('tgl_akhir');
+				$keterangan = $this->input->post('keterangan');
+				$maksimal_umur = $this->input->post('maksimal_umur');
+			
 
-			$this->model->simpan_master_transportir($nama_master_transportir,$alamat_master_transportir);
+			$this->model->simpan_lowongan($nama,$tgl_awal,$tgl_akhir,$keterangan,$maksimal_umur);
 
 
 		} else if($this->input->post('id_hapus')){

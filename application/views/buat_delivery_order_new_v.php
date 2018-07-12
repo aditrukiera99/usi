@@ -402,7 +402,7 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]" required>
 								</div>
 							</td>
 

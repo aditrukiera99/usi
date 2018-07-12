@@ -447,7 +447,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                         <ul>
                           <!-- <li><a href="<?=base_url();?>service_kendaraan_c"><i class="icon-caret-right "></i> Docking Kapal </a></li> -->
                           <li><a href="<?=base_url();?>order_logistik_c/new_invoice"><i class="icon-caret-right "></i> Order logistik </a></li>
-                          <li><a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-caret-right "></i> Dokumen Kapal </a></li>
+                          <li><a href="<?=base_url();?>order_logistik_c/pajak_laporan"><i class="icon-caret-right "></i> Dokumen Kendaraan </a></li>
                           <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> GPS Tracking </a></li>
                           <li><a href="<?=base_url();?>order_logistik_c/gps_tracking"><i class="icon-caret-right "></i> Asuransi </a></li>
                         </ul>
@@ -539,7 +539,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               <ul>
                   
                   <li><a href="<?=base_url();?>pegawai_c"><i class="icon-caret-right "></i> Data Pegawai </a></li>
-                  <li><a href="<?=base_url();?>penerimaan_barang_c"><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
+                  <li><a href=""><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
                   <?php if($this->master_model_m->cek_anak($id_user, 'Master Data Pegawai', $user->LEVEL)){ ?>
                   <li class="dropdown-submenu"><a href="#"><i class="icon-caret-right"></i> Master Data</a>
                   <div class="dropdown-menu">
