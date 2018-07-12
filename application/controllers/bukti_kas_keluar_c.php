@@ -320,11 +320,11 @@ class Bukti_kas_keluar_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (NO_PO LIKE '%$keyword%' OR PELANGGAN LIKE '%$keyword%')";
+			$where = $where." AND (NOMER_LPB LIKE '%$keyword%' OR SUPPLIER LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_pembelian WHERE NO_PO NOT IN (SELECT NO_BUKTI FROM ak_input_voucher WHERE TIPE = 'BKK' ) AND $where
+		SELECT * FROM ak_penerimaan_barang WHERE NOMER_LPB NOT IN (SELECT NO_BUKTI FROM ak_input_voucher WHERE TIPE = 'BKK' ) AND $where
 		";
 
 		$dt = $this->db->query($sql)->result();

@@ -311,7 +311,7 @@ function get_popup_PO(){
                 '            <table class="table table-hover2" id="tes5">'+
                 '                <thead>'+
                 '                    <tr>'+
-                '                        <th>NO. ORDER</th>'+
+                '                        <th>NO. PO / LPB</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL</th>'+
                 '                        <th> NAMA SUPPLIER </th>'+
                 '                    </tr>'+
@@ -351,9 +351,9 @@ function ajax_PO(){
             $.each(result,function(i,res){
                 no++;
                 isine += '<tr onclick="get_PO_detail('+res.ID+');" style="cursor:pointer;">'+
-                            '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.NOMER_LPB+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
-                            '<td align="center">'+res.PELANGGAN+'</td>'+
+                            '<td align="center">'+res.SUPPLIER+'</td>'+
                         '</tr>';
             });
 
@@ -379,9 +379,9 @@ function get_PO_detail(id){
 		success : function(result){
 			$('#popup_load').hide();
 			// $('#alamat_tagih').val(result.ALAMAT_TAGIH);
-			$('#id_pelanggan').val(result.ID_PELANGGAN);
-			$('#pelanggan').val(result.PELANGGAN);
-			$('#no_reff').val(result.NO_PO);
+			$('#id_pelanggan').val(result.ID_SUPPLIER);
+			$('#pelanggan').val(result.SUPPLIER);
+			$('#no_reff').val(result.NOMER_LPB);
 			$('#search_koang').val("");
 		    $('#popup_koang').css('display','none');
 		    $('#popup_koang').hide();
@@ -502,7 +502,7 @@ function ajax_OPR(){
             });
 
             if(result.length == 0){
-            	isine = "<tr><td colspan='3' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
+            	isine = "<tr><td colspan='5' style='text-align:center'><b style='font-size: 15px;'> Data tidak tersedia </b></td></tr>";
             }
 
             $('#tes5 tbody').html(isine); 
