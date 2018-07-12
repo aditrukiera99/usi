@@ -31,46 +31,98 @@
     <center>
     <div>
       <span><strong>Laporan Pembelian Produk Detail Supplier</strong></span><br>
-      <span style="font-size: 100%;">PERIODE MARET-2018</span>
+      <span style="font-size: 100%;">PERIODE <?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border: 1px solid black; border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
+        <tr>
+          <th rowspan="2" style="border: 1px solid black; text-align:center;">No</th>
+          <th rowspan="2" style="border: 1px solid black; text-align:center;">Nama Item <br> Nama Supplier</th>
+          <th rowspan="2" style="border: 1px solid black; text-align:center;">Kode Item <br> Kode Supplier</th>
+          <th colspan="2" style="border: 1px solid black; text-align:center;">S/D <?php echo strtoupper($bulan_lalu); ?></th>
+          <th colspan="2" style="border: 1px solid black; text-align:center;"><?php echo strtoupper($bulan); ?></th>
+          <th colspan="2" style="border: 1px solid black; text-align:center;">S/D <?php echo strtoupper($bulan); ?></th>
+        </tr>
+        <tr>
+          <th style="border: 1px solid black; text-align:center;">Qty</th>
+          <th style="border: 1px solid black; text-align:center;">Nilai</th>
+          <th style="border: 1px solid black; text-align:center;">Qty</th>
+          <th style="border: 1px solid black; text-align:center;">Nilai</th>
+          <th style="border: 1px solid black; text-align:center;">Qty</th>
+          <th style="border: 1px solid black; text-align:center;">Nilai</th>
+        </tr>
+      </thead>
       <tbody>
+      <?php
+        $no = 0;
+        $tot1 = 0;
+        $tot2 = 0;
+        $tot3 = 0;
+
+        foreach ($data as $key => $value) {
+          $no++;
+          $qty_bln_lalu = $value->QTY_BLN_LALU;
+          $total_lalu = $value->TOTAL_LALU;
+          $qty = $value->QTY;
+          $total = $value->TOTAL;
+
+          $qty_skg = $qty_bln_lalu + $qty;
+          $tot_skg = $total_lalu + $total;
+
+          $tot1 += $total_lalu;
+          $tot2 += $total;
+          $tot3 += $tot_skg;
+      ?>
         <tr>
-          <td rowspan="2" style="border: 1px solid black;">No</td>
-          <td rowspan="2" style="border: 1px solid black;">Nama Item <br> Nama Supplier</td>
-          <td rowspan="2" style="border: 1px solid black;">Kode Item <br> Kode Supplier</td>
-          <td colspan="2" style="border: 1px solid black;">S/D FEBRUARI</td>
-          <td colspan="2" style="border: 1px solid black;">MARET</td>
-          <td colspan="2" style="border: 1px solid black;">S/D MARET</td>
+          <td style="border-left:1px solid black; text-align:center; "><?php echo $no; ?></td>
+          <td style="border-left:1px solid black;">
+            <?php echo $value->NAMA_PRODUK; ?><br>
+            <font style="color: blue;"><?php echo $value->SUPPLIER; ?></font>
+          </td>
+          <td style="border-left:1px solid black;">
+            <?php echo $value->KODE_PRODUK; ?><br>
+            <font style="color: blue;"><?php echo $value->KODE_SUP; ?></font>
+          </td>
+          <td style="border-left:1px solid black; text-align: right;">
+            <br>
+            <font style="color: blue;"><?php echo number_format($qty_bln_lalu); ?></font>
+          </td>
+          <td style="border-left:1px solid black; text-align: right;">
+            <?php echo number_format($total_lalu); ?><br>
+            <font style="color: blue;"><?php echo number_format($total_lalu); ?></font>
+          </td>
+          <td style="border-left:1px solid black; text-align: right;">
+            <br>
+            <font style="color: blue;"><?php echo number_format($qty); ?></font>
+          </td>
+          <td style="border-left:1px solid black; text-align: right;">
+            <?php echo number_format($total); ?><br>
+            <font style="color: blue;"><?php echo number_format($total); ?></font>
+          </td>
+          <td style="border-left:1px solid black; text-align: right;">
+            <br>
+            <font style="color: blue;"><?php echo number_format($qty_skg); ?></font>
+          </td>
+          <td style="border-left:1px solid black; border-right:1px solid black; text-align: right;">
+            <?php echo number_format($tot_skg); ?><br>
+            <font style="color: blue;"><?php echo number_format($tot_skg); ?></font>
+          </td>
         </tr>
+      <?php
+        }
+      ?>
+
         <tr>
-          <td style="border: 1px solid black;">Qty</td>
-          <td style="border: 1px solid black;">Nilai</td>
-          <td style="border: 1px solid black;">Qty</td>
-          <td style="border: 1px solid black;">Nilai</td>
-          <td style="border: 1px solid black;">Qty</td>
-          <td style="border: 1px solid black;">Nilai</td>
-        </tr>
-        <tr>
+          <td colspan="3" style="border: 1px solid black; text-align: center;">TOTAL</td>
           <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot1); ?></td>
           <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot2); ?></td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-        </tr>
-        <tr>
-          <td colspan="5" style="border: 1px solid black;">TOTAL</td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($tot3); ?></td>
         </tr>
       </tbody>
     </table>

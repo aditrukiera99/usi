@@ -31,36 +31,43 @@
     <center>
     <div>
       <span><strong>HISTORI HARGA PEMBELIAN</strong></span><br>
-      <span style="font-size: 100%;">01-Mar-2018 - 19_Mar-2018</span>
+      <span style="font-size: 100%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border: 1px solid black; border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
+    <table style="border: 1px solid black; border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
+        <tr>
+          <td style="border: 1px solid black; text-align: center;">TANGGAL</td>
+          <td style="border: 1px solid black; text-align: center;">NO TRANSAKSI</td>
+          <td style="border: 1px solid black; text-align: center;">SUPPLIER</td>
+          <td style="border: 1px solid black; text-align: center;">HARGA<br>Tanpa PPN</td>
+          <td style="border: 1px solid black; text-align: center;">HARGA<br>+PPN</td>
+          <td style="border: 1px solid black; text-align: center;">DISKON</td>
+          <td style="border: 1px solid black; text-align: center;">HARGA AKHIR</td>
+          <td style="border: 1px solid black; text-align: center;">KURS</td>
+          <td style="border: 1px solid black; text-align: center;">HARGA AKHIR 2</td>
+        </tr>
+      </thead>
       <tbody>
+      <?php
+        foreach ($data as $key => $value) {
+      ?>
         <tr>
-          <td style="border: 1px solid black;">TANGGAL</td>
-          <td style="border: 1px solid black;">NO TRANSAKSI</td>
-          <td style="border: 1px solid black;">SUPPLIER</td>
-          <td style="border: 1px solid black;">HARGA<br>Tanpa PPN</td>
-          <td style="border: 1px solid black;">HARGA<br>+PPN</td>
-          <td style="border: 1px solid black;">DISKON</td>
-          <td style="border: 1px solid black;">HARGA AKHIR</td>
-          <td style="border: 1px solid black;">KURS</td>
-          <td style="border: 1px solid black;">HARGA AKHIR 2</td>
+          <td style="border: 1px solid black;"><?php echo $value->TGL_TRX; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->NOMER_LPB; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->SUPPLIER; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->HRG_TNP_PPN); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->HARGA_SATUAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;">0.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->HARGA_SATUAN); ?></td>
+          <td style="border: 1px solid black; text-align: right;">1.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->HARGA_SATUAN); ?></td>
         </tr>
-        <tr>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-        </tr>
+      <?php
+        }
+      ?>
       </tbody>
     </table>
   </body>

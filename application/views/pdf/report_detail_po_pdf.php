@@ -31,18 +31,17 @@
     <center>
     <div>
       <span><strong>Laporan Detail Order Pembelian</strong></span><br>
-      <span style="font-size: 60%;">14-Mar-2018 - 19_Mar-2018</span>
+      <span style="font-size: 60%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border: 1px solid black; border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-      <tbody>
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
         <tr>
           <td rowspan="2" style="border: 1px solid black;">TANGGAL</td>
-          <td rowspan="2" style="border: 1px solid black;">NO PRO</td>
+          <td rowspan="2" style="border: 1px solid black;">NO PO</td>
           <td colspan="2" style="border: 1px solid black;">SUPPLIER</td>
-          <td rowspan="2" style="border: 1px solid black;">NO REF.</td>
           <td rowspan="2" style="border: 1px solid black;">KIRIM KE</td>
           <td rowspan="2" style="border: 1px solid black;">TANGGAL DATANG</td>
           <td rowspan="2" style="border: 1px solid black;">KETERANGAN</td>
@@ -55,20 +54,61 @@
           <td style="border: 1px solid black;">NAMA</td>
           <td style="border: 1px solid black;">LOKASI</td>
         </tr>
+      </thead>
+      <tbody>
+      <?php
+        foreach ($data as $key => $value) {
+          $id = $value->ID;
+      ?>
         <tr>
+          <td style="border: 1px solid black; text-align: right;"><?php echo $value->TGL_TRX; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->NO_PO; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->SUPPLIER; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->KOTA; ?></td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo $value->TGL_DTG; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->KETERANGAN; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->TOTAL); ?></td>
+          <td style="border: 1px solid black; text-align: right;">1.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->TOTAL); ?></td>
+          <td style="border: 1px solid black;">COMPLETE</td>
         </tr>        
+      <?php
+          $sql = "
+            SELECT
+              a.ID,
+              a.ID_PENJUALAN,
+              a.NAMA_PRODUK,
+              b.SATUAN,
+              a.HARGA_SATUAN,
+              a.QTY,
+              a.TOTAL
+            FROM ak_penerimaan_detail a
+            LEFT JOIN ak_produk b ON b.ID = a.ID_PRODUK
+            WHERE a.ID_PENJUALAN = '$id'
+          ";
+          $qry = $this->db->query($sql);
+          $res = $qry->result();
+
+          foreach ($res as $key => $val) {
+      ?>
+          <tr>
+            <td></td>
+            <td></td>
+            <td style="border: 1px solid black;"><?php echo $val->NAMA_PRODUK; ?></td>
+            <td style="border: 1px solid black; text-align: right;"><?php echo number_format($val->HARGA_SATUAN); ?></td>
+            <td style="border: 1px solid black; text-align: right;"><?php echo $val->SATUAN; ?></td>
+            <td style="border: 1px solid black; text-align: right;"><?php echo number_format($val->QTY); ?></td>
+            <td style="border: 1px solid black; text-align: right;">0</td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black; text-align: right;"><?php echo number_format($val->TOTAL); ?></td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+          </tr>
+      <?php
+          }
+        }
+      ?>
       </tbody>
     </table>
   </body>

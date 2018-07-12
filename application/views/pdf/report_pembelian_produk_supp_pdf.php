@@ -31,34 +31,60 @@
     <center>
     <div>
       <span><strong>Laporan Pembelian Produk Detail Supplier</strong></span><br>
-      <span style="font-size: 100%;">TANGGAL : 14-Mar-2018 - 16-Mar-2018</span>
+      <span style="font-size: 100%;">TANGGAL : <?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border: 1px solid black; border-collapse: collapse; width: 100%; font-size: 80%;">
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
       <tbody>
         <tr>
-          <td style="border: 1px solid black; text-align: center; font-weight: bold; ">No</td>
-          <td style="border: 1px solid black; text-align: center; font-weight: bold; ">Nama Item <br> Nama Supplier</td>
-          <td style="border: 1px solid black; text-align: center; font-weight: bold; ">Kode Item <br> Kode Supplier</td>
-          <td style="border: 1px solid black; text-align: center; font-weight: bold; ">Qty</td>
-          <td style="border: 1px solid black; text-align: center; font-weight: bold; ">Harga IDR</td>
-          <td style="border: 1px solid black; text-align: center; font-weight: bold; ">Nilai IDR</td>
+          <td style="border: 1px solid black; text-align:center;">No</td>
+          <td style="border: 1px solid black; text-align:center;">Nama Item <br> Nama Supplier</td>
+          <td style="border: 1px solid black; text-align:center;">Kode Item <br> Kode Supplier</td>
+          <td style="border: 1px solid black; text-align:center;">QTY</td>
+          <td style="border: 1px solid black; text-align:center;">HARGA IDR</td>
+          <td style="border: 1px solid black; text-align:center;">NILAI IDR</td>
         </tr>
+        <?php
+          $no = 0;
+          $total = 0;
+          foreach ($data as $key => $value) {
+            $no++;
+            $total += $value->TOTAL;
+        ?>
         <tr>
-          <td style="border: 1px solid black; text-align: center;">1</td>
-          <td style="border: 1px solid black;">High Speed DIESEL / SOLAR <br> <span style="color: blue;">PT. PERTAMINA (PERSERO) (IDR)</span></td>
-          <td style="border: 1px solid black;">001-SMD <br> <span style="color: blue;">S00001</span></td>
-          <td style="border: 1px solid black; text-align: right;">30,000.00 <br> <span style="color: blue;">30,000.00</span></td>
-          <td style="border: 1px solid black; text-align: right;"><span style="color: blue;">6,889.64</span></td>
-          <td style="border: 1px solid black; text-align: right;">206.689,200.00 <br> <span style="color: blue;">206.689,200.00</span></td>
+          <td style="border-left: 1px solid black; text-align:center;"><?php echo $no; ?></td>
+          <td style="border-left: 1px solid black;">
+            <?php echo $value->NAMA_PRODUK; ?><br>
+            <font style="color: blue;"><?php echo $value->SUPPLIER; ?></font>
+          </td>
+          <td style="border-left: 1px solid black;">
+            <?php echo $value->KODE_PRODUK; ?><br>
+            <font style="color: blue;"><?php echo $value->KODE_SUP; ?></font>
+          </td>
+          <td style="border-left: 1px solid black; text-align: right;">
+            <?php echo number_format($value->QTY); ?><br>
+            <font style="color: blue;"><?php echo number_format($value->QTY); ?></font>
+          </td>
+          <td style="border-left: 1px solid black; text-align: right;">
+            <br>
+            <font style="color: blue;"><?php echo number_format($value->HARGA_SATUAN); ?></font>
+          </td>
+          <td style="border-left: 1px solid black; border-right: 1px solid black; text-align: right;">
+            <?php echo number_format($value->TOTAL); ?><br>
+            <font style="color: blue;"><?php echo number_format($value->TOTAL); ?></font>
+          </td>
         </tr>
-        <tr style="font-weight: bold;">
-          <td colspan="3" style="border: 1px solid black; text-align: center;">TOTAL</td>
+        <?php
+          }
+        ?>
+
+        <tr>
+          <td colspan="3" style="border: 1px solid black; text-align: center;"><b>TOTAL</b></td>
           <td style="border: 1px solid black;"></td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black; text-align: right;">3,478,608,306.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($total); ?></td>
         </tr>
       </tbody>
     </table>

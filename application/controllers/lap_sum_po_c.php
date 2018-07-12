@@ -60,6 +60,8 @@ class Lap_sum_po_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
 
 		if($filter == "Harian"){
 			$view = "pdf/report_sum_po_pdf";
@@ -76,27 +78,51 @@ class Lap_sum_po_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$sql = "
+				SELECT
+					a.ID,
+					d.TGL_TRX,
+					b.NO_PO,
+					b.SUPPLIER,
+					c.KOTA,
+					b.TGL_TRX AS TGL_DTG,
+					a.KETERANGAN,
+					a.TOTAL
+				FROM ak_penerimaan_detail a
+				LEFT JOIN ak_penerimaan_barang b ON b.ID = a.ID_PENJUALAN
+				LEFT JOIN ak_supplier c ON c.ID = b.ID_SUPPLIER
+				LEFT JOIN ak_pembelian d ON d.NO_PO = b.NO_PO
+				WHERE STR_TO_DATE(d.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+				AND STR_TO_DATE(d.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+			";
+
+			$dt = $this->db->query($sql)->result();
 		} else {
 			$view = "pdf/report_sum_po_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
-
-			$tgl_full = $this->input->post('tgl');
-			if($tgl_full == ""){
-				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
-			}
 			
-			$tgl = explode(' sampai ', $tgl_full);
-			$tgl_awal = $tgl[0];
-			$tgl_akhir = $tgl[1];
-			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
+			$judul =  "BULAN : ".$this->datetostr($bulan)." ".$tahun;
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$sql = "
+				SELECT
+					a.ID,
+					d.TGL_TRX,
+					b.NO_PO,
+					b.SUPPLIER,
+					c.KOTA,
+					b.TGL_TRX AS TGL_DTG,
+					a.KETERANGAN,
+					a.TOTAL
+				FROM ak_penerimaan_detail a
+				LEFT JOIN ak_penerimaan_barang b ON b.ID = a.ID_PENJUALAN
+				LEFT JOIN ak_supplier c ON c.ID = b.ID_SUPPLIER
+				LEFT JOIN ak_pembelian d ON d.NO_PO = b.NO_PO
+				WHERE d.TGL_TRX LIKE '%-$bulan-$tahun%'
+			";
+
+			$dt = $this->db->query($sql)->result();
 		}
-
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',

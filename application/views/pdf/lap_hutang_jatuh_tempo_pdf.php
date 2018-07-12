@@ -28,39 +28,51 @@
     <center>
     <div>
       <span><strong>HUTANG JATUH TEMPO</strong></span><br>
-      <span style="font-size: 80%;">19_Mar-2018</span>
+      <span style="font-size: 80%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-      <tbody>
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
         <tr>
           <td style="border-right:1px solid black; border-top:1px solid black; text-align: center;">Mata Uang</td>
           <td style="border-right:1px solid black; border-top:1px solid black; text-align: center;">IDR</td>
           <td colspan="3" style="border-top:1px solid black; text-align: center;"></td>
         </tr>
         <tr>
-          <td rowspan="2" style="border: 1px solid black;">NO TRANSAKSI</td>
-          <td colspan="2" style="border: 1px solid black;">SUPPLIER</td>
-          <td rowspan="2" style="border: 1px solid black;">TANGGAL JATUH TEMPO</td>
-          <td rowspan="2" style="border: 1px solid black;">TOTAL</td>
-          <td rowspan="2" style="border: 1px solid black;">KURS</td>
-          <td rowspan="2" style="border: 1px solid black;">TOTAL 2</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">NO TRANSAKSI</td>
+          <td colspan="2" style="border: 1px solid black; text-align: center;">SUPPLIER</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">TANGGAL JATUH TEMPO</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">TOTAL</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">KURS</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">TOTAL 2</td>
         </tr>
         <tr>
-          <td style="border: 1px solid black;">NAMA</td>
-          <td style="border: 1px solid black;">LOKASI</td>
+          <td style="border: 1px solid black; text-align: center;">NAMA</td>
+          <td style="border: 1px solid black; text-align: center;">LOKASI</td>
         </tr>
+      </thead>
+      <tbody>
+      <?php
+        foreach ($data as $key => $value) {
+          $tgl = $value->TGL_WALIK;
+          $tempo = $value->JATUH_TEMPO;
+          $date = strtotime("+".$tempo." days", strtotime($tgl));
+          $tgl_tempo = date("d-m-Y", $date);
+      ?>
         <tr>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"><?php echo $value->NOMER_PO; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->PELANGGAN; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->KOTA; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo $tgl_tempo; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->SUB_TOTAL); ?></td>
+          <td style="border: 1px solid black; text-align: right;">1.00</td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($value->SUB_TOTAL); ?></td>
         </tr>
+      <?php
+        }
+      ?>
       </tbody>
     </table>
   </body>

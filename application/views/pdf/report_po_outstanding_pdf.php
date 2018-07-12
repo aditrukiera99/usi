@@ -31,42 +31,78 @@
     <center>
     <div>
       <span><strong>Laporan PO Outstanding</strong></span><br>
-      <span style="font-size: 60%;">14-Mar-2018 - 19_Mar-2018</span>
+      <span style="font-size: 60%;"><?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border: 1px solid black; border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
+        <tr>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">NO</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">NO PO</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">TANGGAL</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">TANGGAL BUTUH</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">NAMA SUPPLIER</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">ITEM</td>
+          <td colspan="2" style="border: 1px solid black; text-align: center;">QTY</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">SISA</td>
+          <td rowspan="2" style="border: 1px solid black; text-align: center;">STATUS</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black; text-align: center;">PO</td>
+          <td style="border: 1px solid black; text-align: center;">REALISASI</td>
+        </tr>
+      </thead>
       <tbody>
-        <tr>
-          <td rowspan="2" style="border: 1px solid black;">NO</td>
-          <td rowspan="2" style="border: 1px solid black;">No PRO</td>
-          <td rowspan="2" style="border: 1px solid black;">TANGGAL</td>
-          <td rowspan="2" style="border: 1px solid black;">TANGGAL BUTUH</td>
-          <td rowspan="2" style="border: 1px solid black;">NAMA SUPPLIER</td>
-          <td rowspan="2" style="border: 1px solid black;">ITEM</td>
-          <td rowspan="2" style="border: 1px solid black;">KETERANGAN</td>
-          <td colspan="2" style="border: 1px solid black;">QTYL</td>
-          <td rowspan="2" style="border: 1px solid black;">SISA</td>
-          <td rowspan="2" style="border: 1px solid black;">STATUS</td>
-        </tr>
-        <tr>
-          <td style="border: 1px solid black;">PO</td>
-          <td style="border: 1px solid black;">REALISASi</td>
-        </tr>
+      <?php
+        $no = 0;
+        foreach ($data as $key => $value) {
+          $no++;
+          $id = $value->ID;
+      ?>
         <tr>          
+          <td style="border: 1px solid black; text-align: center;"><?php echo $no; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->NO_PO; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo $value->TANGGAL; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->TGL_BTH; ?></td>
+          <td style="border: 1px solid black;" colspan="2"><?php echo $value->SUPPLIER; ?></td>
           <td style="border: 1px solid black;"></td>
           <td style="border: 1px solid black;"></td>
           <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;">NEW</td>
         </tr>
+      <?php
+          $sql = "
+            SELECT
+              a.ID,
+              a.ID_PENJUALAN,
+              a.NAMA_PRODUK,
+              a.QTY
+            FROM ak_penerimaan_detail a
+            WHERE a.ID_PENJUALAN = '$id'
+          ";
+          $qry = $this->db->query($sql);
+          $res = $qry->result();
+
+          foreach ($res as $key => $val) {
+      ?>
+          <tr>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+            <td style="border: 1px solid black;"><?php echo $val->NAMA_PRODUK; ?></td>
+            <td style="border: 1px solid black; text-align: right;"><?php echo number_format($val->QTY); ?></td>
+            <td style="border: 1px solid black; text-align: right;">-</td>
+            <td style="border: 1px solid black; text-align: right;"><?php echo number_format($val->QTY); ?></td>
+            <td style="border: 1px solid black;">&nbsp;</td>
+          </tr>
+      <?php
+          }
+        }
+      ?>
       </tbody>
     </table>
   </body>
