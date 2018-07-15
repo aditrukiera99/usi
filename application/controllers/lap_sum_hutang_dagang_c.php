@@ -60,6 +60,9 @@ class Lap_sum_hutang_dagang_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		$bulan_txt = '';
 
 		if($filter == "Harian"){
 			$view = "pdf/lap_sum_hutang_dagang_pdf";
@@ -76,27 +79,121 @@ class Lap_sum_hutang_dagang_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$sql = "
+				SELECT
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					SUM(a.SALDO_AWAL) AS SALDO_AWAL,
+					SUM(a.PEMBELIAN) AS PEMBELIAN,
+					LUNAS.TOTAL AS PELUNASAN
+				FROM(
+					SELECT
+						a.ID,
+						a.ID_PELANGGAN,
+						a.PELANGGAN,
+						a.TGL_TRX,
+						a.SUB_TOTAL AS SALDO_AWAL,
+						'0' AS PEMBELIAN
+					FROM ak_pembelian a
+					WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	           		AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+
+					UNION ALL
+
+					SELECT
+						a.ID,
+						a.ID_PELANGGAN,
+						a.PELANGGAN,
+						a.TGL_TRX,
+						'0' AS SALDO_AWAL,
+						a.SUB_TOTAL AS PEMBELIAN
+					FROM ak_pembelian a
+					WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	            	AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+				) a
+				LEFT JOIN(
+					SELECT
+						a.ID,
+						a.ID_SUPPLIER,
+						a.SUPPLIER,
+						a.TGL_TRX,
+						SUM(b.TOTAL) AS TOTAL
+					FROM ak_penerimaan_barang a 
+					LEFT JOIN ak_penerimaan_detail b ON b.ID_PENJUALAN = a.ID
+					WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	            	AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+					GROUP BY a.TGL_TRX
+				) LUNAS ON LUNAS.ID_SUPPLIER = a.ID_PELANGGAN
+				GROUP BY a.ID_PELANGGAN
+			";
+
+			$dt = $this->db->query($sql)->result();
 		} else {
 			$view = "pdf/lap_sum_hutang_dagang_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-			$tgl_full = $this->input->post('tgl');
-			if($tgl_full == ""){
-				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
+			$bulan_lalu = $bulan - 1;
+			if($bulan_lalu == 0){
+				$bulan_lalu = 12;
 			}
-			
-			$tgl = explode(' sampai ', $tgl_full);
-			$tgl_awal = $tgl[0];
-			$tgl_akhir = $tgl[1];
-			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$bulan_txt = '';
+			if($bulan_lalu < 10){
+				$bulan_txt = '0'.$bulan_lalu;
+			}
+
+			$judul =  $this->datetostr($bulan)." ".$tahun;
+
+			$sql = "
+				SELECT
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					SUM(a.SALDO_AWAL) AS SALDO_AWAL,
+					SUM(a.PEMBELIAN) AS PEMBELIAN,
+					LUNAS.TOTAL AS PELUNASAN
+				FROM(
+					SELECT
+						a.ID,
+						a.ID_PELANGGAN,
+						a.PELANGGAN,
+						a.TGL_TRX,
+						a.SUB_TOTAL AS SALDO_AWAL,
+						'0' AS PEMBELIAN
+					FROM ak_pembelian a
+					WHERE a.TGL_TRX LIKE '%-$bulan_txt-$tahun%'
+
+					UNION ALL
+
+					SELECT
+						a.ID,
+						a.ID_PELANGGAN,
+						a.PELANGGAN,
+						a.TGL_TRX,
+						'0' AS SALDO_AWAL,
+						a.SUB_TOTAL AS PEMBELIAN
+					FROM ak_pembelian a
+					WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+				) a
+				LEFT JOIN(
+					SELECT
+						a.ID,
+						a.ID_SUPPLIER,
+						a.SUPPLIER,
+						a.TGL_TRX,
+						SUM(b.TOTAL) AS TOTAL
+					FROM ak_penerimaan_barang a 
+					LEFT JOIN ak_penerimaan_detail b ON b.ID_PENJUALAN = a.ID
+					WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+					GROUP BY a.TGL_TRX
+				) LUNAS ON LUNAS.ID_SUPPLIER = a.ID_PELANGGAN
+				GROUP BY a.ID_PELANGGAN
+			";
+
+			$dt = $this->db->query($sql)->result();
 		}
-
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',

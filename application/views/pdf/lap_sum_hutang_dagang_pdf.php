@@ -31,67 +31,78 @@
     <center>
     <div>
       <span><strong>SUMMARY HUTANG DAGANG</strong></span><br>
-      <span style="font-size: 80%;">DARI PERIODE : MARET-2018</span>
+      <span style="font-size: 80%;">DARI PERIODE : <?php echo $judul; ?></span>
     </div>
   </center>
   <div style="clear: both;"></div>
   <br>
-  <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-      <tbody>
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
         <tr>
-          <td></td>
+          <td>&nbsp;</td>
           <td style="text-align:left;">Mata Uang</td>
           <td style="text-align:left;">IDR</td>
         </tr>
         <tr>
-          <td style="border: 1px solid black;">NO</td>
-          <td style="border: 1px solid black;">SUPPLIER</td>
-          <td style="border: 1px solid black;">SALDO AWAL</td>
-          <td style="border: 1px solid black;">PEMBELIAN</td>
-          <td style="border: 1px solid black;">PELUNASAN</td>
-          <td style="border: 1px solid black;">SALDO AKHIR HUTANG</td>
+          <td style="border: 1px solid black; text-align: center;">NO</td>
+          <td style="border: 1px solid black; text-align: center;">SUPPLIER</td>
+          <td style="border: 1px solid black; text-align: center;">SALDO AWAL</td>
+          <td style="border: 1px solid black; text-align: center;">PEMBELIAN</td>
+          <td style="border: 1px solid black; text-align: center;">PELUNASAN</td>
+          <td style="border: 1px solid black; text-align: center;">SALDO AKHIR HUTANG</td>
+        </tr>
+      </thead>
+      <tbody>
+      <?php
+        $no = 0;
+        $saldo_awal = 0;
+        $pembelian = 0;
+        $pelunasan = 0;
+        $saldo_akhir = 0;
+
+        foreach ($data as $key => $value) {
+          $no++;
+          $saldo_awal = $value->SALDO_AWAL;
+          $pembelian = $value->PEMBELIAN;
+          $pelunasan = $value->PELUNASAN;
+          $saldo_akhir = $saldo_awal + ($pelunasan-$pembelian);
+      ?>
+        <tr>
+          <td style="border: 1px solid black; text-align: center;"><?php echo $no; ?></td>
+          <td style="border: 1px solid black;"><?php echo $value->PELANGGAN; ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_awal); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($pembelian); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($pelunasan); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_akhir); ?></td>
+        </tr>
+      <?php
+        }
+      ?>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table style="border-collapse: collapse; width: 50%; font-size: 80%;">
+      <tbody>
+        <tr>
+          <td colspan="3" style="border: 1px solid black; text-align: center;">DALAM RUPIAH (IDR)</td>
         </tr>
         <tr>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: center;">SALDO AWAL</td>
+          <td style="border: 1px solid black; text-align: center;">PEMBELIAN</td>
+          <td style="border: 1px solid black; text-align: center;">PELUNASAN</td>
         </tr>
         <tr>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
-          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($saldo_awal); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($pembelian); ?></td>
+          <td style="border: 1px solid black; text-align: right;"><?php echo number_format($pelunasan); ?></td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black; text-align: right; font-weight: bold;"><?php echo number_format($saldo_awal); ?></td>
+          <td style="border: 1px solid black; text-align: right; font-weight: bold;"><?php echo number_format($pembelian); ?></td>
+          <td style="border: 1px solid black; text-align: right; font-weight: bold;"><?php echo number_format($pelunasan); ?></td>
         </tr>
       </tbody>
     </table>
-    <table style="border: 1px solid black; border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
-        <tbody>
-          <tr>
-            <td colspan="3" style="border: 1px solid black;">NO</td>
-          </tr>
-          <tr>
-            <td style="border: 1px solid black;">SALDO AWAL</td>
-            <td style="border: 1px solid black;">PEMBELIAN</td>
-            <td style="border: 1px solid black;">PELUNASAN</td>
-          </tr>
-          <tr>
-            <td style="border: 1px solid black;"></td>
-            <td style="border: 1px solid black;"></td>
-            <td style="border: 1px solid black;"></td>
-          </tr>
-          <div style="clear:both"></div>
-          <br>
-          <tr style="font-weight: bold;">
-            <td style="border: 1px solid black;"></td>
-            <td style="border: 1px solid black;"></td>
-            <td style="border: 1px solid black;"></td>
-          </tr>
-        </tbody>
-      </table>
   </body>
 </html>
