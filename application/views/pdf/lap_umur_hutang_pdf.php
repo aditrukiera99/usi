@@ -23,13 +23,13 @@
 </style>
   <body class="body" onload="window.print()">
     <div style="float:left;">
-      <span style="font-size: 120%;"><strong>LAPORAN UMUR HUTANG PER SUPPLIER PER FAKTUR<br>01-Jan-2018</strong></span>
+      <span style="font-size: 120%;"><strong>LAPORAN UMUR HUTANG PER SUPPLIER PER FAKTUR<br><?php echo $judul; ?></strong></span>
     </div>
     <div style="clear: both;"></div>
   <div style="clear: both;"></div>
   <br>
-  <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
-      <tbody>
+    <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
+      <thead>
         <tr>
           <td></td>
           <td style="text-align:left;">Mata Uang</td>
@@ -37,7 +37,6 @@
         </tr>
         <tr style="text-align:center; background-color: #BBDFEB;">
           <td rowspan="2" style="border: 1px solid black;">NO</td>
-          <td rowspan="2" style="border: 1px solid black;">NO REF.</td>
           <td rowspan="2" style="border: 1px solid black;">NO FAKTUR</td>
           <td rowspan="2" style="border: 1px solid black;">TERMIN (DAYS)</td>
           <td rowspan="2" style="border: 1px solid black;">TAMGGAL</td>
@@ -51,8 +50,9 @@
           <td style="border: 1px solid black;">91-120</td>
           <td style="border: 1px solid black;">Over 210</td>
         </tr>
+      </thead>
+      <tbody>
         <tr>
-          <td style="border: 1px solid black;"></td>
           <td style="border: 1px solid black;"></td>
           <td style="border: 1px solid black;"></td>
           <td style="border: 1px solid black;"></td>

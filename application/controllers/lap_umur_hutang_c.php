@@ -60,9 +60,11 @@ class Lap_umur_hutang_c extends CI_Controller {
 		
 		$filter = $this->input->post('filter');
 		$unit = $this->input->post('unit');
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
 
 		if($filter == "Harian"){
-			$view = "pdf/lap_umur_hutang_pdf";
+			$view = "pdf/lap_umur_hutang_in_due_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
@@ -76,27 +78,60 @@ class Lap_umur_hutang_c extends CI_Controller {
 			$tgl_akhir = $tgl[1];
 			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$sql = "
+				SELECT
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					SUM(b.TERBAYAR) AS NILAI_INVOICE,
+					SUM(a.SUB_TOTAL) AS SUB_TOTAL
+				FROM ak_pembelian a
+				LEFT JOIN(
+					SELECT
+						a.ID,
+						a.ID_PENJUALAN,
+						SUM(a.TOTAL) AS TERBAYAR,
+						b.NO_PO
+					FROM ak_penerimaan_detail a
+					LEFT JOIN ak_penerimaan_barang b ON b.ID = a.ID_PENJUALAN
+					GROUP BY b.NO_PO
+				) b ON b.NO_PO = a.NO_PO
+				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
+	            AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
+				GROUP BY a.ID_PELANGGAN
+			";
+			$dt = $this->db->query($sql)->result();
 		} else {
-			$view = "pdf/lap_umur_hutang_pdf";
+			// $view = "pdf/lap_umur_hutang_pdf";
+			$view = "pdf/lap_umur_hutang_in_due_pdf";
 			$dt = "";
 			$dt_unit = $this->master_model_m->get_unit_by_id($unit);
 
-			$tgl_full = $this->input->post('tgl');
-			if($tgl_full == ""){
-				$tgl_full = date('d-m-Y')." sampai ".date('d-m-Y');
-			}
-			
-			$tgl = explode(' sampai ', $tgl_full);
-			$tgl_awal = $tgl[0];
-			$tgl_akhir = $tgl[1];
-			$judul =  date("d-F-Y", strtotime($tgl_awal))."  -  ".date("d-F-Y", strtotime($tgl_akhir));
+			$judul =  $this->datetostr($bulan)." ".$tahun;
 
-			$dt = $this->db->query("SELECT * FROM ak_produk ORDER BY ID")->result();
+			$sql = "
+				SELECT
+					a.ID_PELANGGAN,
+					a.PELANGGAN,
+					a.TGL_TRX,
+					SUM(b.TERBAYAR) AS NILAI_INVOICE,
+					SUM(a.SUB_TOTAL) AS SUB_TOTAL
+				FROM ak_pembelian a
+				LEFT JOIN(
+					SELECT
+						a.ID,
+						a.ID_PENJUALAN,
+						SUM(a.TOTAL) AS TERBAYAR,
+						b.NO_PO
+					FROM ak_penerimaan_detail a
+					LEFT JOIN ak_penerimaan_barang b ON b.ID = a.ID_PENJUALAN
+					GROUP BY b.NO_PO
+				) b ON b.NO_PO = a.NO_PO
+				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
+				GROUP BY a.ID_PELANGGAN
+			";
+			$dt = $this->db->query($sql)->result();
 		}
-
-		
-
 
 		$data = array(
 			'title' 		=> 'LAPORAN JURNAL MEMORIAL',
@@ -106,6 +141,7 @@ class Lap_umur_hutang_c extends CI_Controller {
 			'dt_unit'		=> $dt_unit,
 			'data_usaha'    => $this->master_model_m->data_usaha($id_klien),
 		);
+
 		$this->load->view($view,$data);
 	}
 
