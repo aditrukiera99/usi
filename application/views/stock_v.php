@@ -78,9 +78,9 @@
 							<td align="left" style="text-align: left;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <?=$row->NAMA_PRODUK;?> </td>							
 							<td align="center" style="text-align: center;"> <?=$row->SATUAN;?> </td>							
 														
-							<td align="right" style="text-align: right;"> <?=$st;?> <?=$row->SATUAN;?> </td>
-							<td align="right" style="text-align: right;"> <?=$dy;?> <?=$row->SATUAN;?> </td>
-							<td align="right" style="text-align: right;"> <?=$saldo_akhir;?> <?=$row->SATUAN;?> </td>							
+							<td align="right" style="text-align: right;"> <?=number_format($st,2);?> <?=$row->SATUAN;?> </td>
+							<td align="right" style="text-align: right;"> <?=number_format($dy,2);?> <?=$row->SATUAN;?> </td>
+							<td align="right" style="text-align: right;"> <?=number_format($saldo_akhir,2);?> <?=$row->SATUAN;?> </td>							
 						</tr>
 						<?PHP } ?>
 						<?PHP } ?>

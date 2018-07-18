@@ -183,6 +183,9 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       </tr> -->
       <?php 
 
+        $dt_so = $dt->NOMER_SO;
+        $gede_qty = $this->db->query("SELECT SUM(QTY) as QTY_SO FROM ak_invoice WHERE NOMER_SO = '$dt_so' ")->row();
+
         $harga_satuan_oat = $dt_deti->OAT / $dt_deti->KUANTITAS;
         // $setelah_do = 
         if($dt_deti->TIPE_PENJUALAN == '1'){
@@ -190,8 +193,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
         }else{
         $harga_satuan_bbm = ($dt->HARGA_SATUAN / (1 + 0.1)) ;
         }
-        $total_bbm        = $harga_satuan_bbm * $dt->QTY;
-        $total_oat        = $harga_satuan_oat * $dt->QTY;
+        $total_bbm        = $harga_satuan_bbm * $gede_qty->QTY_SO;
+        $total_oat        = $harga_satuan_oat * $gede_qty->QTY_SO;
         $subtotal         = $total_oat + $total_bbm;
         $total_ppn        = 0.1 * $total_bbm;
         $total_grand      = $subtotal + $total_ppn;
@@ -200,7 +203,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
         
         <tr>
           <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;vertical-align: top;"><?=$dt->NAMA_PRODUK;?></td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;vertical-align: top;"><?php echo number_format($dt->QTY,2);?> Ltr</td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;vertical-align: top;"><?php echo number_format($gede_qty->QTY_SO,2);?> Ltr</td>
           <td style="text-align:center;padding: 5px;border-left: 1px solid black;border-right: 1px solid black;vertical-align: top;text-align: right;"><?php echo number_format($harga_satuan_bbm,2);?></td>
           <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;vertical-align: top;text-align: right;"><?php echo number_format($total_bbm,2);?></td>
         </tr>
@@ -214,7 +217,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
           ?>
           <tr>
           <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;vertical-align: top;">Transportasi FEE</td>
-          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;vertical-align: top;"><?php echo number_format($dt->QTY,2);?> Ltr</td>
+          <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;vertical-align: top;"><?php echo number_format($gede_qty->QTY_SO,2);?> Ltr</td>
           <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;text-align: right;vertical-align: top;"><?=number_format($harga_satuan_oat, 2);?></td>
           <td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;text-align: right;vertical-align: top;"><?=number_format($total_oat, 2);?></td>
           </tr>

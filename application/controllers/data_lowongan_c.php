@@ -127,6 +127,34 @@ class Data_lowongan_c extends CI_Controller {
 		$this->load->view('beranda_v', $data);
 	}
 
+	function data_pendaftar($id=""){
+		$keyword = "";
+		$msg = "";
+		$kode_produk = "";
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$id_user = $sess_user['id'];
+		$user = $this->master_model_m->get_user_info($id_user);
+
+		
+
+		
+		$dt = $this->model->data_pendaftar_lowongan_a($id);
+
+		$data =  array(
+			'page' => "data_pendaftar_lowongan_v", 
+			'title' => "Data Lowongan Kerja", 
+			'msg' => "", 
+			'master' => "hrd", 
+			'view' => "lowongan", 
+			'msg' => $msg,
+			'dt' => $dt,
+			'post_url' => 'data_lowongan_c', 
+		);
+		
+		$this->load->view('beranda_v', $data);
+	}
+
 	function cari_kat(){
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_klien = $sess_user['id_klien'];

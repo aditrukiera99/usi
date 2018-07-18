@@ -843,6 +843,16 @@ class Purchase_order_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function edit_tanggal_po($nomor_po,$memo,$tgl_trx){
+       
+        $sql = "
+        UPDATE ak_pembelian SET MEMO = '$memo_lunas' , TGL_TRX = '$tgl_trx'
+        WHERE ID = '$nomor_po'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function get_broker(){
         $sql = "
         SELECT * FROM ak_broker

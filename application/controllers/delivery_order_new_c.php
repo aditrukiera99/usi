@@ -79,6 +79,7 @@ class Delivery_order_new_c extends CI_Controller {
 			$nama_produk 	= $this->input->post('nama_produk');
 			$id_produk	 	= $this->input->post('produk');
 			$qty 	        = $this->input->post('qty');
+			$qty_stok       = $this->input->post('qty_stok');
 			$harga_modal 	= $this->input->post('harga_modal');
 			$no_po 			= $this->input->post('no_po');
 			$no_lpb 		= $this->input->post('no_lpb');
@@ -89,15 +90,15 @@ class Delivery_order_new_c extends CI_Controller {
 
 			$no_bukti_real = $no_deo."/".$pjk->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
-			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0],$no_bukti_real,$no_po,$no_lpb,$id_produk[0],$alamat_tagih);
+			$this->model->simpan_delivery_order($no_deo, $id_pelanggan, $pelanggan, $nama_produk[0] , $qty[0] , $segel_atas ,$meter_atas,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal,$temperatur,$sg_meter,$keterangan, $no_trx, $tgl_trx, $harga_modal[0],$no_bukti_real,$no_po,$no_lpb,$id_produk[0],$alamat_tagih,$qty_stok[0]);
 
-			$this->model->update_status_so($no_trx, $qty[0]);
+			$this->model->update_status_so($no_trx, $qty_stok[0]);
 
 			$id_penjualan = $this->db->insert_id(); 
 
-			$this->model->update_stok_master($pjk->SUPPLY_POINT,$id_produk[0],$qty[0]);
+			$this->model->update_stok_master($pjk->SUPPLY_POINT,$id_produk[0],$qty_stok[0]);
 
-			$this->model->update_sisa_lpb($qty[0],$no_lpb);
+			$this->model->update_sisa_lpb($qty_stok[0],$no_lpb);
 
 			$this->model->save_next_nomor($id_klien, 'Delivery_order', $no_deo);
 
@@ -173,6 +174,7 @@ class Delivery_order_new_c extends CI_Controller {
 
 		if($this->input->post('simpan_ubah')){
 			$memo 			= $this->input->post('memo_lunas');
+			$tgl_trx 		= $this->input->post('tgl_trx');
 			$id 			= $this->input->post('no_id');
 			$segel_atas 	= $this->input->post('segel_atas');
 			$meter_atas   	= $this->input->post('meter_atas');
@@ -184,7 +186,7 @@ class Delivery_order_new_c extends CI_Controller {
 			$sg_meter   	= $this->input->post('sg_meter');
 
 
-			$dt = $this->model->ubah_do($memo, $id,$segel_atas ,$meter_atas ,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal ,$temperatur ,$sg_meter );
+			$dt = $this->model->ubah_do($memo, $id,$segel_atas ,$meter_atas ,$no_pol,$segel_bawah,$meter_bawah,$nama_kapal ,$temperatur ,$sg_meter, $tgl_trx );
 		
 		} 
 
@@ -202,9 +204,10 @@ class Delivery_order_new_c extends CI_Controller {
 			$id_hapus = $this->input->post('id_hapus');
 			
 
-			$s = $this->db->query("SELECT NO_SO,QTY,NO_BUKTI,ID_PRODUK FROM ak_delivery_order WHERE ID = $id_hapus ")->row();
+			$s = $this->db->query("SELECT NO_SO,QTY,NO_BUKTI,ID_PRODUK,NOMER_LPB FROM ak_delivery_order WHERE ID = $id_hapus ")->row();
 		
 			$this->model->update_stock_so($s->NO_SO,$s->QTY);
+			$this->model->update_stock_lpb($s->NOMER_LPB,$s->QTY);
 			$this->model->hapus_invoice($s->NO_BUKTI);
 			$this->model->hapus_trx_penjualan($id_hapus);
 
@@ -321,11 +324,11 @@ class Delivery_order_new_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+			$where = $where." AND (p.TGL_TRX LIKE '%$keyword%' OR p.NO_BUKTI LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_penjualan WHERE STATUS_DO = '0' OR (STATUS_DO = '1' AND SISA > 0) AND $where  
+		SELECT p.* , pd.NAMA_PRODUK FROM ak_penjualan p , ak_penjualan_detail pd WHERE p.ID = pd.ID_PENJUALAN AND (p.STATUS_DO = '0' OR (p.STATUS_DO = '1' AND p.SISA > 0 AND TUTUP_OUTSTANDING = 'Belum') OR TUTUP_OUTSTANDING = 'Belum' OR (TUTUP_OUTSTANDING = 'Selesai' AND p.SISA > 0)) AND $where ORDER BY ID DESC
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -349,11 +352,11 @@ class Delivery_order_new_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+			$where = $where." AND (pb.TGL_TRX LIKE '%$keyword%' OR pb.NO_BUKTI LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_penerimaan_barang WHERE NO_PO <> '' AND SISA_ORDER > 0 AND $where  
+		SELECT pb.* , pd.NAMA_PRODUK , p.NAMA_CUSTOMER FROM ak_penerimaan_barang pb , ak_penerimaan_detail pd , ak_pembelian p WHERE pb.ID = pd.ID_PENJUALAN AND p.NO_PO = pb.NO_PO AND pb.NO_PO <> '' AND pb.SISA_ORDER > 0 AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();

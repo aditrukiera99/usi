@@ -266,7 +266,7 @@ input[type=checkbox]
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Satuan </th>
 							<th align="center"> Jumlah </th>
-							<th align="center"> # </th>
+							<!-- <th align="center"> # </th> -->
 						</tr>
 					</thead>
 					<tbody id="tes">
@@ -341,14 +341,14 @@ input[type=checkbox]
 							</td>
 
 
-							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
+							<!-- <td style='background:#FFF; text-align:center; vertical-align: middle;'> 
 								<button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button>
-							</td>
+							</td> -->
 						</tr>
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();hitung_total_semua();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
+				<!-- <button style="margin-bottom: 15px;" onclick="tambah_data();hitung_total_semua();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button> -->
 
 			</div>
 		</div>
@@ -377,6 +377,20 @@ input[type=checkbox]
 
 				<div class="form-actions">
 					<center>
+
+					<div class="row-fluid" style="margin-top: 10px;">
+						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
+							<h3> Total :</h3> 
+						</div>
+
+						<div style="margin-bottom: 15px;" class="span4">
+							<h3 style="color: green;" id="tot_disc"></h3>
+							<input type="hidden" name="tot_disc" id="tot_disc_txt">
+							<input type="hidden" name="tot_semua_pajak" id="total_semua_pajak">
+							<input type="hidden" name="penampung_total" id="penampung_total">
+							<input type="hidden" name="total_hasil_pajak" id="total_hasil_pajak">
+						</div>
+					</div>
 
 					<div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
@@ -497,7 +511,7 @@ input[type=checkbox]
 						</div>
 					</div> -->
 
-					<div class="row-fluid" style="margin-top: 10px;">
+					<!-- <div class="row-fluid" style="margin-top: 10px;">
 						<div align="left" style="margin-bottom: 15px; color: black;" class="span2">
 							<h3> Total :</h3> 
 						</div>
@@ -509,7 +523,7 @@ input[type=checkbox]
 							<input type="hidden" name="penampung_total" id="penampung_total">
 							<input type="hidden" name="total_hasil_pajak" id="total_hasil_pajak">
 						</div>
-					</div>
+					</div> -->
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
 					<input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
@@ -556,12 +570,13 @@ function disc_txt(){
 	var sub_total_satuan = sub_total / qty;
 	}
 	var total_pbbkb = (jml_pajak/100) * sub_total_satuan ;
-	var koma_pbbkb = total_pbbkb;
-	var semua_pbbkb = parseFloat(koma_pbbkb) * parseFloat(qty);
+	var koma_pbbkb = total_pbbkb.toFixed(2);
+	var semua_pbbkb = koma_pbbkb * qty;
 
 
 	var total_ppn = (jml_pajak_ppn/100) * sub_total_satuan ;
-	var semua_ppn = total_ppn * qty;
+	var koma_ppn = total_ppn.toFixed(2);
+	var semua_ppn = koma_ppn * qty;
 
 	var total_pph_23 = (jml_pajak_pph_23/100) * sub_total_satuan ;
 	var koma_pph_23 = total_pph_23.toFixed(2);
@@ -609,6 +624,7 @@ function disc_txt(){
 
 	$('#tot_disc_txt').val(sub_total);
 	$('#total_semua_pajak').val(sub_total);
+	$('#total_hasil_pajak').val(total_kabeh);
 
 
 

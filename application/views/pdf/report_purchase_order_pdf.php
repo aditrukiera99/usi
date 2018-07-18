@@ -168,16 +168,18 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 
 					<?php 
 						
-						$kod = $dt->ID_CUSTOMER;
-						$pajak_pel = $this->db->query("SELECT * FROM ak_pelanggan WHERE KODE_PELANGGAN = '$kod' ")->row();
+						// $kod = $dt->ID_CUSTOMER;
+						// $kod = $dt->PAJAK_SUPPLY;
+						// $pajak_pel = $this->db->query("SELECT * FROM ak_pelanggan WHERE KODE_PELANGGAN = '$kod' ")->row();
+						// // $pajak_supply = $this->db->query("SELECT * FROM ak_pajak_supply WHERE KODE_PELANGGAN = '$kod' ")->row();
 
-						$harga_satuan = round($dt_det->HARGA_SATUAN / (1 + (10/100) + ($pajak_pel->PAJAK_PBBKB/100) + ($pajak_pel->PPH_21/100) + ($pajak_pel->PPH_23/100) + ($pajak_pel->PPH_22/100) + ($pajak_pel->PPH_15/100)  ),2);
+						// $harga_satuan = round($dt_det->HARGA_SATUAN / (1 + (10/100) + ($pajak_pel->PAJAK_PBBKB/100) + ($pajak_pel->PPH_21/100) + ($pajak_pel->PPH_23/100) + ($pajak_pel->PPH_22/100) + ($pajak_pel->PPH_15/100)  ),2);
 
 					?>
 
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($harga_satuan,2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt->SUB_TOTAL/$dt_det->KUI,2);?></td>
 
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt_det->KUI*$harga_satuan,2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt->SUB_TOTAL,2);?></td>
 				</tr>
 
 				
@@ -188,13 +190,13 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					
 				}else{
 					
-					$jumlah_pbbkb_satuan = number_format(($pajak_pel->PAJAK_PBBKB/100)*$harga_satuan,2);
-					$jumlah_pbbkb = $jumlah_pbbkb_satuan * $dt_det->KUI;
+					// $jumlah_pbbkb_satuan = number_format(($pajak_pel->PAJAK_PBBKB/100)*$harga_satuan,2);
+					// $jumlah_pbbkb = $jumlah_pbbkb_satuan * $dt_det->KUI;
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PBBKB</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>  Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pbbkb_satuan, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pbbkb, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PBBKB/$dt_det->KUI, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PBBKB, 2);?></td>
 					<?php 
 				}
 				?>
@@ -211,8 +213,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 21</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>  Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_21_satuan, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_21, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PPH_21/$dt_det->KUI, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PPH_21, 2);?></td>
 					<?php 
 				}
 				?>
@@ -229,8 +231,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 23</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>   Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($jumlah_pph_23_satuan, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_23, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt->PPH_23/$dt_det->KUI, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PPH_23, 2);?></td>
 					<?php 
 				}
 				?>
@@ -247,8 +249,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 15</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>   Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($jumlah_pph_15_satuan, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_15, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt->PPH_15/$dt_det->KUI, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PPH_15, 2);?></td>
 					<?php 
 				}
 				?>
@@ -265,8 +267,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					?>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;">PPH 22</td>
 					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"><?php echo number_format($dt_det->KUI);?>   Ltr</td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($jumlah_pph_22_satuan, 2);?></td>
-					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($jumlah_pph_22, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($dt->PPH_22/$dt_det->KUI, 2);?></td>
+					<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?=number_format($dt->PPH_22, 2);?></td>
 					<?php 
 				}
 				?>
@@ -285,7 +287,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			<td></td>
 			<td style="border-right: 1px solid black;"></td>
 			<td style="border:1px solid black;padding: 5px;">Sub Total<br>PPN<br>Total</td>
-			<td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format(($dt_det->KUI*$harga_satuan) + $jumlah_pbbkb + $jumlah_pph_21 + $jumlah_pph_23 + $jumlah_pph_22 + $jumlah_pph_15, 2);?><br>
+			<td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($dt->SUB_TOTAL+$dt->PBBKB+$dt->PPH_21+$dt->PPH_23+$dt->PPH_15+$dt->PPH_22, 2);?><br>
 				<?php
 					if($dt->PPN == '0'){
 						$jl_ppn = 0;
@@ -294,8 +296,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 					}
 				 ?>
 
-				<?php echo number_format($jl_ppn, 2);?>
-				<br><?php $totali = 0; $totali = ($dt_det->KUI*$harga_satuan) + $jumlah_pbbkb + $jumlah_pph_21 + $jl_ppn + $jumlah_pph_23 + $jumlah_pph_22 + $jumlah_pph_15 ; echo number_format($totali, 2); ?></td>
+				<?php echo number_format($dt->PPN, 2);?>
+				<br><?php $totali = 0; $totali = ($dt_det->KUI*$harga_satuan) + $jumlah_pbbkb + $jumlah_pph_21 + $jl_ppn + $jumlah_pph_23 + $jumlah_pph_22 + $jumlah_pph_15 ; echo number_format($dt->TOTAL, 2); ?></td>
 		</tr>
 </table>
 <br>

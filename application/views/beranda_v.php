@@ -185,6 +185,41 @@ $(function() {
         $('#datetimepicker1').datetimepicker({
             language: 'pt-BR',
             pickTime: false
+        }).on('changeDate',function(event){
+          var a = formatDate_adit($('#tgl_po').val());
+          var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+          var stri = $('#tgl_lpb').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
+
+          var tgl_baru = thn+"-"+bln+"-"+hari;
+
+          var stri_a = $('input[name="tgl_trx"]').val();
+          var exp_a = stri_a.split("-");
+          var hari_a = exp_a[0];
+          var bln_a = exp_a[1];
+          var thn_a = exp_a[2];
+
+          var tgl_baru_a = thn_a+"-"+bln_a+"-"+hari_a;
+ 
+
+          var startDate = new Date(tgl_baru);
+          var startDate_a = new Date(tgl_baru_a);
+
+          var date1_unixtime = parseInt(startDate.getTime() / 1000);
+          var date2_unixtime = parseInt(startDate_a.getTime() / 1000);
+
+          
+          if (startDate > startDate_a) {
+            alert("Mohon maaf tanggal yang anda pilih kurang dari penerimaan barang");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else{
+            document.getElementById("simpan_cuy").disabled = false;
+          }
+          
         });
     });
 
@@ -192,6 +227,41 @@ $(function() {
         $('#datetimepicker2').datetimepicker({
             language: 'pt-BR',
             pickTime: false
+        }).on('changeDate',function(event){
+          var a = formatDate_adit($('#tgl_po').val());
+          var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+          var stri = $('#tgl_penerimaan').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
+
+          var tgl_baru = thn+"-"+bln+"-"+hari;
+
+          var stri_a = $('input[name="tgl_trx"]').val();
+          var exp_a = stri_a.split("-");
+          var hari_a = exp_a[0];
+          var bln_a = exp_a[1];
+          var thn_a = exp_a[2];
+
+          var tgl_baru_a = thn_a+"-"+bln_a+"-"+hari_a;
+ 
+
+          var startDate = new Date(tgl_baru);
+          var startDate_a = new Date(tgl_baru_a);
+
+          var date1_unixtime = parseInt(startDate.getTime() / 1000);
+          var date2_unixtime = parseInt(startDate_a.getTime() / 1000);
+
+          
+          if (startDate < startDate_a) {
+            alert("Mohon maaf tanggal yang anda pilih lebih dari penerimaan barang");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else{
+            document.getElementById("simpan_cuy").disabled = false;
+          }
+          
         });
     });
 
@@ -217,16 +287,183 @@ $(function() {
           var a = formatDate_adit($('#tgl_po').val());
           var b = formatDate_adit($('input[name="tgl_trx"]').val());
 
-          if(a > b){
-            alert("Tanggal tidak boleh kurang dari tanggal purchase order");
+          var stri = $('#tgl_po').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
+
+          var tgl_baru = thn+"-"+bln+"-"+hari;
+
+          var stri_b = $('#tgl_po_sebelum').val();
+          var exp_b = stri_b.split("-");
+          var hari_b = exp_b[0];
+          var bln_b = exp_b[1];
+          var thn_b = exp_b[2];
+
+          var tgl_baru_b = thn_b+"-"+bln_b+"-"+hari_b;
+
+
+          var stri_a = $('input[name="tgl_trx"]').val();
+          var exp_a = stri_a.split("-");
+          var hari_a = exp_a[0];
+          var bln_a = exp_a[1];
+          var thn_a = exp_a[2];
+
+          var tgl_baru_a = thn_a+"-"+bln_a+"-"+hari_a;
+ 
+
+          var startDate = new Date(tgl_baru);
+          var startDate_a = new Date(tgl_baru_a);
+          var startDate_b = new Date(tgl_baru_b);
+
+          var date1_unixtime = parseInt(startDate.getTime() / 1000);
+          var date2_unixtime = parseInt(startDate_a.getTime() / 1000);
+
+          
+          if (startDate > startDate_a) {
+            alert("Mohon maaf tanggal yang anda pilih kurang dari purchase order");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else if(startDate_b > startDate_a){
+            alert("Mohon maaf tanggal yang anda pilih kurang dari penerimaan barang sebelumnya");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else{
+            document.getElementById("simpan_cuy").disabled = false;
           }
+          
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker17').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        }).on('changeDate',function(event){
+          var a = formatDate_adit($('#tgl_po').val());
+          var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+          var stri = $('#tgl_po').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
+
+          var tgl_baru = thn+"-"+bln+"-"+hari;
+
+          var stri_b = $('#tgl_po_sebelum').val();
+          var exp_b = stri_b.split("-");
+          var hari_b = exp_b[0];
+          var bln_b = exp_b[1];
+          var thn_b = exp_b[2];
+
+          var tgl_baru_b = thn_b+"-"+bln_b+"-"+hari_b;
+
+
+          var stri_a = $('input[name="tgl_trx"]').val();
+          var exp_a = stri_a.split("-");
+          var hari_a = exp_a[0];
+          var bln_a = exp_a[1];
+          var thn_a = exp_a[2];
+
+          var tgl_baru_a = thn_a+"-"+bln_a+"-"+hari_a;
+ 
+
+          var startDate = new Date(tgl_baru);
+          var startDate_a = new Date(tgl_baru_a);
+          var startDate_b = new Date(tgl_baru_b);
+
+          var date1_unixtime = parseInt(startDate.getTime() / 1000);
+          var date2_unixtime = parseInt(startDate_a.getTime() / 1000);
+
+          
+          if (startDate > startDate_a) {
+            alert("Mohon maaf tanggal yang anda pilih kurang dari penerimaan barang");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else if(startDate_b > startDate_a){
+            alert("Mohon maaf tanggal yang anda pilih kurang dari delivery order sebelumnya");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else{
+            document.getElementById("simpan_cuy").disabled = false;
+          }
+          
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker18').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        }).on('changeDate',function(event){
+          var stri = $('#tgl_trx_tasdur').val();
+          var jtm = $('#jml_jtm').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
+
+          var tgl_baru = thn+"-"+bln+"-"+hari;
+
+          var startDate = new Date(tgl_baru);
+          var id =  parseFloat(jtm);
+
+          // seconds * minutes * hours * milliseconds = 1 day 
+          var day = parseFloat((60 * 60 * 24 * 1000)) * id ;
+          var da = (60 * 60 * 24 * 1000) * 3 ;
+
+          var endDate = new Date(startDate.getTime('MM-dd-yyyy') + day);
+          var tgl = endDate.toString("dd-MM-yyyy");
+
+         $('#tgl_jt').val(tgl);
+          
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker19').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+        }).on('changeDate',function(event){
+          var a = formatDate_adit($('#tgl_po').val());
+          var b = formatDate_adit($('input[name="tgl_trx"]').val());
+
+          var stri = $('#tgl_lpb').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
+
+          var tgl_baru = thn+"-"+bln+"-"+hari;
+
+          var stri_a = $('input[name="tgl_trx"]').val();
+          var exp_a = stri_a.split("-");
+          var hari_a = exp_a[0];
+          var bln_a = exp_a[1];
+          var thn_a = exp_a[2];
+
+          var tgl_baru_a = thn_a+"-"+bln_a+"-"+hari_a;
+ 
+
+          var startDate = new Date(tgl_baru);
+          var startDate_a = new Date(tgl_baru_a);
+
+          var date1_unixtime = parseInt(startDate.getTime() / 1000);
+          var date2_unixtime = parseInt(startDate_a.getTime() / 1000);
+
+          
+          if (startDate < startDate_a) {
+            alert("Mohon maaf tanggal yang anda pilih lebih dari delivery order");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else{
+            document.getElementById("simpan_cuy").disabled = false;
+          }
+          
         });
     });
 
     function formatDate_adit(date) {
       var d = new Date(date),
-          month = '' + (d.getMonth() + 1),
-          day = '' + d.getDate(),
+          day = '' + (d.getDate() + 1),
+          month = '' + d.getMonth(),
           year = d.getFullYear();
 
       if (month.length < 2) month = '0' + month;
@@ -1607,6 +1844,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
 		<div class="container-fluid" style="margin-top: 50px;">
         <?PHP if($page == ""){ ?>
         <!-- LOG AKTIFITAS -->
+        <?php if($user->LEVEL == 'USER' || $user->LEVEL == 'MANAGER' ) { ?>
         <div class="row-fluid">
             <div class="span12">
                 <h3 class=" page-header"><i class="icon-time"></i> LOG AKTIFITAS unit <b><?=$user->NAMA_UNIT;?></b> </h3>
@@ -1622,7 +1860,77 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                 </div>
             </div>
         </div>
+      <?php } ?>
 
+        <?php if($user->LEVEL == 'DIREKTUR'){ ?>
+        <div class="row-fluid">
+            <div class="span12">
+                <h3 class=" page-header"><i class="icon-time"></i> HALAMAN KONFIRMASI DIREKTUR </h3>
+                <div class="content-widgets light-gray">
+                  <div class="widget-container">
+                    
+                            <table class="responsive table table-striped table-bordered" id="data-table">
+                                <thead>
+                                  <tr>
+                                    <th align="center"> NO </th>
+                                    <th align="center"> NOMER SO </th>            
+                                    <th align="center"> CUSTOMER </th>            
+                                    <th align="center"> TANGGAL </th>            
+                                    <th align="center"> KUANTITAS </th>            
+                                    <th align="center"> AKSI </th>
+                                  </tr>           
+                                </thead>
+                                <tbody id="tes">
+                                  <?PHP 
+                                  $no = 0;
+                                  $data_so_outs = $this->db->query("SELECT * FROM ak_penjualan WHERE TUTUP_OUTSTANDING = 'Konfirmasi'")->result();
+                                  foreach ($data_so_outs as $key => $dt_out) { 
+                                    $no++;
+                                  ?>
+                                  <tr>
+                                    <td align="center" style="text-align: center;"> <?=$no;?> </td>
+                                    <td> <?=$dt_out->NOMER_SO;?> </td>
+                                    <td> <?=$dt_out->PELANGGAN;?> </td>
+                                    <td> <?=$dt_out->TGL_TRX;?> </td>
+                                    <td> <?=$dt_out->KUANTITAS;?> </td>
+                                    <td><button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus_out').val('<?=$dt_out->ID;?>');$('#value_out').val('Tutup Outstanding');" type="button" class="btn btn-small btn-warning"> 
+                                      Setuju 
+                                      </button>
+                                      <button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus_out').val('<?=$dt_out->ID;?>');$('#value_out').val('Selesai');" type="button" class="btn btn-small btn-danger"> 
+                                      Tidak Setuju
+                                      </button>
+                                    </td>
+                                    
+
+                                  
+                                  </tr>
+                                  <?PHP } ?>
+                                </tbody>
+                              </table>
+                            </div>
+                </div>
+            </div>
+        </div>
+      <?php } ?>
+      <!-- HAPUS MODAL -->
+        <a id="dialog-btn" href="javascript:;" class="cd-popup-trigger" style="display:none;">View Pop-up</a>
+        <div class="cd-popup" role="alert">
+            <div class="cd-popup-container">
+
+                <form id="delete_out" method="post" action="<?=base_url()?>beranda_c">
+                    <input type="hidden" name="id_hapus_out" id="id_hapus_out" value="" />
+                    <input type="hidden" name="value_out" id="value_out" value="" />
+                </form>   
+                 
+                <p>Apakah anda yakin ingin mengajukan penghapusan data ini? </p>
+                <ul class="cd-buttons">            
+                    <li><a href="javascript:;" onclick="$('#delete_out').submit();">Ya</a></li>
+                    <li><a onclick="$('.cd-popup-close').click(); $('#id_hapus_out').val('');$('#value_out').val('');" href="javascript:;">Tidak</a></li>
+                </ul>
+                <a href="#0" onclick="$('#id_hapus').val('');" class="cd-popup-close img-replace">Close</a>
+            </div> <!-- cd-popup-container -->
+        </div> <!-- cd-popup -->
+        <!-- END HAPUS MODAL -->
         <div class="row-fluid">
             <div class="span12">
                 <div class="tab-widget">

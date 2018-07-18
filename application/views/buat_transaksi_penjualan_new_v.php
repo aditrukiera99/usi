@@ -201,9 +201,9 @@ input[type=checkbox]
 
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Jatuh Tempo </b> </label>
-			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Hari Ini </b> </label>
-			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
-			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" value="so" > <b style="font-size: 14px;"> Tanggal Hari Ini </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" value="do" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
+			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" value="invoice" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label>
 				<div class="controls">
 						
 						<input type="text" name="hari_tempo" style="width: 10%;margin-right: 5px;float: left;" onkeyup="jam_dinding(this.value);">
@@ -295,7 +295,7 @@ input[type=checkbox]
 							<th align="center" style="width: 20%;"> Produk / Item </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Jual </th>
-							<th align="center"> # </th>
+							<!-- <th align="center"> # </th> -->
 						</tr>
 					</thead>
 					<tbody id="tes">
@@ -320,7 +320,7 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="cek_qty(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="cek_qty(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]" required>
 									<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 								</div>
 							</td>
@@ -333,9 +333,9 @@ input[type=checkbox]
 								</div>
 							</td>
 
-							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
-								<!-- <button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button> -->
-							</td>
+							<!-- <td style='background:#FFF; text-align:center; vertical-align: middle;'> 
+								<button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button>
+							</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -549,31 +549,16 @@ input[type=checkbox]
 		var pajak_ppn 	  = $('#pajak_ppn_validasi').val();
 
 		qty           = qty.split(',').join('');
-		harga_modal   = harga_modal.split(',').join('');
 
 		var oat = parseInt(qty * besar) ;
 
 
-		var profit = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) - oat ;
-		var harga_tanpa = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) ;
-		var besar_ppn = parseFloat(pajak_ppn / 100) * harga_tanpa;
-
-
 		$('#total_oat_text').val(oat);
-		$('#total_ppn_text').val(besar_ppn);
 
 		$('#penampung_oat').val(oat);
-		$('#penampung_ppn').val(besar_ppn);
-
-		$('#inp_sub_total').val(profit);
 		
-		$('#total_ppn').html('Rp. '+acc_format(besar_ppn, "").split('.00').join('') );
-		$('#sub_total').html('Rp. '+acc_format(profit, "").split('.00').join('') );
 		$('#total_oat').html('Rp. '+acc_format(oat, "").split('.00').join('') );
 		
-
-
-
 	}
 
 
@@ -585,6 +570,7 @@ input[type=checkbox]
 		// var pajak_pbbkb = $('#penampung_pbbkb').val();
 
 		var total = parseFloat(pajak_ppn) + parseFloat(pajak_oat); 
+		// var total = parseFloat(pajak_ppn); 
 		// var total = parseFloat(pajak_ppn) + parseFloat(pajak_oat) + parseFloat(pajak_pbbkb); 
 
 
@@ -597,10 +583,10 @@ input[type=checkbox]
 		var total_semua_pajak = $('#inp_sub_total').val();
 		var penampung_total = $('#penampung_total').val();
 
-		var martis = parseInt(total_semua_pajak) + parseInt(penampung_total);
+		var martis = parseFloat(total_semua_pajak) + parseFloat(penampung_total);
 		
-
-		$('#tot_disc').html('Rp. '+acc_format(martis, "").split('.00').join('') );
+		var mar = Math.round(martis);
+		$('#tot_disc').html('Rp. '+acc_format(mar, "").split('.00').join('') );
 		$('#total_hasil_pajak').val(martis);
 
 		
@@ -1087,7 +1073,7 @@ function hitung_total(id){
 	if(harga_modal   == "" || harga_modal   == null){ harga_modal   = 0; }
 
 
-	var profit = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) - (qty * semua_oat) ;
+	var profit = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) ;
 	var harga_tanpa = ((parseFloat(harga_modal) * parseFloat(qty)) / (1 + parseFloat(pajak_ppn / 100))) ;
 	var besar_ppn = parseFloat(pajak_ppn / 100) * harga_tanpa;
 	// var besar_pbbkb = parseFloat(pajak_pbbkb / 100) * profit;
@@ -1190,7 +1176,7 @@ function get_barang_detail(id,nama,id_supply,persen,namid,pajak_pbbkb){
     // $('#harga_modal_1').val(harga);
     $('#id_supply_1').val(id);
     $('#supply_point_1').val(nama);
-    $('#ps_1').val(namid);
+    $('#ps_1').val(id_supply);
     $('#supply_point_nama').val(nama);
 	$('#supply_pajak_nama').val(pajak_pbbkb);
 	$('#pajak_nama').val(persen);

@@ -129,6 +129,12 @@ input[type=checkbox]
 			<div class="controls">
 				<input type="text" class="span6" value="<?=$dt->NOMER_SO;?>" name="nomer_so" id="no_trx" style="font-size: 15px;" readonly>
 				<input type="hidden" class="span6" value="<?=$dt->ID;?>" name="no_trx" id="no_trx" style="font-size: 15px;" readonly>
+				<?php 
+					$no_bkt = $dt->NO_BUKTI;
+					$tgl_lpb = $this->db->query("SELECT TGL_TRX FROM ak_delivery_order WHERE NO_SO = '$no_bkt' ORDER BY TGL_TRX ASC")->row();
+
+				?>
+				<input type="hidden" class="span6" value="<?=$tgl_lpb->TGL_TRX;?>" name="tgl_lpb" id="tgl_lpb" style="font-size: 15px;" readonly>
 			</div>
 		</div>
 
@@ -162,7 +168,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
+					<div id="datetimepicker19" class="input-append date ">
 						<input readonly style="width: 80%;" name="tgl_trx" data-format="dd-MM-yyyy" type="text" value="<?=$dt->TGL_TRX;?>">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
@@ -225,7 +231,7 @@ input[type=checkbox]
 							<th align="center" style="width: 20%;"> Produk / Item </th>
 							<th align="center"> Volume </th>
 							<th align="center"> Harga Satuan </th>
-							<th align="center"> # </th>
+							<!-- <th align="center"> # </th> -->
 						</tr>
 					</thead>
 					<tbody id="tes">
@@ -296,11 +302,6 @@ input[type=checkbox]
 								</div>
 							</td>
 
-							
-
-							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
-								<button  style="width: 100%;" onclick="hapus_row(<?=$key+1;?>);" type="button" class="btn btn-danger"> Hapus </button>
-							</td>
 						</tr>
 						<?PHP } ?>
 					</tbody>
@@ -338,7 +339,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penjualan" name="edit_cui" class="btn btn-success">
+					<input type="submit" value="Simpan Penjualan" name="edit_cui" class="btn btn-success" id="simpan_cuy">
 					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>

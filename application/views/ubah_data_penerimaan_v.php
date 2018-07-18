@@ -127,6 +127,14 @@ input[type=checkbox]
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
+
+				<input type="hidden" class="span12" value="<?=$dt->TGL_TRX_A;?>" name="tgl_lpb" id="tgl_lpb" style="font-size: 15px;">
+				<?php 
+
+					$dt_po = $this->model->get_po_tgl($dt->NO_PO);
+
+				?>
+				<input type="text" class="span12" value="<?=$dt_po->TGL_TRX;?>" name="tgl_po_sebelum" id="tgl_po_sebelum" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -147,7 +155,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
 					<div id="datetimepicker1" class="input-append date ">
-						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
+						<input readonly style="width: 80%;" value="<?=$dt->TGL_TRX;?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
 						</span>
@@ -282,7 +290,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Penerimaan Barang" name="simpan_update" class="btn btn-success">
+					<input type="submit" value="Simpan Penerimaan Barang" name="simpan_update" id="simpan_cuy" class="btn btn-success">
 					<button class="btn" onclick="window.location='<?=base_url();?>penerimaan_barang_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>

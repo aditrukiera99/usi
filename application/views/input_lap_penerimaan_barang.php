@@ -152,6 +152,7 @@ input[type=checkbox]
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="id_gudang" id="id_gudang" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="tgl_po" id="tgl_po" style="font-size: 15px;">
+				<input type="hidden" class="span12" value="" name="tgl_po_sebelum" id="tgl_po_sebelum" style="font-size: 15px;">
 			</div>
 		</div>
 
@@ -265,7 +266,7 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty" required>
 								</div>
 							</td>
 
@@ -488,8 +489,10 @@ function get_popup_pelanggan(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
+                '                        <th>CUSTOMER</th>'+
+                '                        <th>PRODUK</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
-                '                        <th> NO SO </th>'+
+                '                        <th> NO PO </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -565,8 +568,10 @@ function ajax_pelanggan(){
                 no++;
                 
 
-                isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
+                isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');get_tanggal_sebelum('+res.NO_PO+')" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.NAMA_CUSTOMER+'</td>'+
+                            '<td align="center">'+res.NAMA_PRODUK+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
                             '<td align="center">'+res.NOMER_PO+'</td>'+
                         '</tr>';
@@ -769,22 +774,57 @@ function formatDate_adit(date) {
           day = '' + d.getDate(),
           year = d.getFullYear();
 
-      if (month.length < 2) month = '0' + month;
-      if (day.length < 2) day = '0' + day;
+      if (month.length < 0) month = '0' + month;
+      if (day.length < 0) day = '0' + day;
 
       return [year, month, day].join('-');
   }
 
   function cek_tanggal_pb(){
-  	var a = formatDate_adit($('#tgl_po').val());
-  	var b = formatDate_adit($('input[name="tgl_trx"]').val());
+  	var stri = $('#tgl_po').val();
+          var exp = stri.split("-");
+          var hari = exp[0];
+          var bln = exp[1];
+          var thn = exp[2];
 
-    if(a > b){
-    	alert("Tanggal tidak boleh kurang dari tanggal purchase order");
-    	// document.getElementById("simpan_cuy").disabled = true;
+          var tgl_baru = thn+"-"+bln+"-"+hari;
 
-    	return false;
-  	}
+          var stri_b = $('#tgl_po_sebelum').val();
+          var exp_b = stri_b.split("-");
+          var hari_b = exp_b[0];
+          var bln_b = exp_b[1];
+          var thn_b = exp_b[2];
+
+          var tgl_baru_b = thn_b+"-"+bln_b+"-"+hari_b;
+
+
+          var stri_a = $('input[name="tgl_trx"]').val();
+          var exp_a = stri_a.split("-");
+          var hari_a = exp_a[0];
+          var bln_a = exp_a[1];
+          var thn_a = exp_a[2];
+
+          var tgl_baru_a = thn_a+"-"+bln_a+"-"+hari_a;
+ 
+
+          var startDate = new Date(tgl_baru);
+          var startDate_a = new Date(tgl_baru_a);
+          var startDate_b = new Date(tgl_baru_b);
+
+          var date1_unixtime = parseInt(startDate.getTime() / 1000);
+          var date2_unixtime = parseInt(startDate_a.getTime() / 1000);
+
+          
+          if (startDate > startDate_a) {
+            alert("Mohon maaf tanggal yang anda pilih kurang dari purchase order");
+            document.getElementById("simpan_cuy").disabled = true;
+            return false;
+          }else if(startDate_b > startDate_a){
+            alert("Mohon maaf tanggal yang anda pilih kurang dari penerimaan barang sebelumnya");
+            document.getElementById("simpan_cuy").disabled = true;
+          }else{
+            document.getElementById("simpan_cuy").disabled = false;
+          }
   } 
 
 
@@ -811,6 +851,28 @@ function get_pelanggan_det(id_pel){
 			$('#tgl_po').val(result.TGL_TRX);
 			$('#sisa_1').val(result.SISA_QTY);
 			$('#sisa_2').val(result.SISA_QTY);
+
+			
+		}
+	});
+}
+
+function get_tanggal_sebelum(id_pel){
+	$('#popup_load').show();
+	$.ajax({
+		url : '<?php echo base_url(); ?>penerimaan_barang_c/get_po_tgl',
+		data : {id_pel:id_pel},
+		type : "GET",
+		dataType : "json",
+		success : function(result){
+			$('#popup_load').hide();
+
+			$('#search_koang').val("");
+		    $('#popup_koang').css('display','none');
+		    $('#popup_koang').hide();
+		    $('#popup_koang').remove();
+
+			$('#tgl_po_sebelum').val(result.TGL_TRX);
 
 			
 		}

@@ -117,7 +117,7 @@ input[type=checkbox]
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="unit_txt" name="unit_txt" readonly style="background:#FFF; width: 90%" value="<?=$user->NAMA_UNIT;?>">
-						<!-- <input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>"> -->
+						<input type="hidden" id="id_hapus" name="id_edit_say" value="<?=$dt->ID;?>">
 					</div>
 				</div>
 			</div>
@@ -140,6 +140,12 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> No. Transaksi </b> </label>
 			<div class="controls">
 				<input type="text" class="span11" value="<?=$dt->NO_PO;?>" name="no_trx" id="no_trx" style="font-size: 15px;width: 86%;" readonly>
+				<?php 
+					$id_pel = $dt->NO_PO;
+					$tgl_pener = $this->db->query("SELECT TGL_TRX FROM ak_penerimaan_barang WHERE NO_PO = '$id_pel' ORDER BY TGL_TRX ASC")->row();
+
+				?>
+				<input type="hidden" class="span11" value="<?=$tgl_pener->TGL_TRX;?>" name="tgl_penerimaan" id="tgl_penerimaan" style="font-size: 15px;width: 86%;" readonly>
 	<!-- 			<input type="hidden" class="span8" value="<?=$no_transaksi;?>" name="no_trx2" id="no_trx2">
 				<input type="hidden" class="span8" value="<?=$no_bukti_real2;?>" name="no_do" id="no_trx2"> -->
 			</div>
@@ -151,7 +157,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
+					<div id="datetimepicker2" class="input-append date ">
 						<input style="width: 80%;" value="<?=$dt->TGL_TRX;?>" readonly required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
@@ -165,7 +171,7 @@ input[type=checkbox]
 			<!-- <label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Barang </b> </label>
 			<label class="control-label" style="margin-top: 5px;margin-bottom: 10px;"> <input type="radio" name="jt_status" > <b style="font-size: 14px;"> Tanggal Terima Invoice </b> </label> -->
 				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
+					<div id="datetimepicker2" class="input-append date ">
 						<input type="text" name="hari_tempo" value="<?=$dt->JATUH_TEMPO;?>" readonly style="width: 10%;margin-right: 5px;" onkeyup="jam_dinding(this.value);">
 
 						<?php 
@@ -194,7 +200,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Keterangan </b> </label>
 				<div class="controls">
-					<textarea rows="4" readonly id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 85%;"><?=$dt->MEMO;?></textarea>
+					<textarea rows="4" id="memo_lunas" name="memo_lunas" style="resize:none; height: 87px; width: 85%;"><?=$dt->MEMO;?></textarea>
 				</div>
 		</div> 
 
@@ -241,7 +247,7 @@ input[type=checkbox]
 						<input type="hidden" id="kode_sh_cust" name="kode_sh_cust" readonly style="background:#FFF; width: 70%;">
 						<input type="hidden" id="aksi_on" name="aksi_on" readonly style="background:#FFF; width: 70%;">
 						
-						<button onclick="show_pop_customer();" type="button" class="btn">Cari</button>
+						<button onclick="show_pop_customer();" type="button" class="btn" disabled="">Cari</button>
 					</div>
 			</div>
 		</div>
@@ -264,13 +270,13 @@ input[type=checkbox]
 					<thead>
 						<tr>
 							
-							<th align="center" style="width: 20%;"> Refrensi SO </th>
+							<!-- <th align="center" style="width: 20%;"> Refrensi SO </th> -->
 							<th align="center"> No SH </th>
 							<th align="center"> Produk / Item </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Satuan </th>
 							<th align="center"> Jumlah </th>
-							<th align="center"> # </th>
+							<!-- <th align="center"> # </th> -->
 						</tr>
 					</thead>
 					<tbody id="tes">
@@ -286,7 +292,7 @@ input[type=checkbox]
 						<tr id="tr_1" class="tr_utama">
 							
 
-							<td style="vertical-align:middle;"> 
+							<!-- <td style="vertical-align:middle;"> 
 
 								<div class="control-group">
 									<div class="controls">
@@ -296,11 +302,11 @@ input[type=checkbox]
 										</div>
 									</div>
 								</div>
-							</td>
+							</td> -->
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input type="text" name="kode_sh_so[]" value="" id="kode_sh_1">
+									<input type="text" name="kode_sh_so[]" value="<?=$dt->ID_CUSTOMER;?>" id="kode_sh_1" readonly>
 								</div>
 							</td>
 
@@ -309,10 +315,10 @@ input[type=checkbox]
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" readonly id="nama_produk_1" name="nama_produk[]" value="<?=$dt_t->NAMA_PRODUK;?>" readonly style="background:#FFF; width: 60%;">
+											<input type="text" readonly id="nama_produk_1" name="nama_produk[]" value="<?=$dt_t->NAMA_PRODUK;?>" readonly style="background:#FFF; width: 60%;" readonly>
 											<input type="hidden" id="id_produk_1" name="produk[]" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk[]" readonly style="background:#FFF;" value="">
-											<button style="width: 30%;" onclick="show_pop_barang(1);" type="button" class="btn">Cari</button>
+											<button style="width: 30%;" onclick="show_pop_barang(1);" type="button" class="btn" disabled="">Cari</button>
 											
 										</div>
 									</div>
@@ -340,15 +346,15 @@ input[type=checkbox]
 							</td>
 
 
-							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
+							<!-- <td style='background:#FFF; text-align:center; vertical-align: middle;'> 
 								<button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button>
-							</td>
+							</td> -->
 						</tr>
 					<?php } ?>
 					</tbody>
 				</table>
 
-				<button style="margin-bottom: 15px;" onclick="tambah_data();hitung_total_semua();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
+				<!-- <button style="margin-bottom: 15px;" onclick="tambah_data();hitung_total_semua();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button> -->
 
 			</div>
 		</div>
@@ -512,7 +518,7 @@ input[type=checkbox]
 					</div>
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<!-- <input type="submit" value="Simpan Pembelian" name="simpan" class="btn btn-success"> -->
+					<input type="submit" value="Simpan Pembelian" name="edit_say" class="btn btn-success">
 					<button class="btn" onclick="window.location='<?=base_url();?>purchase_order_c' " type="button"> Kembali </button>
 					</center>
 				</div>

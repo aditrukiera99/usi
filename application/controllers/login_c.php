@@ -62,7 +62,7 @@ class Login_c extends CI_Controller {
 	function cek_uspa($tabel = '', $uspa = array(), $unit){
         $where = '';
         foreach($uspa as $key => $value){
-            $where .= " AND $key = '$value' AND (LEVEL = 'USER' OR LEVEL = 'MANAGER') AND UNIT = '$unit' ";
+            $where .= " AND $key = '$value' AND (LEVEL = 'USER' OR LEVEL = 'MANAGER' OR LEVEL = 'DIREKTUR') AND UNIT = '$unit' ";
         }
         $data = $this->db->query("SELECT u.* FROM $tabel u WHERE 1=1 $where");
 

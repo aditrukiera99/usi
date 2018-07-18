@@ -77,11 +77,11 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$oat      		= $this->input->post('oat');
 			$qty_total      = $this->input->post('qty_total');
 			$penampung_oat  = $this->input->post('penampung_oat');
-			$pajak_id  		= $this->input->post('pajak_id');
+			$pajak_id  		= $this->input->post('ps_1');
 
 			$ppn 			= $this->input->post('penampung_ppn');
-			$tipe_so 			= $this->input->post('tipe_so');
-			$hari_tempo 			= $this->input->post('hari_tempo');
+			$tipe_so 		= $this->input->post('tipe_so');
+			$hari_tempo 	= $this->input->post('hari_tempo');
 
 			
 			$kode_gudang = $this->db->query("SELECT * FROM ak_gudang WHERE ID = '$pajak_id' ")->row();
@@ -175,7 +175,8 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$qty_diterima  = $this->input->post('qty_diterima');
 			$no_trx        = $this->input->post('no_solo');
 			$invoice        = $this->input->post('no_invoice');
-			$no_do        = $this->input->post('no_trx');
+			$no_do          = $this->input->post('no_trx');
+			$tgl_trx        = $this->input->post('tgl_trx');
 
 			$kode_gudang = $this->db->query("SELECT g.KODE_SUPPLY_POINT FROM ak_gudang g , ak_penjualan p , ak_pelanggan pl WHERE p.ID_PELANGGAN = pl.ID AND pl.ID_SUPPLY_POINT = g.ID AND p.NO_BUKTI = '$no_trx' ")->row();
 
@@ -187,7 +188,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			// $no_bukti_real = $no_trx."/".$kode_gudang->KODE_SUPPLY_POINT."/".$var."/".$tahun_kas;
 
 
-			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real);
+			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real,$tgl_trx);
 			$this->model->edit_status_do($no_do);
 			$this->model->save_next_nomor('13', 'Invoice', $invoice);
 
@@ -218,14 +219,14 @@ class Transaksi_penjualan_c extends CI_Controller {
 			// $temperatur     = $this->input->post('temperatur');
 			// $sg_meter   	= $this->input->post('sg_meter');
 
-			// $tgl_do        = $this->input->post('tgl_trx');
+			$tgl_so        = $this->input->post('tgl_trx');
 			// $tgl_sj        = $this->input->post('tgl_trx');
 			// $tgl_inv       = $this->input->post('tgl_trx');
 			// $tgl_kwi       = $this->input->post('tgl_trx');	
 			$operator      = $user->NAMA;
 			
 
-			$this->model->ubah_penjualan_so($no_trx,$no_po_pelanggan, $keterangan, $hari_tempo);
+			$this->model->ubah_penjualan_so($no_trx,$no_po_pelanggan, $keterangan, $hari_tempo,$tgl_so);
 
 			// $id_penjualan   = $this->input->post('id_pnj');
 			// $id_produk 	    = $this->input->post('produk');
@@ -239,9 +240,9 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			
 
-			foreach ($id_produk as $key => $val) {
-				$this->model->ubah_detail_penjualan($no_trx, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key]);
-			}
+			// foreach ($id_produk as $key => $val) {
+			// 	$this->model->ubah_detail_penjualan($no_trx, $val, $kode_akun[$key], $nama_produk[$key], $qty[$key], $harga_modal[$key]);
+			// }
 
 			$this->master_model_m->simpan_log($id_user, "Mengubah transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
 		}
@@ -427,7 +428,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$user = $this->master_model_m->get_user_info($id_user);
 
 
-		if($this->input->post('buat_inv')){
+		if($this->input->post('pelanggan')){
 			$msg = 1;
 
 			$bulan_kas = date("m",strtotime($this->input->post('tgl_trx')));
@@ -464,9 +465,9 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			$no_invoice    = $this->input->post('no_invoice');
 			$qty_diterima  = $this->input->post('qty_diterima');
-			$no_trx        = $this->input->post('no_solo');
+			$no_trx        = $this->input->post('no_trx');
 			$invoice       = $this->input->post('no_invoice');
-			$no_do         = $this->input->post('no_trx');
+			$no_do         = $this->input->post('nomer_do');
 			$tgl_trx       = $this->input->post('tgl_trx');
 			$pelanggan     = $this->input->post('pelanggan');
 			$pelanggan_sel = $this->input->post('pelanggan_sel');
@@ -486,11 +487,18 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$nama_produk    = $this->input->post('nama_produk');
 			$qty         	= $this->input->post('qty');
 			$harga_modal    = $this->input->post('harga_modal');
+			$sisa_so 		= $this->input->post('sisa_so');
+
+			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real,$sisa_so);
+
+			foreach ($nama_produk as $key => $value) {
+				
+				$this->model->edit_status_do($no_do[$key]);
+				$this->model->insert_tb_invoice($no_do[$key],$no_trx,$no_invoice,$tgl_trx,$qty[$key],$harga_modal[$key],$pelanggan,$pelanggan_sel,$value,$qty_diterima,$tgl_jt);
+			}
 
 
-			$this->model->edit_status_invoice($no_invoice,$qty_diterima,$no_trx,$no_bukti_real);
-			$this->model->edit_status_do($no_do);
-			$this->model->insert_tb_invoice($no_do,$no_trx,$no_invoice,$tgl_trx,$qty,$harga_modal,$pelanggan,$pelanggan_sel,$nama_produk,$qty_diterima,$tgl_jt);
+			
 			$this->model->save_next_nomor('13', 'Invoice', $invoice);
 
 
@@ -503,9 +511,10 @@ class Transaksi_penjualan_c extends CI_Controller {
 
 			$no_so    = $this->input->post('id_inv');
 			$memo  = $this->input->post('memo_lunas');
+			$tgl_trx  = $this->input->post('tgl_trx');
 
 
-			$this->model->edit_invoice($no_so,$memo);
+			$this->model->edit_invoice($no_so,$memo,$tgl_trx);
 
 
 		} else if($this->input->post('id_hapus')){
@@ -516,11 +525,21 @@ class Transaksi_penjualan_c extends CI_Controller {
 			$d = $this->db->query("SELECT * FROM ak_invoice WHERE ID = $id_hapus")->row();
 
 			$this->model->edit_status($d->NOMER_DO);
+			$this->model->update_status_standing($d->NOMER_SO);
+
 			$this->model->hapus_invoice($id_hapus);
 			
 
 
 			// $this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
+		
+		} else if($this->input->post('nomor_solokot')){
+			$msg = 2;
+
+			$nomor_solokot = $this->input->post('nomor_solokot');
+
+			$this->model->update_status_outstanding($nomor_solokot);
+			
 		
 		}
 
@@ -730,7 +749,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 			'title' => "Ubah Transaksi Penjualan", 
 			'msg' => "", 
 			'master' => "penjualan", 
-			'view' => "transaksi_penjualan_c", 
+			'view' => "transaksi_penjualan", 
 			'dt_supplier' => $dt_supplier, 
 			'get_broker' => $get_broker, 
 			'msg' => $msg, 
@@ -856,11 +875,42 @@ class Transaksi_penjualan_c extends CI_Controller {
 		$id_user = $sess_user['id'];
         $user = $this->master_model_m->get_user_info($id_user);
         $where_unit = "1=1";
-        if($user->LEVEL == "ADMIN"){
-            $where_unit = "1=1";
-        } else {
-            $where_unit = "UNIT = ".$user->UNIT;
-        }
+        
+
+		$keyword = $this->input->post('keyword');
+		$no_so = $this->input->post('no_so');
+		if($keyword != "" || $keyword != null){
+			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+		}
+
+		$sql = "
+		SELECT * FROM ak_delivery_order WHERE STATUS = '0' AND NO_SO = '$no_so'
+		";
+
+		$dt = $this->db->query($sql)->result();
+
+		echo json_encode($dt);
+	}
+
+	function simpan_outstanding(){
+		
+		$no_so = $this->input->post('no_so');
+
+		$this->model->update_status_outstanding($no_so);
+
+		echo json_encode('a');
+		
+	}
+
+	function get_so_inv_popup(){
+		$sess_user = $this->session->userdata('masuk_akuntansi');
+		$id_klien = $sess_user['id_klien'];
+		$where = "1=1";
+
+		$id_user = $sess_user['id'];
+        $user = $this->master_model_m->get_user_info($id_user);
+        $where_unit = "1=1";
+        
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
@@ -868,7 +918,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_delivery_order WHERE STATUS = '0' 
+		SELECT pn.* , pd.NAMA_PRODUK FROM ak_penjualan pn , ak_penjualan_detail pd WHERE pn.ID = pd.ID_PENJUALAN AND TUTUP_OUTSTANDING = 'Belum'
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -920,6 +970,22 @@ class Transaksi_penjualan_c extends CI_Controller {
 		);
 		
 		$this->load->view('pdf/report_invoice_new_pdf', $data);
+	}
+
+	function cetak_by_so($id=""){
+
+		$dt = $this->model->get_data_trx_inv($id);
+		$inv = $this->db->query("SELECT ap.ID as ID FROM ak_invoice ai , ak_penjualan ap WHERE ai.NOMER_SO = ap.NO_BUKTI AND ai.ID = '$id'")->row();
+		$dt_deti = $this->model->get_data_trx($inv->ID);
+
+		$data =  array(
+			'page' => "transaksi_penjualan_c", 
+			'dt' => $dt,
+			'dt_deti' => $dt_deti,
+			'dt_detil' => $dt_detil,
+		);
+		
+		$this->load->view('pdf/cetak_by_so_pdf', $data);
 	}
 
 	function cetak_loses($id=""){
@@ -1032,6 +1098,13 @@ class Transaksi_penjualan_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
+	function get_produk_detail_do(){
+		$id_produk = $this->input->get('id_produk');
+		$dt = $this->model->get_produk_detail_do($id_produk);
+
+		echo json_encode($dt);
+	}
+
 	function get_produk_detail_mh(){
 		$id_produk = $this->input->get('mhid_a');
 		$dt = $this->model->get_produk_detail_mh($id_produk);
@@ -1059,6 +1132,13 @@ class Transaksi_penjualan_c extends CI_Controller {
 	function cari_produk_by_id(){
 		$id = $this->input->get('id');
 		$dt = $this->model->cari_produk_by_id($id);
+
+		echo json_encode($dt);
+	}
+
+	function get_so_detail(){
+		$id = $this->input->get('id_pel');
+		$dt = $this->model->get_so_detail($id);
 
 		echo json_encode($dt);
 	}

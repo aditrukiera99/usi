@@ -15,6 +15,14 @@ class Data_lowongan_m extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function data_pendaftar_lowongan_a($id){
+        $sql = "
+        SELECT * FROM ak_lowongan_kerja WHERE ID_LOWONGAN = '$id'
+        ";
+
+        return $this->db->query($sql)->result();
+    }
+
 
     function hapus_lowongan_sertifikat($id){
         

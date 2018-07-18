@@ -109,13 +109,31 @@
 						<?PHP  foreach ($dt as $key => $row) { ?>
 							<?PHP $dt_detaili = $this->model->get_data_trxx_detail($row->ID); ?>
 							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_PO;?>" />
+							<?php if($row->SISA_ORDER == 0){ ?>
+							<tr>
+								<td align="center" style="background-color: #bdbdbdd6;">
+									<a target="blank" href="<?=base_url();?>penerimaan_barang_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+
+									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
+									<a class="btn btn-warning" href="<?=base_url();?>penerimaan_barang_c/ubah_data_penerimaan/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>
+								</td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #bdbdbdd6;">   <?=$row->NOMER_LPB;?> </td>
+								<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #bdbdbdd6;"> <?=$row->TGL_TRX;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;background-color: #bdbdbdd6;">   <?=$row->SUPPLIER;?> </td>
+
+								<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
+								<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
+								
+								
+							</tr>
+						<?php }else{ ?>
+
 							<tr>
 								<td align="center">
 									<a target="blank" href="<?=base_url();?>penerimaan_barang_c/cetak/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>						
-									<a class="btn btn-warning" href="<?=base_url();?>penerimaan_barang_c/ubah_data_penerimaan/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>						
-									<!-- <button onclick="detail_transaksi(<?=$row->ID;?>);" data-toggle="modal" data-target="#modal_detail" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-eye-open"></i></button> -->
+									<a class="btn btn-warning" href="<?=base_url();?>penerimaan_barang_c/ubah_data_penerimaan/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>
 								</td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->NOMER_LPB;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
@@ -123,18 +141,10 @@
 
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->QTY);?> LITER</td>
 								<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_detaili->HARGA_SATUAN,2);?> </td>
-								<!-- <td style="font-size:14px; text-align:center; vertical-align:middle;">
-									<?PHP if($row->NO_TRX_AKUN == "" || $row->NO_TRX_AKUN == null ){ 
-										echo "<b style='color:red;'> Belum Dibukukan </b>"; 
-										echo "<br>";
-										echo "<a style='padding: 2px 10px;' href='".base_url()."input_transaksi_akuntansi_c/index/j/".$row->ID."'> (Proses Pembukuan) </a>";
-									} else { 
-										echo "<b style='color:green;'> Sudah Dibukukan </b> <br> (".$row->NO_TRX_AKUN.") "; 
-									} ?> 
-								</td> -->
+								
 								
 							</tr>
-						<?PHP }	?>
+						<?PHP }  } 	?>
 					</tbody>
 				</table>
 			</div>

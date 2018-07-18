@@ -56,6 +56,15 @@ class Beranda_c extends CI_Controller {
 
 		}
 
+		if($this->input->post('id_hapus_out')){
+			$msg = 2;
+			$id_hapus_out = $this->input->post('id_hapus_out');
+			$value_out = $this->input->post('value_out');
+
+			$this->db->query("UPDATE ak_penjualan SET TUTUP_OUTSTANDING = '$value_out' WHERE ID = '$id_hapus_out'");
+
+		}
+
 		if($this->input->post('simpan_pengaturan')){
 			$nama_app = $this->input->post('nama_app');
 			$batas_unit = $this->input->post('batas_unit');

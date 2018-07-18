@@ -143,7 +143,7 @@ $nomor_po = $this->db->query("SELECT * FROM ak_pembelian WHERE NO_PO = '$nmr_po'
 
 
 			<?php 
-				if($dt->PBBKB == '0'){
+				if($dt->PEM_PBBKB == '0'){
 
 				}else{
 					?>
@@ -159,14 +159,46 @@ $nomor_po = $this->db->query("SELECT * FROM ak_pembelian WHERE NO_PO = '$nmr_po'
 				?>
 
 				<?php 
-				if($dt->PPH == '0'){
+				if($dt->PPH_15 == '0'){
 
 				}else{
 					?>
 					<tr>
 						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($va->QTY,0);?></td>
-						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PPh</td>
-						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: left;">PPh</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PPH 15 <?=$smd->KODE_SUPPLY_POINT;?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: left;">PPH 15</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
+					</tr>
+					<?php 
+				}
+				?>
+
+				<?php 
+				if($dt->PPH_23 == '0'){
+
+				}else{
+					?>
+					<tr>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($va->QTY,0);?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PPH 23 <?=$smd->KODE_SUPPLY_POINT;?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: left;">PPH 23</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
+					</tr>
+					<?php 
+				}
+				?>
+
+				<?php 
+				if($dt->PPH_21 == '0'){
+
+				}else{
+					?>
+					<tr>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: right;"><?php echo number_format($va->QTY,0);?></td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">PPh 21</td>
+						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: left;">PPh 21</td>
 						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;">Ltr</td>
 						<td style="padding: 5px;border-left: 1px solid black;border-right: 1px solid black;text-align: center;"></td>
 					</tr>

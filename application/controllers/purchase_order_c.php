@@ -277,6 +277,18 @@ class Purchase_order_c extends CI_Controller {
 
 
 			$this->master_model_m->simpan_log($id_user, "Menghapus transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
+
+		} else if($this->input->post('edit_say')){
+			$msg = 2;
+
+			$id_hapus 	 = $this->input->post('id_edit_say');
+			$memos_lunas = $this->input->post('memos_lunas');
+			$tgl_trx 	 = $this->input->post('tgl_trx');
+
+			$this->model->edit_tanggal_po($id_hapus,$memos_lunas,$tgl_trx);
+
+
+			$this->master_model_m->simpan_log($id_user, "Mengubah transaksi penjualan dengan nomor transaksi : <b>".$get_data_trx->NO_BUKTI."</b>");
 		}
 
 

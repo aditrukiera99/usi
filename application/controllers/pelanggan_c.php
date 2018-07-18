@@ -120,6 +120,7 @@ class Pelanggan_c extends CI_Controller {
 			$pph_23   		 	  = $this->input->post('pph_23_ed');
 			$pph_15   		 	  = $this->input->post('pph_15_ed');
 			$pph_21   		 	  = $this->input->post('pph_21_ed');
+			$pph_22   		 	  = $this->input->post('pph_22_ed');
 			$oat   		 	 	  = $this->input->post('oat_ed');
 			$supply_point   	  = $this->input->post('supply_point');
 			$aksi_bd   		 	  = $this->input->post('aksi_bd');
@@ -141,7 +142,7 @@ class Pelanggan_c extends CI_Controller {
 				$this->db->query('INSERT INTO ak_pelanggan_edit SELECT * FROM ak_pelanggan WHERE ID = '.$id_pelanggan);		
 			}			
 			
-			$this->model->edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat,$rekening_bank);
+			$this->model->edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat,$rekening_bank,$pph_21);
 
 			foreach ($supply_point as $key => $vl) {
 				if($id_sp[$key] == ''){

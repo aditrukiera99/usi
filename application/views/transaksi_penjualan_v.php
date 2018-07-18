@@ -104,6 +104,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							<th align="center"> Customer </th>
 							<th align="center"> Volume </th>
 							<th align="center"> Sisa </th>
+							<th align="center"> Status Transaksi </th>
 							<!-- <th align="center"> Harga </th> -->
 						</tr>						
 					</thead>
@@ -135,6 +136,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($dt_sql->QTY);?> L </td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($row->SISA);?> L </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #bdbdbdd6;">   <?=$row->TUTUP_OUTSTANDING;?> </td>
 								</tr>
 
 							<?php } else if($row->SISA == $row->KUANTITAS){ ?>
@@ -153,6 +155,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_sql->QTY);?> L </td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($row->SISA);?> L </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8;">   <?=$row->TUTUP_OUTSTANDING;?> </td>
 								</tr>
 
 							<?php }else if ($row->SISA < $row->KUANTITAS && $row->SISA > 0 ) { ?>
@@ -170,6 +173,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($dt_sql->QTY);?> L </td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($row->SISA);?> L </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8;">   <?=$row->TUTUP_OUTSTANDING;?> </td>
 								</tr>
 							<?php } ?>
 

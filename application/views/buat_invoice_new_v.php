@@ -115,13 +115,13 @@ input[type=checkbox]
 	</div>
 </div>
 
-<form action="<?=base_url().$post_url;?>" method="post" onsubmit="return cek_tanggal_pb();">
+<form action="<?=base_url().$post_url;?>" method="post" id="inv_so">
 
 <div class="breadcrumb" style="background:#E0F7FF;">
 	<div class="row-fluid">
 		<div class="span5">
 			<div class="control-group">
-				<label class="control-label"> <b style="font-size: 14px;"> Delivery Order </b> </label>
+				<label class="control-label"> <b style="font-size: 14px;"> Sales Order </b> </label>
 				<div class="controls">
 					<div class="input-append">
 						<input type="text" id="pelanggan" name="pelanggan" readonly style="background:#FFF; width: 70%;">
@@ -139,6 +139,8 @@ input[type=checkbox]
 					<div class="input-append">
 						<input type="text" id="unit_txt" name="unit_txt" readonly style="background:#FFF; width: 90%" value="<?=$user->NAMA_UNIT;?>">
 						<input type="hidden" id="unit" name="unit" value="<?=$user->UNIT;?>">
+						<input type="hidden" id="sisa_so" name="sisa_so" value="">
+						<input type="hidden" id="status_outs" name="unit" value="">
 					</div>
 				</div>
 			</div>
@@ -150,7 +152,7 @@ input[type=checkbox]
 <div class="row-fluid" style="background: #F5EADA; padding-top: 15px; padding-bottom: 15px;">
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. DO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
 			<div class="controls">
 				<input type="text" class="span12" value="" name="no_trx" id="no_trx" style="font-size: 15px;">
 				<input type="hidden" class="span12" value="" name="tgl_po" id="tgl_po" style="font-size: 15px;">
@@ -176,10 +178,10 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
+					<div id="datetimepicker18" class="input-append date ">
 						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_asdtrx" data-format="dd-MM-yyyy" type="text" id="tgl_trx_tasdur">
 						<input readonly style="width: 80%;" value="<?=date('d-m-Y');?>" required name="tgl_trx" data-format="dd-MM-yyyy" type="hidden" id="tgl_trx_tur">
-						<span class="add-on ">
+						<span class="add-on">
 							<i class="icon-calendar"></i>
 						</span>
 					</div>
@@ -190,6 +192,7 @@ input[type=checkbox]
 			<label class="control-label"> <b style="font-size: 14px;"> No. PO CLIENT </b> </label>
 			<div class="controls">
 				<input type="text" class="span10" value="" name="no_po_client" id="no_po_client" readonly>
+				<input type="hidden" class="span10" value="" name="jml_jtm" id="jml_jtm" readonly>
 				<!-- <input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;"> -->
 			</div>
 		</div>
@@ -210,7 +213,7 @@ input[type=checkbox]
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> No. SO </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> NOME </b> </label>
 			<div class="controls">
 				<input type="text" class="span10" value="" name="no_solo" id="no_do" >
 				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;">
@@ -259,6 +262,7 @@ input[type=checkbox]
 					<thead>
 						<tr>
 							<!-- <th align="center" style="width: 25%;"> Kode Akun </th> -->
+							<th align="center" style="width: 20%;"> NO DO </th>
 							<th align="center" style="width: 20%;"> Produk / Item </th>
 							<th align="center"> Qty </th>
 							<th align="center"> Harga Jual </th>
@@ -268,13 +272,12 @@ input[type=checkbox]
 					<tbody id="tes">
 						<tr id="tr_1" class="tr_utama">
 							
-
 							<td style="vertical-align:middle;"> 
 
 								<div class="control-group">
 									<div class="controls">
 										<div class="input-append">
-											<input type="text" id="nama_produk_1" name="nama_produk" readonly style="background:#FFF; width: 60%;" >
+											<input type="text" id="nomer_do_1" name="nomer_do[]" readonly style="background:#FFF; width: 60%;" >
 											<input type="hidden" id="id_produk_1" name="produk" readonly style="background:#FFF;">
 											<input type="hidden" id="jenis_produk_1" name="jenis_produk" readonly style="background:#FFF;" value="">
 											<button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button>
@@ -282,17 +285,32 @@ input[type=checkbox]
 									</div>
 									
 								</div>
-							</td>
+							</td>							
 
-							<td align="center" style="vertical-align:middle;"> 
-								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty">
+							<td style="vertical-align:middle;"> 
+
+								<div class="control-group">
+									<div class="controls">
+										<div class="input-append">
+											<input type="text" id="nama_produk_1" name="nama_produk[]" readonly style="background:#FFF; width: 80%;" >
+											<input type="hidden" id="id_produk_1" name="produk" readonly style="background:#FFF;">
+											<input type="hidden" id="jenis_produk_1" name="jenis_produk" readonly style="background:#FFF;" value="">
+											<!-- <button style="width: 30%;" onclick="show_pop_produk(1);" type="button" class="btn">Cari</button> -->
+										</div>
+									</div>
+									
 								</div>
 							</td>
 
-							<td align="center" style="vertical-align:middle;"> 
+							<td align="" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal" id="harga_modal_1" readonly>
+									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]">
+								</div>
+							</td>
+
+							<td align="" style="vertical-align:middle;"> 
+								<div class="controls">
+									<input onkeyup="FormatCurrency(this);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_1" readonly>
 									<input type="hidden" name="total_id" id="total_id_1" >
 								</div>
 							</td>
@@ -304,7 +322,7 @@ input[type=checkbox]
 					</tbody>
 				</table>
 
-				<!-- <button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button> -->
+				<button style="margin-bottom: 15px;" onclick="tambah_data();" type="button" class="btn btn-info"><i class="icon-plus"></i> Tambah Baris Data </button>
 
 			</div>
 		</div>
@@ -326,7 +344,9 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Invoice" name="buat_inv" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
+					<input type="submit" value="Simpan Invoice" id="simpan_invoice" name="buat_inv" class="btn btn-success" onclick="return confirm('Apakah data yang anda masukkan sudah benar ?');">
+					<input type="button" value="Simpan Konfirmasi" id="simpan_konfirmasi" name="buat_inv" class="btn btn-success" onclick="isi_konfirmasi();" style="display: none;" data-toggle="modal" data-target="#modal_detail">
+
 					<button class="btn" onclick="window.location='<?=base_url();?>transaksi_penjualan_c/buka_invoice' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
@@ -339,7 +359,37 @@ input[type=checkbox]
 
 </form>
 
+<div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi Tutup Outstanding</h4>
+      </div>
+      <div class="modal-body">
+        
 
+		<div class="row-fluid">
+			<div class="span12" style="font-size: 15px;">
+				<address>
+					<strong> Terdapat transaksi yang belum diselesaikan , apakah anda ingin melakukan tutup outstanding pada transaksi ini ? </strong><br>
+					<font id="det_no_transaksi"> Jika ya akan menuggu konfirmasi dari manager , jika tidak silahkan selesaikan transaksi </font> 
+				</address>
+				<form id="tutup_out" method="post" action="<?=base_url().$post_url;?>">
+					<input type="hidden" name="nomor_solokot" id="nomor_solokot">
+				</form>
+			</div>
+		</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" onclick="simpan_outstanding();" >Konfirmasi Tutup Outstanding</button>
+        <a href="<?=base_url();?>delivery_order_new_c/new_delivery_order"><button type="button" class="btn btn-default" >Tidak</button></a>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -422,9 +472,11 @@ function get_popup_produk(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
-                '                        <th> KODE PRODUK </th>'+
-                '                        <th style="white-space:nowrap;"> NAMA PRODUK </th>'+
-                '                        <th> HARGA </th>'+
+                '                        <th> NO DO </th>'+
+                '                        <th> CUSTOMER </th>'+
+                '                        <th> PRODUK </th>'+
+                '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
+                '                        <th> KUANTITAS </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -447,14 +499,34 @@ function get_popup_produk(){
     $('#popup_koang').show();
 }
 
+
+function simpan_outstanding(){
+    // var keyword = $('#search_koang_pro').val();
+    var no_so = $('#nomor_solokot').val();
+    $.ajax({
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/simpan_outstanding',
+        type : "POST",
+        dataType : "json",
+        data : {
+            no_so : no_so,
+        },
+        success : function(result){
+            
+        	$('#inv_so').submit();
+        }
+    });
+}
+
 function ajax_produk(id_form){
     var keyword = $('#search_koang_pro').val();
+    var no_so = $('#no_trx').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_popup',
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_do_popup',
         type : "POST",
         dataType : "json",
         data : {
             keyword : keyword,
+            no_so : no_so,
         },
         success : function(result){
             var isine = '';
@@ -471,12 +543,15 @@ function ajax_produk(id_form){
 
                 isine += '<tr onclick="get_produk_detail(\'' +res.ID+ '\',\'' +id_form+ '\');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
-                            '<td align="center">'+res.KODE_PRODUK+'</td>'+
-                            '<td align="left">'+res.NAMA_PRODUK+'</td>'+
-                             '<td align="center">Rp '+NumberToMoney(res.HARGA).split('.00').join('')+'</td>'+
+                            '<td align="center">'+res.NOMER_DO+'</td>'+
+                            '<td align="center">'+res.PELANGGAN+'</td>'+
+                            '<td align="left">'+res.PRODUK+'</td>'+
+                            '<td align="left">'+res.TGL_TRX+'</td>'+
+                            '<td align="left">'+res.QTY_INV+'</td>'+
+                             
                         '</tr>';
                         
-                $('input[name="nama_produk[]"]').val(res.NAMA_PRODUK);
+                // $('input[name="nama_produk[]"]').val(res.PRODUK);
             });
 
             if(result.length == 0){
@@ -505,8 +580,10 @@ function get_popup_pelanggan(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
+                '                        <th>CUSTOMER</th>'+
+                '                        <th>PRODUK</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
-                '                        <th> NO DO </th>'+
+                '                        <th> KUANTITAS </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -568,7 +645,7 @@ function get_popup_supplier(){
 function ajax_pelanggan(){
     var keyword = $('#search_koang').val();
     $.ajax({
-        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_do_popup',
+        url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_so_inv_popup',
         type : "POST",
         dataType : "json",
         data : {
@@ -584,8 +661,10 @@ function ajax_pelanggan(){
 
                 isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.PELANGGAN+'</td>'+
+                            '<td align="center">'+res.NAMA_PRODUK+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
-                            '<td align="center">'+res.NOMER_DO+'</td>'+
+                            '<td align="center">'+res.KUANTITAS+'</td>'+
                         '</tr>';
             });
 
@@ -674,15 +753,17 @@ function hitung_total(id){
 function get_produk_detail(id, no_form){
     var id_produk = id;
     $.ajax({
-		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_detail',
+		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_produk_detail_do',
 		data : {id_produk:id_produk},
 		type : "GET",
 		dataType : "json",
 		success : function(result){
 			$('#qty_'+no_form).focus();
 			$('#id_produk_'+no_form).val(id_produk);
-			$('#nama_produk_'+no_form).val(result.NAMA_PRODUK);
-			$('#harga_modal_'+no_form).val(result.HARGA);
+			$('#nomer_do_'+no_form).val(result.NO_BUKTI);
+			$('#nama_produk_'+no_form).val(result.PRODUK);
+			$('#harga_modal_'+no_form).val(result.HARGA_SATUAN);
+			$('#qty_'+no_form).val(result.QTY_INV);
 
 
 			$('#search_koang_pro').val("");
@@ -713,15 +794,26 @@ function tambah_data() {
 
 	$isi_1 = 
 	'<tr id="tr_'+i+'" class="tr_utama">'+
-		'<td>'+coa+'</td>'+
+		
 		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
 			'<div class="control-group">'+
 				'<div class="controls">'+
 					'<div class="input-append">'+
-						'<input type="text" id="nama_produk_'+i+'" name="nama_produk[]" readonly style="background:#FFF; width: 60%">'+
+						'<input type="text" id="nomer_do_'+i+'" name="nomer_do[]" readonly style="background:#FFF; width: 60%">'+
 						'<input type="hidden" id="id_produk_'+i+'" name="produk[]" readonly style="background:#FFF;">'+
 						'<input type="hidden" id="jenis_produk_'+i+'" name="jenis_produk[]" readonly style="background:#FFF;" value="">'+
 						'<button style="width: 30%" onclick="show_pop_produk('+i+');" type="button" class="btn">Cari</button>'+
+					'</div>'+
+				'</div>'+				
+		'</td>'+
+
+		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
+			'<div class="control-group">'+
+				'<div class="controls">'+
+					'<div class="input-append">'+
+						'<input type="text" id="nama_produk_'+i+'" name="nama_produk[]" readonly style="background:#FFF; width: 80%">'+
+						'<input type="hidden" id="id_produk_'+i+'" name="produk[]" readonly style="background:#FFF;">'+
+						'<input type="hidden" id="jenis_produk_'+i+'" name="jenis_produk[]" readonly style="background:#FFF;" value="">'+
 					'</div>'+
 				'</div>'+				
 		'</td>'+
@@ -737,7 +829,7 @@ function tambah_data() {
 
 		'<td align="center" style="vertical-align:middle;"> '+
 			'<div class="controls">'+
-				'<input onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_'+i+'">'+
+				'<input readonly onkeyup="FormatCurrency(this); hitung_total(1);" style="font-size: 18px; text-align:right; width: 80%;" type="text"  value="" name="harga_modal[]" id="harga_modal_'+i+'">'+
 				'<input type="hidden" id="total_id_'+i+'" name="total_id[]">'+
 		'	</div>'+
 		'</td>'+
@@ -761,7 +853,7 @@ function tambah_data() {
 function get_pelanggan_det(id_pel){
 	$('#popup_load').show();
 	$.ajax({
-		url : '<?php echo base_url(); ?>delivery_order_new_c/get_do_detail',
+		url : '<?php echo base_url(); ?>transaksi_penjualan_c/get_so_detail',
 		data : {id_pel:id_pel},
 		type : "GET",
 		dataType : "json",
@@ -775,12 +867,16 @@ function get_pelanggan_det(id_pel){
 
 			$('#alamat_tagih').val(result.ALAMAT);
 			$('#pelanggan').val(result.PELANGGAN);
+			$('#sisa_so').val(result.SISA);
+			$('#status_outs').val(result.TUTUP_OUTSTANDING);
 			$('#no_trx').val(result.NO_BUKTI);
 			$('#pelanggan_sel').val(result.ID_PELANGGAN);
 			$('#no_do').val(result.NO_SO);
 			$('#no_po_client').val(result.PO_PELANGGAN);
+			$('#tgl_trx_tasdur').val(result.TGL_TRX);
+			$('#jml_jtm').val(result.JATUH_TEMPO);
 
-				var stri = $('#tgl_trx_tur').val();
+				var stri = $('#tgl_trx_tasdur').val();
 				var exp = stri.split("-");
 				var hari = exp[0];
 				var bln = exp[1];
@@ -800,9 +896,18 @@ function get_pelanggan_det(id_pel){
 
 			$('#tgl_jt').val(tgl);
 			$('#tgl_po').val(result.TGL_TRX);
+
+			var sis = $('#sisa_so').val();
+			var sts = $('#status_outs').val();
+			var sis_int = parseInt(sis);
+			if(sis_int > 0){
+				$('#simpan_konfirmasi').show();
+				$('#simpan_invoice').hide();
+			}
 		}
 	});
 }
+
 
 function get_sales_det(id_pel){
 	$('#popup_load').show();
@@ -820,7 +925,7 @@ function get_sales_det(id_pel){
 		    $('#popup_koang').remove();
 
 			$('#nama_produk_1').val(result.PRODUK);
-			$('#qty_1').val(result.QTY);
+			$('#qty_1').val(result.QTY_INV);
 			$('#harga_modal_1').val(result.HARGA_SATUAN);
 		}
 	});
@@ -889,7 +994,6 @@ function hitung_pajak(id_pajak){
 
 function hapus_row (id) {
 	$('#tr_'+id).remove();
-	hitung_total_semua();
 }
 
 function acc_format(n, currency) {
@@ -921,13 +1025,22 @@ function cek_tanggal_pb(){
   	var a = formatDate_adit($('#tgl_po').val());
   	var b = formatDate_adit($('input[name="tgl_trx"]').val());
 
+
     if(a > b){
     	alert("Tanggal tidak boleh kurang dari tanggal sales order");
-    	// document.getElementById("simpan_cuy").disabled = true;
+    	document.getElementById("simpan_cuy").disabled = true;
 
     	return false;
   	}
+
+  	
   } 
+
+  function isi_konfirmasi(id){
+  	var no_so = $('#no_trx').val();
+
+  	$('#nomor_solokot').val(no_so);
+  }
 
   function formatDate_adit(date) {
       var d = new Date(date),

@@ -56,9 +56,9 @@
 						<tr>
 							<th align="center"> NO </th>
 							<th align="center"> NAMA</th>						
-							<th align="center"> TANGGAL </th>						
-							<th align="center"> EXPIRED </th>						
-							<!-- <th align="center"> PENDAFTAR </th>						 -->
+							<th align="center"> TTL </th>						
+							<th align="center"> NO KTP </th>						
+							<th align="center"> TELEPON </th>						
 							<th align="center"> AKSI </th>
 						</tr>						
 					</thead>
@@ -71,21 +71,10 @@
 						<tr>
 							<td align="center" style="text-align: center;"> <?=$no;?> </td>
 							<td> <?=$row->NAMA;?> </td>
-							<td> <?=$row->TGL_AWAL;?> </td>
-							<td> <?=$row->TGL_AKHIR;?> </td>
-							<!-- <td align="center">
-								<a href="<?=base_url();?>data_lowongan_c/data_pendaftar/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn btn-small btn-primary"> 
-								Detail 
-								</button>
-								</a>
-							</td> -->
-							<td><a href="<?=base_url();?>data_lowongan_c/edit_lowongan_kerja/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn btn-small btn-warning"> 
-								Ubah 
-								</button>
-							</a>
-								<button style="padding: 2px 10px;"  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" type="button" class="btn btn-small btn-danger"> 
-								Hapus
-								</button>
+							<td> <?=$row->TANGGAL_LAHIR;?> </td>
+							<td> <?=$row->NO_KTP;?> </td>
+							<td> <?=$row->TELEPON;?> </td>
+							<td align="center"> <a href="<?=base_url();?>data_lowongan_c/edit_lowongan_kerja/<?=$row->ID;?>"><button style="padding: 2px 10px;" type="button" class="btn btn-small btn-primary"> DETAIL </button> </a>
 							</td>
 							
 

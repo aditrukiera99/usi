@@ -131,9 +131,17 @@ class Penerimaan_barang_m extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+    function get_po_tgl($id_pel){
+        $sql = "
+        SELECT TGL_TRX FROM ak_penerimaan_barang WHERE NO_PO = '$id_pel' ORDER BY TGL_TRX ASC
+        ";
+
+        return $this->db->query($sql)->row();
+    }
+
     function get_data_penerimaan($id_pel){
         $sql = "
-        SELECT * FROM ak_penerimaan_barang WHERE ID = $id_pel
+        SELECT pm.TGL_TRX as TGL_TRX_A ,pb.* FROM ak_penerimaan_barang pb , ak_pembelian pm WHERE pb.NO_PO = pm.NO_PO AND pb.ID = $id_pel
         ";
 
         return $this->db->query($sql)->row();
@@ -149,8 +157,8 @@ class Penerimaan_barang_m extends CI_Model
 
     function get_data_trx($id){
         $sql = "
-        SELECT * FROM ak_penerimaan_barang
-        WHERE ID = '$id'
+        SELECT pb.* , p.PBBKB as PEM_PBBKB , p.PPH_23 , p.PPH_21 , p.PPH_15 FROM ak_penerimaan_barang pb , ak_pembelian p 
+        WHERE pb.NO_PO = p.NO_PO AND pb.ID = '$id'
         ";
 
         return $this->db->query($sql)->row();
@@ -158,7 +166,7 @@ class Penerimaan_barang_m extends CI_Model
 
     function get_data_trx_depan(){
         $sql = "
-        SELECT * FROM ak_penerimaan_barang
+        SELECT * FROM ak_penerimaan_barang ORDER BY ID DESC
         ";
 
         return $this->db->query($sql)->result();
@@ -704,10 +712,10 @@ class Penerimaan_barang_m extends CI_Model
         $this->db->query($sql);
     }
 
-    function update_penerimaan_barang($id_po,$keterangan){
+    function update_penerimaan_barang($id_po,$keterangan,$tgl){
        
         $sql = "
-        UPDATE ak_penerimaan_barang SET MEMO = '$keterangan'
+        UPDATE ak_penerimaan_barang SET MEMO = '$keterangan' , TGL_TRX  = '$tgl'
         WHERE NOMER_LPB = '$id_po'
         ";
 

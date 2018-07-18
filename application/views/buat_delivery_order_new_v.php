@@ -189,6 +189,8 @@ input[type=checkbox]
 			<div class="controls">
 				<input type="text" class="span6" value="" name="no_po" id="no_po" style="font-size: 15px;">
 				<input type="text" class="span6" value="" name="no_lpb" id="no_lpb" style="font-size: 15px;">
+				
+						<input type="hidden" name="tgl_lpb" id="tgl_lpb">
 				<!-- <input type="hidden" class="span12" value="<?=$no_lpbe;?>" name="no_lpbe" id="no_lpbe" style="font-size: 15px;"> -->
 			</div>
 		</div>
@@ -350,9 +352,10 @@ input[type=checkbox]
 							<!-- <th align="center" style="width: 25%;"> Kode Akun </th> -->
 							<th align="center" style="width: 20%;"> Produk / Item </th>
 							<th align="center" style="width: 15%;"> Sisa SO </th>
-							<th align="center"> Qty </th>
+							<th align="center"> Qty Dikirim </th>
+							<th align="center"> Qty Diterima </th>
 							<th align="center"> Harga Jual </th>
-							<th align="center"> # </th>
+							<!-- <th align="center"> # </th> -->
 						</tr>
 					</thead>
 					<tbody id="tes">
@@ -402,7 +405,13 @@ input[type=checkbox]
 
 							<td align="center" style="vertical-align:middle;"> 
 								<div class="controls">
-									<input onkeyup="FormatCurrency(this); always_one(1); hitung_total(1);hitung_total_semua();" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]" required>
+									<input onkeyup="FormatCurrency(this); always_one(1);" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty_stok[]" required>
+								</div>
+							</td>
+
+							<td align="center" style="vertical-align:middle;"> 
+								<div class="controls">
+									<input onkeyup="FormatCurrency(this); always_one(1);" onchange="semoga(this.value);" id="qty_1" style="font-size: 18px; text-align:center; width: 80%;" type="text"  value="" name="qty[]" required>
 								</div>
 							</td>
 
@@ -413,9 +422,9 @@ input[type=checkbox]
 								</div>
 							</td>
 
-							<td style='background:#FFF; text-align:center; vertical-align: middle;'> 
-								<!-- <button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button> -->
-							</td>
+							<!-- <td style='background:#FFF; text-align:center; vertical-align: middle;'> 
+								<button  style="width: 100%;" onclick="hapus_row_pertama();" type="button" class="btn btn-danger"> Hapus </button>
+							</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -722,8 +731,11 @@ function get_popup_pelanggan(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
+                '                        <th>PELANGGAN</th>'+
+                '                        <th>PRODUK</th>'+
                 '                        <th style="white-space:nowrap;"> TANGGAL </th>'+
                 '                        <th> NO SO </th>'+
+                '                        <th> KUANTITAS </th>'+
                 '                    </tr>'+
                 '                </thead>'+
                 '                <tbody>'+
@@ -758,7 +770,9 @@ function get_popup_supplier(){
                 '                <thead>'+
                 '                    <tr>'+
                 '                        <th>NO</th>'+
-                '                        <th style="white-space:nowrap;"> NOMOR PO</th>'+
+                '                        <th>NOMOR PO</th>'+
+                '                        <th>CUSTOMER</th>'+
+                '                        <th style="white-space:nowrap;"> PRODUK</th>'+
                 '                        <th> TANGGAL </th>'+
                 '                        <th> KUANTITAS </th>'+
                 '                    </tr>'+
@@ -802,8 +816,11 @@ function ajax_pelanggan(){
 
                 isine += '<tr onclick="get_pelanggan_det('+res.ID+');get_sales_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
+                            '<td align="center">'+res.PELANGGAN+'</td>'+
+                            '<td align="center">'+res.NAMA_PRODUK+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
                             '<td align="center">'+res.NO_BUKTI+'</td>'+
+                            '<td align="center">'+res.KUANTITAS+'</td>'+
                         '</tr>';
             });
 
@@ -838,6 +855,8 @@ function ajax_supplier(){
                 isine += '<tr onclick="get_supplier_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
                             '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.NAMA_CUSTOMER+'</td>'+
+                            '<td align="center">'+res.NAMA_PRODUK+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+
                             '<td align="center">'+res.SISA_ORDER+'</td>'+
                         '</tr>';
@@ -1059,6 +1078,7 @@ function get_supplier_det(id_pel){
 			$('#supplier').val(result.NO_PO);
 			$('#no_lpb').val(result.NO_BUKTI);
 			$('#tgl_trx_barang').val(result.TGL_TRX);
+			$('#tgl_lpb').val(result.TGL_TRX);
 		}
 	});
 }

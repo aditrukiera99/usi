@@ -100,10 +100,13 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 					<thead>
 						<tr>
 							<th align="center"> Aksi </th>
-							<th align="center"> Cetak Losess </th>
+							<th align="center"> Cetak By SO </th>
+							<th align="center"> Cetak By DO </th>
 							<th align="center"> Cetak Bahan Bakar </th>
 							<th align="center"> Cetak Transport </th>
 							<th align="center"> No. Invoice </th>
+							<th align="center"> No. So </th>
+							<th align="center"> No. Do </th>
 							<th align="center"> Tanggal </th>
 							<th align="center"> Customer </th>
 							<th align="center"> Volume </th>
@@ -111,28 +114,49 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 						</tr>						
 					</thead>
 					<tbody id="tes">
-						<?PHP  foreach ($dt as $key => $row) { 
+						<?php  foreach ($dt as $key => $row) { 
 							
 							$nmr_so = $row->NOMER_SO;
 							
 							$sql = "SELECT * FROM ak_penjualan WHERE NO_BUKTI = '$nmr_so' ";
 							$dt_sql = $this->db->query($sql)->row();
 
+
+							if($dt_sql->TUTUP_OUTSTANDING == 'Konfirmasi'){
+
+							}else{
 							?>
 
 
 							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_TRX_AKUN;?>" />
 							<tr>
 								<td align="center">		
-									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_inv/<?=$row->ID;?>" class="btn btn-success" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>				
+									<!-- <?php if($dt_sql->SISA > 0 && $dt_sql->TUTUP_OUTSTANDING == 'Selesai'){
+										?>
+										<button onclick="tutup_outs('<?=$dt_sql->NO_BUKTI;?>');" data-toggle="modal" data-target="#modal_detail" type="button" class="btn btn-success" style="font-size: 15px; padding-right: 8px;"> <i class="icon-print"></i>
+										</button>
+									<?php } else if ($dt_sql->TUTUP_OUTSTANDING == 'Konfirmasi') {
+										?>
+										<button onclick="tutup_outs('<?=$dt_sql->NO_BUKTI;?>');" data-toggle="modal" data-target="#modal_detail_konfirmasi" type="button" class="btn btn-success" style="font-size: 15px; padding-right: 8px;"> <i class="icon-print"></i>
+										</button>
+									
+									<?php } ?> -->
+									
 									<button  onclick="$('#dialog-btn').click(); $('#id_hapus').val('<?=$row->ID;?>');" class="btn btn-danger" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-trash"></i></button>
+									
 									
 									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_invoice_baru/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>
 									
 								</td>
 
 								<td align="center">	
-									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<!-- <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
+									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_by_so/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+								</td>
+
+								<td align="center">	
+									<!-- <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
+									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_inv/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 								</td>
 
 
@@ -163,6 +187,8 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								</td>
 								
 								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$dt_sql->NOMER_INV;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NOMER_SO;?> </td>
+								<td style="font-size:14px; text-align:left; vertical-align:middle;text-align: center;">   <?=$row->NOMER_DO;?> </td>
 								<td style="font-size:14px; text-align:center; vertical-align:middle;"> <?=$row->TGL_TRX;?> </td>
 								<td style="font-size:14px; text-align:left; vertical-align:middle;">   <?=$row->ID_CUSTOMER;?> </td>
 
@@ -179,7 +205,8 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 								</td> -->
 								
 							</tr>
-						<?PHP }	?>
+
+						<?PHP } }	?>
 					</tbody>
 				</table>
 			</div>
@@ -207,100 +234,64 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 </div> <!-- cd-popup -->
 <!-- END HAPUS MODAL -->
 
+
 <!-- Modal Detail -->
 <div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Detail Penjualan</h4>
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi Tutup Outstanding</h4>
       </div>
       <div class="modal-body">
         
 
 		<div class="row-fluid">
-			<div class="span6" style="font-size: 15px;">
+			<div class="span12" style="font-size: 15px;">
 				<address>
-					<strong> No. Transaksi </strong><br>
-					<font id="det_no_transaksi"> Dr. Aristo Jason </font> 
+					<strong> Terdapat transaksi yang belum diselesaikan , apakah anda ingin melakukan tutup outstanding pada transaksi ini ? </strong><br>
+					<font id="det_no_transaksi"> Jika ya akan menuggu konfirmasi dari manager , jika tidak silahkan selesaikan transaksi </font> 
 				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Nama Customer </strong><br>
-					<font id="det_nama_pelanggan"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Alamat Tujuan </strong><br>
-					<font id="det_alamat_tujuan"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Kota Tujuan</strong><br>
-					<font id="det_kota"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> No Polisi </strong><br>
-					<font id="det_nopol"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Sopir </strong><br>
-					<font id="det_sopir"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> No. PO </strong><br>
-					<font id="det_po"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> NO. DO </strong><br>
-					<font id="det_do"> Dr. Aristo Jason </font> 
-				</address>
-			</div>
-			<div class="span6" style="font-size: 15px;">
-				<address style="margin-top: 18px;">
-					<strong> Nama Produk </strong><br>
-					<font id="det_nama_produk"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address>
-					<strong> No. Segel Atas </strong><br>
-					<font id="det_segel_atas"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> No. Segel Bawah </strong><br>
-					<font id="det_segel_bawah"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Volume </strong><br>
-					<font id="det_qty"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Modal </strong><br>
-					<font id="det_modal"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Harga Jual </strong><br>
-					<font id="det_hjual"> Dr. Aristo Jason </font> 
-				</address>
-
-				<address style="margin-top: 18px;">
-					<strong> Harga Invoice </strong><br>
-					<font id="det_hinv"> Dr. Aristo Jason </font> 
-				</address>
+				<form id="tutup_out" method="post" action="<?=base_url().$post_url;?>">
+					<input type="hidden" name="nomor_solokot" id="nomor_solokot">
+				</form>
 			</div>
 		</div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-success" onclick="$('#tutup_out').submit();" >Konfirmasi Tutup Outstanding</button>
+        <a href="<?=base_url();?>delivery_order_new_c/new_delivery_order"><button type="button" class="btn btn-default" >Tidak</button></a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_detail_konfirmasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi Tutup Outstanding</h4>
+      </div>
+      <div class="modal-body">
+        
+
+		<div class="row-fluid">
+			<div class="span12" style="font-size: 15px;">
+				<address>
+					<strong> Transaksi ini masih menunggu konfirmasi dari manager untuk mensetujui tutup outstanding </strong><br>
+					<!-- <font id="det_no_transaksi"> Jika ya akan menuggu konfirmasi dari manager , jika tidak silahkan selesaikan transaksi </font>  -->
+				</address>
+				
+			</div>
+		</div>
+
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+        
       </div>
     </div>
   </div>
@@ -309,6 +300,10 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 
 <script type="text/javascript">
+
+function tutup_outs(id){
+	$('#nomor_solokot').val(id);
+}
 
 function hapus_trx(id){
 	$('#id_hapus').val(id);

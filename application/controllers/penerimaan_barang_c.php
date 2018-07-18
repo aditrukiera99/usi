@@ -116,11 +116,12 @@ class Penerimaan_barang_c extends CI_Controller {
 
 			$no_lpbe      = $this->input->post('no_lpbe');
 			$keterangan   = $this->input->post('memo_lunas');
+			$tgl_trx   	  = $this->input->post('tgl_trx');
 
 			
 
 
-			$this->model->update_penerimaan_barang($no_lpbe, $keterangan);
+			$this->model->update_penerimaan_barang($no_lpbe, $keterangan,$tgl_trx);
 
 
 			$this->master_model_m->simpan_log($id_user, "Melakukan transaksi penjualan dengan nomor transaksi : <b>".$no_trx."</b>");
@@ -256,6 +257,13 @@ class Penerimaan_barang_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
+	function get_po_tgl(){
+		$id_pel = $this->input->get('id_pel');
+		$dt = $this->model->get_po_tgl($id_pel);
+
+		echo json_encode($dt);
+	}
+
 	function get_sales_detail(){
 		$id_pel = $this->input->get('id_pel');
 		$dt = $this->model->get_sales_detail($id_pel);
@@ -343,11 +351,11 @@ class Penerimaan_barang_c extends CI_Controller {
 
 		$keyword = $this->input->post('keyword');
 		if($keyword != "" || $keyword != null){
-			$where = $where." AND (TGL_TRX LIKE '%$keyword%' OR NO_BUKTI LIKE '%$keyword%')";
+			$where = $where." AND (p.TGL_TRX LIKE '%$keyword%' OR p.NO_BUKTI LIKE '%$keyword%')";
 		}
 
 		$sql = "
-		SELECT * FROM ak_pembelian WHERE ID_KLIEN = $id_klien AND PENERIMAAN_STATUS = '0' OR (PENERIMAAN_STATUS = '1' AND SISA_QTY > 0) AND $where  
+		SELECT p.* , pd.NAMA_PRODUK FROM ak_pembelian p , ak_pembelian_detail pd WHERE pd.ID_PENJUALAN = p.ID AND ((p.PENERIMAAN_STATUS = '0' AND p.SISA_QTY > 0) OR (p.PENERIMAAN_STATUS = '1' AND p.SISA_QTY > 0)) AND $where  ORDER BY ID DESC
 		";
 
 		$dt = $this->db->query($sql)->result();

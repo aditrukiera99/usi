@@ -122,7 +122,7 @@ class Pelanggan_m extends CI_Model
         return $this->db->insert_id();
     }
 
-    function edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat){
+    function edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat,$pph_22){
 
         $tgl = date('d-m-Y');
         $jam = date('H:i');
@@ -156,7 +156,7 @@ class Pelanggan_m extends CI_Model
         $sql = "
         UPDATE ak_pelanggan SET 
         NAMA_PELANGGAN = '$nama_pelanggan_ed', NPWP = '$npwp_ed', ALAMAT_TAGIH = '$alamat_tagih_ed', ALAMAT_KIRIM = '$alamat_kirim_ed', NO_TELP = '$no_telp_ed',
-        NO_HP = '$no_hp_ed', EMAIL = '$email_ed', WAKTU_EDIT = '$waktu', TIPE = '$tipe_ed', NAMA_USAHA = '$nama_usaha_ed', TDP = '$tdp_ed', SIUP = '$siup_ed', APPROVE = '$approve' , PPN = '$ppn' , PPH23 = '$pph_23' , PPH15 = '$pph_15' , PPH_21 = '$pph_21' , OAT = '$oat'
+        NO_HP = '$no_hp_ed', EMAIL = '$email_ed', WAKTU_EDIT = '$waktu', TIPE = '$tipe_ed', NAMA_USAHA = '$nama_usaha_ed', TDP = '$tdp_ed', SIUP = '$siup_ed', APPROVE = '$approve' , PPN = '$ppn' , PPH23 = '$pph_23' , PPH15 = '$pph_15' , PPH_21 = '$pph_21' , OAT = '$oat' , PPH_22 = '$pph_22'
         WHERE ID = $id_pelanggan
         ";
 

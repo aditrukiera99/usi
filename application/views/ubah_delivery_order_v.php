@@ -173,6 +173,15 @@ input[type=checkbox]
 				<div class="controls">
 					
 					<textarea name="alamat_tagih" class="span12" rows="5" readonly id="alamat_tagih"><?=$dt->ALAMAT;?></textarea>
+					<?php 
+						$id_lpb_do = $dt->NOMER_LPB;
+						$id_so_do = $dt->NO_SO;
+						$tgl_lpb = $this->db->query("SELECT TGL_TRX FROM ak_penerimaan_barang WHERE NO_BUKTI = '$id_lpb_do'")->row();
+						$tgl_do_lain = $this->db->query("SELECT TGL_TRX FROM ak_delivery_order WHERE NO_SO = '$id_so_do' ORDER BY TGL_TRX ASC")->row();
+
+					?>
+					<input type="hidden" value="<?=$tgl_lpb->TGL_TRX;?>" name="tgl_lpb" id="tgl_po">
+					<input type="hidden" value="<?=$tgl_do_lain->TGL_TRX;?>" name="tgl_lpb" id="tgl_po_sebelum">
 				</div>
 	
 			
@@ -195,7 +204,7 @@ input[type=checkbox]
 		<div class="control-group" style="margin-left: 10px;">
 			<label class="control-label"> <b style="font-size: 14px;"> Tanggal Transaksi </b> </label>
 				<div class="controls">
-					<div id="datetimepicker1" class="input-append date ">
+					<div id="datetimepicker17" class="input-append date ">
 						<input readonly style="width: 80%;" value="<?=$dt->TGL_TRX;?>" readonly required name="tgl_trx" data-format="dd-MM-yyyy" type="text">
 						<span class="add-on ">
 							<i class="icon-calendar"></i>
@@ -468,7 +477,7 @@ input[type=checkbox]
 
 					<input type="hidden" name="sts_lunas" id="sts_lunas" value="1" />
 
-					<input type="submit" value="Simpan Delivery Order" name="simpan_ubah" class="btn btn-success">
+					<input type="submit" value="Simpan Delivery Order" name="simpan_ubah" id="simpan_cuy" class="btn btn-success">
 					<button class="btn" onclick="window.location='<?=base_url();?>delivery_order_new_c' " type="button"> Batal dan Kembali </button>
 					</center>
 				</div>
