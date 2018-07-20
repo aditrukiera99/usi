@@ -328,7 +328,7 @@ class Delivery_order_new_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT p.* , pd.NAMA_PRODUK FROM ak_penjualan p , ak_penjualan_detail pd WHERE p.ID = pd.ID_PENJUALAN AND (p.STATUS_DO = '0' OR (p.STATUS_DO = '1' AND p.SISA > 0 AND TUTUP_OUTSTANDING = 'Belum') OR TUTUP_OUTSTANDING = 'Belum' OR (TUTUP_OUTSTANDING = 'Selesai' AND p.SISA > 0)) AND $where ORDER BY ID DESC
+		SELECT p.* , pd.NAMA_PRODUK FROM ak_penjualan p , ak_penjualan_detail pd WHERE p.ID = pd.ID_PENJUALAN AND (p.STATUS_DO = '0' OR (p.STATUS_DO = '1' AND p.SISA > 0 AND TUTUP_OUTSTANDING = 'Belum') OR (TUTUP_OUTSTANDING = 'Belum' AND p.STATUS_DO = '0' ) OR (TUTUP_OUTSTANDING = 'Selesai' AND p.SISA > 0)) AND $where ORDER BY ID DESC
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -356,7 +356,7 @@ class Delivery_order_new_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT pb.* , pd.NAMA_PRODUK , p.NAMA_CUSTOMER FROM ak_penerimaan_barang pb , ak_penerimaan_detail pd , ak_pembelian p WHERE pb.ID = pd.ID_PENJUALAN AND p.NO_PO = pb.NO_PO AND pb.NO_PO <> '' AND pb.SISA_ORDER > 0 AND $where  
+		SELECT pb.* , pd.NAMA_PRODUK , p.NAMA_CUSTOMER , p.NOMER_PO as NOMER_POS FROM ak_penerimaan_barang pb , ak_penerimaan_detail pd , ak_pembelian p WHERE pb.ID = pd.ID_PENJUALAN AND p.NO_PO = pb.NO_PO AND pb.NO_PO <> '' AND pb.SISA_ORDER > 0 AND $where  
 		";
 
 		$dt = $this->db->query($sql)->result();

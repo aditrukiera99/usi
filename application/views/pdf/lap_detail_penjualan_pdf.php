@@ -72,35 +72,30 @@
       $dt_det = $this->db->query("
         SELECT
           a.ID,
-          a.NO_BUKTI,
-          a.ID_PELANGGAN,
-          a.PELANGGAN,
+          a.NOMER_INVOICE AS NO_BUKTI,
+          a.CUSTOMER AS PELANGGAN,
           a.TGL_TRX,
           d.KODE_PRODUK,
-          a.PRODUK AS NAMA_PRODUK,
+          a.NAMA_PRODUK,
           a.QTY,
           a.HARGA_SATUAN,
-          a.NO_SO,
-          a.STATUS,
-          a.NOMER_DO,
-          a.NOMER_PO,
-          a.NOMER_LPB,
-          a.ID_PRODUK,
+          a.NOMER_SO AS NO_SO,
           b.SUB_TOTAL AS TOTAL,
           b.PPN,
           b.MEMO,
           b.STATUS_PO,
           c.SATUAN
-        FROM ak_delivery_order a
-        LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+        FROM ak_invoice a
+        LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NOMER_SO
         LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
-        LEFT JOIN ak_produk d ON d.ID = a.ID_PRODUK
-        WHERE a.ID = '".$row->ID."'
+        LEFT JOIN ak_delivery_order cc ON cc.NO_BUKTI = a.NOMER_DO
+        LEFT JOIN ak_produk d ON d.ID = cc.ID_PRODUK
+        WHERE cc.ID = '".$row->ID."'
         ORDER BY a.ID 
         ")->result();
       $total_all = 0;
       foreach ($dt_det as $key => $row_det) {
-        $total_all += $row_det->TOTAL;
+        $total_all += $row_det->HARGA_SATUAN * $row_det->QTY;
       ?>
       <tr style="text-align:center;">
         <td><?=$row_det->KODE_PRODUK;?></td>
@@ -110,7 +105,7 @@
         <td><?=number_format($row_det->HARGA_SATUAN);?></td>
         <td>0.00</td>
         <td></td>
-        <td style="text-align:right;"><?=number_format($row_det->TOTAL);?></td>
+        <td style="text-align:right;"><?=number_format($row_det->HARGA_SATUAN * $row_det->QTY);?></td>
       </tr>
       <?PHP } ?>
       <tr>

@@ -7,7 +7,6 @@ class Pelanggan_c extends CI_Controller {
 		parent::__construct();
 		$sess_user = $this->session->userdata('masuk_akuntansi');
 		$id_user = $sess_user['id'];
-		error_reporting(0);
 		if($id_user == "" || $id_user == null){
 	        redirect(base_url());
 	    }
@@ -33,7 +32,6 @@ class Pelanggan_c extends CI_Controller {
 			}
 
 			$nama_pelanggan  = addslashes($this->input->post('nama_pelanggan'));
-			$tipe_perusahaan  = addslashes($this->input->post('tipe_perusahaan'));
 			$kode_pelanggan  = addslashes($this->input->post('kode_pelanggan'));
 			$npwp 			 = addslashes($this->input->post('npwp'));
 			$alamat_tagih    = addslashes($this->input->post('alamat_tagih'));
@@ -48,20 +46,14 @@ class Pelanggan_c extends CI_Controller {
 			$pph_23   		 = $this->input->post('pph_23');
 			$pph_15   		 = $this->input->post('pph_15');
 			$pph_21   		 = $this->input->post('pph_21');
-			$pph_22   		 = $this->input->post('pph_22');
-			$oat   		 	 = $this->input->post('oat');
 			$pajak_pbbkb   	 = $this->input->post('pajak_pbbkb');
 			$nama_usaha   	 = addslashes($this->input->post('nama_usaha'));
 			$tdp   	 	     = addslashes($this->input->post('tdp'));
 			$siup   	     = addslashes($this->input->post('siup'));
 			$kode_customer   = addslashes($this->input->post('kode_customer'));
 			$lokasi   	     = addslashes($this->input->post('lokasi'));
-			$supply_point    = addslashes($this->input->post('supply_point'));
+			$supply_point   	     = addslashes($this->input->post('supply_point'));
 			$aksi_on   	     = addslashes($this->input->post('aksi_on'));
-			$rek_bank   	 = addslashes($this->input->post('rek_bank'));
-			$aksi_bd   	 	 = $this->input->post('aksi_bd');
-			// $diskon_beli   	     = addslashes($this->input->post('diskon_beli'));
-			// $diskon_jual   	     = addslashes($this->input->post('diskon_jual'));
 
 			if($tipe == "Perorangan"){
 				$nama_usaha = "";
@@ -69,12 +61,20 @@ class Pelanggan_c extends CI_Controller {
 				$siup = "";
 			}
 
-			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$oat,$tipe_perusahaan,$pph_22,$rek_bank);
+			$id_pelanggan = $this->model->simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah,$limit_beli,$ppn,$pph_23 ,$pph_15 ,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on);
 
+			$broker_nama   = addslashes($this->input->post('broker_nama'));
+			$broker_alamat = addslashes($this->input->post('broker_alamat'));
+			$broker_telp   = addslashes($this->input->post('broker_telp'));
+			$broker_ktp    = addslashes($this->input->post('broker_ktp'));
+			$broker_npwp   = addslashes($this->input->post('broker_npwp'));
+			$broker_komisi = $this->input->post('broker_komisi');
+			$broker_komisi = str_replace(',', '', $broker_komisi);
 
-			foreach ($aksi_bd as $key => $value) {
-				$this->model->simpan_supply($kode_pelanggan,$value);
+			if($broker_nama != ""){
+				$this->model->simpan_broker($id_pelanggan, $broker_nama, $broker_alamat, $broker_telp, $broker_ktp, $broker_npwp, $broker_komisi);
 			}
+
 
 			$deskripsi_persetujuan = "Penambahan Pelanggan : <br> <b>Nama Pelanggan : ".$nama_pelanggan."</b> <br> <b> NPWP : ".$npwp."</b> <br> <b> Alamat Tagih : ".$alamat_tagih."</b> <br> <b> Alamat Kirim : ".$alamat_kirim."</b>";
 			$this->master_model_m->simpan_persetujuan('pelanggan', $id_pelanggan, 'ADD', $id_user, $deskripsi_persetujuan);
@@ -116,17 +116,6 @@ class Pelanggan_c extends CI_Controller {
 			$nama_usaha_ed    	  = addslashes($this->input->post('nama_usaha_ed'));
 			$tdp_ed    	          = addslashes($this->input->post('tdp_ed'));
 			$siup_ed    	      = addslashes($this->input->post('siup_ed'));
-			$ppn   		 	 	  = $this->input->post('ppn_ed');
-			$pph_23   		 	  = $this->input->post('pph_23_ed');
-			$pph_15   		 	  = $this->input->post('pph_15_ed');
-			$pph_21   		 	  = $this->input->post('pph_21_ed');
-			$pph_22   		 	  = $this->input->post('pph_22_ed');
-			$oat   		 	 	  = $this->input->post('oat_ed');
-			$supply_point   	  = $this->input->post('supply_point');
-			$aksi_bd   		 	  = $this->input->post('aksi_bd');
-			$id_sp   		 	  = $this->input->post('id_sp');
-			$kode_sh   		 	  = $this->input->post('kode_sh');
-			$rekening_bank   	  = $this->input->post('rekening_bank');
 
 			if($tipe_ed == "Perorangan"){
 				$nama_usaha_ed = "";
@@ -136,21 +125,11 @@ class Pelanggan_c extends CI_Controller {
 
 			$nama_pelanggan       = addslashes($this->input->post('nama_pelanggan_ed'));
 
-
-
 			if($user->LEVEL == "USER"){
 				$this->db->query('INSERT INTO ak_pelanggan_edit SELECT * FROM ak_pelanggan WHERE ID = '.$id_pelanggan);		
 			}			
 			
-			$this->model->edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat,$rekening_bank,$pph_22);
-
-			foreach ($supply_point as $key => $vl) {
-				if($id_sp[$key] == ''){
-					$this->model->insert_pelanggan_supply($aksi_bd[$key],$kode_sh);
-				}else{
-					$this->model->update_pelanggan_supply($aksi_bd[$key],$id_sp);
-				}
-			}
+			$this->model->edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed);
 			
 			$deskripsi_persetujuan = "Pengubahan Pelanggan : <br> <b>Nama Pelanggan : ".$nama_pelanggan_ed."</b> <br> <b> NPWP : ".$npwp_ed."</b> <br> <b> Alamat Tagih : ".$alamat_tagih_ed."</b> <br> <b> Alamat Kirim : ".$alamat_kirim_ed."</b>";
 			$this->master_model_m->simpan_persetujuan('pelanggan', $id_pelanggan, 'EDIT', $id_user, $deskripsi_persetujuan);
@@ -198,30 +177,6 @@ class Pelanggan_c extends CI_Controller {
 
 		$data =  array(
 			'page' => "duplicate_pelanggan_v", 
-			'title' => "Duplicate Pelanggan", 
-			'msg' => "", 
-			'master' => "master_data", 
-			'view' => "daftar_pelanggan",
-			'msg' => $msg, 
-			'dt' => $dt,
-			'master_tipe' => $master_tipe, 
-			'supply' => $supply,
-			'post_url' => 'pelanggan_c', 
-		);
-		
-		$this->load->view('beranda_v', $data);
-	}
-
-	function ubah_data_customer($id=""){
-		
-		$msg = "";
-		
-		$dt = $this->model->cari_pelanggan_by_id($id);
-		$master_tipe = $this->model->get_master_tipe();
-		$supply = $this->model->supply_kenter();
-
-		$data =  array(
-			'page' => "ubah_data_customer_v", 
 			'title' => "Duplicate Pelanggan", 
 			'msg' => "", 
 			'master' => "master_data", 

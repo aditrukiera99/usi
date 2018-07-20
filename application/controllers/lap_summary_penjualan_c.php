@@ -86,28 +86,28 @@ class Lap_summary_penjualan_c extends CI_Controller {
 			$dt = $this->db->query("
 				SELECT
 					a.ID,
-					a.NO_BUKTI,
-					a.ID_PELANGGAN,
-					a.PELANGGAN,
+					a.NOMER_INVOICE AS NO_BUKTI,
+					a.ID_CUSTOMER AS PELANGGAN,
 					a.TGL_TRX,
-					a.PRODUK,
+					a.NAMA_PRODUK AS PRODUK,
 					a.QTY,
 					a.HARGA_SATUAN,
-					a.NO_SO,
-					a.STATUS,
-					a.NOMER_DO,
-					a.NOMER_PO,
-					a.NOMER_LPB,
-					a.ID_PRODUK,
+					a.NOMER_SO AS NO_SO,
+					cc.STATUS,
+					cc.NOMER_DO,
+					cc.NOMER_PO,
+					cc.NOMER_LPB,
+					cc.ID_PRODUK,
 					b.SUB_TOTAL,
-					b.TOTAL,
+					(a.HARGA_SATUAN * a.QTY) AS TOTAL,
 					b.PPN,
 					b.MEMO,
 					b.STATUS_PO,
 					c.SATUAN
-				FROM ak_delivery_order a
-				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+				FROM ak_invoice a
+				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NOMER_SO
 				LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
+				LEFT JOIN ak_delivery_order cc ON cc.NO_BUKTI = a.NOMER_DO
 				WHERE STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') <= STR_TO_DATE('$tgl_akhir' , '%d-%c-%Y') 
 				AND STR_TO_DATE(a.TGL_TRX, '%d-%c-%Y') >= STR_TO_DATE('$tgl_awal' , '%d-%c-%Y')
 				ORDER BY a.ID
@@ -137,28 +137,28 @@ class Lap_summary_penjualan_c extends CI_Controller {
 			$dt = $this->db->query("
 				SELECT
 					a.ID,
-					a.NO_BUKTI,
-					a.ID_PELANGGAN,
-					a.PELANGGAN,
+					a.NOMER_INVOICE AS NO_BUKTI,
+					a.ID_CUSTOMER AS PELANGGAN,
 					a.TGL_TRX,
-					a.PRODUK,
+					a.NAMA_PRODUK AS PRODUK,
 					a.QTY,
 					a.HARGA_SATUAN,
-					a.NO_SO,
-					a.STATUS,
-					a.NOMER_DO,
-					a.NOMER_PO,
-					a.NOMER_LPB,
-					a.ID_PRODUK,
+					a.NOMER_SO AS NO_SO,
+					cc.STATUS,
+					cc.NOMER_DO,
+					cc.NOMER_PO,
+					cc.NOMER_LPB,
+					cc.ID_PRODUK,
 					b.SUB_TOTAL,
-					b.TOTAL,
+					(a.HARGA_SATUAN * a.QTY) AS TOTAL,
 					b.PPN,
 					b.MEMO,
 					b.STATUS_PO,
 					c.SATUAN
-				FROM ak_delivery_order a
-				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NO_SO
+				FROM ak_invoice a
+				LEFT JOIN ak_penjualan b ON b.NO_BUKTI = a.NOMER_SO
 				LEFT JOIN ak_penjualan_detail c ON c.ID_PENJUALAN = b.ID
+				LEFT JOIN ak_delivery_order cc ON cc.NO_BUKTI = a.NOMER_DO
 				WHERE a.TGL_TRX LIKE '%-$bulan-$tahun%'
 				ORDER BY a.ID
 			")->result();

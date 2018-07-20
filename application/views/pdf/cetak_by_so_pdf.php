@@ -5,13 +5,6 @@ $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
 $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 ?>
 <head>
-
-  
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Cetak Penawaran Beli</title>
-  
-
-  
-  
   <style>
     body {
         width: 100%;
@@ -28,8 +21,6 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
     .page {
         width: 210mm;
         min-height: 297mm;
-        padding: 10mm;
-        margin: 10mm auto;
         border: 1px #D3D3D3 solid;
         border-radius: 5px;
         background: white;
@@ -104,12 +95,11 @@ $bulan_kas = date("m",strtotime($dt->TGL_TRX));
 
 $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 ?>
-
 <font face="helvetica">
 <div class="page">
 <table style="width: 100%">
 	<tr>
-		<td><img style="width: 100%;height: 130px;" src="<?=$base_url2;?>assets/header_warna.png"></td>
+		<td><br><img style="width: 98%;height: 130px;" src="<?=$base_url2;?>assets/header_warna.png"></td>
 	</tr>
 	
 </table>
@@ -117,15 +107,22 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 
 <br>
 
-<h2 align="center"><u>INOVICE</u></h2>
+<h2 align="center"><u>INVOICE</u></h2>
 
 <?php 
   $nomer_so = $dt->NOMER_SO;
   $qty_do = $this->db->query("SELECT * FROM ak_delivery_order WHERE NO_SO = '$nomer_so' ")->row();
 
+  $no_inv = $dt->NOMER_INVOICE;
+  $reff = $this->db->query("SELECT c.NOMER_PO FROM ak_delivery_order a 
+                            LEFT JOIN ak_invoice b ON a.NO_BUKTI = b.NOMER_DO
+                            LEFT JOIN ak_pembelian c ON a.NOMER_PO = c.NO_PO
+                           WHERE b.NOMER_INVOICE = '$no_inv' 
+                           ")->row();
+
 ?>
 
-<div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
+<div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:10px; ">
   <table style="width: 100%;">
     <?php 
 
@@ -150,14 +147,14 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
     </tr>
     <tr>
       <td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: </td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: <?=$reff->NOMER_PO;?></td>
       <td  style="width:40%;text-align:left;font-size: 15px;"></td>
     </tr>
   </table>
 </div>
 <br>
 <div>
-<table style="border-collapse: collapse;">
+<table style="border-collapse: collapse; padding-left:10px; ">
   
     <tr>
       <th style="width: 25%;padding: 10px 10px 10px 10px;text-align: center;border-right: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black; ">KETERANGAN</th>
@@ -237,7 +234,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
       <td style="border-left: none !important;" colspan="2"> Terbilang : <?php echo ucwords(kekata($total_grand)); ?> Rupiah</td>
       <td style="border-right:1px solid black;padding: 5px;text-align: right;">Sub Total<br>PPN<br>Total</td>
       <td style="border:1px solid black;padding: 5px;text-align: right;"><?=number_format($subtotal, 2);?><br><?=number_format($total_ppn, 2);?><br><?php echo number_format($total_grand, 2); ?></td>
-    </tr>
+      </tr>
 
       
 </table>
@@ -245,14 +242,14 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 </div>
 <br>
 <div style="width: 100%;">
-  <table style="width: 100%;">
+  <table style="width: 100%; padding-left:10px; ">
     <tr>
       <?php 
         $id_rek = $dt->CUSTOMER;
         $sql_rek = $this->db->query("SELECT rk.* FROM tb_rekening_bank rk , ak_pelanggan ap WHERE rk.ID = ap.REKENING AND ap.ID = '$id_rek'")->row();
 
       ?>
-      <td>
+      <td style="width: 60%;">
         1.Pembayaran harap ditransfer ke : <br>
         <strong><?php echo $sql_rek->NAMA_BANK;?></strong><br>
         <strong><?php echo $sql_rek->CABANG;?></strong><br>
@@ -263,10 +260,11 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
         3.Pembayaran dengan Bilyet Giro/Cheque <br>dianggap sah apablia sudah masuk di Bank Kami
       </td>
       <td>
-        PT UNITED SHIPPING INDONESIA<br><br><br><br><br><br><br><br><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Herman Kwandy</strong>
+        PT UNITED SHIPPING INDONESIA<br><br><br><br><br><br><br><br><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Herman Kwandy</strong>
       </td>
     </tr>
   </table>
+</div>
 </div>
 </font>
 </body>
@@ -325,4 +323,19 @@ function terbilang($x, $style=4) {
     }     
     return $hasil;
 }
+?>
+
+<?PHP
+    $width_custom = 14;
+    $height_custom = 8.50;
+    
+    $content = ob_get_clean();
+    $width_in_inches = $width_custom;
+    $height_in_inches = $height_custom;
+    $width_in_mm = $width_in_inches * 17.4;
+    $height_in_mm = $height_in_inches * 22.4;
+    $html2pdf = new HTML2PDF('P','A4','en');
+    $html2pdf->pdf->SetTitle('INVOICE BY SALES ORDER');
+    $html2pdf->WriteHTML($content, isset($_GET['vuehtml']));
+    $html2pdf->Output('invoice_by_so.pdf');
 ?>

@@ -1,5 +1,5 @@
 <?PHP  
-
+ob_start();
 $base_url2 =  ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?  "https" : "http");
 $base_url2 .=  "://".$_SERVER['HTTP_HOST'];
 $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
@@ -59,32 +59,22 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
   
 </style>
 
-
-<script type="text/javascript">
-      window.onload = function() { window.print(); }
- </script>
-
-
-
 <body class="body">
-    
-  <div style="clear: both;"></div>
-  <br>
-  <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
+  <table style="border-collapse: collapse; width: 787px; text-align:center; font-size: 80%;">
       <tbody>
-      
         <tr>
-          <td colspan="2" style="border-left: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;font-size: 15px;">
+          <td colspan="2" style="border-left: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;font-size: 11px; width: 40%;">
             <p align="left" style="margin: 10px;">
               PT UNITED SHIPING INDONESIA
             <br>JL.Gondosuli No.8 RT.005 RW. 006 , Ketabang
             <br>Katabang - Genteng Surabaya
             <br>Telp (031) 5471.841, Fax.031.5471. 841
-            <br>NPWP 02.622.627 - 4.611.000
+            <br>NPWP 02.622.627 - 4.611.000 
           </p>
+          <br>
           </td>
 
-          <td  style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 15px;">
+          <td  style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 11px; width: 30%;">
             <p align="left" style="margin: 10px;">
               DELIVERY OREDER
             <br>
@@ -93,13 +83,12 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
             <br>NO.SO : <?=$dt->NO_SO;?>
             
           </p>
+          <br>
           </td>   
 
-
-
-          <td  style="border-right: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;">
-            <p align="right" style="margin: 10px;">
-              <img src="<?=$base_url2;?>assets/img/usi Uk kecil.png" width="180px" height="120px">
+          <td  style="border-right: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black; width: 20%;">
+            <p align="right">
+              <img src="<?=$base_url2;?>assets/img/u_kecil.png" style="width: 100%;margin-right: 10px; margin-top: -20px;">
           </p>
           </td>
 
@@ -135,10 +124,10 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
           <td style="border: 0px solid black;text-align: left;">N.P.W.P</td>
           <td style="border: 0px solid black;text-align: left;border-right: 1px solid black;">- </td>
         
-</tr>
+        </tr>
 
-      </tbody>
-    </table>
+   </tbody>
+</table>
 
  <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
       <tbody>
@@ -159,7 +148,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 </tr>
 
 </tbody>
-    </table>
+</table>
 
     <table style="border-collapse: collapse; width: 100%; text-align:center; font-size: 80%;">
       <tbody>
@@ -199,7 +188,7 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 </tr>
 
 </tbody>
-    </table>
+</table>
 
 <table style="border-collapse: collapse; width: 100%; font-size: 80%;">
       <tbody>
@@ -215,12 +204,23 @@ $base_url2 .=  str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT
 </tr>
 
 </tbody>
-    </table>
+</table>
 
-
-
-    <div style="clear:both"></div>
-    <br>
    
-  </body>
+</body>
 
+
+<?PHP
+    $width_custom = 14;
+    $height_custom = 8.50;
+    
+    $content = ob_get_clean();
+    $width_in_inches = $width_custom;
+    $height_in_inches = $height_custom;
+    $width_in_mm = $width_in_inches * 17.4;
+    $height_in_mm = $height_in_inches * 22.4;
+    $html2pdf = new HTML2PDF('L','A5','en');
+    $html2pdf->pdf->SetTitle('DELIVERY ORDER');
+    $html2pdf->WriteHTML($content, isset($_GET['vuehtml']));
+    $html2pdf->Output('delivery_order.pdf');
+?>

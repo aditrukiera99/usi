@@ -884,7 +884,7 @@ class Transaksi_penjualan_c extends CI_Controller {
 		}
 
 		$sql = "
-		SELECT * FROM ak_delivery_order WHERE STATUS = '0' AND NO_SO = '$no_so'
+		SELECT * FROM ak_delivery_order WHERE STATUS = '0' AND NO_SO = '$no_so' AND (STATUS_HAPUS_DO = '' OR STATUS_HAPUS_DO is null)
 		";
 
 		$dt = $this->db->query($sql)->result();
@@ -1098,9 +1098,20 @@ class Transaksi_penjualan_c extends CI_Controller {
 		echo json_encode($dt);
 	}
 
+	function update_do_hapus(){
+		$id_do = $this->input->get('id_do');
+		// $dt = $this->model->get_produk_detail_do($id_do);
+
+		$this->model->update_do_hapus($id_do);
+
+		echo json_encode($id_do);
+	}
+
 	function get_produk_detail_do(){
 		$id_produk = $this->input->get('id_produk');
 		$dt = $this->model->get_produk_detail_do($id_produk);
+
+		// $this->model->update_hapus_do($id_produk);
 
 		echo json_encode($dt);
 	}

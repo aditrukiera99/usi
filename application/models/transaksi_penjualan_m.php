@@ -91,8 +91,9 @@ class Transaksi_penjualan_m extends CI_Model
         // }
 
         $sql = "
-        SELECT * FROM ak_invoice 
-        ORDER BY ID DESC
+        SELECT a.*, b.ID AS ID_PENJUALAN FROM ak_invoice a
+        LEFT JOIN ak_penjualan b ON a.NOMER_INVOICE = b.NO_INV
+        ORDER BY a.ID DESC
         ";
 
         return $this->db->query($sql)->result();
@@ -1021,6 +1022,29 @@ class Transaksi_penjualan_m extends CI_Model
         $sql = "
         UPDATE ak_penjualan SET TUTUP_OUTSTANDING = 'Konfirmasi'
         WHERE NO_BUKTI = '$no_so'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_hapus_do($id){
+
+        
+       
+        $sql = "
+        UPDATE ak_delivery_order SET STATUS_HAPUS_DO = '1'
+        WHERE ID = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_do_hapus($id){
+
+       
+        $sql = "
+        UPDATE ak_delivery_order SET STATUS_HAPUS_DO = ''
+        WHERE NO_BUKTI = '$id'
         ";
 
         $this->db->query($sql);

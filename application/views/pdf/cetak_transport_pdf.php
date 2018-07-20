@@ -103,6 +103,13 @@ $bulan_kas = date("m",strtotime($dt->TGL_TRX));
      }
 
 $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
+
+$no_inv = $dt->NOMER_INVOICE;
+  $reff = $this->db->query("SELECT c.NOMER_PO FROM ak_delivery_order a 
+                            LEFT JOIN ak_invoice b ON a.NO_BUKTI = b.NOMER_DO
+                            LEFT JOIN ak_pembelian c ON a.NOMER_PO = c.NO_PO
+                           WHERE b.NOMER_INVOICE = '$no_inv' 
+                           ")->row();
 ?>
 
 <font face="helvetica">
@@ -117,7 +124,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 
 <br>
 
-<h2 align="center"><u>INOVICE</u></h2>
+<h2 align="center"><u>INVOICE</u></h2>
 
 <div style="width: 100%;padding-top: 10px;padding-bottom: 10px;padding-left:5px;">
   <table style="width: 100%;">
@@ -133,7 +140,7 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
     </tr>
     <tr>
       <td style="width: 20%;text-align:left;font-size: 15px;">Refrensi No</td>
-      <td style="width: 40%;text-align:left;font-size: 15px;">: </td>
+      <td style="width: 40%;text-align:left;font-size: 15px;">: <?=$reff->NOMER_PO;?></td>
       <td  style="width:40%;text-align:left;font-size: 15px;"></td>
     </tr>
   </table>

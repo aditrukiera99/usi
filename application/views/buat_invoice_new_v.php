@@ -100,7 +100,7 @@ input[type=checkbox]
 }
 
 </style>
-<input id="tr_utama_count" value="1" type="hidden"/>
+<input id="tr_utama_count" value="1" type="text"/>
 <div class="row-fluid ">
 	<div class="span12">
 		<div class="primary-head">
@@ -213,7 +213,7 @@ input[type=checkbox]
 
 	<div class="span4">
 		<div class="control-group" style="margin-left: 10px;">
-			<label class="control-label"> <b style="font-size: 14px;"> NOME </b> </label>
+			<label class="control-label"> <b style="font-size: 14px;"> No PO Pelanggan </b> </label>
 			<div class="controls">
 				<input type="text" class="span10" value="" name="no_solo" id="no_do" >
 				<input type="hidden" class="span10" value="<?=$no_inv;?>" name="no_invoice" id="no_do" style="font-size: 15px;">
@@ -787,7 +787,7 @@ function tambah_data() {
 	var value =$('#copy_select').html();
 	var jml_tr = $('#tr_utama_count').val();
 	var i = parseInt(jml_tr) + 1;
-
+	
 	var coa = $('#copy_ag').html();
 
 
@@ -795,7 +795,7 @@ function tambah_data() {
 	$isi_1 = 
 	'<tr id="tr_'+i+'" class="tr_utama">'+
 		
-		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
+		'<td style="vertical-align:middle;" id="td_chos_'+i+'">'+
 			'<div class="control-group">'+
 				'<div class="controls">'+
 					'<div class="input-append">'+
@@ -807,7 +807,7 @@ function tambah_data() {
 				'</div>'+				
 		'</td>'+
 
-		'<td class="center" style="vertical-align:middle;" id="td_chos_'+i+'">'+
+		'<td style="vertical-align:middle;" id="td_chos_'+i+'">'+
 			'<div class="control-group">'+
 				'<div class="controls">'+
 					'<div class="input-append">'+
@@ -835,17 +835,12 @@ function tambah_data() {
 		'</td>'+
 
 		'<td class="center" style="background:#FFF; text-align:center;">'+
-			'<button style="width: 100%;" onclick="hapus_row('+i+');" type="btn-defaulton" class="btn btn-danger"> Hapus </button>'+
+			'<button style="width: 100%;" onclick="hapus_row('+i+');" type="button" class="btn btn-danger"> Hapus </button>'+
 		'</td>'+
 	'</tr>';
 
 	$('#tes').append($isi_1);
-	$('#tax_'+i).val(tax_lol);
-	$('#tr_'+i).find('.cek_select').attr('class', 'cek_select_'+i);
-	$('#tr_'+i).find('.cek_select2').attr('class', 'cek_select2_'+i);
 	$('#tr_utama_count').val(i);
-	$(".cek_select_"+i).chosen();
-	$(".cek_select2_"+i).chosen();
 
 }
 
@@ -992,7 +987,7 @@ function hitung_pajak(id_pajak){
 	
 }
 
-function hapus_row (id) {
+function hapus_row(id) {
 	$('#tr_'+id).remove();
 }
 
