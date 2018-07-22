@@ -117,9 +117,13 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 						<?php  foreach ($dt as $key => $row) { 
 							
 							$nmr_so = $row->NOMER_SO;
+							$nmr_do = $row->NOMER_DO;
 							
 							$sql = "SELECT * FROM ak_penjualan WHERE NO_BUKTI = '$nmr_so' ";
 							$dt_sql = $this->db->query($sql)->row();
+
+							$sql_2 = "SELECT * FROM ak_delivery_order WHERE NO_BUKTI = '$nmr_do' ";
+							$dt_sql_2 = $this->db->query($sql_2)->row();
 
 
 							if($dt_sql->TUTUP_OUTSTANDING == 'Konfirmasi'){
@@ -146,17 +150,17 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									
 									
 									<a class="btn btn-warning" href="<?=base_url();?>transaksi_penjualan_c/ubah_invoice_baru/<?=$row->ID;?>" style="font-size: 15px; padding-right: 8px;"><i class="icon-edit"></i></a>
-									
+									<button type="button" onclick="cetak_all(<?=$row->ID_PENJUALAN;?>, <?=$dt_sql_2->ID;?>);" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></button>
 								</td>
 
 								<td align="center">	
 									<!-- <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
-									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_by_so/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<a id="cetak_1" target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_by_so/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 								</td>
 
 								<td align="center">	
 									<!-- <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_loses/<?=$row->ID;?>" class="btn btn-info" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a> -->
-									<a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_inv/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+									<a id="cetak_2" target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_inv/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 								</td>
 
 
@@ -164,7 +168,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<?php 
 
 									if($dt_sql->OAT){
-										?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_bbm/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+										?> <a id="cetak_3" target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_bbm/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 								<?php
 									}else{
@@ -177,7 +181,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 									<?php 
 
 										if($dt_sql->OAT){
-											?> <a target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_transport/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
+											?> <a id="cetak_4" target="blank" href="<?=base_url();?>transaksi_penjualan_c/cetak_transport/<?=$row->ID;?>" class="btn btn-primary" type="button" style="font-size: 15px; padding-right: 8px;"><i class="icon-print"></i></a>
 
 								<?php
 										}else{
@@ -297,9 +301,20 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
   </div>
 </div>
 
-
-
 <script type="text/javascript">
+
+function cetak_all(id_penjualan, id_do){
+	var b = "<?=base_url();?>transaksi_penjualan_c/cetak/"+id_penjualan;
+	window.open(b, '_blank'); 
+
+
+	var c = "<?=base_url();?>delivery_order_new_c/cetak/"+id_do;
+	window.open(c, '_blank');
+
+	var a = $('#cetak_1').attr('href');
+	window.open(a, '_blank');	
+
+}
 
 function tutup_outs(id){
 	$('#nomor_solokot').val(id);

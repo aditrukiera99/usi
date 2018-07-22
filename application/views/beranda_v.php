@@ -790,7 +790,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
               <ul>
                   
                   <li><a href="<?=base_url();?>pegawai_c"><i class="icon-caret-right "></i> Data Pegawai </a></li>
-                  <li><a href=""><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
+                  <!-- <li><a href=""><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li> -->
                   <?php if($this->master_model_m->cek_anak($id_user, 'Master Data Pegawai', $user->LEVEL)){ ?>
                   <li class="dropdown-submenu"><a href="#"><i class="icon-caret-right"></i> Master Data</a>
                   <div class="dropdown-menu">
@@ -1458,11 +1458,11 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </a>
                 </li>
 
-                <li <?PHP if($view == "set_gaji"){ echo "class='active'"; } ?>>
+                <!-- <li <?PHP if($view == "set_gaji"){ echo "class='active'"; } ?>>
                   <a href="">
                     <i class="icon-caret-right"></i> Set Gaji <span> Membuat set gaji </span>
                   </a>
-                </li>
+                </li> -->
 
                 <li <?PHP if($view == "lowongan"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>data_lowongan_c">

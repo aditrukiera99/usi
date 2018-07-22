@@ -91,8 +91,9 @@ class Transaksi_penjualan_m extends CI_Model
         // }
 
         $sql = "
-        SELECT * FROM ak_invoice 
-        ORDER BY ID DESC
+        SELECT a.*, b.ID AS ID_PENJUALAN FROM ak_invoice a
+        LEFT JOIN ak_penjualan b ON a.NOMER_INVOICE = b.NO_INV
+        ORDER BY a.ID DESC
         ";
 
         return $this->db->query($sql)->result();

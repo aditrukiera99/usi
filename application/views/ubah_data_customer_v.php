@@ -258,7 +258,7 @@
 					<div class="control-group">
 						<label class="control-label"> <b> OAT </b> </label>
 						<div class="controls">
-							<input type="text"  class="span12" value="<?=$dt->OAT;?>" name="oat_ed" id="pph_21_ed" autocomplete="off">
+							<input type="text"  class="span12" value="<?=$dt->OAT;?>" name="oat_ed" id="oat_ed" autocomplete="off">
 							<span class="help-inline" style="color: red;">*Harap dikosongkan bila tidak menggunakan pajak</span>
 						</div>
 					</div>

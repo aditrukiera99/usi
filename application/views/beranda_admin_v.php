@@ -801,7 +801,7 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   <?PHP } ?>
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Set Gaji Pegawai', $user->LEVEL)){ ?>
-                  <li><a href=""><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li>
+                  <!-- <li><a href=""><i class="icon-caret-right "></i> Set Gaji Pegawai </a></li> -->
                   <?PHP } ?>
 
                   <?php if($this->master_model_m->cek_anak($id_user, 'Master Data Pegawai', $user->LEVEL)){ ?>
@@ -1429,12 +1429,12 @@ $dt_pengajuan_sub_kode_grup = $this->master_model_m->get_data_pengajuan_sub_kode
                   </a>
                 </li>
 
-                <li <?PHP if($view == "set_gaji"){ echo "class='active'"; } ?>>
+                <!-- <li <?PHP if($view == "set_gaji"){ echo "class='active'"; } ?>>
                   <a href="">
                     <i class="icon-caret-right"></i> Set Gaji <span> Membuat set gaji </span>
                   </a>
                 </li>
-
+ -->
                 <li <?PHP if($view == "lowongan"){ echo "class='active'"; } ?>>
                   <a href="<?=base_url();?>transaksi_penjualan_c/buka_invoice">
                     <i class="icon-caret-right"></i> Lowongan <span> Master Lowongan </span>

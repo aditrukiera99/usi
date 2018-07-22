@@ -50,7 +50,7 @@ class Pelanggan_m extends CI_Model
 
     function cari_pelanggan_by_id($id){
         $sql = "
-        SELECT p.* , tb.NAMA_BANK , tb.NOMOR_REKENING FROM ak_pelanggan p , tb_rekening_bank tb WHERE p.REKENING = tb.ID AND p.ID = $id
+        SELECT * FROM ak_pelanggan WHERE ID = $id
         ";
 
         return $this->db->query($sql)->row();
@@ -81,7 +81,7 @@ class Pelanggan_m extends CI_Model
     }
 
 
-    function simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah, $limit_beli,$ppn,$pph_23 ,$pph_15,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$oat,$tipe_perusahaan,$pph_22,$rek_bank){
+    function simpan_pelanggan($id_klien,$kode_pelanggan, $nama_pelanggan, $npwp, $alamat_tagih, $alamat_kirim, $no_telp, $no_hp, $email, $tipe, $nama_usaha, $tdp, $siup, $unit, $wilayah, $limit_beli,$ppn,$pph_23 ,$pph_15,$pajak_pbbkb,$kode_customer,$lokasi,$pph_21,$supply_point,$aksi_on,$diskon_beli,$diskon_jual){
         $tgl = date('d-m-Y');
         $jam = date('H:i');
         $waktu = $tgl.", ".$jam;
@@ -113,16 +113,16 @@ class Pelanggan_m extends CI_Model
 
         $sql = "
         INSERT INTO ak_pelanggan
-        (ID_KLIEN,KODE_PELANGGAN, NAMA_PELANGGAN, NPWP, ALAMAT_TAGIH, ALAMAT_KIRIM, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, WILAYAH, LIMIT_BIAYA,PPN,PPH23,PPH15,PAJAK_PBBKB,KODE_CUSTOMER,LOKASI,PPH_21,ID_SUPPLY_POINT,ID_PAJAK_PBBKB,OAT,PPH_22,REKENING)
+        (ID_KLIEN,KODE_PELANGGAN, NAMA_PELANGGAN, NPWP, ALAMAT_TAGIH, ALAMAT_KIRIM, NO_TELP, NO_HP, EMAIL, WAKTU, WAKTU_EDIT, TIPE, NAMA_USAHA, TDP, SIUP, APPROVE, UNIT, WILAYAH, LIMIT_BIAYA,PPN,PPH23,PPH15,PAJAK_PBBKB,KODE_CUSTOMER,LOKASI,PPH_21,ID_SUPPLY_POINT,ID_PAJAK_PBBKB,HARGA_BELI,HARGA_JUAL)
         VALUES 
-        ($id_klien,'$kode_pelanggan', '$tipe_perusahaan.$nama_pelanggan', '$npwp', '$alamat_tagih', '$alamat_kirim', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$unit', '$wilayah','$limit_beli','$ppn','$pph_23' ,'$pph_15','$pajak_pbbkb','$kode_customer','$lokasi','$pph_21','$supply_point','$aksi_on','$oat','$pph_22','$rek_bank')
+        ($id_klien,'$kode_pelanggan', '$nama_pelanggan', '$npwp', '$alamat_tagih', '$alamat_kirim', '$no_telp', '$no_hp', '$email', '$waktu', '-', '$tipe', '$nama_usaha', '$tdp', '$siup', '$approve', '$unit', '$wilayah','$limit_beli','$ppn','$pph_23' ,'$pph_15','$pajak_pbbkb','$kode_customer','$lokasi','$pph_21','$supply_point','$aksi_on','$diskon_beli','$diskon_jual')
         ";
 
         $this->db->query($sql);
         return $this->db->insert_id();
     }
 
-    function edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed,$ppn,$pph_23,$pph_15,$pph_21,$oat, $rekening_bank, $pph_22){
+    function edit_pelanggan($id_pelanggan, $nama_pelanggan_ed, $npwp_ed, $alamat_tagih_ed, $alamat_kirim_ed, $no_telp_ed, $no_hp_ed, $email_ed, $tipe_ed, $nama_usaha_ed, $tdp_ed, $siup_ed){
 
         $tgl = date('d-m-Y');
         $jam = date('H:i');
@@ -156,7 +156,7 @@ class Pelanggan_m extends CI_Model
         $sql = "
         UPDATE ak_pelanggan SET 
         NAMA_PELANGGAN = '$nama_pelanggan_ed', NPWP = '$npwp_ed', ALAMAT_TAGIH = '$alamat_tagih_ed', ALAMAT_KIRIM = '$alamat_kirim_ed', NO_TELP = '$no_telp_ed',
-        NO_HP = '$no_hp_ed', EMAIL = '$email_ed', WAKTU_EDIT = '$waktu', TIPE = '$tipe_ed', NAMA_USAHA = '$nama_usaha_ed', TDP = '$tdp_ed', SIUP = '$siup_ed', APPROVE = '$approve' , PPN = '$ppn' , PPH23 = '$pph_23' , PPH15 = '$pph_15' , PPH_21 = '$pph_21' , OAT = '$oat' , PPH_22 = '$pph_22'
+        NO_HP = '$no_hp_ed', EMAIL = '$email_ed', WAKTU_EDIT = '$waktu', TIPE = '$tipe_ed', NAMA_USAHA = '$nama_usaha_ed', TDP = '$tdp_ed', SIUP = '$siup_ed', APPROVE = '$approve'
         WHERE ID = $id_pelanggan
         ";
 
@@ -169,52 +169,6 @@ class Pelanggan_m extends CI_Model
         (ID_CUSTOMER, NAMA, ALAMAT, TELP, NO_KTP, NO_NPWP, KOMISI)
         VALUES 
         ('$id_pelanggan', '$broker_nama', '$broker_alamat', '$broker_telp', '$broker_ktp', '$broker_npwp', '$broker_komisi')
-        ";
-
-        $this->db->query($sql);
-
-    }
-
-    function simpan_master_harga($kode_pelanggan,$nama_pelanggan,$value,$nama_produk,$harga_beli,$harga_jual){
-        $sql = "
-        INSERT INTO ak_master_harga 
-        (ID_PELANGGAN, NAMA_PELANGGAN, ID_PRODUK, NAMA_PRODUK, HARGA_BELI, HARGA_JUAL, STATUS,CREATED_AT)
-        VALUES 
-        ('$kode_pelanggan', '$nama_pelanggan', '$value', '$nama_produk', '$harga_beli', '$harga_jual', '0',CURDATE())
-        ";
-
-        $this->db->query($sql);
-
-    }
-
-    function simpan_supply($kode_pelanggan,$nama){
-        $sql = "
-        INSERT INTO tb_pelanggan_supply 
-        (ID_SUPPLY_POINT, ID_PELANGGAN)
-        VALUES 
-        ('$nama', '$kode_pelanggan')
-        ";
-
-        $this->db->query($sql);
-
-    }
-
-    function insert_pelanggan_supply($id_sp,$kode_sh){
-        $sql = "
-        INSERT INTO tb_pelanggan_supply 
-        (ID_SUPPLY_POINT, ID_PELANGGAN)
-        VALUES 
-        ('$id_sp', '$kode_sh')
-        ";
-
-        $this->db->query($sql);
-
-    }
-
-    function update_pelanggan_supply($id_sp,$id){
-        $sql = "
-        UPDATE tb_pelanggan_supply SET  
-        ID_SUPPLY_POINT = '$id_sp' WHERE ID = '$id'
         ";
 
         $this->db->query($sql);
