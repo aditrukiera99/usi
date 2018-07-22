@@ -854,7 +854,7 @@ function ajax_supplier(){
                 
                 isine += '<tr onclick="get_supplier_det('+res.ID+');" style="cursor:pointer;">'+
                             '<td align="center">'+no+'</td>'+
-                            '<td align="center">'+res.NO_PO+'</td>'+
+                            '<td align="center">'+res.NOMER_POS+'</td>'+
                             '<td align="center">'+res.NAMA_CUSTOMER+'</td>'+
                             '<td align="center">'+res.NAMA_PRODUK+'</td>'+
                             '<td align="center">'+res.TGL_TRX+'</td>'+

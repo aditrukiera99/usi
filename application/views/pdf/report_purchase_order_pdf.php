@@ -112,8 +112,8 @@ $tahun_kas = date("Y",strtotime($dt->TGL_TRX));
 			$no_so_det = $dt_det->NO_SO;
 			$data_pelanggan = $this->db->query("SELECT p.KODE_PELANGGAN , p.NAMA_PELANGGAN , p.ALAMAT_TAGIH FROM ak_pelanggan p, ak_penjualan ap WHERE  ap.ID_PELANGGAN = p.ID AND ap.NO_BUKTI = '$no_so_det' ")->row();
 
-			$id_sp = $dt->ID;
-			$dt_supp = $this->db->query("SELECT g.NAMA as NAMAG FROM ak_gudang g , ak_pajak_supply ps , ak_pembelian p WHERE p.PAJAK_SUPPLY = ps.ID AND ps.ID_SUPPLY = g.ID AND p.ID = '$id_sp'")->row();
+			$id_sp = $dt->PAJAK_SUPPLY;
+			$dt_supp = $this->db->query("SELECT g.NAMA as NAMAG FROM ak_gudang g , ak_pembelian p WHERE p.PAJAK_SUPPLY = g.ID AND g.ID = '$id_sp'")->row();
 
 		?>
 		

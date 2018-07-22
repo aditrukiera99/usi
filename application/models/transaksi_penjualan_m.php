@@ -1026,6 +1026,29 @@ class Transaksi_penjualan_m extends CI_Model
         $this->db->query($sql);
     }
 
+    function update_hapus_do($id){
+
+        
+       
+        $sql = "
+        UPDATE ak_delivery_order SET STATUS_HAPUS_DO = '1'
+        WHERE ID = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
+    function update_do_hapus($id){
+
+       
+        $sql = "
+        UPDATE ak_delivery_order SET STATUS_HAPUS_DO = ''
+        WHERE NO_BUKTI = '$id'
+        ";
+
+        $this->db->query($sql);
+    }
+
     function get_broker(){
         $sql = "
         SELECT * FROM ak_broker

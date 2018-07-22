@@ -116,7 +116,18 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 							$sql = "SELECT SUM(QTY) AS QTY FROM ak_penjualan_detail WHERE ID_PENJUALAN = '$row->ID' ";
 							$dt_sql = $this->db->query($sql)->row();
 
-							?>
+							if($row->TUTUP_OUTSTANDING == 'Belum' && $row->STATUS_DO == '1'){
+								$st_out = 'Barang Sudah Dikirim';
+							}
+							else if($row->TUTUP_OUTSTANDING == 'Belum'){
+								$st_out = 'Belum di Proses';
+							}else if($row->TUTUP_OUTSTANDING == 'Selesai'){
+								$st_out = 'Selesai di Kirim Invoice';
+							}else if($row->TUTUP_OUTSTANDING == 'Konfirmasi'){
+								$st_out = 'Menunggu Konfirmasi';
+							}else if($row->TUTUP_OUTSTANDING == 'Tutup Outstanding'){
+								$st_out = 'Tutup Outstanding';
+							}?>
 
 
 							<input type="hidden" id="sts_pembukuan_<?=$row->ID;?>" value="<?=$row->NO_TRX_AKUN;?>" />
@@ -136,7 +147,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($dt_sql->QTY);?> L </td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #bdbdbdd6;"> <?=number_format($row->SISA);?> L </td>
-									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #bdbdbdd6;">   <?=$row->TUTUP_OUTSTANDING;?> </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #bdbdbdd6;">   <?=$st_out;?> </td>
 								</tr>
 
 							<?php } else if($row->SISA == $row->KUANTITAS){ ?>
@@ -155,7 +166,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;"> <?=number_format($dt_sql->QTY);?> L </td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($row->SISA);?> L </td>
-									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8;">   <?=$row->TUTUP_OUTSTANDING;?> </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8;">   <?=$st_out;?> </td>
 								</tr>
 
 							<?php }else if ($row->SISA < $row->KUANTITAS && $row->SISA > 0 ) { ?>
@@ -173,7 +184,7 @@ if($last_cc->KODE_AKUN != "" || $last_cc->KODE_AKUN != null ){
 
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($dt_sql->QTY);?> L </td>
 									<td style="font-size:14px; text-align:right; vertical-align:middle;background-color: #dff0d8;"> <?=number_format($row->SISA);?> L </td>
-									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8;">   <?=$row->TUTUP_OUTSTANDING;?> </td>
+									<td style="font-size:14px; text-align:center; vertical-align:middle;background-color: #dff0d8;">   <?=$st_out;?> </td>
 								</tr>
 							<?php } ?>
 
